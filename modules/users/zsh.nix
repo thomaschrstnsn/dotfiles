@@ -62,6 +62,7 @@ in {
       '';
       shellAliases = {
         cat = "${pkgs.bat}/bin/bat";
+        reload_zshrc="source ~/.zshrc";
       };
 
       oh-my-zsh = {
