@@ -68,10 +68,5 @@ in {
       gs = "git st";
       gc = "git clone";
     };
-      
-
-    # home.packages = with pkgs; [
-    #   scripts.devTools
-    # ];
   };
 }
