@@ -7,11 +7,9 @@
       url = "github:nix-community/home-manager/release-21.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    flake-utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = { nixpkgs, home-manager, nur, ... }@inputs:
+  outputs = { nixpkgs, home-manager, ... }@inputs:
     let
       inherit (nixpkgs) lib;
 
