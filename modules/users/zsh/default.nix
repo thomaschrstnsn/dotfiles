@@ -65,6 +65,11 @@ in {
       shellAliases = {
         cat = "${pkgs.bat}/bin/bat";
       };
+
+      oh-my-zsh = {
+        enable = true;
+        plugins = [ "git" ]; # "sudo" "tmux" "terraform"
+      };
     };
   });
 }
