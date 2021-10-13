@@ -23,7 +23,7 @@ in {
       wget
       zsh-powerlevel10k
     ];
-    home.file.".p10k.zsh".source = ./p10k.zsh;
+    home.file.".p10k.zsh".source = ./zsh/p10k.zsh;
 
     programs.exa = {
       enable = true;
