@@ -1,5 +1,5 @@
 {
-  description = "System Config";
+  description = "User Config";
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-21.05";
 
