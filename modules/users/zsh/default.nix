@@ -17,10 +17,7 @@ in {
     };
   };
 
-  config = mkIf (cfg.enable) (
-    let 
-      x = "y";
-    in {
+  config = mkIf (cfg.enable) {
     home.packages = with pkgs; [
       tree
       wget
@@ -72,5 +69,5 @@ in {
         plugins = [ "git" ]; # "sudo" "tmux" "terraform"
       };
     };
-  });
+  };
 }

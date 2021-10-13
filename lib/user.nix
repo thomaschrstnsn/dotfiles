@@ -8,11 +8,7 @@ with builtins;
       home-manager.lib.homeManagerConfiguration {
         inherit system username pkgs;
         stateVersion = version;
-        configuration =
-          let
-            x = "y";
-          
-          in {
+        configuration = {
             tc = userConfig;
 
             # nixpkgs.overlays = overlays;
