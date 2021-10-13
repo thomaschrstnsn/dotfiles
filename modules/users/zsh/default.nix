@@ -57,6 +57,7 @@ in {
         ${optionalString cfg.enableSyntaxHighlighting
           "source ${pkgs.zsh-syntax-highlighting}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
         }
+        source $HOME/.nix-profile/etc/profile.d/nix.sh
       '';
       completionInit = ''
         # ZSH COMPLETION CASE (IN)SENSITIVE
