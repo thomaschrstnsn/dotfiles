@@ -28,6 +28,17 @@ in {
     ];
     home.file.".p10k.zsh".source = ./p10k.zsh;
 
+    programs.exa = {
+      enable = true;
+      enableAliases = true;
+    };
+
+    programs.broot.enable = true;
+    programs.bat.enable = true;
+    programs.fzf.enable = true;
+    programs.htop.enable = true;
+    programs.home-manager.enable = true;
+
     programs.zsh = {
       enable = true;
       enableAutosuggestions = true;
@@ -52,7 +63,6 @@ in {
         zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
       '';
       shellAliases = {
-        # bat
         cat = "${pkgs.bat}/bin/bat";
       };
     };
