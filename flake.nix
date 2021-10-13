@@ -42,6 +42,7 @@
           userConfig = {
             git.enable = true;
             zsh.enable = true;
+            haskell.stack.enable = true;
           };
           username = "thomas";
           homedir = "/Users/thomas";

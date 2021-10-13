@@ -2,8 +2,6 @@
 
 {
   imports = [
-    ./git.nix
-    ./zsh.nix
-    ./haskell
+    ./stack.nix
   ];
 }
