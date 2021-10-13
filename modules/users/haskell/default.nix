@@ -3,5 +3,6 @@
 {
   imports = [
     ./stack.nix
+    ./ihp.nix
   ];
 }

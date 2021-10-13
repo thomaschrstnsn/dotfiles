@@ -43,6 +43,7 @@
             git.enable = true;
             zsh.enable = true;
             haskell.stack.enable = true;
+            haskell.ihp.enable = true;
             aws.enable = false;
           };
           username = "thomas";
