@@ -46,7 +46,7 @@ in {
           echo "autostarting tmux"
           ZSH_TMUX_AUTOSTART=true
         fi
-        source $HOME/.nix-profile/etc/profile.d/nix.sh
+        source $HOME/.nix-profile/etc/profile.d/nix.sh # should not be needed when using nix-darwin/nixos
       '';
       completionInit = ''
         # ZSH COMPLETION CASE (IN)SENSITIVE

@@ -7,7 +7,7 @@ personal dotfiles for Thomas Christensen
 - [Nix](https://nixos.org/manual/nix/stable/#chap-installation)
 - Experimental [`nix flake` support](https://nixos.wiki/wiki/flakes#Installing_flakes) until released
 
-## usage home-manager
+## using home-manager
 
 `./apply-home.sh` will apply the `homeManagerConfigurations` defined as `$HOST`.`$USER` in `flake.nix`
 
@@ -17,7 +17,27 @@ to preview changes without applying:
 
 `./build-home.sh`
 
-## usage darwin
+## using nix-darwin
+
+### initial bootstrap
+
+Before doing this:
+- ensure cleanup after any previous nix-darwin setup
+- backup `/etc/{zsh,bash}rc` - nix-darwin will append nix stuff there
+```
+$ sudo cp /etc/bashrc /etc/bashrc.backup-before-darwin
+$ sudo cp /etc/zshrc /etc/zshrc.backup-before-darwin
+```
+
+Bootstrap using: `./apply-darwin.sh bootstrap`
+
+If this fails, you may need to:
+- `rm ~/.nix-defexpr/channels`
+- `sudo rm /etc/nix/nix.conf` (between `./build-darwin.sh bootstrap` and `./result/sw/bin/darwin-rebuild switch --flake .#bootstrap`)
+
+when successful, open a new terminal session and continue below
+
+### updating/refreshing
 
 `./apply-darwin.sh` will apply the `darwinConfigurations` defined as `$HOST` in `flake.nix`
 

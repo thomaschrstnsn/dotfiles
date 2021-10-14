@@ -75,6 +75,15 @@
       };
 
       darwinConfigurations = {
+         # Minimal configuration to bootstrap systems
+        bootstrap = darwin.lib.darwinSystem {
+          system = "x86_64-darwin";
+          inputs = inputs;
+          modules = [
+            ./darwin/bootstrap.nix
+          ];
+        };
+
         aeris = darwin.lib.darwinSystem  {
           inherit system;
           modules = [ ./darwin/configuration.nix ];
