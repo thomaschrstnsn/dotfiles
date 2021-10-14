@@ -1,4 +1,4 @@
-# dotfiles aka home-manager as a nix flake
+# dotfiles aka home-manager nix-darwin as a nix flake
 
 personal dotfiles for Thomas Christensen
 
@@ -7,13 +7,20 @@ personal dotfiles for Thomas Christensen
 - [Nix](https://nixos.org/manual/nix/stable/#chap-installation)
 - Experimental [`nix flake` support](https://nixos.wiki/wiki/flakes#Installing_flakes) until released
 
-## usage
+## usage home-manager
 
-`./apply-user.sh` will apply the configuration defined as `$HOST`.`$USER` in `flake.nix`
+`./apply-home.sh` will apply the `homeManagerConfigurations` defined as `$HOST`.`$USER` in `flake.nix`
 
-hint: to apply and reload: `./apply-user.sh && reload_zshrc`
+hint: to apply and reload: `./apply-home.sh && reload_zshrc`
 
 to preview changes without applying:
 
-`./build.user.sh`
+`./build-home.sh`
 
+## usage darwin
+
+`./apply-darwin.sh` will apply the `darwinConfigurations` defined as `$HOST` in `flake.nix`
+
+to preview changes without applying:
+
+`./build-darwin.sh`

@@ -8,13 +8,18 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    darwin = {
+      url = "github:LnL7/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     forgit-git = {
       url = github:wfxr/forgit;
       flake = false;
     };
   };
 
-  outputs = { nixpkgs, home-manager, forgit-git, ... }@inputs:
+  outputs = { nixpkgs, home-manager, darwin, forgit-git, ... }@inputs:
     let
       inherit (nixpkgs) lib;
 
@@ -66,6 +71,14 @@
           };
           username = "nixos";
           homedir = "/home/nixos";
+        };
+      };
+
+      darwinConfigurations = {
+        aeris = darwin.lib.darwinSystem  {
+          inherit system;
+          modules = [ ./darwin/configuration.nix ];
+          specialArgs = { inherit inputs nixpkgs; };
         };
       };
     };

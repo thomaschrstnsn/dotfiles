@@ -1,7 +1,7 @@
 #! /bin/sh
 set -e
 
-./build-user.sh $*
+./build-home.sh $*
 
 echo activating
 ./result/activate
