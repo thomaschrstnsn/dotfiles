@@ -55,6 +55,18 @@
           username = "thomas";
           homedir = "/Users/thomas";
         };
+        nixos.nixos = user.mkHMUser {
+          userConfig = {
+            aws.enable = false;
+            dotnet.enable = false;
+            git.enable = true;
+            haskell.stack.enable = false;
+            haskell.ihp.enable = false;
+            zsh.enable = true;
+          };
+          username = "nixos";
+          homedir = "/home/nixos";
+        };
       };
     };
 }
