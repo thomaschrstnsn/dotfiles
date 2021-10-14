@@ -1,2 +1,0 @@
-- dotnet.nix: overlay for sdk_2_2?
-    https://github.com/NixOS/nixpkgs/blob/master/pkgs/development/compilers/dotnet/default.nix
