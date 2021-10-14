@@ -8,7 +8,7 @@ in {
     enable = mkOption {
       description = "Enable aws + terraform";
       type = types.bool;
-      default = true;
+      default = false;
     };
   };
 
