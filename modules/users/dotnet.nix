@@ -13,8 +13,12 @@ in {
   };
 
   config = mkIf (cfg.enable) {
+    # https://github.com/NixOS/nixpkgs/blob/master/pkgs/development/compilers/dotnet/default.nix
     home.packages = with pkgs; [
-      dotnet-sdk_3
+      (with dotnetCorePackages; combinePackages [
+        sdk_3_1
+        sdk_2_1
+      ])
     ];
 
     programs.zsh.sessionVariables = {

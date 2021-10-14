@@ -46,7 +46,7 @@
         aeris.thomas = user.mkHMUser {
           userConfig = {
             aws.enable = false;
-            dotnet.enable = false;
+            dotnet.enable = true;
             git.enable = true;
             haskell.stack.enable = true;
             haskell.ihp.enable = true;
