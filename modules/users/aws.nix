@@ -22,6 +22,6 @@ in {
       AWS_PROFILE = "playground";
     };
 
-    programs.zsh.oh-my-zsh.plugins = [ "terraform" ];
+    programs.zsh.oh-my-zsh.plugins = [ "terraform" "aws" ];
   };
 }

@@ -19,5 +19,7 @@ in {
     programs.zsh.shellAliases = {
         swt = "stack build --fast --file-watch --test";
     };
+
+    programs.zsh.oh-my-zsh.plugins = [ "stack" ];
   };
 }
