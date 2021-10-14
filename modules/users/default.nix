@@ -2,9 +2,11 @@
 
 {
   imports = [
+    ./aws.nix
+    ./dotnet.nix
     ./git.nix
     ./zsh.nix
-    ./aws.nix
+    
     ./haskell
   ];
 }

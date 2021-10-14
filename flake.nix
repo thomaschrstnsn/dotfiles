@@ -32,11 +32,12 @@
       homeManagerConfigurations = {
         aeris.thomas = user.mkHMUser {
           userConfig = {
+            aws.enable = false;
+            dotnet.enable = false;
             git.enable = true;
-            zsh.enable = true;
             haskell.stack.enable = true;
             haskell.ihp.enable = true;
-            aws.enable = false;
+            zsh.enable = true;
           };
           username = "thomas";
           homedir = "/Users/thomas";
