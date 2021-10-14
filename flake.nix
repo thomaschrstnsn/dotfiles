@@ -13,28 +13,20 @@
     let
       inherit (nixpkgs) lib;
 
+      # system = "x86_64-linux";
+      # system = "aarch64-darwin";
+      system = "x86_64-darwin";
+
       util = import ./lib {
         inherit system pkgs home-manager lib;
       };
 
-      scripts = import ./scripts {
-        inherit pkgs lib;
-      };
-
-      inherit (import ./pkgs {
-        inherit pkgs;
-      }) myPkgs;
-
       inherit (util) user;
-      inherit (util) host;
 
       pkgs = import nixpkgs {
         inherit system;
         config.allowUnfree = true;
       };
-
-      # system = "x86_64-linux";
-      system = "x86_64-darwin";
     in
     {
       homeManagerConfigurations = {
