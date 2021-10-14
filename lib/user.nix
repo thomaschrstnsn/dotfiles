@@ -1,4 +1,4 @@
-{ pkgs, home-manager, lib, system, ... }:
+{ pkgs, home-manager, lib, system, overlays, ... }:
 with builtins;
 {
   mkHMUser = {userConfig, username, homedir}:
@@ -11,7 +11,7 @@ with builtins;
         configuration = {
             tc = userConfig;
 
-            # nixpkgs.overlays = overlays;
+            nixpkgs.overlays = overlays;
             nixpkgs.config.allowUnfree = true;
 
             # systemd.user.startServices = true;

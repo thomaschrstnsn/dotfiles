@@ -1,5 +1,21 @@
 {
   "nodes": {
+    "forgit-git": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1632363443,
+        "narHash": "sha256-foi5zb7oZOfxBmpYmDq30VCenKPS//nxKSzqi+hsvoY=",
+        "owner": "wfxr",
+        "repo": "forgit",
+        "rev": "810735294107ef1b1de66cf1cdfc358fc14049ac",
+        "type": "github"
+      },
+      "original": {
+        "owner": "wfxr",
+        "repo": "forgit",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -38,6 +54,7 @@
     },
     "root": {
       "inputs": {
+        "forgit-git": "forgit-git",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs"
       }

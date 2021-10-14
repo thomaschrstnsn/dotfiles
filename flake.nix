@@ -7,9 +7,14 @@
       url = "github:nix-community/home-manager/release-21.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    forgit-git = {
+      url = github:wfxr/forgit;
+      flake = false;
+    };
   };
 
-  outputs = { nixpkgs, home-manager, ... }@inputs:
+  outputs = { nixpkgs, home-manager, forgit-git, ... }@inputs:
     let
       inherit (nixpkgs) lib;
 
@@ -18,13 +23,21 @@
       system = "x86_64-darwin";
 
       util = import ./lib {
-        inherit system pkgs home-manager lib;
+        inherit system pkgs home-manager lib; inherit overlays;
       };
+
+      inherit (import ./pkgs {
+        inherit pkgs forgit-git;
+      }) myPkgs;
+
+      inherit (import ./overlays {
+        inherit system pkgs lib myPkgs;
+      }) overlays;
 
       inherit (util) user;
 
       pkgs = import nixpkgs {
-        inherit system;
+        inherit system overlays;
         config.allowUnfree = true;
       };
     in

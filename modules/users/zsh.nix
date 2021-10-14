@@ -41,7 +41,7 @@ in {
       enableAutosuggestions = true;
       # enableSyntaxHighlighting = true;
       initExtra = ''
-        export IHP_EDITOR="code --goto"
+        source ${pkgs.myPkgs.zsh-forgit}/share/zsh-forgit/forgit.plugin.zsh
       '';
       initExtraBeforeCompInit = ''
         source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme

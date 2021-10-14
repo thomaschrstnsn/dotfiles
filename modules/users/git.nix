@@ -41,7 +41,6 @@ in {
         lol = "log --graph --decorate --pretty=oneline --abbrev-commit";
         lola = "log --graph --decorate --pretty=oneline --abbrev-commit --all";
         ff = "merge --ff-only";
-        fza = "!git ls-files -m -o --exclude-standard | fzf --print0 -m | xargs -0 -t -o git add";
       };
 
       extraConfig = {
@@ -68,7 +67,6 @@ in {
     programs.zsh.shellAliases = {
       gs = "git st";
       gc = "git clone";
-      gza = "git fza";
     };
   };
 }
