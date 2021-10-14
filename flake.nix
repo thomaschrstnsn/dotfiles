@@ -1,10 +1,10 @@
 {
   description = "User Config";
   inputs = {
-    nixpkgs.url = "nixpkgs/nixos-21.05";
+    nixpkgs.url = "nixpkgs/nixpkgs-unstable";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-21.05";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -45,7 +45,7 @@
       homeManagerConfigurations = {
         aeris.thomas = user.mkHMUser {
           userConfig = {
-            aws.enable = false;
+            aws.enable = true;
             dotnet.enable = true;
             git.enable = true;
             haskell.stack.enable = true;

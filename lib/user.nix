@@ -3,7 +3,7 @@ with builtins;
 {
   mkHMUser = {userConfig, username, homedir}:
     let
-      version = "21.05";
+      version = "21.11";
     in (
       home-manager.lib.homeManagerConfiguration {
         inherit system username pkgs;

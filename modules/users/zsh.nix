@@ -10,11 +10,6 @@ in {
       type = types.bool;
       default = true;
     };
-    enableSyntaxHighlighting = mkOption {
-      description = "Fix until >21.05 version homemanager is used (has enableSyntaxHighlighting builtin)";
-      type = types.bool;
-      default = true;
-    };
   };
 
   config = mkIf (cfg.enable) {
@@ -39,7 +34,7 @@ in {
     programs.zsh = {
       enable = true;
       enableAutosuggestions = true;
-      # enableSyntaxHighlighting = true;
+      enableSyntaxHighlighting = true;
       initExtra = ''
         source ${pkgs.myPkgs.zsh-forgit}/share/zsh-forgit/forgit.plugin.zsh
       '';
@@ -51,9 +46,6 @@ in {
           echo "autostarting tmux"
           ZSH_TMUX_AUTOSTART=true
         fi
-        ${optionalString cfg.enableSyntaxHighlighting
-          "source ${pkgs.zsh-syntax-highlighting}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-        }
         source $HOME/.nix-profile/etc/profile.d/nix.sh
       '';
       completionInit = ''
