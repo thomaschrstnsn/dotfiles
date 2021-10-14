@@ -21,6 +21,12 @@ in {
       type = types.str;
       default = "thomas@chrstnsn.dk";
     };
+
+    githubs = mkOption {
+      description = "Githubs to replace 'https:// to git@' with, so that you can git clone from the https url and still use ssh";
+      type = types.listOf types.str;
+      default = ["github.com"];
+    };
   };
 
   config = mkIf (cfg.enable) {
@@ -46,6 +52,15 @@ in {
       extraConfig = {
         push.default = "current";
         branch.autosetuprebase = "always";
+        url = builtins.listToAttrs (
+          map 
+            (gh: { 
+              name = "git@" + gh + ":"; 
+              value = { insteadOf = "https://"+gh;};
+              }
+            )
+            cfg.githubs
+          ); 
       };
 
       ignores = [ "*~" "*.swp" ".DS_Store" ];
