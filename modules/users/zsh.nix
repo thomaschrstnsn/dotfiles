@@ -41,11 +41,6 @@ in {
       initExtraBeforeCompInit = ''
         source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
         source ~/.p10k.zsh
-        # starting shell from ssh and tmux is not running
-        if [[ -n $SSH_CONNECTION && -z "$TMUX" ]]; then
-          echo "autostarting tmux"
-          ZSH_TMUX_AUTOSTART=true
-        fi
         source $HOME/.nix-profile/etc/profile.d/nix.sh # should not be needed when using nix-darwin/nixos
       '';
       completionInit = ''
@@ -63,7 +58,6 @@ in {
           "extract" 
           "git" 
           "history-substring-search" 
-          # "tmux"
           "zsh-interactive-cd" 
           ];
       };
