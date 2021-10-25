@@ -23,9 +23,12 @@
     let
       inherit (nixpkgs) lib;
 
-      # system = "x86_64-linux";
-      # system = "aarch64-darwin";
-      system = "x86_64-darwin";
+      systems = {
+        arm-linux  = "aarch64-linux";
+        x64-linux  = "x86_64-linux";
+        m1_darwin  = "aarch64-darwin";
+        x64-darwin = "x86_64-darwin";
+      };
 
       mkDarwinSystem = 
         { extraModules ? []
@@ -42,9 +45,11 @@
         { userConfig
         , username
         , homedir
+        , system
         }:
       let
         version = "21.11";
+        inherit (pkgsAndOverlaysForSystem system) pkgs overlays;
       in (
         home-manager.lib.homeManagerConfiguration {
           inherit system username pkgs;
@@ -65,18 +70,20 @@
         }
       );
 
-      inherit (import ./pkgs {
-        inherit pkgs forgit-git;
-      }) myPkgs;
+      pkgsAndOverlaysForSystem = system: 
+      let 
+        inherit (import ./pkgs {
+          inherit pkgs forgit-git;
+        }) myPkgs;
+        inherit (import ./overlays {
+          inherit system pkgs lib myPkgs;
+        }) overlays;
 
-      inherit (import ./overlays {
-        inherit system pkgs lib myPkgs;
-      }) overlays;
-
-      pkgs = import nixpkgs {
-        inherit system overlays;
-        config.allowUnfree = true;
-      };
+        pkgs = import nixpkgs {
+          inherit system overlays;
+          config.allowUnfree = true;
+        };
+      in {inherit pkgs overlays;};
     in
     rec {
       homeManagerConfigurations = {
@@ -91,6 +98,7 @@
           };
           username = "thomas";
           homedir = "/Users/thomas";
+          system = systems.x64-darwin; # actually m1
         };
         A125228-DK."thomas_christensen@schibsted_com" = mkHMUser {
           userConfig = {
@@ -107,6 +115,7 @@
           };
           username = "thomas.christensen@schibsted.com";
           homedir = "/Users/thomas.christensen@schibsted.com";
+          system = systems.x64-darwin;
         };
         nixos.nixos = mkHMUser {
           userConfig = {
@@ -119,17 +128,18 @@
           };
           username = "nixos";
           homedir = "/home/nixos";
+          system = systems.x64-linux;
         };
       };
 
       darwinConfigurations = {
          # Minimal configuration to bootstrap systems
         bootstrap = mkDarwinSystem {
-          system = "x86_64-darwin";
+          system = systems.x64-darwin;
         };
 
         aeris = mkDarwinSystem {
-          system = "x86_64-darwin";
+          system = systems.x64-darwin; # actually m1
           extraModules = [
             ./modules/darwin/osx.nix
             ./modules/darwin/skhd.nix
