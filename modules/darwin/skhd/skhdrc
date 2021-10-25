@@ -34,5 +34,5 @@ hyper - right : yabai -m window --resize right:20:0
 hyper - space : yabai -m space --rotate 270
 
 hyper - z : open -a "zoom.us"
-hyper - b : open -a "Microsoft Edge Beta"
+hyper - b : open -a "Microsoft Edge"
 hyper - c : open -a "Slack"
