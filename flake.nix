@@ -27,9 +27,43 @@
       # system = "aarch64-darwin";
       system = "x86_64-darwin";
 
-      util = import ./lib {
-        inherit system pkgs home-manager lib darwin; inherit overlays;
+      mkDarwinSystem = 
+        { extraModules ? []
+        , system
+        }: 
+        darwin.lib.darwinSystem {
+          inherit system;
+          modules = [
+            ./modules/darwin/bootstrap.nix
+            ] ++ extraModules;
       };
+
+      mkHMUser = 
+        { userConfig
+        , username
+        , homedir
+        }:
+      let
+        version = "21.11";
+      in (
+        home-manager.lib.homeManagerConfiguration {
+          inherit system username pkgs;
+          stateVersion = version;
+          configuration = {
+              tc = userConfig;
+
+              nixpkgs.overlays = overlays;
+              nixpkgs.config.allowUnfree = true;
+
+              home.stateVersion = version;
+              home.username = username;
+              home.homeDirectory = homedir;
+
+              imports = [ ./modules/users ];
+            };
+          homeDirectory = homedir;
+        }
+      );
 
       inherit (import ./pkgs {
         inherit pkgs forgit-git;
@@ -46,7 +80,7 @@
     in
     rec {
       homeManagerConfigurations = {
-        aeris.thomas = util.user.mkHMUser {
+        aeris.thomas = mkHMUser {
           userConfig = {
             aws.enable = true;
             dotnet.enable = true;
@@ -58,7 +92,7 @@
           username = "thomas";
           homedir = "/Users/thomas";
         };
-        A125228-DK."thomas_christensen@schibsted_com" = util.user.mkHMUser {
+        A125228-DK."thomas_christensen@schibsted_com" = mkHMUser {
           userConfig = {
             aws.enable = true;
             dotnet.enable = true;
@@ -74,7 +108,7 @@
           username = "thomas.christensen@schibsted.com";
           homedir = "/Users/thomas.christensen@schibsted.com";
         };
-        nixos.nixos = util.user.mkHMUser {
+        nixos.nixos = mkHMUser {
           userConfig = {
             aws.enable = false;
             dotnet.enable = false;
@@ -90,17 +124,16 @@
 
       darwinConfigurations = {
          # Minimal configuration to bootstrap systems
-        bootstrap = darwin.lib.darwinSystem {
+        bootstrap = mkDarwinSystem {
           system = "x86_64-darwin";
-          inputs = inputs;
-          modules = [
-            ./modules/darwin/bootstrap.nix
-          ];
         };
 
-        aeris = util.darwin.mkDarwinSystem {
+        aeris = mkDarwinSystem {
           system = "x86_64-darwin";
-          extraModules = [./modules/darwin/skhd.nix];
+          extraModules = [
+            ./modules/darwin/osx.nix
+            ./modules/darwin/skhd.nix
+            ];
         }; 
       };
     };
