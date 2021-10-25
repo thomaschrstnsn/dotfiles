@@ -60,6 +60,22 @@
           username = "thomas";
           homedir = "/Users/thomas";
         };
+        A125228-DK."thomas_christensen@schibsted_com" = user.mkHMUser {
+          userConfig = {
+            aws.enable = true;
+            dotnet.enable = true;
+            git = {
+              enable = true;
+              userEmail = "thomas.christensen@schibsted.com";
+              githubs = ["github.com" "github.schibsted.io"];
+            };
+            haskell.stack.enable = true;
+            haskell.ihp.enable = true;
+            zsh.enable = true;
+          };
+          username = "thomas.christensen@schibsted.com";
+          homedir = "/Users/thomas.christensen@schibsted.com";
+        };
         nixos.nixos = user.mkHMUser {
           userConfig = {
             aws.enable = false;
