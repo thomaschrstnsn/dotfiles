@@ -28,7 +28,7 @@
       system = "x86_64-darwin";
 
       util = import ./lib {
-        inherit system pkgs home-manager lib; inherit overlays;
+        inherit system pkgs home-manager lib darwin; inherit overlays;
       };
 
       inherit (import ./pkgs {
@@ -39,16 +39,14 @@
         inherit system pkgs lib myPkgs;
       }) overlays;
 
-      inherit (util) user;
-
       pkgs = import nixpkgs {
         inherit system overlays;
         config.allowUnfree = true;
       };
     in
-    {
+    rec {
       homeManagerConfigurations = {
-        aeris.thomas = user.mkHMUser {
+        aeris.thomas = util.user.mkHMUser {
           userConfig = {
             aws.enable = true;
             dotnet.enable = true;
@@ -60,7 +58,7 @@
           username = "thomas";
           homedir = "/Users/thomas";
         };
-        A125228-DK."thomas_christensen@schibsted_com" = user.mkHMUser {
+        A125228-DK."thomas_christensen@schibsted_com" = util.user.mkHMUser {
           userConfig = {
             aws.enable = true;
             dotnet.enable = true;
@@ -76,7 +74,7 @@
           username = "thomas.christensen@schibsted.com";
           homedir = "/Users/thomas.christensen@schibsted.com";
         };
-        nixos.nixos = user.mkHMUser {
+        nixos.nixos = util.user.mkHMUser {
           userConfig = {
             aws.enable = false;
             dotnet.enable = false;
@@ -96,15 +94,14 @@
           system = "x86_64-darwin";
           inputs = inputs;
           modules = [
-            ./darwin/bootstrap.nix
+            ./modules/darwin/bootstrap.nix
           ];
         };
 
-        aeris = darwin.lib.darwinSystem  {
-          inherit system;
-          modules = [ ./darwin/configuration.nix ];
-          specialArgs = { inherit inputs nixpkgs; };
-        };
+        aeris = util.darwin.mkDarwinSystem {
+          system = "x86_64-darwin";
+          extraModules = [./modules/darwin/skhd.nix];
+        }; 
       };
     };
 }

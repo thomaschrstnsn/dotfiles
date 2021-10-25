@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ../base/shared.nix
+    ../../base/shared.nix
   ];
 
   nix = {
@@ -11,9 +11,7 @@
     ];
   };
 
-  services = {
-    nix-daemon.enable = true;
-  };
+  services.nix-daemon.enable = true;
 
   users.nix.configureBuildUsers = true;
 

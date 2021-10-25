@@ -14,7 +14,6 @@ with builtins;
             nixpkgs.overlays = overlays;
             nixpkgs.config.allowUnfree = true;
 
-            # systemd.user.startServices = true;
             home.stateVersion = version;
             home.username = username;
             home.homeDirectory = homedir;
