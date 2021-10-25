@@ -2,3 +2,19 @@
     https://github.com/hardselius/dotfiles
     https://github.com/malob/nixpkgs
     https://github.com/lccambiaghi/nixpkgs
+- nix-darwin + home-manager?
+
+trouble shooting:
+nix-darwin + daemon can make it such that user cannot perform nix operations (even when permitted)
+
+try: 
+    error: the store is not owned by this user, but /nix/var/nix/db is writable
+    If you are using the daemon:
+
+    sudo chown -R root:wheel /nix/var/nix/db
+    Otherwise:
+
+    sudo chown -R thomas.christensen@schibsted.com:staff /nix/store # <- adjust
+or:
+
+sudo chgrp admin /nix/var/nix/daemon-socket # <- adjust

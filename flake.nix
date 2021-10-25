@@ -94,7 +94,10 @@
             git.enable = true;
             haskell.stack.enable = true;
             haskell.ihp.enable = true;
-            zsh.enable = true;
+            zsh = {
+              enable = true;
+              skhd = true;
+            };
           };
           username = "thomas";
           homedir = "/Users/thomas";
@@ -109,9 +112,10 @@
               userEmail = "thomas.christensen@schibsted.com";
               githubs = ["github.com" "github.schibsted.io"];
             };
-            haskell.stack.enable = true;
-            haskell.ihp.enable = true;
-            zsh.enable = true;
+            zsh = {
+              enable = true;
+              skhd = true;
+            };
           };
           username = "thomas.christensen@schibsted.com";
           homedir = "/Users/thomas.christensen@schibsted.com";
@@ -140,6 +144,15 @@
 
         aeris = mkDarwinSystem {
           system = systems.x64-darwin; # actually m1
+          extraModules = [
+            ./modules/darwin/osx.nix
+            ./modules/darwin/skhd.nix
+            ./modules/darwin/yabai.nix
+            ];
+        }; 
+
+        A125228-DK = mkDarwinSystem {
+          system = systems.x64-darwin;
           extraModules = [
             ./modules/darwin/osx.nix
             ./modules/darwin/skhd.nix

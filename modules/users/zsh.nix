@@ -10,6 +10,11 @@ in {
       type = types.bool;
       default = true;
     };
+    skhd = mkOption {
+      description = "Enable reload skhd alias";
+      type = types.bool;
+      default = false;
+    };
   };
 
   config = mkIf (cfg.enable) {
@@ -49,7 +54,10 @@ in {
       '';
       shellAliases = {
         cat = "${pkgs.bat}/bin/bat";
-        reload_zshrc="source ~/.zshrc";
+        reload_zshrc = "source ~/.zshrc";
+      } // mkIf (cfg.skhd) {
+        # https://github.com/LnL7/nix-darwin/issues/333
+        skhd-reload = "launchctl stop org.nixos.skhd && launchctl start org.nixos.skhd"; 
       };
 
       oh-my-zsh = {
