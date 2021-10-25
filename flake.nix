@@ -143,6 +143,7 @@
           extraModules = [
             ./modules/darwin/osx.nix
             ./modules/darwin/skhd.nix
+            ./modules/darwin/yabai.nix
             ];
         }; 
       };
