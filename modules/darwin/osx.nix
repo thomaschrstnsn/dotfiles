@@ -22,5 +22,4 @@
   };
 
   # todo: enable Accessibility > Display > Reduce Motion 
-  # todo: osx spaces configuration 
 }
