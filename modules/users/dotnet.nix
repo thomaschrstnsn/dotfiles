@@ -17,7 +17,6 @@ in {
     home.packages = with pkgs; [
       (with dotnetCorePackages; combinePackages [
         sdk_3_1
-        sdk_2_1
         myPkgs.dotnet.sdk_2_2
       ])
     ];

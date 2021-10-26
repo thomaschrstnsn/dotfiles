@@ -92,7 +92,6 @@
       homeManagerConfigurations = {
         aeris.thomas = mkHMUser {
           userConfig = {
-            aws.enable = true;
             dotnet.enable = true;
             git.enable = true;
             haskell.stack.enable = true;
