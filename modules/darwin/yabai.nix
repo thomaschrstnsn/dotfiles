@@ -34,7 +34,7 @@
       left_padding                 = 10;
       right_padding                = 10;
       window_gap                   = 10;
-      external_bar                 = "main:26:0";
+      external_bar                 = "all:0:26";
     };
 
     extraConfig = ''
@@ -42,6 +42,7 @@
         yabai -m rule --add app='Finder' manage=off
         yabai -m rule --add title='Preferences$' manage=off
         yabai -m rule --add app='Calculator' manage=off
+        # yabai -m rule --add title='AppGate SDP$' manage=off
 
         yabai -m rule --add title='Go to Line:Column' manage=off # Rider
 

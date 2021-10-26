@@ -3,7 +3,7 @@
   services.spacebar.enable = true;
   services.spacebar.package = pkgs.spacebar;
   services.spacebar.config = {
-    position                   = "top";
+    position                   = "bottom";
     display                    = "main";
     height                     = 26;
     title                      = "on";
@@ -33,7 +33,7 @@
     space_icon_color_tertiary  = "0xfffff9b0";
     clock_icon                 = "";
     dnd_icon                   = "";
-    clock_format               = ''"%d/%m/%y %R"'';
+    clock_format               = ''"W%U %d/%m/%y %R"'';
     right_shell                = "on";
     right_shell_icon           = "";
     right_shell_command        = "whoami";
