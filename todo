@@ -1,8 +1,6 @@
-- working nix-darwin
-    https://github.com/hardselius/dotfiles
-    https://github.com/malob/nixpkgs
-    https://github.com/lccambiaghi/nixpkgs
-- nix-darwin + home-manager?
+- nix-darwin integrated with home-manager?
+- nix + m1 mac: https://github.com/vic/mk-darwin-system/
+- "apple shortcuts" (next+prev space, tab in new window etc) in skhd
 
 trouble shooting:
 nix-darwin + daemon can make it such that user cannot perform nix operations (even when permitted)
