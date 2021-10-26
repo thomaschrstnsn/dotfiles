@@ -52,13 +52,16 @@ in {
         # ZSH COMPLETION CASE (IN)SENSITIVE
         zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
       '';
-      shellAliases = {
-        cat = "${pkgs.bat}/bin/bat";
-        reload_zshrc = "source ~/.zshrc";
-      } // mkIf (cfg.skhd) {
+      shellAliases = mkMerge [
+        (mkIf true {
+          cat = "${pkgs.bat}/bin/bat";
+          reload_zshrc = "source ~/.zshrc";
+        }) 
+        (mkIf (cfg.skhd) {
         # https://github.com/LnL7/nix-darwin/issues/333
         skhd-reload = "launchctl stop org.nixos.skhd && launchctl start org.nixos.skhd"; 
-      };
+        })
+      ];
 
       oh-my-zsh = {
         enable = true;
