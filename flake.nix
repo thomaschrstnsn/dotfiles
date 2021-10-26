@@ -46,6 +46,7 @@
         , username
         , homedir
         , system
+        , extraPackages ? _ : []
         }:
       let
         version = "21.11";
@@ -63,6 +64,8 @@
               home.stateVersion = version;
               home.username = username;
               home.homeDirectory = homedir;
+
+              home.packages = extraPackages pkgs;
 
               imports = [ ./modules/users ];
             };
@@ -116,10 +119,17 @@
               enable = true;
               skhd = true;
             };
+            nodejs = {
+              enable = true;
+              pkg = pkgs : pkgs.nodejs-14_x;
+            };
           };
           username = "thomas.christensen@schibsted.com";
           homedir = "/Users/thomas.christensen@schibsted.com";
           system = systems.x64-darwin;
+          # extraPackages = pkgs: with pkgs; [
+          #   nodejs-14_x
+          # ];
         };
         nixos.nixos = mkHMUser {
           userConfig = {
