@@ -38,4 +38,12 @@
     right_shell_icon           = "";
     right_shell_command        = "whoami";
   };
+
+  services.yabai.config = {
+      external_bar = "all:0:26";
+  };
+
+  system.defaults.NSGlobalDomain = {
+    _HIHideMenuBar = true;
+  };
 }

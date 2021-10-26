@@ -9,8 +9,8 @@
   system.defaults.NSGlobalDomain = {
     InitialKeyRepeat = 15;
     KeyRepeat = 2;
-    _HIHideMenuBar = true;
   };
 
   # todo: enable Accessibility > Display > Reduce Motion 
+  # todo: osx spaces configuration 
 }

@@ -3,8 +3,6 @@
     https://github.com/malob/nixpkgs
     https://github.com/lccambiaghi/nixpkgs
 - nix-darwin + home-manager?
-- spacebar + yabai configurable + (hide topmenu)
-https://github.com/cmacrae/spacebar
 
 trouble shooting:
 nix-darwin + daemon can make it such that user cannot perform nix operations (even when permitted)
