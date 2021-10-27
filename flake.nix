@@ -18,7 +18,10 @@
       flake = false;
     };
 
-    spacebar.url = "github:cmacrae/spacebar/v1.3.0";
+    spacebar = {
+      url = "github:cmacrae/spacebar/v1.3.0";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { nixpkgs, home-manager, darwin, forgit-git, spacebar, ... }@inputs:
