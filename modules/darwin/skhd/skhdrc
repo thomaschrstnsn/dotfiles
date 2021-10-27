@@ -5,18 +5,21 @@ hyper - s : yabai -m display --focus next || yabai -m display --focus first
 
 hyper - o : /etc/skhd-moveWindowToSpaceOnSameDisplay.sh prev
 hyper - p : /etc/skhd-moveWindowToSpaceOnSameDisplay.sh next
+hyper - tab : /etc/skhd-moveWindowToFirstEmptySpaceOnSameDisplay.sh
 
 hyper - return : /etc/skhd-toggleLayoutOnCurrentSpace.sh
 
 hyper - d : yabai -m space --toggle show-desktop
 hyper - e : yabai -m space --toggle mission-control
 
-# hyper - 1 : yabai -m space --focus 1
-# hyper - 2 : yabai -m space --focus 2
-# hyper - 3 : yabai -m space --focus 3
-# hyper - 4 : yabai -m space --focus 4
-# hyper - 5 : yabai -m space --focus 5
-# hyper - 6 : yabai -m space --focus 6
+hyper - 1 : /etc/skhd-focusFirstWindowInSpace.sh 1
+hyper - 2 : /etc/skhd-focusFirstWindowInSpace.sh 2
+hyper - 3 : /etc/skhd-focusFirstWindowInSpace.sh 3
+hyper - 4 : /etc/skhd-focusFirstWindowInSpace.sh 4
+hyper - 5 : /etc/skhd-focusFirstWindowInSpace.sh 5
+hyper - 6 : /etc/skhd-focusFirstWindowInSpace.sh 6
+hyper - 7 : /etc/skhd-focusFirstWindowInSpace.sh 7
+hyper - 8 : /etc/skhd-focusFirstWindowInSpace.sh 8
 
 hyper - j : yabai -m window --focus west
 hyper - l : yabai -m window --focus east
