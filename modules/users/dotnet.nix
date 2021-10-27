@@ -33,5 +33,10 @@ in {
     };
 
     programs.zsh.oh-my-zsh.plugins = [ "dotnet" ];
+
+    programs.zsh.shellAliases = {
+      rider = "open -a Rider";
+    };
+
   };
 }
