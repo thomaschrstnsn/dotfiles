@@ -19,3 +19,4 @@ case $CurrentType in
 esac
 
 $(yabai -m space $CurrentlyFocuseSpace --layout $NextType)
+terminal-notifier -title yabai -message $NextType

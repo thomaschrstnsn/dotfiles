@@ -1,8 +1,8 @@
 { pkgs, config, lib, ... }:
 {
-  environment.systemPackages =
-    [ 
-      pkgs.jq
+  environment.systemPackages = with pkgs; [ 
+      jq
+      terminal-notifier
     ];
   environment.etc."skhd-moveWindowToDisplayAndFollowFocus.sh".source = ./skhd/moveWindowToDisplayAndFollowFocus.sh;
   environment.etc."skhd-moveWindowToSpaceOnSameDisplay.sh".source = ./skhd/moveWindowToSpaceOnSameDisplay.sh;
