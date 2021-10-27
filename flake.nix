@@ -17,9 +17,11 @@
       url = github:wfxr/forgit;
       flake = false;
     };
+
+    spacebar.url = "github:cmacrae/spacebar/v1.3.0";
   };
 
-  outputs = { nixpkgs, home-manager, darwin, forgit-git, ... }@inputs:
+  outputs = { nixpkgs, home-manager, darwin, forgit-git, spacebar, ... }@inputs:
     let
       inherit (nixpkgs) lib;
 
@@ -37,6 +39,11 @@
         darwin.lib.darwinSystem {
           inherit system;
           modules = [
+            {
+              nixpkgs.overlays = [
+                spacebar.overlay
+              ];
+            }
             ./modules/darwin/bootstrap.nix
             ] ++ extraModules;
       };

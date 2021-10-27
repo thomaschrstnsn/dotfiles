@@ -14,7 +14,7 @@
     padding_right              = 20;
     spacing_left               = 25;
     spacing_right              = 15;
-    text_font                  = ''"Menlo:Regular:12.0"'';
+    text_font                  = ''"MesloLGS NF:Regular:12.0"'';
     icon_font                  = ''"MesloLGS NF:Regular:12.0"'';
     background_color           = "0xff202020";
     foreground_color           = "0xffa8a8a8";
@@ -36,11 +36,18 @@
     clock_format               = ''"W%U %d/%m/%y %R"'';
     right_shell                = "on";
     right_shell_icon           = "";
-    right_shell_command        = "whoami";
+    right_shell_command        = "/etc/spacebar-cpu-usage.sh";
   };
 
+  environment.etc."spacebar-cpu-usage.sh".source = ./spacebar/cpu-usage.sh;
+
+  # for debugging
+  # services.spacebar.config.debug_output = "on";
+  # launchd.user.agents.spacebar.serviceConfig.StandardErrorPath = "/tmp/spacebar.err.log";
+  # launchd.user.agents.spacebar.serviceConfig.StandardOutPath = "/tmp/spacebar.out.log";
+
   services.yabai.config = {
-      external_bar = "all:0:26";
+      external_bar = "main:0:26";
   };
 
   system.defaults.NSGlobalDomain = {
