@@ -140,7 +140,7 @@
           #   nodejs-14_x
           # ];
         };
-        nixos.nixos = mkHMUser {
+        DESKTOP-IP1G00V.nixos = mkHMUser {
           userConfig = {
             aws.enable = false;
             dotnet.enable = false;
