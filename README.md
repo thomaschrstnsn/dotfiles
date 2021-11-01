@@ -44,3 +44,16 @@ when successful, open a new terminal session and continue below
 to preview changes without applying:
 
 `./build-darwin.sh`
+
+## updating lockfile
+
+use `./update.sh` to write a new lock file (updating all the inputs)
+
+to preview what has changed, try `./lock-to-github.sh` which can show github links to the different inputs including differences to the currently locked.
+
+# Inspiration
+
+- [wiltaylor](https://github.com/wiltaylor/dotfiles) and his awesome [videos](https://www.youtube.com/watch?v=QKoQ1gKJY5A)
+- [jordanisaacs](https://github.com/jordanisaacs/dotfiles)
+- [hardselius](https://github.com/hardselius/dotfiles)
+- [Luca Cambiaghi](https://www.lucacambiaghi.com/nixpkgs/readme.html)
