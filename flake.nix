@@ -155,12 +155,9 @@
         };
         nixos-raspi-4.pi = mkHMUser {
           userConfig = {
-            aws.enable = false;
-            dotnet.enable = false;
             git.enable = true;
-            haskell.stack.enable = false;
-            haskell.ihp.enable = false;
             zsh.enable = true;
+            tmux.enable = true;
           };
           username = "pi";
           homedir = "/home/pi";
