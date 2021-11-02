@@ -13,9 +13,12 @@ in {
   };
 
   config = mkIf (cfg.enable) {
-    home.packages = with pkgs; [
-      tmux
-    ];
+    programs.tmux = {
+      enable = true;
+      clock24 = true;
+      baseIndex = 1;
+      sensibleOnTop = true;
+    };
 
     programs.zsh.initExtraBeforeCompInit = ''
       # starting shell from ssh and tmux is not running
