@@ -114,6 +114,9 @@
           username = "thomas";
           homedir = "/Users/thomas";
           system = systems.x64-darwin; # actually m1
+          extraPackages = pkgs: with pkgs; [
+            shellcheck
+          ];
         };
         A125228-DK."thomas_christensen@schibsted_com" = mkHMUser {
           userConfig = {

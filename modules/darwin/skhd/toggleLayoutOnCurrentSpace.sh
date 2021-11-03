@@ -1,10 +1,9 @@
 #!/bin/sh
 
 CurrentlyFocusedWindow=$(yabai -m query --windows --window | jq -re ".")
-CurrentlyFocusedWindowID=$(echo $CurrentlyFocusedWindow | jq -re ".id")
-CurrentlyFocusedSpace=$(echo $CurrentlyFocusedWindow | jq -re ".space")
+CurrentlyFocusedSpace=$(echo "$CurrentlyFocusedWindow" | jq -re ".space")
 
-CurrentType=$(yabai -m query --spaces --space $CurrentlyFocusedSpace | jq -r ".type")
+CurrentType=$(yabai -m query --spaces --space "$CurrentlyFocusedSpace" | jq -r ".type")
 
 case $CurrentType in
 'bsp')
@@ -18,5 +17,5 @@ case $CurrentType in
     ;;
 esac
 
-$(yabai -m space $CurrentlyFocuseSpace --layout $NextType)
+yabai -m space "$CurrentlyFocusedSpace" --layout $NextType
 terminal-notifier -title yabai -message $NextType

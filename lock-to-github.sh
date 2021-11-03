@@ -2,25 +2,25 @@
 
 if [ -z "$1" ]
 then
-    possible=`cat flake.lock | jq -r '.nodes | keys[]'`
+    possible=$(jq -r '.nodes | keys[]' flake.lock)
     echo tries to parse flake.lock, input one of possible keys
-    echo $possible
+    echo "$possible"
     exit 1
 fi
 
-rev=`cat flake.lock | jq -r ".nodes.\"$1\".locked.rev"`
+rev=$(jq -r ".nodes.\"$1\".locked.rev" flake.lock)
 
-owner=`cat flake.lock | jq -r ".nodes.\"$1\".locked.owner"`
-repo=`cat flake.lock | jq -r ".nodes.\"$1\".locked.repo"`
-ref=`cat flake.lock | jq -r ".nodes.\"$1\".original.ref // \"master\""`
+owner=$(jq -r ".nodes.\"$1\".locked.owner" flake.lock)
+repo=$(jq -r ".nodes.\"$1\".locked.repo" flake.lock)
+ref=$(jq -r ".nodes.\"$1\".original.ref // \"master\"" flake.lock)
 
-echo current rev: $rev
+echo current rev: "$rev"
 
 compare="https://github.com/${owner}/${repo}/compare/${rev}...${ref}"
 echo compare unstable with current: 
-echo $compare
+echo "$compare"
 
 tree="https://github.com/${owner}/${repo}/tree/${rev}"
 echo current tree: 
-echo $tree
+echo "$tree"
 

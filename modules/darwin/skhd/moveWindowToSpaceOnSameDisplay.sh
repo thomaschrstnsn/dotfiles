@@ -2,11 +2,11 @@
 
 CurrentlyFocusedWindow=$(yabai -m query --windows --window | jq -re ".")
 
-CurrentlyFocusedWindowID=$(echo $CurrentlyFocusedWindow | jq -re ".id")
+CurrentlyFocusedWindowID=$(echo "$CurrentlyFocusedWindow" | jq -re ".id")
 
-CurrentlyFocusedDisplay=$(echo $CurrentlyFocusedWindow | jq -re ".display")
+CurrentlyFocusedDisplay=$(echo "$CurrentlyFocusedWindow" | jq -re ".display")
 
-CurrentlyFocusedSpace=$(echo $CurrentlyFocusedWindow | jq -re ".space")
+CurrentlyFocusedSpace=$(echo "$CurrentlyFocusedWindow" | jq -re ".space")
 
 case $1 in
 'prev')
@@ -20,7 +20,7 @@ esac
 
 NextSpaceDisplay=$(yabai -m query --spaces --space $NextSpace | jq -r ".display")
 
-if [[ $NextSpaceDisplay == *$CurrentlyFocusedDisplay* ]]; then
-    $(yabai -m window --space $NextSpace)
-    $(yabai -m window --focus "$CurrentlyFocusedWindowID")
+if [ "$NextSpaceDisplay" = "$CurrentlyFocusedDisplay" ]; then
+    yabai -m window --space "$NextSpace"
+    yabai -m window --focus "$CurrentlyFocusedWindowID"
 fi
