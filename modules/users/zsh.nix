@@ -15,6 +15,11 @@ in {
       type = types.bool;
       default = false;
     };
+    editor = mkOption {
+      description = "Set $EDITOR (for cmdline git etc)";
+      type = types.string;
+      default = "code --wait";
+    };
   };
 
   config = mkIf (cfg.enable) {
@@ -62,6 +67,10 @@ in {
         skhd-reload = "launchctl stop org.nixos.skhd && launchctl start org.nixos.skhd"; 
         })
       ];
+
+      sessionVariables = {
+        EDITOR = cfg.editor;
+      };
 
       oh-my-zsh = {
         enable = true;

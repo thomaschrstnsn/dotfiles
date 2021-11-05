@@ -150,7 +150,10 @@
             git.enable = true;
             haskell.stack.enable = false;
             haskell.ihp.enable = false;
-            zsh.enable = true;
+            zsh = {
+              enable = true; 
+              editor = "vim";
+            };
           };
           username = "nixos";
           homedir = "/home/nixos";
@@ -159,7 +162,10 @@
         nixos-raspi-4.pi = mkHMUser {
           userConfig = {
             git.enable = true;
-            zsh.enable = true;
+            zsh = {
+              enable = true; 
+              editor = "vim";
+            };
             tmux.enable = true;
           };
           username = "pi";
