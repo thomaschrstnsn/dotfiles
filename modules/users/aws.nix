@@ -15,7 +15,7 @@ in {
   config = mkIf (cfg.enable) {
     home.packages = with pkgs; [
       awscli2
-      terraform
+      tfswitch
     ];
 
     programs.zsh.sessionVariables = {
@@ -23,5 +23,9 @@ in {
     };
 
     programs.zsh.oh-my-zsh.plugins = [ "terraform" "aws" ];
+
+    programs.zsh.initExtra = ''
+        export PATH=~/bin:$PATH
+      '';
   };
 }
