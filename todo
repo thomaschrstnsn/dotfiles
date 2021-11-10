@@ -1,4 +1,3 @@
-- editor = vscode configurable
 - nix-darwin integrated with home-manager?
 - nix + m1 mac: https://github.com/vic/mk-darwin-system/
 - "apple shortcuts" (next+prev space, tab in new window etc) in skhd

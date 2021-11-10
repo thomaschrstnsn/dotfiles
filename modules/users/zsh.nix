@@ -17,7 +17,7 @@ in {
     };
     editor = mkOption {
       description = "Set $EDITOR (for cmdline git etc)";
-      type = types.string;
+      type = types.str;
       default = "code --wait";
     };
   };
