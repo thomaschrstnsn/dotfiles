@@ -3,6 +3,7 @@ with lib;
 
 let
   cfg = config.tc.skhd;
+  mkAppShortcut = (shortcut: app: "${shortcut} : open -a \"${app}\"");
 in
 {
   options.tc.skhd = {
@@ -15,6 +16,14 @@ in
       description = "Which app to use as browser shortcut";
       type = types.str;
       default = "Safari";
+    };
+    extraAppShortcuts = mkOption {
+      description = "Extra shortcuts to open apps";
+      type = types.attrsOf types.str;
+      default = { };
+      example = {
+        "hyper - z" = "zoom.us";
+      };
     };
   };
 
@@ -32,15 +41,16 @@ in
     services.skhd = {
       enable = true;
       # https://github.com/koekeishiya/skhd/issues/1
-      skhdConfig = (builtins.readFile ./skhd/skhdrc) + ''
-        # app shortcuts
-        hyper - b : open -a "${cfg.browser}"
-        hyper - t : open -a "iTerm"
-        hyper - x : open -a "Visual Studio Code"
-        hyper - z : open -a "zoom.us"
-        hyper - c : open -a "Slack"
-        hyper - r : open -a "Rider"
-      '';
+      skhdConfig =
+        builtins.readFile ./skhd/skhdrc
+        + ''
+          # app shortcuts
+          hyper - b : open -a "${cfg.browser}"
+          hyper - t : open -a "iTerm"
+          hyper - x : open -a "Visual Studio Code"
+        ''
+        + concatStringsSep "\n" (attrValues (mapAttrs mkAppShortcut cfg.extraAppShortcuts))
+      ;
     };
   };
 }

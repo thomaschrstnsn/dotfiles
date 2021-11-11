@@ -26,6 +26,7 @@ hyper - l : yabai -m window --focus east
 hyper - i : yabai -m window --focus north
 hyper - k : yabai -m window --focus south
 
+hyper - m : yabai -m window --toggle native-fullscreen
 hyper - f : yabai -m window --toggle zoom-fullscreen
 hyper - tab : yabai -m window --focus recent
 

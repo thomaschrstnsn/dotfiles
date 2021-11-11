@@ -186,6 +186,11 @@
             skhd = {
               enable = true;
               browser = "Microsoft Edge";
+              extraAppShortcuts = {
+                "hyper - z" = "zoom.us";
+                "hyper - c" = "Slack";
+                "hyper - r" = "Rider";
+              };
             };
             spacebar.enable = true;
             yabai.enable = true;
