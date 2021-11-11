@@ -131,9 +131,9 @@
       machines = {
         aeris = {
           home = {
-            user = {
+            user = rec {
               username = "thomas";
-              homedir = "/Users/thomas";
+              homedir = "/Users/${username}";
             };
             dotnet.enable = true;
             git.enable = true;
@@ -160,16 +160,16 @@
         };
 
         A125228-DK = {
-          home = {
-            user = {
+          home = rec {
+            user = rec {
               username = "thomas.christensen@schibsted.com";
-              homedir = "/Users/thomas.christensen@schibsted.com";
+              homedir = "/Users/${username}";
             };
             aws.enable = true;
             dotnet.enable = true;
             git = {
               enable = true;
-              userEmail = "thomas.christensen@schibsted.com";
+              userEmail = user.username;
               githubs = [ "github.com" "github.schibsted.io" ];
             };
             zsh = {
