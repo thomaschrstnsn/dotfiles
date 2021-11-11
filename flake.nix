@@ -38,6 +38,7 @@
       mkDarwinSystem = 
         { extraModules ? []
         , system
+        , config
         }: 
         darwin.lib.darwinSystem {
           inherit system;
@@ -48,7 +49,8 @@
               ];
             }
             ./modules/darwin/bootstrap.nix
-            ] ++ extraModules;
+            ./modules/darwin
+            ] ++ extraModules ++ [{config.tc = config;}];
       };
 
       mkHMUser = 
@@ -182,22 +184,20 @@
 
         aeris = mkDarwinSystem {
           system = systems.x64-darwin; # actually m1
-          extraModules = [
-            ./modules/darwin/osx.nix
-            ./modules/darwin/skhd.nix
-            ./modules/darwin/yabai.nix
-            ./modules/darwin/spacebar.nix
-            ];
+          config = {
+            skhd.enable = true;
+            spacebar.enable = true;
+            yabai.enable = true;
+          };
         }; 
 
         A125228-DK = mkDarwinSystem {
           system = systems.x64-darwin;
-          extraModules = [
-            ./modules/darwin/osx.nix
-            ./modules/darwin/skhd.nix
-            ./modules/darwin/yabai.nix
-            ./modules/darwin/spacebar.nix
-            ];
+          config = {
+            skhd.enable = true;
+            spacebar.enable = true;
+            yabai.enable = true;
+          };
         }; 
       };
     };
