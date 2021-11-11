@@ -183,7 +183,10 @@
           };
 
           darwin = {
-            skhd.enable = true;
+            skhd = {
+              enable = true;
+              browser = "Microsoft Edge";
+            };
             spacebar.enable = true;
             yabai.enable = true;
           };
