@@ -57,3 +57,4 @@ to preview what has changed, try `./lock-to-github.sh` which can show github lin
 - [jordanisaacs](https://github.com/jordanisaacs/dotfiles)
 - [hardselius](https://github.com/hardselius/dotfiles)
 - [Luca Cambiaghi](https://www.lucacambiaghi.com/nixpkgs/readme.html)
+- [shaunsingh](https://github.com/shaunsingh/nix-darwin-dotfiles/)
