@@ -16,6 +16,7 @@ in {
     home.packages = with pkgs; [
       awscli2
       tfswitch
+      terraform-ls
     ];
 
     programs.zsh.sessionVariables = {
