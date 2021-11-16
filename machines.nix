@@ -75,6 +75,12 @@ in
         yabai.enable = true;
       };
 
+      extraPackages = pkgs: with pkgs; [
+        shellcheck
+        rnix-lsp
+        nixpkgs-fmt
+      ];
+
       system = systems.x64-darwin;
     };
 
