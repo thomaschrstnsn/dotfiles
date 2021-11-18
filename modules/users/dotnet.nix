@@ -1,9 +1,10 @@
 { pkgs, config, lib, ... }:
 with lib;
 
-let 
+let
   cfg = config.tc.dotnet;
-in {
+in
+{
   options.tc.dotnet = {
     enable = mkOption {
       description = "Enable dotnet core dev env";
@@ -33,6 +34,8 @@ in {
     };
 
     programs.zsh.oh-my-zsh.plugins = [ "dotnet" ];
+
+    programs.git.ignores = [ "consul-settings-backup.json" ];
 
     programs.zsh.shellAliases = {
       rider = "open -a Rider";
