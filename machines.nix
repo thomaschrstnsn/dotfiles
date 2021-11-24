@@ -20,6 +20,7 @@ in
         haskell.ihp.enable = true;
         zsh = {
           enable = true;
+          skhd = true;
         };
       };
 
