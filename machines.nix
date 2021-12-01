@@ -80,6 +80,8 @@ in
         shellcheck
         rnix-lsp
         nixpkgs-fmt
+        gh # gh-fuzzyclone https://github.com/hashue/gh-fuzzyclone/blob/main/gh-fuzzyclone
+        # mono # netframework builds?
       ];
 
       system = systems.x64-darwin;
