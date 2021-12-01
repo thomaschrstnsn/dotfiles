@@ -6,6 +6,7 @@
 - "apple shortcuts" (next+prev space, tab in new window etc) in skhd
 - karabiner https://github.com/kpritam/nixpkgs/blob/15206cc36ba70d7f750073b816af23d8a7fa68b5/configs/karabiner.json
 - gh fuzzyclone
+- osx quarentine https://github.com/ahmedelgabri/dotfiles/blob/f61a3acb6c0ea39c7a36e804afd3f57755149ecb/nix/modules/darwin/macos.nix#L27
 
 trouble shooting:
 nix-darwin + daemon can make it such that user cannot perform nix operations (even when permitted)
