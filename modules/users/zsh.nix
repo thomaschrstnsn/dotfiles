@@ -1,9 +1,10 @@
 { pkgs, config, lib, ... }:
 with lib;
 
-let 
+let
   cfg = config.tc.zsh;
-in {
+in
+{
   options.tc.zsh = {
     enable = mkOption {
       description = "Enable zsh with settings";
@@ -61,10 +62,10 @@ in {
         (mkIf true {
           cat = "${pkgs.bat}/bin/bat";
           reload_zshrc = "source ~/.zshrc";
-        }) 
+        })
         (mkIf (cfg.skhd) {
-        # https://github.com/LnL7/nix-darwin/issues/333
-        skhd-reload = "launchctl stop org.nixos.skhd && launchctl start org.nixos.skhd"; 
+          # https://github.com/LnL7/nix-darwin/issues/333
+          skhd-reload = "launchctl stop org.nixos.skhd && launchctl start org.nixos.skhd";
         })
       ];
 
@@ -74,12 +75,12 @@ in {
 
       oh-my-zsh = {
         enable = true;
-        plugins = [ 
-          "extract" 
-          "git" 
-          "history-substring-search" 
-          "zsh-interactive-cd" 
-          ];
+        plugins = [
+          "extract"
+          "git"
+          "history-substring-search"
+          "zsh-interactive-cd"
+        ];
       };
     };
   };
