@@ -50,7 +50,7 @@ in
         git = {
           enable = true;
           userEmail = user.username;
-          githubs = [ "github.com" "github.schibsted.io" ];
+          githubs = [ "github.schibsted.io" ];
         };
         zsh = {
           enable = true;
