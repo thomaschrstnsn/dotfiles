@@ -3,6 +3,13 @@ with lib;
 
 let
   cfg = config.tc.dotnet;
+
+  combinedDotnet = with pkgs;
+    (with dotnetCorePackages; combinePackages [
+      sdk_3_1
+      sdk_6_0
+      myPkgs.dotnet.sdk_2_2
+    ]);
 in
 {
   options.tc.dotnet = {
@@ -16,11 +23,7 @@ in
   config = mkIf (cfg.enable) {
     # https://github.com/NixOS/nixpkgs/blob/master/pkgs/development/compilers/dotnet/default.nix
     home.packages = with pkgs; [
-      (with dotnetCorePackages; combinePackages [
-        sdk_3_1
-        sdk_6_0
-        myPkgs.dotnet.sdk_2_2
-      ])
+      combinedDotnet
     ];
 
     programs.zsh.sessionVariables = {
@@ -32,6 +35,7 @@ in
       SERVICE_TEST_HTTP_SCHEME = "https";
 
       ASPNETCORE_ENVIRONMENT = "Development";
+      DOTNET_ROOT = "${combinedDotnet}";
     };
 
     programs.zsh.oh-my-zsh.plugins = [ "dotnet" ];
@@ -42,5 +46,8 @@ in
       rider = "open -a Rider";
     };
 
+    programs.zsh.initExtra = ''
+      export PATH=$PATH:~/.dotnet/tools
+    '';
   };
 }
