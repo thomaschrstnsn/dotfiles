@@ -58,7 +58,7 @@ in
         };
         nodejs = {
           enable = true;
-          pkg = pkgs: pkgs.nodejs-14_x;
+          pkg = pkgs: pkgs.nodejs-12_x;
         };
       };
 
