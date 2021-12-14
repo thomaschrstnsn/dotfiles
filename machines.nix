@@ -82,6 +82,7 @@ in
         nixpkgs-fmt
         gh # gh-fuzzyclone https://github.com/hashue/gh-fuzzyclone/blob/main/gh-fuzzyclone
         # mono # netframework builds?
+        httpie
       ];
 
       system = systems.x64-darwin;
