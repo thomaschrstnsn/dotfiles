@@ -25,7 +25,12 @@ in
       };
 
       darwin = {
-        skhd.enable = true;
+        skhd = {
+          enable = true;
+          extraAppShortcuts = {
+            "hyper - r" = "Rider";
+          };
+        };
         spacebar.enable = true;
         yabai.enable = true;
       };
