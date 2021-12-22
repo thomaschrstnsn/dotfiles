@@ -17,5 +17,13 @@ in
         x86_64-darwin = "2pafmx09mjri25v4xidnhhnbygy1r9bw8sj0z5mp2blw2nc5q9ddqzp8k51sjscwv3mxzhy3vqsc8wj44swdj6a1brsh25sa4w6h3fn";
       };
     };
+    dotnet.sdk_6_0 = buildNetCoreSdk {
+      version = "6.0.101";
+      sha512 = {
+        x86_64-linux = lib.fakeSha512;
+        aarch64-linux = lib.fakeSha512;
+        x86_64-darwin = "sha512-Nv3o8MwzmgETS4cVirki3ie7MAVEbXZMPv0mzLZ/jFrMFhAqTs74WkAvRr9N/JvcKAY4BrsrSk+vDe8TJ3qSaA==";
+      };
+    };
   };
 }

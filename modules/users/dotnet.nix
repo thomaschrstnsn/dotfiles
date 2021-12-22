@@ -7,7 +7,7 @@ let
   combinedDotnet = with pkgs;
     (with dotnetCorePackages; combinePackages [
       sdk_3_1
-      sdk_6_0
+      myPkgs.dotnet.sdk_6_0
       myPkgs.dotnet.sdk_2_2
     ]);
 in
