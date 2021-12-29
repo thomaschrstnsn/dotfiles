@@ -4,12 +4,15 @@ with lib;
 let
   cfg = config.tc.dotnet;
 
-  combinedDotnet = with pkgs;
-    (with dotnetCorePackages; combinePackages [
-      sdk_3_1
-      myPkgs.dotnet.sdk_6_0
-      myPkgs.dotnet.sdk_2_2
-    ]);
+  lookup = with pkgs; (with dotnetCorePackages; {
+    "2.2" = myPkgs.dotnet.sdk_2_2;
+    "3.1" = sdk_3_1;
+    "6.0" = myPkgs.dotnet.sdk_6_0;
+  });
+
+  # https://github.com/NixOS/nixpkgs/blob/master/pkgs/development/compilers/dotnet/default.nix
+  combinedDotnet = with pkgs; with dotnetCorePackages;
+    combinePackages (map (sdk: getAttr sdk lookup) cfg.sdks);
 in
 {
   options.tc.dotnet = {
@@ -18,11 +21,16 @@ in
       type = types.bool;
       default = false;
     };
+
+    sdks = mkOption {
+      description = "Which dotnet sdks to install";
+      type = types.listOf types.str;
+      default = [ "6.0" ];
+    };
   };
 
   config = mkIf (cfg.enable) {
-    # https://github.com/NixOS/nixpkgs/blob/master/pkgs/development/compilers/dotnet/default.nix
-    home.packages = with pkgs; [
+    home.packages = [
       combinedDotnet
     ];
 

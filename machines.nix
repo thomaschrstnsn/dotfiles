@@ -14,7 +14,10 @@ in
           username = "thomas";
           homedir = "/Users/${username}";
         };
-        dotnet.enable = true;
+        dotnet = {
+          enable = true;
+          sdks = [ "6.0" ];
+        };
         git.enable = true;
         haskell.stack.enable = true;
         haskell.ihp.enable = true;
@@ -41,7 +44,7 @@ in
         nixpkgs-fmt
       ];
 
-      system = systems.x64-darwin; # actually m1
+      system = systems.m1_darwin;
     };
 
     A125228-DK = {
@@ -51,7 +54,10 @@ in
           homedir = "/Users/${username}";
         };
         aws.enable = true;
-        dotnet.enable = true;
+        dotnet = {
+          enable = true;
+          sdks = [ "2.2" "3.1" "6.0" ];
+        };
         git = {
           enable = true;
           userEmail = user.username;

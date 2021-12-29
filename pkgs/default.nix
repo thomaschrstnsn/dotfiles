@@ -22,6 +22,7 @@ in
       sha512 = {
         x86_64-linux = lib.fakeSha512;
         aarch64-linux = lib.fakeSha512;
+        aarch64-darwin = "sha512-r3b3eOUZXDiktrcvmZ3JNIac1/ALu3ZUMTAA+72QyKwTs2IFj8ReCFATGeJdUIGkbQjZI+xTSW2JFETPUWQM9Q==";
         x86_64-darwin = "sha512-Nv3o8MwzmgETS4cVirki3ie7MAVEbXZMPv0mzLZ/jFrMFhAqTs74WkAvRr9N/JvcKAY4BrsrSk+vDe8TJ3qSaA==";
       };
     };
