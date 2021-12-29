@@ -52,7 +52,6 @@ in
       initExtraBeforeCompInit = ''
         source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
         source ~/.p10k.zsh
-        source $HOME/.nix-profile/etc/profile.d/nix.sh # should not be needed when using nix-darwin/nixos
       '';
       completionInit = ''
         # ZSH COMPLETION CASE (IN)SENSITIVE
