@@ -41,8 +41,8 @@
                 spacebar.overlay
               ];
             }
-            ./modules/darwin/bootstrap.nix
-            ./modules/darwin
+            ./darwin/modules/bootstrap.nix
+            ./darwin/modules
           ] ++ extraModules ++ [{ config.tc = config; }];
         };
 
@@ -70,7 +70,7 @@
 
               home.packages = extraPackages pkgs;
 
-              imports = [ ./modules/users ];
+              imports = [ ./home/modules ];
             };
             homeDirectory = homedir;
           }
