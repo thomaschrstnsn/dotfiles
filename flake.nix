@@ -33,15 +33,20 @@
         , system
         , config ? { }
         }:
+        let
+          inherit (pkgsAndOverlaysForSystem system) pkgs overlays;
+        in
         darwin.lib.darwinSystem {
           inherit system;
           modules = [
             {
               nixpkgs.overlays = [
                 spacebar.overlay
+                (self: super: { sketchybar = pkgs.myPkgs.sketchybar; })
               ];
             }
             ./darwin/modules/bootstrap.nix
+            ./darwin/services
             ./darwin/modules
           ] ++ extraModules ++ [{ config.tc = config; }];
         };

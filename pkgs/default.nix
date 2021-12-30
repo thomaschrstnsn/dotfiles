@@ -9,6 +9,7 @@ in
 {
   myPkgs = {
     zsh-forgit = callPackage ./zsh-forgit { inherit forgit-git; };
+    sketchybar = callPackage ./sketchybar { };
     dotnet.sdk_2_2 = buildNetCoreSdk {
       version = "2.2.207";
       sha512 = {

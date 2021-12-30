@@ -34,7 +34,8 @@ in
             "hyper - r" = "Rider";
           };
         };
-        spacebar.enable = true;
+        sketchybar.enable = true;
+        # spacebar.enable = true;
         yabai.enable = true;
       };
 
