@@ -17,17 +17,19 @@ in
 
   config = mkIf (cfg.enable) {
     environment.systemPackages = [ pkgs.jq ];
+
     # launchd.user.agents.sketchybar.serviceConfig = {
     #   StandardErrorPath = "/tmp/sketchybar.log";
     #   StandardOutPath = "/tmp/sketchybar.log";
     # };
+
     services.sketchybar.enable = true;
     services.sketchybar.package = pkgs.sketchybar;
     services.sketchybar.extraConfig = ''
       #!/bin/bash
 
       bar_color=0xff2e3440
-      icon_font="JetBrains Mono:Medium:13.0"
+      icon_font="MesloLGS NF:Regular:13.0"
       icon_color=0xbbd8dee9
       icon_highlight_color=0xffebcb8b
       label_font="$icon_font"
@@ -68,7 +70,7 @@ in
         --add item battery right \
         --set battery update_freq=60 script="${scripts}/battery.sh" \
         --add item wifi right \
-        --set wifi click_script="${scripts}/click-wifi.sh" \
+        \ #--set wifi click_script="${scripts}/click-wifi.sh" \
         --add item load right \
         --set load icon="􀍽" script="${scripts}/window-indicator.sh" \
         --subscribe load space_change \
@@ -78,6 +80,15 @@ in
           icon.padding_right=2 \
           label.padding_right=16 \
         "''${spaces[@]}"
+
+      # EVENTS
+      sketchybar -m --add event window_focus \
+                  --add event title_change
+
+      # WINDOW TITLE 
+      sketchybar -m --add item title left \
+                  --set title script="${scripts}/window-title.sh" \
+                  --subscribe title window_focus front_app_switched space_change title_change
 
       sketchybar -m --update
 
