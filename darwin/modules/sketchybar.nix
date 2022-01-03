@@ -15,12 +15,14 @@ let
   label_font = icon_font;
 in
 {
-  options.tc.sketchybar = {
+  options.tc.sketchybar = with types; {
     enable = mkOption {
       description = "Enable sketchybar";
-      type = types.bool;
+      type = bool;
       default = false;
     };
+    yabai.event.title_change = mkOption { type = str; default = "title_change"; };
+    yabai.event.window_focus = mkOption { type = str; default = "window_focus"; };
   };
 
   config = mkIf (cfg.enable) {
@@ -52,7 +54,6 @@ in
         "icon.padding_left" = 10;
         "icon.padding_right" = 6;
       };
-
       config.spaces =
         map
           (i: {
@@ -67,7 +68,7 @@ in
             };
           })
           [ "1" "2" "3" "4" "5" "6" "7" "8" ];
-
+      config.events = [ cfg.yabai.event.title_change cfg.yabai.event.window_focus ];
       config.items = [
         {
           # from https://github.com/FelixKratz/SketchyBar/discussions/12#discussioncomment-1633997
@@ -85,7 +86,7 @@ in
           attrs = {
             script = "${scripts}/window-title.sh";
           };
-          subscribe = [ "window" "window_focus" "front_app_switched" "space_change" "title_change" ];
+          subscribe = [ "window_focus" "title_change" "window" "front_app_switched" "space_change" ];
         }
         {
           name = "clock";

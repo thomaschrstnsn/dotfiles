@@ -38,9 +38,6 @@ app_name=$(echo $data | jq -r '.app')
 
 # setting items
 
-echo app "$app_name"
-echo title "$window_title"
-
 sketchybar -m \
     --set app_name \
         label="$app_name" \

@@ -40,6 +40,8 @@ let
     in
     optionalString (attrs != "") (concatStringsSep " \\\n" (filter (s: s != "") [ header attrs ])) + "\n";
 
+  eventToSketchyBar = event: "${modify} --add event ${event}\n";
+
   spaceToSketchyBar = space:
     let
       header = "${modify} --add space ${space.name} ${space.position}";
@@ -64,6 +66,7 @@ let
           (defaultToSketchyBar config.default)
         ]
         ++ (map spaceToSketchyBar config.spaces)
+        ++ (map eventToSketchyBar config.events)
         ++ (map itemToSketchyBar config.items)
       ));
 
@@ -113,6 +116,12 @@ in
           };
         };
       });
+    };
+
+    services.sketchybar.config.events = mkOption {
+      type = listOf str;
+      default = [ ];
+      description = "external events to be defined";
     };
 
     services.sketchybar.config.items = mkOption {

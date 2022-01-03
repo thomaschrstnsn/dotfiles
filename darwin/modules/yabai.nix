@@ -8,17 +8,17 @@ let
     if (sketchyCfg.enable)
     then
       ''
-        # SKETCHYBAR  EVENTS
-        yabai -m signal --add event=window_focused action="sketchybar -m --trigger window_focus &> /dev/null"
-        yabai -m signal --add event=window_title_changed action="sketchybar -m --trigger title_change &> /dev/null"
+        # SKETCHYBAR EVENTS
+        yabai -m signal --add event=window_focused action="sketchybar -m --trigger ${sketchyCfg.yabai.event.window_focus} &> /dev/null"
+        yabai -m signal --add event=window_title_changed action="sketchybar -m --trigger ${sketchyCfg.yabai.event.title_change} &> /dev/null"
       ''
     else "";
 in
 {
-  options.tc.yabai = {
+  options.tc.yabai = with types; {
     enable = mkOption {
       description = "Enable yabai window manager";
-      type = types.bool;
+      type = bool;
       default = false;
     };
   };
