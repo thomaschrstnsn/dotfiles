@@ -84,6 +84,7 @@ in
             "hyper - r" = "Rider";
             "hyper - v" = "VMWare Fusion";
             "hyper - n" = "Obsidian";
+            "hyper - g" = "Google Chrome";
           };
         };
         spacebar.enable = true;
