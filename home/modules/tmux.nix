@@ -18,6 +18,10 @@ in {
       clock24 = true;
       baseIndex = 1;
       sensibleOnTop = true;
+      terminal = "screen-256color";
+      extraConfig = ''
+      set -g mouse on
+      '';
     };
 
     programs.zsh.initExtraBeforeCompInit = ''
@@ -25,6 +29,7 @@ in {
       if [[ -n $SSH_CONNECTION && -z "$TMUX" ]]; then
         echo "autostarting tmux"
         ZSH_TMUX_AUTOSTART=true
+        ZSH_TMUX_CONFIG=~/.config/tmux/tmux.conf
       fi
     '';
 
