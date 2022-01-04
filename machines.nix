@@ -82,6 +82,7 @@ in
             "hyper - z" = "zoom.us";
             "hyper - c" = "Slack";
             "hyper - r" = "Rider";
+            "hyper - v" = "VMWare Fusion";
           };
         };
         spacebar.enable = true;
