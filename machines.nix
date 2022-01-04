@@ -83,6 +83,7 @@ in
             "hyper - c" = "Slack";
             "hyper - r" = "Rider";
             "hyper - v" = "VMWare Fusion";
+            "hyper - n" = "Obsidian";
           };
         };
         spacebar.enable = true;
