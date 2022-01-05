@@ -25,11 +25,11 @@ get_wifi() {
   read -r _ _ test WIFI_LABEL <<< "$wifi"
   if [ "$test" = "Network:" ]
   then
-      WIFI_ICON="􀙇"
+      WIFI_ICON=""
       WIFI_PADDING=6
   else
       WIFI_LABEL=""
-      WIFI_ICON="􀙈"
+      WIFI_ICON="睊"
       WIFI_PADDING=0
   fi
 }
@@ -68,7 +68,7 @@ get_load
 get_network
 
 sketchybar -m \
-  --set clock label="$(date +'W%U %d/%m/%y %R')" \
+  --set clock label="$(date +' W%U %d/%m/%y  %R')" \
   --set wifi icon="$WIFI_ICON" icon.padding_right="$WIFI_PADDING" label="$WIFI_LABEL" \
   --set load label="$LOAD_LABEL" label.highlight="$LOAD_HIGHLIGHT" \
   --set network label="$(readable "$ISPEED")↓ $(readable "$OSPEED")↑"

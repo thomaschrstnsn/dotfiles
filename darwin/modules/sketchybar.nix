@@ -8,8 +8,8 @@ let
   bar_color = "0xff2e3440";
   label_color = icon_color;
   icon_color = "0xbbd8dee9";
-  icon_font = "MesloLGS NF:Regular:13.0";
-  heavy_font = "MesloLGS NF:Bold:13.0";
+  icon_font = "MesloLGS Nerd Font:Regular:13.0";
+  heavy_font = "MesloLGS Nerd Font:Bold Italic:13.0";
   icon_highlight_color = "0xffebcb8b";
   label_highlight_color = icon_highlight_color;
   label_font = icon_font;
@@ -42,6 +42,7 @@ in
         padding_left = 10;
         padding_right = 10;
         color = bar_color;
+        topmost = "on";
       };
       config.default = {
         cache_scripts = "on";
@@ -109,14 +110,14 @@ in
           name = "wifi";
           position = "right";
           attrs = {
-            # click_script = "${scripts}/click-wifi.sh";
+            click_script = "${scripts}/click-wifi.sh";
           };
         }
         {
           name = "load";
           position = "right";
           attrs = {
-            icon = "􀍽";
+            icon = "";
             script = "${scripts}/window-indicator.sh";
           };
           subscribe = [ "space_change" ];
