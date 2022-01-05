@@ -34,19 +34,6 @@ get_wifi() {
   fi
 }
 
-get_load() {
-  local load
-  load=$(sysctl -n vm.loadavg)
-  read -r _ load _ _ <<< "$load"
-  LOAD_LABEL="$load"
-  if [ "${load%.*}" -ge 4 ]
-  then
-    LOAD_HIGHLIGHT="on"
-  else
-    LOAD_HIGHLIGHT="off"
-  fi
-}
-
 get_network() {
   local network ibytes obytes last_ibytes last_obytes
   network=$(netstat -ibn -I en0)
@@ -64,11 +51,9 @@ get_network() {
 }
 
 get_wifi
-get_load
 get_network
 
 sketchybar -m \
   --set clock label="$(date +' W%U %d/%m/%y  %R')" \
   --set wifi icon="$WIFI_ICON" icon.padding_right="$WIFI_PADDING" label="$WIFI_LABEL" \
-  --set load label="$LOAD_LABEL" label.highlight="$LOAD_HIGHLIGHT" \
   --set network label="$(readable "$ISPEED")↓ $(readable "$OSPEED")↑"

@@ -8,6 +8,7 @@ let
   bar_color = "0xff2e3440";
   label_color = icon_color;
   icon_color = "0xbbd8dee9";
+  small_label_font = "MesloLGS Nerd Font:Regular:10.0";
   icon_font = "MesloLGS Nerd Font:Regular:13.0";
   heavy_font = "MesloLGS Nerd Font:Bold Italic:13.0";
   icon_highlight_color = "0xffebcb8b";
@@ -119,17 +120,54 @@ in
           };
         }
         {
-          name = "load";
+          name = "ram_label";
           position = "right";
           attrs = {
-            icon = "";
-            script = "${scripts}/window-indicator.sh";
+            "label.font" = small_label_font;
+            label = "RAM";
+            y_offset = 6;
+            width = 0;
           };
-          subscribe = [ "space_change" ];
+        }
+        {
+          name = "ram_percentage";
+          position = "right";
+          attrs =
+            {
+              "label.font" = small_label_font;
+              y_offset = -4;
+              script = "${scripts}/ram.sh";
+              update_freq = 1;
+            };
+        }
+        {
+          name = "cpu_label";
+          position = "right";
+          attrs = {
+            "label.font" = small_label_font;
+            label = "CPU";
+            y_offset = 6;
+            width = 0;
+          };
+        }
+        {
+          name = "cpu_percentage";
+          position = "right";
+          attrs =
+            {
+              "label.font" = small_label_font;
+              y_offset = -4;
+              script = "${scripts}/cpu.sh";
+              update_freq = 1;
+            };
         }
         {
           name = "network";
           position = "right";
+          attrs = {
+            script = "${scripts}/window-indicator.sh";
+          };
+          subscribe = [ "space_change" ];
           # --default \
           #   icon.padding_left=0 \
           #   icon.padding_right=2 \
