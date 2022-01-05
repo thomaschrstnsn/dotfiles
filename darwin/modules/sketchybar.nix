@@ -13,6 +13,7 @@ let
   icon_highlight_color = "0xffebcb8b";
   label_highlight_color = icon_highlight_color;
   label_font = icon_font;
+  events.bluetooth_change = "bluetooth_change";
 in
 {
   options.tc.sketchybar = with types; {
@@ -72,6 +73,7 @@ in
       config.events = [
         { name = cfg.yabai.event.title_change; }
         { name = cfg.yabai.event.window_focus; }
+        { name = events.bluetooth_change; notificationCenterEvent = "com.apple.bluetooth.status"; }
       ];
       config.items = [
         {
@@ -132,6 +134,15 @@ in
           #   icon.padding_left=0 \
           #   icon.padding_right=2 \
           #   label.padding_right=16 \
+        }
+        {
+          name = "headphones";
+          position = "right";
+          subscribe = [ events.bluetooth_change ];
+          attrs = {
+            icon = "";
+            script = "${scripts}/airpods_battery.sh";
+          };
         }
       ];
     };
