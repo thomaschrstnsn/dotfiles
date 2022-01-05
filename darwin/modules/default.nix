@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ./fonts.nix
     ./osx.nix
     ./sketchybar.nix
     ./skhd.nix

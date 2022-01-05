@@ -42,8 +42,7 @@
             {
               nixpkgs.overlays = [
                 spacebar.overlay
-                (self: super: { sketchybar = pkgs.myPkgs.sketchybar; })
-              ];
+              ] ++ overlays;
             }
             ./darwin/modules/bootstrap.nix
             ./darwin/services

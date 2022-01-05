@@ -2,8 +2,10 @@
 
 {
   overlays = [
-    (final: prev: {
+    (super: self: {
       inherit myPkgs;
+      myNerdfonts = self.nerdfonts.override { fonts = [ "JetBrainsMono" "Meslo" ]; };
+      sketchybar = pkgs.myPkgs.sketchybar;
     })
   ];
 }
