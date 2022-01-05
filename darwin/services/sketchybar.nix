@@ -42,7 +42,7 @@ let
     in
     optionalString (attrs != "") (concatStringsSep " \\\n" (filter (s: s != "") [ header attrs ])) + "\n";
 
-  eventToSketchyBar = event: "${modify} --add event ${event}\n";
+  eventToSketchyBar = event: "${modify} --add event ${event.name} ${optionalString (event.notificationCenterEvent != null) event.notificationCenterEvent}\n";
 
   spaceToSketchyBar = space:
     let
@@ -121,7 +121,20 @@ in
     };
 
     services.sketchybar.config.events = mkOption {
-      type = listOf str;
+      type = listOf (submodule {
+        options = {
+          name = mkOption {
+            type = str;
+            description = "Name of event";
+          };
+          notificationCenterEvent = mkOption {
+            type = nullOr str;
+            default = null;
+            description = "NSDistributedNotificationCenter event to hook into";
+            example = "com.apple.bluetooth.state";
+          };
+        };
+      });
       default = [ ];
       description = "external events to be defined";
     };
@@ -163,9 +176,9 @@ in
               label.color = "FF00FF";
             };
             script = "myscript.sh";
-            subscribes = [ "title" "window_focus" ]
-              }
-              ]
+            subscribe = [ "title" "window_focus" ];
+          }
+        ]
       '';
       description = "items";
     };

@@ -69,7 +69,10 @@ in
             };
           })
           [ "1" "2" "3" "4" "5" "6" "7" "8" ];
-      config.events = [ cfg.yabai.event.title_change cfg.yabai.event.window_focus ];
+      config.events = [
+        { name = cfg.yabai.event.title_change; }
+        { name = cfg.yabai.event.window_focus; }
+      ];
       config.items = [
         {
           # from https://github.com/FelixKratz/SketchyBar/discussions/12#discussioncomment-1633997
