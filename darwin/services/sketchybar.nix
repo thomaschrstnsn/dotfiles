@@ -2,6 +2,8 @@
 
 with lib;
 
+# for debugging:
+# ./build-darwin.sh && less $(grep sketchybarrc result/user/Library/LaunchAgents/org.nixos.sketchybar.plist | sed 's/<string>//' | sed 's|</string>||' | awk '{print $1}')
 let
   cfg = config.services.sketchybar;
   tab = "    ";
