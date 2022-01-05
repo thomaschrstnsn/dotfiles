@@ -162,16 +162,24 @@ in
             };
         }
         {
-          name = "network";
+          name = "network_up";
           position = "right";
           attrs = {
+            "label.font" = small_label_font;
+            y_offset = 6;
+            width = 0;
             script = "${scripts}/window-indicator.sh";
           };
           subscribe = [ "space_change" ];
-          # --default \
-          #   icon.padding_left=0 \
-          #   icon.padding_right=2 \
-          #   label.padding_right=16 \
+        }
+        {
+          name = "network_down";
+          position = "right";
+          attrs =
+            {
+              "label.font" = small_label_font;
+              y_offset = -4;
+            };
         }
         {
           name = "headphones";
