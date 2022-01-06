@@ -83,7 +83,7 @@ in
             "hyper - c" = "Slack";
             "hyper - r" = "Rider";
             "hyper - v" = "VMWare Fusion";
-            "hyper - n" = "Obsidian";
+            "hyper - u" = "Obsidian";
             "hyper - g" = "Google Chrome";
           };
         };
