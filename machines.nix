@@ -88,7 +88,8 @@ in
             "hyper - h" = "Firefox";
           };
         };
-        spacebar.enable = true;
+        sketchybar.enable = true;
+        spacebar.enable = false;
         yabai.enable = true;
       };
 
