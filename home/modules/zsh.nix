@@ -47,14 +47,16 @@ in
       enableSyntaxHighlighting = true;
       initExtra = ''
         source ${pkgs.myPkgs.zsh-forgit}/share/zsh-forgit/forgit.plugin.zsh
+
+        # term title
+        export ZSH_THEME_TERM_TITLE_IDLE="%~"
+
+        # ZSH COMPLETION CASE (IN)SENSITIVE
+        zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
       '';
       initExtraBeforeCompInit = ''
         source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
         source ~/.p10k.zsh
-      '';
-      completionInit = ''
-        # ZSH COMPLETION CASE (IN)SENSITIVE
-        zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
       '';
       shellAliases = mkMerge [
         (mkIf true {
