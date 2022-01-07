@@ -45,6 +45,7 @@ in
         padding_right = 10;
         color = bar_color;
         topmost = "on";
+        display = "main";
       };
       config.default = {
         cache_scripts = "on";
