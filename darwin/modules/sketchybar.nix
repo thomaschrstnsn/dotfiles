@@ -4,6 +4,7 @@ with lib;
 
 let
   scripts = ./sketchybar;
+  skhd = ./skhd;
   cfg = config.tc.sketchybar;
   bar_color = "0xff2e3440";
   label_color = icon_color;
@@ -67,7 +68,7 @@ in
               associated_display = 1;
               associated_space = "${i}";
               icon = "${i}";
-              click_script = "yabai -m space --focus ${i}";
+              click_script = "${skhd}/focusFirstWindowInSpace.sh ${i}";
               script = "${scripts}/space.sh";
             };
           })
