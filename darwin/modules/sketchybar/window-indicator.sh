@@ -8,7 +8,28 @@ do
   then
     args+=(--set "space${index}" label=)
   else
-    args+=(--set "space${index}" label="°")
+    app=$(yabai -m query --windows --window "$window" | jq -r '.app')
+    case "$app" in
+        "Microsoft Edge")
+        label=""
+        ;;
+        "JetBrains Rider")
+        label=""
+        ;;
+        "Safari")
+        label=""
+        ;;
+        "iTerm2")
+        label=""
+        ;;
+        "Code")
+        label=""
+        ;;
+        *)
+        label="°"
+        ;;
+    esac
+    args+=(--set "space${index}" label="$label")
   fi
 done <<< "$(yabai -m query --spaces | jq -r '.[] | [.index, .windows[0]] | @sh')"
 

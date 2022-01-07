@@ -181,7 +181,7 @@ in
             width = 0;
             script = "${scripts}/window-indicator.sh";
           };
-          subscribe = [ "space_change" ];
+          subscribe = [ "window_focus" "title_change" "window" "front_app_switched" "space_change" ];
         }
         {
           name = "network_down";
