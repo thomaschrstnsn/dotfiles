@@ -9,9 +9,9 @@ let
   bar_color = "0xff2e3440";
   label_color = icon_color;
   icon_color = "0xbbd8dee9";
-  small_label_font = "MesloLGS Nerd Font:Regular:10.0";
-  icon_font = "MesloLGS Nerd Font:Regular:13.0";
-  heavy_font = "MesloLGS Nerd Font:Bold Italic:13.0";
+  small_label_font = "JetBrainsMono Nerd Font:Regular:11.0";
+  icon_font = "JetBrainsMono Nerd Font:Regular:18.0";
+  heavy_font = "JetBrainsMono Nerd Font:Bold Italic:18.0";
   icon_highlight_color = "0xffebcb8b";
   label_highlight_color = icon_highlight_color;
   label_font = icon_font;
@@ -40,7 +40,7 @@ in
       enable = true;
       package = pkgs.sketchybar;
       config.bar = {
-        height = 24;
+        height = 28;
         position = "bottom";
         padding_left = 10;
         padding_right = 10;
@@ -100,7 +100,7 @@ in
         {
           # from https://github.com/FelixKratz/SketchyBar/discussions/12#discussioncomment-1633997
           name = "window";
-          position = "left";
+          position = "center";
           attrs = {
             script = "${scripts}/window-title.sh";
           };
@@ -230,7 +230,7 @@ in
     '';
 
     services.yabai.config = {
-      external_bar = "main:0:26";
+      external_bar = "main:0:30";
     };
 
     system.defaults.NSGlobalDomain._HIHideMenuBar = true;

@@ -16,6 +16,12 @@ do
         "JetBrains Rider")
         label=""
         ;;
+        "Firefox")
+        label=""
+        ;;
+        "Slack")
+        label=""
+        ;;
         "Safari")
         label=""
         ;;
