@@ -26,6 +26,12 @@ in
     };
     yabai.event.title_change = mkOption { type = str; default = "title_change"; };
     yabai.event.window_focus = mkOption { type = str; default = "window_focus"; };
+    spaces = mkOption
+      {
+        description = "Number of spaces";
+        type = int;
+        default = 8;
+      };
   };
 
   config = mkIf (cfg.enable) {
@@ -61,18 +67,21 @@ in
       };
       config.spaces =
         map
-          (i: {
-            name = "space${i}";
-            position = "left";
-            attrs = {
-              associated_display = 1;
-              associated_space = "${i}";
-              icon = "${i}";
-              click_script = "${skhd}/focusFirstWindowInSpace.sh ${i}";
-              script = "${scripts}/space.sh";
-            };
-          })
-          [ "1" "2" "3" "4" "5" "6" "7" "8" ];
+          (i:
+            let space = toString i;
+            in
+            {
+              name = "space${space}";
+              position = "left";
+              attrs = {
+                associated_display = 1;
+                associated_space = "${space}";
+                icon = "${space}";
+                click_script = "${skhd}/focusFirstWindowInSpace.sh ${space}";
+                script = "${scripts}/space.sh";
+              };
+            })
+          (genList (i: i + 1) cfg.spaces);
       config.events = [
         { name = cfg.yabai.event.title_change; }
         { name = cfg.yabai.event.window_focus; }

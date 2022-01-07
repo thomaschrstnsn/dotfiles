@@ -88,8 +88,10 @@ in
             "hyper - h" = "Firefox";
           };
         };
-        sketchybar.enable = true;
-        spacebar.enable = false;
+        sketchybar = {
+          enable = true;
+          spaces = 10;
+        };
         yabai.enable = true;
       };
 
