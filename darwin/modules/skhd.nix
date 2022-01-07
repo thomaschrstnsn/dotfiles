@@ -31,7 +31,6 @@ in
   config = mkIf (cfg.enable) {
     environment.systemPackages = with pkgs; [
       jq
-      terminal-notifier
     ];
 
     services.skhd = {

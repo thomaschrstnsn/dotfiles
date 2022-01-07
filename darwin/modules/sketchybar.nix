@@ -76,9 +76,18 @@ in
       config.events = [
         { name = cfg.yabai.event.title_change; }
         { name = cfg.yabai.event.window_focus; }
+        { name = "yabai_layout"; }
         { name = events.bluetooth_change; notificationCenterEvent = "com.apple.bluetooth.status"; }
       ];
       config.items = [
+        {
+          name = "yabai_mode";
+          position = "left";
+          attrs = {
+            script = "${scripts}/yabai-mode.sh";
+          };
+          subscribe = [ "yabai_layout" "space_change" ];
+        }
         {
           # from https://github.com/FelixKratz/SketchyBar/discussions/12#discussioncomment-1633997
           name = "app_name";

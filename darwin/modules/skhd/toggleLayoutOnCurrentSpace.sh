@@ -7,9 +7,6 @@ CurrentType=$(yabai -m query --spaces --space "$CurrentlyFocusedSpace" | jq -r "
 
 case $CurrentType in
 'bsp')
-    NextType='float'
-    ;;
-'float')
     NextType='stack'
     ;;
 'stack')
@@ -18,4 +15,4 @@ case $CurrentType in
 esac
 
 yabai -m space "$CurrentlyFocusedSpace" --layout $NextType
-terminal-notifier -title yabai -message $NextType
+sketchybar -m --trigger yabai_layout
