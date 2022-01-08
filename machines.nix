@@ -34,7 +34,10 @@ in
             "hyper - r" = "Rider";
           };
         };
-        sketchybar.enable = true;
+        sketchybar = {
+          enable = true;
+          scale = "laptop";
+        };
         # spacebar.enable = true;
         yabai.enable = true;
       };
@@ -91,6 +94,7 @@ in
         sketchybar = {
           enable = true;
           spaces = 10;
+          scale = "desktop";
         };
         yabai.enable = true;
       };

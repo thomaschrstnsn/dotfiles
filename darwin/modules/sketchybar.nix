@@ -6,12 +6,26 @@ let
   scripts = ./sketchybar;
   skhd = ./skhd;
   cfg = config.tc.sketchybar;
+
+  dimensions = {
+    desktop = {
+      font.small = 11;
+      font.normal = 18;
+      bar.height = 28;
+    };
+    laptop = {
+      font.small = 10;
+      font.normal = 13;
+      bar.height = 24;
+    };
+  }.${cfg.scale};
+
   bar_color = "0xff2e3440";
   label_color = icon_color;
   icon_color = "0xbbd8dee9";
-  small_label_font = "JetBrainsMono Nerd Font:Regular:11.0";
-  icon_font = "JetBrainsMono Nerd Font:Regular:18.0";
-  heavy_font = "JetBrainsMono Nerd Font:Bold Italic:18.0";
+  small_label_font = "JetBrainsMono Nerd Font:Regular:${toString dimensions.font.small}";
+  icon_font = "JetBrainsMono Nerd Font:Regular:${toString dimensions.font.normal}";
+  heavy_font = "JetBrainsMono Nerd Font:Bold Italic:${toString dimensions.font.normal}";
   icon_highlight_color = "0xffebcb8b";
   label_highlight_color = icon_highlight_color;
   label_font = icon_font;
@@ -26,12 +40,14 @@ in
     };
     yabai.event.title_change = mkOption { type = str; default = "title_change"; };
     yabai.event.window_focus = mkOption { type = str; default = "window_focus"; };
-    spaces = mkOption
-      {
-        description = "Number of spaces";
-        type = int;
-        default = 8;
-      };
+    spaces = mkOption {
+      description = "Number of spaces";
+      type = int;
+      default = 8;
+    };
+    scale = mkOption {
+      type = enum [ "desktop" "laptop" ];
+    };
   };
 
   config = mkIf (cfg.enable) {
@@ -46,7 +62,7 @@ in
       enable = true;
       package = pkgs.sketchybar;
       config.bar = {
-        height = 28;
+        height = dimensions.bar.height;
         position = "bottom";
         padding_left = 10;
         padding_right = 10;
@@ -239,7 +255,7 @@ in
     '';
 
     services.yabai.config = {
-      external_bar = "main:0:30";
+      external_bar = "main:0:${toString (dimensions.bar.height + 2)}";
     };
 
     system.defaults.NSGlobalDomain._HIHideMenuBar = true;
