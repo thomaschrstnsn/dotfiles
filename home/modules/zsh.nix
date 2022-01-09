@@ -6,11 +6,8 @@ let
 in
 {
   options.tc.zsh = {
-    enable = mkOption {
-      description = "Enable zsh with settings";
-      type = types.bool;
-      default = true;
-    };
+    enable = mkEnableOption "zsh with settings";
+
     skhd = mkOption {
       description = "Enable reload skhd alias";
       type = types.bool;

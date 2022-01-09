@@ -2,22 +2,19 @@
 with lib;
 
 let cfg = config.tc.haskell.stack;
-in {
+in
+{
   options.tc.haskell.stack = {
-    enable = mkOption {
-      description = "Enable stack";
-      type = types.bool;
-      default = false;
-    };
+    enable = mkEnableOption "stack";
   };
 
   config = mkIf (cfg.enable) {
     home.packages = with pkgs; [
-        stack
+      stack
     ];
 
     programs.zsh.shellAliases = {
-        swt = "stack build --fast --file-watch --test";
+      swt = "stack build --fast --file-watch --test";
     };
 
     programs.zsh.oh-my-zsh.plugins = [ "stack" ];

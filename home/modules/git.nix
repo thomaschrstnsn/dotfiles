@@ -2,13 +2,10 @@
 with lib;
 
 let cfg = config.tc.git;
-in {
+in
+{
   options.tc.git = {
-    enable = mkOption {
-      description = "Enable git";
-      type = types.bool;
-      default = true;
-    };
+    enable = mkEnableOption "git";
 
     userName = mkOption {
       description = "Name for git";
@@ -25,7 +22,7 @@ in {
     githubs = mkOption {
       description = "Githubs to replace 'https:// to git@' with, so that you can git clone from the https url and still use ssh";
       type = types.listOf types.str;
-      default = ["github.com"];
+      default = [ "github.com" ];
     };
   };
 
@@ -53,14 +50,14 @@ in {
         push.default = "current";
         branch.autosetuprebase = "always";
         url = builtins.listToAttrs (
-          map 
-            (gh: { 
-              name = "git@" + gh + ":"; 
-              value = { insteadOf = "https://"+gh;};
-              }
+          map
+            (gh: {
+              name = "git@" + gh + ":";
+              value = { insteadOf = "https://" + gh; };
+            }
             )
             cfg.githubs
-          ); 
+        );
       };
 
       ignores = [ "*~" "*.swp" ".DS_Store" ];

@@ -2,13 +2,10 @@
 with lib;
 
 let cfg = config.tc.haskell.ihp;
-in {
+in
+{
   options.tc.haskell.ihp = {
-    enable = mkOption {
-      description = "Enable ihp";
-      type = types.bool;
-      default = false;
-    };
+    enable = mkEnableOption "ihp";
   };
 
   config = mkIf (cfg.enable) {

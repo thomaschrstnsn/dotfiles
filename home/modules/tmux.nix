@@ -1,15 +1,12 @@
 { pkgs, config, lib, ... }:
 with lib;
 
-let 
+let
   cfg = config.tc.tmux;
-in {
+in
+{
   options.tc.tmux = {
-    enable = mkOption {
-      description = "Enable tmux with zsh";
-      type = types.bool;
-      default = false;
-    };
+    enable = mkEnableOption "tmux";
   };
 
   config = mkIf (cfg.enable) {
@@ -20,7 +17,7 @@ in {
       sensibleOnTop = true;
       terminal = "screen-256color";
       extraConfig = ''
-      set -g mouse on
+        set -g mouse on
       '';
     };
 

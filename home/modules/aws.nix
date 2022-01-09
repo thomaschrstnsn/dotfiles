@@ -1,15 +1,12 @@
 { pkgs, config, lib, ... }:
 with lib;
 
-let 
+let
   cfg = config.tc.aws;
-in {
+in
+{
   options.tc.aws = {
-    enable = mkOption {
-      description = "Enable aws + terraform";
-      type = types.bool;
-      default = false;
-    };
+    enable = mkEnableOption "aws + terraform";
   };
 
   config = mkIf (cfg.enable) {
@@ -26,7 +23,7 @@ in {
     programs.zsh.oh-my-zsh.plugins = [ "terraform" "aws" ];
 
     programs.zsh.initExtra = ''
-        export PATH=~/bin:$PATH
-      '';
+      export PATH=~/bin:$PATH
+    '';
   };
 }

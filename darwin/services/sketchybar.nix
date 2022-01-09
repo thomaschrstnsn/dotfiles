@@ -81,11 +81,7 @@ let
 in
 {
   options = with types; {
-    services.sketchybar.enable = mkOption {
-      type = bool;
-      default = false;
-      description = "Whether to enable the sketchybar";
-    };
+    services.sketchybar.enable = mkEnableOption "sketchybar";
 
     services.sketchybar.package = mkOption {
       type = path;

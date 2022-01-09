@@ -16,11 +16,7 @@ let
 in
 {
   options.tc.dotnet = {
-    enable = mkOption {
-      description = "Enable dotnet core dev env";
-      type = types.bool;
-      default = false;
-    };
+    enable = mkEnableOption "dotnet core dev env";
 
     sdks = mkOption {
       description = "Which dotnet sdks to install";

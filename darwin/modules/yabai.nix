@@ -16,11 +16,7 @@ let
 in
 {
   options.tc.yabai = with types; {
-    enable = mkOption {
-      description = "Enable yabai window manager";
-      type = bool;
-      default = false;
-    };
+    enable = mkEnableOption "yabai window manager";
   };
 
   config = mkIf (cfg.enable) {

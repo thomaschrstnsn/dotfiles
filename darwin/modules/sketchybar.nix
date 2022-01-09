@@ -33,11 +33,7 @@ let
 in
 {
   options.tc.sketchybar = with types; {
-    enable = mkOption {
-      description = "Enable sketchybar";
-      type = bool;
-      default = false;
-    };
+    enable = mkEnableOption "sketchybar";
     yabai.event.title_change = mkOption { type = str; default = "title_change"; };
     yabai.event.window_focus = mkOption { type = str; default = "window_focus"; };
     spaces = mkOption {
