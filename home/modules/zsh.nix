@@ -22,6 +22,7 @@ in
 
   config = mkIf (cfg.enable) {
     home.packages = with pkgs; [
+      fd
       tree
       wget
       zsh-powerlevel10k
@@ -34,7 +35,14 @@ in
     };
 
     programs.bat.enable = true;
-    programs.fzf.enable = true;
+
+    programs.fzf = {
+      enable = true;
+      fileWidgetCommand = "fd -type f --type d --type s";
+      defaultCommand = "fd --type f";
+      changeDirWidgetCommand = "fd --type d";
+    };
+
     programs.htop.enable = true;
     programs.home-manager.enable = true;
 
