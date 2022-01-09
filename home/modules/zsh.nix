@@ -34,7 +34,10 @@ in
       enableAliases = true;
     };
 
-    programs.bat.enable = true;
+    programs.bat = {
+      enable = true;
+      config.theme = "Visual Studio Dark+";
+    };
 
     programs.fzf = {
       enable = true;
