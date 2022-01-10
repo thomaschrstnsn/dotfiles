@@ -41,7 +41,7 @@ in
 
     programs.fzf = {
       enable = true;
-      fileWidgetCommand = "fd -type f --type d --type s";
+      fileWidgetCommand = "fd --type f --type d --type symlink";
       defaultCommand = "fd --type f";
       changeDirWidgetCommand = "fd --type d";
     };
