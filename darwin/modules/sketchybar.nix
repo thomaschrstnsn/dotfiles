@@ -10,8 +10,8 @@ let
   dimensions = {
     desktop = {
       font.small = 11;
-      font.normal = 18;
-      bar.height = 28;
+      font.normal = 15;
+      bar.height = 26;
     };
     laptop = {
       font.small = 10;
