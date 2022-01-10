@@ -71,6 +71,7 @@ in
           enable = true;
           skhd = true;
         };
+        direnv.enable = true;
         nodejs = {
           enable = true;
           pkg = pkgs: pkgs.nodejs-12_x;

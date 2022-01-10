@@ -7,12 +7,13 @@ in
 {
   imports = [
     ./aws.nix
+    ./direnv.nix
     ./dotnet.nix
     ./git.nix
     ./nodejs.nix
     ./tmux.nix
     ./zsh.nix
-    
+
     ./haskell
   ];
 
