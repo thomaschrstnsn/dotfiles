@@ -31,6 +31,9 @@ do
         "Code")
         label=""
         ;;
+        "Google Chrome")
+        label=""
+        ;;
         *)
         label="°"
         ;;
