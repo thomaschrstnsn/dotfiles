@@ -54,7 +54,7 @@ in
           hyper - e : yabai -m space --toggle mission-control
 
           hyper - 1 : ${scripts}/focusFirstWindowInSpace.sh 1
-          hyper - 2 : /${scripts}/focusFirstWindowInSpace.sh 2
+          hyper - 2 : ${scripts}/focusFirstWindowInSpace.sh 2
           hyper - 3 : ${scripts}/focusFirstWindowInSpace.sh 3
           hyper - 4 : ${scripts}/focusFirstWindowInSpace.sh 4
           hyper - 5 : ${scripts}/focusFirstWindowInSpace.sh 5
