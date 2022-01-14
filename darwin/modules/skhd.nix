@@ -8,11 +8,7 @@ let
 in
 {
   options.tc.skhd = {
-    enable = mkOption {
-      description = "Enable simple hotkey deamon";
-      type = types.bool;
-      default = false;
-    };
+    enable = mkEnableOption "simple hotkey deamon";
     browser = mkOption {
       description = "Which app to use as browser shortcut";
       type = types.str;
@@ -32,6 +28,11 @@ in
     environment.systemPackages = with pkgs; [
       jq
     ];
+
+    # launchd.user.agents.skhd.serviceConfig = {
+    #   StandardErrorPath = "/tmp/skhd.log";
+    #   StandardOutPath = "/tmp/skhd.log";
+    # };
 
     services.skhd = {
       enable = true;
