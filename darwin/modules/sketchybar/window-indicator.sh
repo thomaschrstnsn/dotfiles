@@ -14,7 +14,7 @@ do
         label=""
         ;;
         "JetBrains Rider")
-        label=""
+        label="C#"
         ;;
         "Firefox")
         label=""
