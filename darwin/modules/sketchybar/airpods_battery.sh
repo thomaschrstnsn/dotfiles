@@ -22,9 +22,13 @@ else
   fi
 
   if [ $CASE -eq 0 ]; then
-    CASE="-"
+    CASE=" "
+  else
+    CASE=" [$CASE] "
   fi
+
+  LABEL="$LEFT$CASE$RIGHT"
   
-  sketchybar -m --set $NAME label="$LEFT $CASE $RIGHT"
-  echo "$LEFT $CASE $RIGHT"
+  sketchybar -m --set "$NAME" label="$LABEL"
+  echo "$LABEL"
 fi
