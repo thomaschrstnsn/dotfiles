@@ -4,6 +4,7 @@ with lib;
 let
   cfg = config.tc.skhd;
   mkAppShortcut = (shortcut: app: "${shortcut} : open -a \"${app}\"");
+  mkShortcut = (shortcut: cmd: "${shortcut} : ${cmd}");
   scripts = ./skhd;
 in
 {
@@ -20,6 +21,14 @@ in
       default = { };
       example = {
         "hyper - z" = "zoom.us";
+      };
+    };
+    extraShortcuts = mkOption {
+      description = "Extra shortcuts";
+      type = types.attrsOf types.str;
+      default = { };
+      example = {
+        "ctrl - space" = "open-iterm.sh launcher";
       };
     };
   };
@@ -86,6 +95,8 @@ in
           hyper - t : open -a "iTerm"
           hyper - x : open -a "Visual Studio Code"
         ''
+        + concatStringsSep "\n" (attrValues (mapAttrs mkShortcut cfg.extraShortcuts))
+        + "\n"
         + concatStringsSep "\n" (attrValues (mapAttrs mkAppShortcut cfg.extraAppShortcuts))
       ;
     };
