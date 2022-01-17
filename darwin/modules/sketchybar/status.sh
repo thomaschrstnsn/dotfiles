@@ -23,6 +23,16 @@ get_wifi() {
   local wifi test
   wifi=$(networksetup -getairportnetwork en0)
   read -r _ _ test WIFI_LABEL <<< "$wifi"
+
+  case "$WIFI_LABEL" in
+    "Kroghsvej 22")
+    WIFI_LABEL=""
+    ;;
+    *)
+    WIFI_LABEL="$WIFI_LABEL"
+    ;;
+  esac
+
   if [ "$test" = "Network:" ]
   then
       WIFI_ICON=""
