@@ -71,6 +71,7 @@ in
           enable = true;
           skhd = true;
         };
+        smd_launcher.enable = true;
         direnv.enable = true;
         nodejs = {
           enable = true;
@@ -90,6 +91,9 @@ in
             "hyper - u" = "Obsidian";
             "hyper - g" = "Google Chrome";
             "hyper - h" = "Firefox";
+          };
+          extraShortcuts = {
+            "hyper - 0" = "/Users/thomas.christensen@schibsted.com/bin/open-iterm.sh launcher";
           };
         };
         sketchybar = {

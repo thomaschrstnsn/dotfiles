@@ -11,6 +11,7 @@ in
     ./dotnet.nix
     ./git.nix
     ./nodejs.nix
+    ./smd_launcher.nix
     ./tmux.nix
     ./zsh.nix
 
