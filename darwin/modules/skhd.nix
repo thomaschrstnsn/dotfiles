@@ -36,12 +36,13 @@ in
   config = mkIf (cfg.enable) {
     environment.systemPackages = with pkgs; [
       jq
+      skhd
     ];
 
-    # launchd.user.agents.skhd.serviceConfig = {
-    #   StandardErrorPath = "/tmp/skhd.log";
-    #   StandardOutPath = "/tmp/skhd.log";
-    # };
+    launchd.user.agents.skhd.serviceConfig = {
+      StandardErrorPath = "/tmp/skhd.log";
+      StandardOutPath = "/tmp/skhd.log";
+    };
 
     services.skhd = {
       enable = true;
@@ -94,6 +95,15 @@ in
           hyper - b : open -a "${cfg.browser}"
           hyper - t : open -a "iTerm"
           hyper - x : open -a "Visual Studio Code"
+
+          # modal fun
+          :: default : sketchybar -m --set window label.highlight=off
+          :: special : sketchybar -m --set window label.highlight=on
+          hyper - 9 ; special
+          special < hyper - 9 ; default
+          special < escape ; default
+
+          special < r : skhd -k "escape" ; open -a "Microsoft Remote Desktop"
         ''
         + concatStringsSep "\n" (attrValues (mapAttrs mkShortcut cfg.extraShortcuts))
         + "\n"
