@@ -13,6 +13,7 @@ in
       if (stdenv.hostPlatform.system == "x86_64-darwin")
       then callPackage ./sketchybar/sketchy-bin.nix { }
       else callPackage ./sketchybar { };
+    yabai = callPackage ./yabai { };
     dotnet.sdk_2_2 = buildNetCoreSdk {
       version = "2.2.207";
       sha512 = {
