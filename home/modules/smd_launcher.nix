@@ -15,15 +15,13 @@ in
       settings = {
         window = {
           dimensions = {
-            lines = 25;
-            columns = 80;
+            columns = 110;
+            lines = 30;
           };
-          font.size = 13;
           decorations = "none";
           title = "launcher";
         };
-        shell.program = "htop";
-        # working_directory = "~/bin";
+        font.size = 17;
       };
     };
   };

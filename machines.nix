@@ -96,7 +96,7 @@ in
             "hyper - h" = "Firefox";
           };
           extraShortcuts = {
-            "hyper - 0" = "/Users/thomas.christensen@schibsted.com/bin/open-iterm.sh launcher";
+            "hyper - 0" = "alacritty --working-directory ~/bin -e ~/bin/smd"; # smd-launcher
           };
         };
         sketchybar = {
