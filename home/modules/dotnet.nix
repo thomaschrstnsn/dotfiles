@@ -52,6 +52,13 @@ in
 
     programs.zsh.initExtra = ''
       export PATH=$PATH:~/.dotnet/tools
+
+      _fzf_complete_rider() {
+        _fzf_complete --multi --reverse -- "$@" < <(
+          fd --type f --glob '*.{sln,??proj}'
+        )
+      }
+
     '';
   };
 }
