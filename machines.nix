@@ -21,6 +21,7 @@ in
         git.enable = true;
         haskell.stack.enable = true;
         haskell.ihp.enable = true;
+        smd_launcher.enable = true;
         zsh = {
           enable = true;
           skhd = true;
@@ -33,12 +34,14 @@ in
           extraAppShortcuts = {
             "hyper - r" = "Rider";
           };
+          extraShortcuts = {
+            "hyper - 0" = "alacritty";
+          };
         };
         sketchybar = {
           enable = true;
           scale = "laptop";
         };
-        # spacebar.enable = true;
         yabai.enable = true;
       };
 

@@ -10,6 +10,21 @@ in
   };
 
   config = mkIf (cfg.enable) {
-    home.file."bin/open-iterm.sh".source = ./smd_launcher/open-iterm.sh;
+    programs.alacritty = {
+      enable = true;
+      settings = {
+        window = {
+          dimensions = {
+            lines = 25;
+            columns = 80;
+          };
+          font.size = 13;
+          decorations = "none";
+          title = "launcher";
+        };
+        shell.program = "htop";
+        # working_directory = "~/bin";
+      };
+    };
   };
 }
