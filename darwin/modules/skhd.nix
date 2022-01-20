@@ -5,19 +5,35 @@ let
   cfg = config.tc.skhd;
   mkAppShortcut = (shortcut: app: "${shortcut} : open -a \"${app}\"");
   mkShortcut = (shortcut: cmd: "${shortcut} : ${cmd}");
+
+  mkPrefixAppShortcut = (shortcut: app: "prefix < ${shortcut} : skhd -k escape ; open -a \"${app}\"");
+  toPrefixConfig = config:
+    if (config.leadingShortcut != null && config.appShortcuts != { })
+    then
+      concatStringsSep "\n"
+        ([
+          "# modal fun"
+          (":: default" + (optionalString (config.commands.off != null) " : ${config.commands.off}"))
+          (":: prefix " + (optionalString (config.commands.on != null) " : ${config.commands.on}"))
+          "${config.leadingShortcut} ; prefix"
+          "prefix < ${config.leadingShortcut} ; default"
+          "prefix < escape ; default"
+        ] ++ (attrValues (mapAttrs mkPrefixAppShortcut config.appShortcuts)))
+    else "";
+
   scripts = ./skhd;
 in
 {
-  options.tc.skhd = {
+  options.tc.skhd = with types; {
     enable = mkEnableOption "simple hotkey deamon";
     browser = mkOption {
       description = "Which app to use as browser shortcut";
-      type = types.str;
+      type = str;
       default = "Safari";
     };
     extraAppShortcuts = mkOption {
       description = "Extra shortcuts to open apps";
-      type = types.attrsOf types.str;
+      type = attrsOf str;
       default = { };
       example = {
         "hyper - z" = "zoom.us";
@@ -25,11 +41,35 @@ in
     };
     extraShortcuts = mkOption {
       description = "Extra shortcuts";
-      type = types.attrsOf types.str;
+      type = attrsOf str;
       default = { };
       example = {
         "ctrl - space" = "open-iterm.sh launcher";
       };
+    };
+    prefixShortcuts.leadingShortcut = mkOption {
+      description = "prefix shortcuts' leading key";
+      type = nullOr str;
+      default = null;
+      example = "hyper - 9";
+    };
+    prefixShortcuts.appShortcuts = mkOption {
+      description = "shortcuts after prefix leading combination";
+      type = attrsOf str;
+      default = { };
+      example = {
+        d = "Microsoft Remote Desktop";
+      };
+    };
+    prefixShortcuts.commands.on = mkOption {
+      description = "command to signal prefix mode enabled";
+      type = nullOr str;
+      default = "sketchybar -m --set window label.highlight=on";
+    };
+    prefixShortcuts.commands.off = mkOption {
+      description = "command to signal prefix mode disabled";
+      type = nullOr str;
+      default = "sketchybar -m --set window label.highlight=off";
     };
   };
 
@@ -95,20 +135,12 @@ in
           hyper - b : open -a "${cfg.browser}"
           hyper - t : open -a "iTerm"
           hyper - x : open -a "Visual Studio Code"
-
-          # modal fun
-          :: default : sketchybar -m --set window label.highlight=off
-          :: special : sketchybar -m --set window label.highlight=on
-          hyper - 9 ; special
-          special < hyper - 9 ; default
-          special < escape ; default
-
-          special < r : skhd -k "escape" ; open -a "Microsoft Remote Desktop"
-          special < d : skhd -k "escape" ; open -a "Azure Data Studio"
         ''
         + concatStringsSep "\n" (attrValues (mapAttrs mkShortcut cfg.extraShortcuts))
         + "\n"
         + concatStringsSep "\n" (attrValues (mapAttrs mkAppShortcut cfg.extraAppShortcuts))
+        + "\n"
+        + toPrefixConfig cfg.prefixShortcuts
       ;
     };
   };

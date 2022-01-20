@@ -37,6 +37,12 @@ in
           extraShortcuts = {
             "hyper - 0" = "alacritty";
           };
+          prefixShortcuts = {
+            leadingShortcut = "hyper - 9";
+            appShortcuts = {
+              c = "Calendar";
+            };
+          };
         };
         sketchybar = {
           enable = true;
@@ -97,6 +103,13 @@ in
           };
           extraShortcuts = {
             "hyper - 0" = "alacritty --working-directory ~/bin -e ~/bin/smd"; # smd-launcher
+          };
+          prefixShortcuts = {
+            leadingShortcut = "hyper - 9";
+            appShortcuts = {
+              r = "Microsoft Remote Desktop";
+              d = "Azure Data Studio";
+            };
           };
         };
         sketchybar = {
