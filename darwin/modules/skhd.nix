@@ -104,6 +104,7 @@ in
           special < escape ; default
 
           special < r : skhd -k "escape" ; open -a "Microsoft Remote Desktop"
+          special < d : skhd -k "escape" ; open -a "Azure Data Studio"
         ''
         + concatStringsSep "\n" (attrValues (mapAttrs mkShortcut cfg.extraShortcuts))
         + "\n"
