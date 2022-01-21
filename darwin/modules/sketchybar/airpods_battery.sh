@@ -1,4 +1,4 @@
-DEVICES="$(system_profiler SPBluetoothDataType -json -detailLevel basic 2>/dev/null | jq '.SPBluetoothDataType' | jq '.[0]' | jq '.device_title' | jq -r '.[] | keys[] as $k | "\($k) \(.[$k] | .device_isconnected) \(.[$k] | .device_minorClassOfDevice_string)"' | grep 'attrib_Yes' | grep 'AirPods Pro')"
+DEVICES="$(system_profiler SPBluetoothDataType -json -detailLevel basic 2>/dev/null | jq '.SPBluetoothDataType' | jq '.[0]' | jq '.devices_list' | jq -r '.[] | keys[] as $k | "\($k) \(.[$k] | .device_connected) \(.[$k] | .device_minorClassOfDevice_string)"' | grep 'Yes' | grep 'AirPods')"
 
 if [ "$DEVICES" = "" ]; then
   sketchybar -m --set $NAME drawing=off
@@ -30,5 +30,4 @@ else
   LABEL="$LEFT$CASE$RIGHT"
   
   sketchybar -m --set "$NAME" label="$LABEL"
-  echo "$LABEL"
 fi
