@@ -1,17 +1,13 @@
-DEVICES="$(system_profiler SPBluetoothDataType -json -detailLevel basic 2>/dev/null | jq '.SPBluetoothDataType' | jq '.[0]' | jq '.devices_list' | jq -r '.[] | keys[] as $k | "\($k) \(.[$k] | .device_connected) \(.[$k] | .device_minorClassOfDevice_string)"' | grep 'Yes' | grep 'AirPods')"
+DEVICE_ADDRESS="AC:1D:06:0B:7A:6B"
 
-if [ "$DEVICES" = "" ]; then
-  sketchybar -m --set $NAME drawing=off
-else
-  sketchybar -m --set $NAME drawing=on
-  # Left
-  LEFT="$(defaults read /Library/Preferences/com.apple.Bluetooth | grep BatteryPercentLeft | tr -d \; | awk '{print $3}')"
+DEVICE=$(system_profiler SPBluetoothDataType -json -detailLevel basic 2>/dev/null | jq '.SPBluetoothDataType' | jq '.[0]' | jq '.devices_list' | jq -r ".[] | select(.[] .device_address==\"$DEVICE_ADDRESS\") | .[]")
 
-  # Right
-  RIGHT="$(defaults read /Library/Preferences/com.apple.Bluetooth | grep BatteryPercentRight | tr -d \; | awk '{print $3}')"
+CONNECTED="$(echo "$DEVICE" | jq -r '.device_connected=="Yes"')"
 
-  # Case
-  CASE="$(defaults read /Library/Preferences/com.apple.Bluetooth | grep BatteryPercentCase | tr -d \; | awk '{print $3}')"
+if [ "$CONNECTED" = "true" ]; then
+  LEFT=$( echo "$DEVICE" | jq -r '.device_batteryLevelLeft'  | sed 's/[^0-9]//g')
+  RIGHT=$(echo "$DEVICE" | jq -r '.device_batteryLevelRight' | sed 's/[^0-9]//g')
+  CASE=$( echo "$DEVICE" | jq -r '.device_batteryLevelCase'  | sed 's/[^0-9]//g')
 
   if [ $LEFT = 0 ]; then
     LEFT="-"
@@ -21,13 +17,16 @@ else
     RIGHT="-"
   fi
 
-  if [ $CASE -eq 0 ]; then
+  if [ $CASE = 0 ]; then
     CASE=" "
   else
     CASE=" [$CASE] "
   fi
 
   LABEL="$LEFT$CASE$RIGHT"
-  
+
+  sketchybar -m --set "$NAME" drawing=on
   sketchybar -m --set "$NAME" label="$LABEL"
+else
+  sketchybar -m --set "$NAME" drawing=off
 fi
