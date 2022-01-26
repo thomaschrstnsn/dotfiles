@@ -1,3 +1,7 @@
+if [ "$SENDER" == "mouse.exited" ]; then
+  sketchybar -m --set "$NAME" popup.drawing=off
+fi
+
 DEVICE_ADDRESS="AC:1D:06:0B:7A:6B"
 
 DEVICE=$(system_profiler SPBluetoothDataType -json -detailLevel basic 2>/dev/null | jq '.SPBluetoothDataType' | jq '.[0]' | jq '.devices_list' | jq -r ".[] | select(.[] .device_address==\"$DEVICE_ADDRESS\") | .[]")
@@ -9,24 +13,23 @@ if [ "$CONNECTED" = "true" ]; then
   RIGHT=$(echo "$DEVICE" | jq -r '.device_batteryLevelRight' | sed 's/[^0-9]//g')
   CASE=$( echo "$DEVICE" | jq -r '.device_batteryLevelCase'  | sed 's/[^0-9]//g')
 
-  if [ $LEFT = 0 ]; then
-    LEFT="-"
-  fi
-
-  if [ $RIGHT = 0 ]; then
-    RIGHT="-"
-  fi
-
-  if [ $CASE = 0 ]; then
-    CASE=" "
+  WARNING_LEVEL=25
+  if [ $LEFT -le $WARNING_LEVEL ] || [ $RIGHT -le $WARNING_LEVEL ] || [ $CASE -le $WARNING_LEVEL ]; then
+    sketchybar -m --set "$NAME" icon.highlight=on
   else
-    CASE=" [$CASE] "
+    sketchybar -m --set "$NAME" icon.highlight=off
   fi
 
-  LABEL="$LEFT$CASE$RIGHT"
+  sketchybar -m --set "$NAME".left  label="$LEFT"%
+  sketchybar -m --set "$NAME".right label="$RIGHT"%
+  sketchybar -m --set "$NAME".case  label="$CASE"%
 
   sketchybar -m --set "$NAME" drawing=on
-  sketchybar -m --set "$NAME" label="$LABEL"
+  if [ "$SENDER" == "mouse.entered" ]; then
+    sketchybar -m --set "$NAME" popup.drawing=on
+  fi
+
 else
   sketchybar -m --set "$NAME" drawing=off
+  sketchybar -m --set "$NAME" popup.drawing=off
 fi

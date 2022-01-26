@@ -53,7 +53,14 @@ let
 
   itemToSketchyBar = item:
     let
-      header = "${modify} --add item ${item.name} ${item.position}";
+      mkPosition = position:
+        if (builtins.typeOf position == "string") # string = enum?
+        then "${position}"
+        else
+          if (builtins.typeOf position == "set")
+          then "popup.${position.popup}"
+          else abort "position: '${builtins.typeOf position}' not a str or a popup (should not be possible)";
+      header = "${modify} --add item ${item.name} ${mkPosition item.position}";
       script = optionalString (item.script != null) (''${tab}--set ${item.name} script="${item.script}'');
       subscribe = optionalString (item.subscribe != [ ]) (''${tab}--subscribe ${item.name} ${concatStringsSep " " item.subscribe}'');
       attrs = attrsToSetSketchyBar item.name item.attrs;
@@ -143,7 +150,18 @@ in
             description = "Name of item";
           };
           position = mkOption {
-            type = enum [ "left" "center" "right" ];
+            type = oneOf [
+              (enum [ "left" "center" "right" ])
+              (submodule {
+                options = {
+                  type = enum [ "popup" ];
+                  popup = mkOption {
+                    type = str;
+                    description = "which item to be a popup on";
+                  };
+                };
+              })
+            ];
           };
           attrs = mkOption {
             type = attrs;

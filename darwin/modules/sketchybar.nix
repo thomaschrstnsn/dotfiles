@@ -28,6 +28,7 @@ let
   heavy_font = "JetBrainsMono Nerd Font:Bold Italic:${toString dimensions.font.normal}";
   icon_highlight_color = "0xffebcb8b";
   label_highlight_color = icon_highlight_color;
+  warning_highlight_color = "0xfff55f42";
   label_font = icon_font;
   events.bluetooth_change = "bluetooth_change";
 in
@@ -142,6 +143,8 @@ in
           attrs = {
             update_freq = 60;
             script = "${scripts}/battery.sh";
+            "icon.highlight_color" = warning_highlight_color;
+            "label.highlight_color" = warning_highlight_color;
           };
         }
         {
@@ -216,25 +219,39 @@ in
         {
           name = "headphones";
           position = "right";
-          subscribe = [ events.bluetooth_change ];
+          subscribe = [ events.bluetooth_change "mouse.entered" "mouse.exited" ];
           attrs = {
             icon = "";
             script = "${scripts}/airpods_battery.sh";
+            "icon.highlight_color" = warning_highlight_color;
+          };
+        }
+        {
+          name = "headphones.left";
+          position = { popup = "headphones"; };
+          attrs = {
+            icon = "L";
+          };
+        }
+        {
+          name = "headphones.case";
+          position = { popup = "headphones"; };
+          attrs = {
+            icon = "C";
+          };
+        }
+        {
+          name = "headphones.right";
+          position = { popup = "headphones"; };
+          attrs = {
+            icon = "R";
           };
         }
       ];
     };
 
     services.sketchybar.extraConfig = ''
-      #!/bin/bash
-
       # from https://github.com/FelixKratz/SketchyBar/discussions/12#discussioncomment-1633997
-
-      # sketchybar -m \
-      #     --add bracket app_window \
-      #         app_name window \
-      #     --set app_window \
-      #         background.drawing=off
 
       sketchybar -m --update
 
