@@ -1,5 +1,5 @@
-if [ "$SENDER" == "mouse.exited" ]; then
-  sketchybar -m --set "$NAME" popup.drawing=off
+if [ "$SENDER" == "mouse.clicked" ]; then
+  sketchybar -m --set "$NAME" popup.drawing=toggle
 fi
 
 DEVICE_ADDRESS="AC:1D:06:0B:7A:6B"
@@ -25,10 +25,6 @@ if [ "$CONNECTED" = "true" ]; then
   sketchybar -m --set "$NAME".case  label="$CASE"%
 
   sketchybar -m --set "$NAME" drawing=on
-  if [ "$SENDER" == "mouse.entered" ]; then
-    sketchybar -m --set "$NAME" popup.drawing=on
-  fi
-
 else
   sketchybar -m --set "$NAME" drawing=off
   sketchybar -m --set "$NAME" popup.drawing=off

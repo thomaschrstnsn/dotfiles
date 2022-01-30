@@ -219,7 +219,7 @@ in
         {
           name = "headphones";
           position = "right";
-          subscribe = [ events.bluetooth_change "mouse.entered" "mouse.exited" ];
+          subscribe = [ events.bluetooth_change "mouse.clicked" ];
           attrs = {
             icon = "";
             script = "${scripts}/airpods_battery.sh";
