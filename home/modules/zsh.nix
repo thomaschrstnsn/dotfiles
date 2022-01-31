@@ -79,6 +79,7 @@ in
 
       sessionVariables = {
         EDITOR = cfg.editor;
+        MANPAGER = "sh -c 'col -bx | bat -l man -p'"; # batman
       };
 
       oh-my-zsh = {
