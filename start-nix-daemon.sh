@@ -1,4 +1,4 @@
-#! /bin/bash
+#! /usr/bin/env bash
 
 daemon=$(pgrep nix-daemon)
 

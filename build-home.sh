@@ -1,4 +1,4 @@
-#! /bin/bash
+#! /usr/bin/env bash
 set -e
 
 DEFAULT_CONFIGURATION="$(hostname -s).$(echo "${USER}" | sed s/\\./_/g)" # replace . -> _
