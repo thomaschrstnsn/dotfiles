@@ -1,6 +1,6 @@
 #!/bin/bash
 
-yabai_mode=$(yabai -m query --spaces --display | jq -r 'map(select(."focused" == 1))[-1].type')
+yabai_mode=$(yabai -m query --spaces --display | jq -r 'map(select(."has-focus" == true))[-1].type')
 
 case "$yabai_mode" in
     bsp)
