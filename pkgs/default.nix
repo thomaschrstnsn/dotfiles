@@ -9,11 +9,12 @@ in
 {
   myPkgs = {
     zsh-forgit = callPackage ./zsh-forgit { inherit forgit-git; };
+
     sketchybar =
       if (stdenv.hostPlatform.system == "x86_64-darwin")
       then callPackage ./sketchybar/sketchy-bin.nix { }
       else callPackage ./sketchybar { };
-    yabai = callPackage ./yabai { };
+
     dotnet.sdk_2_2 = buildNetCoreSdk {
       version = "2.2.207";
       sha512 = {
@@ -22,6 +23,7 @@ in
         x86_64-darwin = "2pafmx09mjri25v4xidnhhnbygy1r9bw8sj0z5mp2blw2nc5q9ddqzp8k51sjscwv3mxzhy3vqsc8wj44swdj6a1brsh25sa4w6h3fn";
       };
     };
+
     dotnet.sdk_6_0 = buildNetCoreSdk {
       version = "6.0.101";
       sha512 = {
