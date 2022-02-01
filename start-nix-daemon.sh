@@ -1,5 +1,7 @@
 #! /usr/bin/env bash
 
+# TODO: clue: https://github.com/LnL7/nix-darwin/blob/master/modules/services/nix-daemon.nix#L23-L33
+
 daemon=$(pgrep nix-daemon)
 
 if [[ $daemon ]];
