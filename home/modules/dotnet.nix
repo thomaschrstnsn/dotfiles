@@ -48,6 +48,7 @@ in
 
     programs.zsh.shellAliases = {
       rider = "open -a Rider";
+      r = "rider $(fd --type f --glob '*.{sln,??proj}' | fzf)";
     };
 
     programs.zsh.initExtra = ''
