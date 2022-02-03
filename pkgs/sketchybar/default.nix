@@ -5,6 +5,7 @@ let
     "aarch64-darwin" = "arm";
     "x86_64-darwin" = "x86";
   }.${stdenv.hostPlatform.system};
+
 in
 
 stdenv.mkDerivation rec {
@@ -25,7 +26,7 @@ stdenv.mkDerivation rec {
   ];
 
   buildPhase = ''
-    make ${target}
+    PATH=/usr/bin:/bin /usr/bin/make ${target}
   '';
 
   installPhase = ''

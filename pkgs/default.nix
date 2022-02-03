@@ -10,10 +10,7 @@ in
   myPkgs = {
     zsh-forgit = callPackage ./zsh-forgit { inherit forgit-git; };
 
-    sketchybar =
-      if (stdenv.hostPlatform.system == "x86_64-darwin")
-      then callPackage ./sketchybar/sketchy-bin.nix { }
-      else callPackage ./sketchybar { };
+    sketchybar = callPackage ./sketchybar { };
 
     dotnet.sdk_2_2 = buildNetCoreSdk {
       version = "2.2.207";
