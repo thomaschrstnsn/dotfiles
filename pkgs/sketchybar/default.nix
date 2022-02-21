@@ -1,11 +1,15 @@
 { pkgs, lib, stdenv, fetchFromGitHub }:
 
+# https://github.com/NixOS/nixpkgs/blob/2bee70d513298c4a439680df3792594c0b0baa63/pkgs/os-specific/darwin/sketchybar/default.nix
+# in master, perhaps soon in nixpkgs-unstable
+# 2.4.3 not starting on aarch64
+
 let
+  inherit (stdenv.hostPlatform) system;
   target = {
     "aarch64-darwin" = "arm";
     "x86_64-darwin" = "x86";
-  }.${stdenv.hostPlatform.system};
-
+  }.${system} or (throw "Unsupported system: ${system}");
 in
 
 stdenv.mkDerivation rec {
@@ -25,9 +29,13 @@ stdenv.mkDerivation rec {
     SkyLight
   ];
 
-  buildPhase = ''
-    PATH=/usr/bin:/bin /usr/bin/make ${target}
+  postPatch = ''
+    sed -i -e '/^#include <malloc\/_malloc.h>/d' src/*.[ch] src/*/*.[ch]
   '';
+
+  makeFlags = [
+    target
+  ];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -35,9 +43,10 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "A custom macOS statusbar with shell plugin, interaction and graph support";
-    inherit (src.meta) homepage;
+    description = "A highly customizable macOS status bar replacement";
+    homepage = "https://github.com/FelixKratz/SketchyBar";
     platforms = platforms.darwin;
+    maintainers = [ maintainers.azuwis ];
     license = licenses.gpl3;
   };
 }
