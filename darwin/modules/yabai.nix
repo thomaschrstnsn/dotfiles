@@ -20,6 +20,12 @@ in
   };
 
   config = mkIf (cfg.enable) {
+
+    # launchd.user.agents.yabai.serviceConfig = {
+    #   StandardErrorPath = "/tmp/yabai.log";
+    #   StandardOutPath = "/tmp/yabai.log";
+    # };
+
     services.yabai = {
       enable = true;
       package = pkgs.yabai;
@@ -58,7 +64,6 @@ in
 
       extraConfig = ''
         yabai -m rule --add app='System Preferences' manage=off
-        yabai -m rule --add app='Finder' manage=off
         yabai -m rule --add title='Preferences$' manage=off
         yabai -m rule --add app='Calculator' manage=off
         yabai -m rule --add app='Appgate SDP' manage=off
