@@ -45,6 +45,9 @@ in
     scale = mkOption {
       type = enum [ "desktop" "laptop" ];
     };
+    position = mkOption {
+      type = enum [ "top" "bottom" ];
+    };
   };
 
   config = mkIf (cfg.enable) {
@@ -60,11 +63,11 @@ in
       package = pkgs.sketchybar;
       config.bar = {
         height = dimensions.bar.height;
-        position = "bottom";
+        position = cfg.position;
         padding_left = 10;
         padding_right = 10;
         color = bar_color;
-        topmost = "on";
+        topmost = "off";
         display = "main";
       };
       config.default = {
@@ -268,7 +271,11 @@ in
     '';
 
     services.yabai.config = {
-      external_bar = "main:0:${toString (dimensions.bar.height + 2)}";
+      external_bar =
+        let
+          value = toString (dimensions.bar.height + 2);
+        in
+        "main:${if cfg.position == "top" then value else "0"}:${if cfg.position == "top" then "0" else value}";
     };
 
     system.defaults.NSGlobalDomain._HIHideMenuBar = true;

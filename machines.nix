@@ -47,6 +47,7 @@ in
         sketchybar = {
           enable = true;
           scale = "laptop";
+          position = "top";
         };
         yabai.enable = true;
       };
@@ -116,6 +117,7 @@ in
           enable = true;
           spaces = 10;
           scale = "desktop";
+          position = "top";
         };
         yabai.enable = true;
       };
