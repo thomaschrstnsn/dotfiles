@@ -12,6 +12,7 @@ in
   config = mkIf (cfg.enable) {
     home.packages = with pkgs; [
       awscli2
+      saml2aws
       tfswitch
       terraform-ls
     ];
