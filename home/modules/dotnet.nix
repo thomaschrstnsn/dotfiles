@@ -16,7 +16,7 @@ let
 in
 {
   options.tc.dotnet = {
-    enable = mkEnableOption "dotnet core dev env";
+    enable = mkEnableOption "dotnet dev env";
 
     sdks = mkOption {
       description = "Which dotnet sdks to install";
@@ -40,6 +40,7 @@ in
 
       ASPNETCORE_ENVIRONMENT = "Development";
       DOTNET_ROOT = "${combinedDotnet}";
+      DOTNET_HOST_PATH = "${combinedDotnet}";
     };
 
     programs.zsh.oh-my-zsh.plugins = [ "dotnet" ];
