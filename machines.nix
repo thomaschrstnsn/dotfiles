@@ -126,6 +126,7 @@ in
         shellcheck
         rnix-lsp
         nixpkgs-fmt
+        ripgrep
       ];
 
       system = systems.x64-darwin;
