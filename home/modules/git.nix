@@ -4,7 +4,7 @@ with lib;
 let cfg = config.tc.git;
 in
 {
-  options.tc.git = {
+  options.tc.git = with types; {
     enable = mkEnableOption "git";
 
     userName = mkOption {
@@ -24,9 +24,20 @@ in
       type = types.listOf types.str;
       default = [ "github.com" ];
     };
+
+    differ = mkOption {
+      type = enum [ "standard" "delta" "difftastic" ];
+      default = "delta";
+    };
   };
 
   config = mkIf (cfg.enable) {
+
+    home.packages = with pkgs; 
+      if (cfg.differ == "difftastic") 
+      then [ difftastic ]
+      else [ ];
+
     programs.git = {
       enable = true;
       userName = cfg.userName;
@@ -49,6 +60,7 @@ in
       extraConfig = {
         push.default = "current";
         branch.autosetuprebase = "always";
+        # TODO when using difftastic: diff.external = "difft --color always";
         url = builtins.listToAttrs (
           map
             (gh: {
@@ -63,7 +75,7 @@ in
       ignores = [ "*~" "*.swp" ".DS_Store" ];
 
       delta = {
-        enable = true;
+        enable = cfg.differ == "delta";
         options = {
           features = "line-numbers decorations";
           whitespace-error-style = "22 reverse";
