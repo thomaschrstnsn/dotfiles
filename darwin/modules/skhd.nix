@@ -7,6 +7,7 @@ let
   mkShortcut = (shortcut: cmd: "${shortcut} : ${cmd}");
 
   mkPrefixAppShortcut = (shortcut: app: "prefix < ${shortcut} : skhd -k escape ; open -a \"${app}\"");
+  mkPrefixShortcut = (shortcut: command: "prefix < ${shortcut} : skhd -k escape ; ${command}");
   toPrefixConfig = config:
     if (config.leadingShortcut != null && config.appShortcuts != { })
     then
@@ -18,7 +19,10 @@ let
           "${config.leadingShortcut} ; prefix"
           "prefix < ${config.leadingShortcut} ; default"
           "prefix < escape ; default"
-        ] ++ (attrValues (mapAttrs mkPrefixAppShortcut config.appShortcuts)))
+        ]
+        ++ (attrValues (mapAttrs mkPrefixAppShortcut config.appShortcuts))
+        ++ (attrValues (mapAttrs mkPrefixShortcut config.shortcuts))
+        )
     else "";
 
   scripts = ./skhd;
@@ -61,6 +65,14 @@ in
         d = "Microsoft Remote Desktop";
       };
     };
+    prefixShortcuts.shortcuts = mkOption {
+      description = "non-app shortcuts after prefix leading combination";
+      type = attrsOf str;
+      default = { };
+      example = {
+        d = "yabai -m space --toggle show-desktop";
+      };
+    };
     prefixShortcuts.commands.on = mkOption {
       description = "command to signal prefix mode enabled";
       type = nullOr str;
@@ -99,9 +111,6 @@ in
           hyper - tab : ${scripts}/moveWindowToFirstEmptySpaceOnSameDisplay.sh
 
           hyper - return : ${scripts}/toggleLayoutOnCurrentSpace.sh
-
-          hyper - d : yabai -m space --toggle show-desktop
-          hyper - e : yabai -m space --toggle mission-control
 
           hyper - 1 : ${scripts}/focusFirstWindowInSpace.sh 1
           hyper - 2 : ${scripts}/focusFirstWindowInSpace.sh 2

@@ -35,7 +35,8 @@ in
             "hyper - r" = "Rider";
           };
           extraShortcuts = {
-            "hyper - 0" = "alacritty";
+            "hyper - d" = "yabai -m space --toggle show-desktop";
+            "hyper - e" = "yabai -m space --toggle mission-control";
           };
           prefixShortcuts = {
             leadingShortcut = "hyper - 9";
@@ -101,15 +102,19 @@ in
             "hyper - u" = "Obsidian";
             "hyper - g" = "Google Chrome";
             "hyper - h" = "Brave Browser";
+            "hyper - d" = "Azure Data Studio";
           };
           extraShortcuts = {
             "hyper - 0" = "alacritty --working-directory ~/bin -e ~/bin/smd"; # smd-launcher
+            "hyper - e" = "yabai -m space --toggle mission-control";
           };
           prefixShortcuts = {
             leadingShortcut = "hyper - 9";
             appShortcuts = {
               r = "Microsoft Remote Desktop";
-              d = "Azure Data Studio";
+            };
+            shortcuts = {
+              d = "yabai -m space --toggle show-desktop";
             };
           };
         };
