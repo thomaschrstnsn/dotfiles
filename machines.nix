@@ -100,7 +100,7 @@ in
             "hyper - v" = "VMWare Fusion";
             "hyper - u" = "Obsidian";
             "hyper - g" = "Google Chrome";
-            "hyper - h" = "Firefox";
+            "hyper - h" = "Brave Browser";
           };
           extraShortcuts = {
             "hyper - 0" = "alacritty --working-directory ~/bin -e ~/bin/smd"; # smd-launcher
