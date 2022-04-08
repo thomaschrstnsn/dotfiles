@@ -35,7 +35,7 @@ in
             "hyper - r" = "Rider";
           };
           extraShortcuts = {
-            "hyper - d" = "yabai -m space --toggle show-desktop";
+            "hyper - 0x0A" = "yabai -m space --toggle show-desktop"; # button left of 1
             "hyper - e" = "yabai -m space --toggle mission-control";
           };
           prefixShortcuts = {
@@ -107,15 +107,14 @@ in
           extraShortcuts = {
             "hyper - 0" = "alacritty --working-directory ~/bin -e ~/bin/smd"; # smd-launcher
             "hyper - e" = "yabai -m space --toggle mission-control";
+            "hyper - 0x0A" = "yabai -m space --toggle show-desktop"; # button left of 1
           };
           prefixShortcuts = {
             leadingShortcut = "hyper - 9";
             appShortcuts = {
               r = "Microsoft Remote Desktop";
             };
-            shortcuts = {
-              d = "yabai -m space --toggle show-desktop";
-            };
+            shortcuts = { };
           };
         };
         sketchybar = {
