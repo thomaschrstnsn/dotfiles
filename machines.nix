@@ -5,6 +5,8 @@ let
     m1_darwin = "aarch64-darwin";
     x64-darwin = "x86_64-darwin";
   };
+
+  skhd-scripts = ./darwin/modules/skhd;
 in
 {
   machines = {
@@ -108,6 +110,10 @@ in
             "hyper - 0" = "alacritty --working-directory ~/bin -e ~/bin/smd"; # smd-launcher
             "hyper - e" = "yabai -m space --toggle mission-control";
             "hyper - 0x0A" = "yabai -m space --toggle show-desktop"; # button left of 1
+            "shift - f14" = "osascript ${skhd-scripts}/toggle-mute-mic.applescript";
+            # "cmd + shift - f14" = "say command";
+            # "hyper - f14" = "say hyper";
+            # "alt + shift - f14" = "say alt";
           };
           prefixShortcuts = {
             leadingShortcut = "hyper - 9";
