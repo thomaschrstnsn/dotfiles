@@ -20,15 +20,15 @@ let
     };
   }.${cfg.scale};
 
-  bar_color = "0xff2e3440";
+  bar_color = "0xff4C566A";
   label_color = icon_color;
-  icon_color = "0xbbd8dee9";
+  icon_color = "0xffD8DEE9";
   small_label_font = "JetBrainsMono Nerd Font:Regular:${toString dimensions.font.small}";
   icon_font = "JetBrainsMono Nerd Font:Regular:${toString dimensions.font.normal}";
   heavy_font = "JetBrainsMono Nerd Font:Bold Italic:${toString dimensions.font.normal}";
-  icon_highlight_color = "0xffebcb8b";
+  icon_highlight_color = "0xffEBCB8B";
   label_highlight_color = icon_highlight_color;
-  warning_highlight_color = "0xfff55f42";
+  warning_highlight_color = "0xffD08770";
   label_font = icon_font;
   events.bluetooth_change = "bluetooth_change";
 in
