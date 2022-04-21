@@ -105,6 +105,7 @@ in
             "hyper - g" = "Google Chrome";
             "hyper - h" = "Brave Browser";
             "hyper - d" = "Azure Data Studio";
+            "hyper - 0x32" = "Asana"; # >/<
           };
           extraShortcuts = {
             "hyper - 0" = "alacritty --working-directory ~/bin -e ~/bin/smd"; # smd-launcher
