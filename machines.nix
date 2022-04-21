@@ -101,7 +101,7 @@ in
             "hyper - c" = "Slack";
             "hyper - r" = "Rider";
             "hyper - v" = "VMWare Fusion";
-            "hyper - u" = "Obsidian";
+            "hyper - u" = "Inkdrop";
             "hyper - g" = "Google Chrome";
             "hyper - h" = "Brave Browser";
             "hyper - d" = "Azure Data Studio";
