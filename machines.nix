@@ -33,6 +33,7 @@ in
       darwin = {
         skhd = {
           enable = true;
+          browser = "Brave Browser";
           extraAppShortcuts = {
             "hyper - r" = "Rider";
           };
