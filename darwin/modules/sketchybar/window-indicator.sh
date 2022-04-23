@@ -18,6 +18,9 @@ do
         ;;
         "Firefox")
         label=""
+        ;;        
+        "Brave Browser")
+        label=""
         ;;
         "Slack")
         label=""
@@ -35,7 +38,7 @@ do
         label=""
         ;;
         *)
-        label="°"
+        label=""
         ;;
     esac
     args+=(--set "space${index}" label="$label")

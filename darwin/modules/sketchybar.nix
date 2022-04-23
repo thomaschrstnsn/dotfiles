@@ -20,9 +20,9 @@ let
     };
   }.${cfg.scale};
 
-  bar_color = "0xff4C566A";
+  bar_color = "0xff2E3440";
   label_color = icon_color;
-  icon_color = "0xffD8DEE9";
+  icon_color = "0xffECEFF4";
   small_label_font = "JetBrainsMono Nerd Font:Regular:${toString dimensions.font.small}";
   icon_font = "JetBrainsMono Nerd Font:Regular:${toString dimensions.font.normal}";
   heavy_font = "JetBrainsMono Nerd Font:Bold Italic:${toString dimensions.font.normal}";
@@ -79,7 +79,7 @@ in
         "label.color" = label_color;
         "label.highlight_color" = label_highlight_color;
         "icon.padding_left" = 10;
-        "icon.padding_right" = 6;
+        "icon.padding_right" = 10;
       };
       config.spaces =
         map
@@ -110,6 +110,7 @@ in
           position = "left";
           attrs = {
             script = "${scripts}/yabai-mode.sh";
+            "background.color" = "0xffD08770";
           };
           subscribe = [ "yabai_layout" "space_change" ];
         }
