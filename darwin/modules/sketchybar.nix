@@ -129,6 +129,9 @@ in
           position = "center";
           attrs = {
             script = "${scripts}/window-title.sh";
+            "background.color" = "0xFFB48EAD";
+            "icon.drawing" = "off";
+            "background.drawing" = "off";
           };
           subscribe = [ "window_focus" "title_change" "window" "front_app_switched" "space_change" ];
         }

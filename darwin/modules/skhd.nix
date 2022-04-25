@@ -76,12 +76,12 @@ in
     prefixShortcuts.commands.on = mkOption {
       description = "command to signal prefix mode enabled";
       type = nullOr str;
-      default = "sketchybar -m --set window label.highlight=on";
+      default = "sketchybar -m --set window background.drawing=on";
     };
     prefixShortcuts.commands.off = mkOption {
       description = "command to signal prefix mode disabled";
       type = nullOr str;
-      default = "sketchybar -m --set window label.highlight=off";
+      default = "sketchybar -m --set window background.drawing=off";
     };
   };
 
