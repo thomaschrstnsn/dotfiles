@@ -24,10 +24,10 @@
                 rev = "fe86f24a21772810cd186d1b5bd2eff84b2701a9";
                 sha256 = "0m40i07gls47l5ibr6ys0qnqnfhqk9fnq0k7wdjmy04l859zqpw3";
               };
-            "x86_64-darwin" = {
-              version = "unstable-2022-01-30";
-              rev = "916d9133f9d13fb38678baa3d0adf3cfb9dff003";
-              sha256 = "191d3nm05fss03lcrqrfzgsy0g01qa34d3s4kvby3xqghda2wla4";
+            "x86_64-darwin" = rec {
+              version = "4.0.0";
+              rev = "v${version}";
+              sha256 = "sha256-rllgvj9JxyYar/DTtMn5QNeBTdGkfwqDr7WT3MvHBGI=";
             };
           }.${super.pkgs.stdenv.hostPlatform.system};
         in
