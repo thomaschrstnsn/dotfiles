@@ -26,16 +26,24 @@ in
       # Todoist = 572688855;
     };
 
+
+    homebrew.taps = [
+      "homebrew/cask"
+      "homebrew/cask-versions"
+    ];
+
     homebrew.casks = [
-      # "1password-beta"
+      "1password-beta"
       "1password-cli"
       "google-drive"
       "inkdrop"
+      "iterm2"
       "karabiner-elements"
       "numi"
       "maccy"
       "meetingbar"
       "rocket"
+      "spotify"
       "visual-studio-code"
       "vlc"
     ];
