@@ -23,16 +23,18 @@ in
 
     homebrew.masApps = {
       # Xcode = 497799835;
-      Todoist = 572688855;
+      # Todoist = 572688855;
     };
 
     homebrew.casks = [
-      "1password-beta"
+      # "1password-beta"
       "1password-cli"
       "google-drive"
       "inkdrop"
       "karabiner-elements"
+      "numi"
       "maccy"
+      "meetingbar"
       "rocket"
       "visual-studio-code"
       "vlc"
