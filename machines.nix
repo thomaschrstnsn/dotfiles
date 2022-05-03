@@ -31,6 +31,12 @@ in
       };
 
       darwin = {
+        homebrew = {
+          enable = true;
+          extraCasks = [
+            "brave-browser"
+          ];
+        };
         skhd = {
           enable = true;
           browser = "Brave Browser";
@@ -94,7 +100,14 @@ in
       };
 
       darwin = {
-	homebrew.enable = true;
+        homebrew = {
+          enable = true;
+          extraCasks = [
+            "jetbrains-toolbox"
+            "meetingbar"
+            "microsoft-edge"
+          ];
+        };
         skhd = {
           enable = true;
           browser = "Microsoft Edge";

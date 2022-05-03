@@ -8,6 +8,11 @@ in
 {
   options.tc.homebrew = with types; {
     enable = mkEnableOption "homebrew";
+    extraCasks = mkOption {
+      description = "additional casks to install";
+      type = listOf str;
+      default = [ ];
+    };
   };
 
   config = mkIf (cfg.enable) {
@@ -41,11 +46,10 @@ in
       "karabiner-elements"
       "numi"
       "maccy"
-      "meetingbar"
       "rocket"
       "spotify"
       "visual-studio-code"
       "vlc"
-    ];
+    ] ++ cfg.extraCasks;
   };
 }
