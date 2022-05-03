@@ -94,6 +94,7 @@ in
       };
 
       darwin = {
+	homebrew.enable = true;
         skhd = {
           enable = true;
           browser = "Microsoft Edge";
