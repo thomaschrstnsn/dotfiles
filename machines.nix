@@ -103,9 +103,13 @@ in
         homebrew = {
           enable = true;
           extraCasks = [
+            "asana"
+            # "azure-data-studio" # Download failed: https://azuredatastudio-update.azurewebsites.net/1.36.1/darwin/stable
+            "brave-browser"
             "jetbrains-toolbox"
             "meetingbar"
             "microsoft-edge"
+            "microsoft-remote-desktop"
           ];
         };
         skhd = {
