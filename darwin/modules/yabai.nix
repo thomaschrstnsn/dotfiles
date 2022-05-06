@@ -68,6 +68,7 @@ in
         yabai -m rule --add app='Calculator' manage=off
         yabai -m rule --add app='Appgate SDP' manage=off
         yabai -m rule --add label="About This Mac" app="System Information" title="About This Mac" manage=off
+        yabai -m rule --add app="JetBrains Toolbox" manage=off
         yabai -m rule --add title='Go to Line:Column' manage=off # Rider
         yabai -m rule --add title='launcher' manage=off
 
