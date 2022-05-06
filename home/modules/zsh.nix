@@ -25,6 +25,7 @@ in
       fd
       tree
       wget
+      zsh-fzf-tab
       zsh-powerlevel10k
     ];
     home.file.".p10k.zsh".source = ./zsh/p10k.zsh;
@@ -61,6 +62,9 @@ in
 
         # ZSH COMPLETION CASE (IN)SENSITIVE
         zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+
+        # zsh-fzf-tab
+        source ${pkgs.zsh-fzf-tab}/share/fzf-tab/fzf-tab.plugin.zsh
       '';
       initExtraBeforeCompInit = ''
         source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
