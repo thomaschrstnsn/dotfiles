@@ -42,6 +42,7 @@ in
           browser = "Brave Browser";
           extraAppShortcuts = {
             "hyper - r" = "Rider";
+            "hyper - u" = "Inkdrop";
           };
           extraShortcuts = {
             "hyper - 0x0A" = "yabai -m space --toggle show-desktop"; # button left of 1
