@@ -69,6 +69,9 @@ in
         color = bar_color;
         topmost = "off";
         display = "main";
+        corner_radius = 10;
+        blur_radius = 50;
+        font_smoothing = "on";
       };
       config.default = {
         cache_scripts = "on";
