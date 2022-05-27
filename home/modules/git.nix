@@ -33,8 +33,8 @@ in
 
   config = mkIf (cfg.enable) {
 
-    home.packages = with pkgs; 
-      if (cfg.differ == "difftastic") 
+    home.packages = with pkgs;
+      if (cfg.differ == "difftastic")
       then [ difftastic ]
       else [ ];
 
@@ -60,6 +60,7 @@ in
       extraConfig = {
         push.default = "current";
         branch.autosetuprebase = "always";
+        branch.autosetupmerge = "always";
         # TODO when using difftastic: diff.external = "difft --color always";
         url = builtins.listToAttrs (
           map
