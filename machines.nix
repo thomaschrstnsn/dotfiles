@@ -96,7 +96,7 @@ in
         direnv.enable = true;
         nodejs = {
           enable = true;
-          pkg = pkgs: pkgs.nodejs-12_x;
+          pkg = pkgs: pkgs.nodejs-16_x;
         };
       };
 
