@@ -60,6 +60,7 @@ in
       extraConfig = {
         push.default = "current";
         branch.autosetuprebase = "always";
+        fetch.prune = "true";
         # TODO when using difftastic: diff.external = "difft --color always";
         url = builtins.listToAttrs (
           map
