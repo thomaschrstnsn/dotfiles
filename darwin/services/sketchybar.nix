@@ -79,12 +79,18 @@ let
         ++ (map itemToSketchyBar config.items)
       ));
 
-  configFile = mkIf (cfg.config != { } || cfg.extraConfig != "")
-    "${pkgs.writeScript "sketchybarrc" (
-      (if (cfg.config.items != [])
-       then "${toSketchybarConfig cfg.config}"
-       else "")
-      + optionalString (cfg.extraConfig != "") cfg.extraConfig)}";
+  configFile =
+    (if (cfg.config.items != [ ])
+    then "${toSketchybarConfig cfg.config}"
+    else "")
+    + optionalString (cfg.extraConfig != "") cfg.extraConfig;
+
+  configHome = pkgs.writeTextFile {
+    name = "sketchybarrc";
+    text = configFile;
+    destination = "/sketchybar/sketchybarrc";
+    executable = true;
+  };
 in
 {
   options = with types; {
@@ -213,16 +219,17 @@ in
     environment.systemPackages = [ cfg.package ];
 
     launchd.user.agents.sketchybar = {
-      serviceConfig.ProgramArguments = [ "${cfg.package}/bin/sketchybar" ]
-        ++ optionals (cfg.config != { } || cfg.extraConfig != "") [ "-c" configFile ];
+      serviceConfig.ProgramArguments = [ "${cfg.package}/bin/sketchybar" ];
 
       serviceConfig.KeepAlive = true;
       serviceConfig.RunAtLoad = true;
       serviceConfig.EnvironmentVariables = {
         PATH = "${cfg.package}/bin:${config.environment.systemPath}";
+        XDG_CONFIG_HOME = mkIf (cfg.config != "") "${configHome}";
       };
     };
   };
 }
+
 
 

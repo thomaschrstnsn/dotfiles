@@ -53,10 +53,10 @@ in
   config = mkIf (cfg.enable) {
     environment.systemPackages = [ pkgs.jq ];
 
-    # launchd.user.agents.sketchybar.serviceConfig = {
-    #   StandardErrorPath = "/tmp/sketchybar.log";
-    #   StandardOutPath = "/tmp/sketchybar.log";
-    # };
+    launchd.user.agents.sketchybar.serviceConfig = {
+      StandardErrorPath = "/tmp/sketchybar.log";
+      StandardOutPath = "/tmp/sketchybar.log";
+    };
 
     services.sketchybar = {
       enable = true;
