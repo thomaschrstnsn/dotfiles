@@ -17,12 +17,12 @@
         in
         super.yabai.overrideAttrs (
           o: rec {
-            version = "4.0.0";
+            version = "4.0.1";
             src = super.fetchFromGitHub {
               owner = "koekeishiya";
               repo = "yabai";
               rev = "v${version}";
-              sha256 = "sha256-rllgvj9JxyYar/DTtMn5QNeBTdGkfwqDr7WT3MvHBGI=";
+              sha256 = "sha256-H1zMg+/VYaijuSDUpO6RAs/KLAAZNxhkfIC6CHk/xoI=";
             };
             prePatch = ''
               substituteInPlace makefile ${replace}
