@@ -14,32 +14,19 @@
             "aarch64-darwin" = "--replace '-arch x86_64' ''";
             "x86_64-darwin" = "--replace '-arch arm64e' '' --replace '-arch arm64' ''";
           }.${super.pkgs.stdenv.hostPlatform.system};
-
-          versionRevSha = {
-            "aarch64-darwin" =
-              {
-                version = "unstable-2022-01-22";
-                rev = "fe86f24a21772810cd186d1b5bd2eff84b2701a9";
-                sha256 = "0m40i07gls47l5ibr6ys0qnqnfhqk9fnq0k7wdjmy04l859zqpw3";
-              };
-            "x86_64-darwin" = rec {
-              version = "4.0.0";
-              rev = "v${version}";
-              sha256 = "sha256-rllgvj9JxyYar/DTtMn5QNeBTdGkfwqDr7WT3MvHBGI=";
-            };
-          }.${super.pkgs.stdenv.hostPlatform.system};
         in
         super.yabai.overrideAttrs (
           o: rec {
-            version = versionRevSha.version;
+            version = "4.0.0";
             src = super.fetchFromGitHub {
               owner = "koekeishiya";
               repo = "yabai";
-              rev = versionRevSha.rev;
-              sha256 = versionRevSha.sha256;
+              rev = "v${version}";
+              sha256 = "sha256-rllgvj9JxyYar/DTtMn5QNeBTdGkfwqDr7WT3MvHBGI=";
             };
             prePatch = ''
-              substituteInPlace makefile ${replace};
+              substituteInPlace makefile ${replace}
+              substituteInPlace src/workspace.m --replace 'screen.safeAreaInsets.top' '0'
             '';
             buildPhase = ''
               PATH=/usr/bin:/bin /usr/bin/make install #yo
