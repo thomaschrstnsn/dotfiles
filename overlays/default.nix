@@ -7,8 +7,6 @@
 
       myNerdfonts = self.nerdfonts.override { fonts = [ "JetBrainsMono" "Meslo" ]; };
 
-      sketchybar = pkgs.myPkgs.sketchybar;
-
       # https://github.com/azuwis/nix-config/blob/f927c463e42c7bf017ddf4a603c0fcd282bf1d98/darwin/overlays.nix#L72-L93
       yabai =
         let
