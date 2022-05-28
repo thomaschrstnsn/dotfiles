@@ -20,7 +20,7 @@ let
     };
   }.${cfg.scale};
 
-  bar_color = "0xff2E3440";
+  bar_color = "0x442E3440";
   label_color = icon_color;
   icon_color = "0xffECEFF4";
   small_label_font = "JetBrainsMono Nerd Font:Regular:${toString dimensions.font.small}";
