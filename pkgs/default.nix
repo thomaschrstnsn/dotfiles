@@ -25,7 +25,7 @@ in
         x86_64-linux = lib.fakeSha512;
         aarch64-linux = lib.fakeSha512;
         aarch64-darwin = "sha512-F0zsv9/NEYfKceW3QerazA4QPOp1Ji990V/atoRSJs7I3vdc9MvsPcB70IXQA6xFZnARWy8qSoj5Ar6KXDuzrg==";
-        x86_64-darwin = lib.fakeSha512;
+        x86_64-darwin = "sha512-NhGGc84aSc8xZYRE8ptn38M4t460aEekPzjeCuaM8uTXIDmxgTqJct4xzYz+oTqYYdB1OE5nuG+Y/2q7kPS9Lg==";
       };
     };
   };
