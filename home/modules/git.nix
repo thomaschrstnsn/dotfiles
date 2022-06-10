@@ -92,6 +92,7 @@ in
     programs.zsh.shellAliases = {
       gs = "git st";
       gc = "git clone";
+      gp = "git push -u"; # set upstream
     };
   };
 }
