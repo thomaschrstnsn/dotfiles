@@ -17,6 +17,8 @@
     ];
   };
 
+  environment.systemPackages = with pkgs; [ git-crypt ];
+
   programs = {
     zsh = {
       enable = true;

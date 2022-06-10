@@ -28,6 +28,7 @@ in
   };
 
   config = {
+    home.packages = with pkgs; [ git-crypt ];
     home.username = cfg.username;
     home.homeDirectory = cfg.homedir;
   };
