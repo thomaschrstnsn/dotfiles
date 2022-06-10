@@ -198,6 +198,7 @@ in
       system = systems.arm-linux;
 
       extraPackages = pkgs: with pkgs; [
+        nodejs
         shellcheck
         nixpkgs-fmt
       ];
