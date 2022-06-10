@@ -196,6 +196,11 @@ in
         tmux.enable = true;
       };
       system = systems.arm-linux;
+
+      extraPackages = pkgs: with pkgs; [
+        shellcheck
+        nixpkgs-fmt
+      ];
     };
 
     # Minimal configuration to bootstrap darwin systems
