@@ -204,6 +204,28 @@ in
       ];
     };
 
+    vmnix = {
+      home = {
+        user = {
+          username = "thomas";
+          homedir = "/home/thomas";
+        };
+        git.enable = true;
+        zsh = {
+          enable = true;
+          editor = "vim";
+        };
+        tmux.enable = true;
+      };
+      system = systems.arm-linux;
+
+      extraPackages = pkgs: with pkgs; [
+        nodejs
+        shellcheck
+        nixpkgs-fmt
+      ];
+    };
+
     # Minimal configuration to bootstrap darwin systems
     bootstrap = {
       system = systems.x64-darwin;
