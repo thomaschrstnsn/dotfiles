@@ -128,29 +128,7 @@
         "darwin": "darwin",
         "forgit-git": "forgit-git",
         "home-manager": "home-manager",
-        "nixpkgs": "nixpkgs",
-        "spacebar": "spacebar"
-      }
-    },
-    "spacebar": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1619365544,
-        "narHash": "sha256-f72eQ5KrsBPKlCCENDeTA+Lkqik/ps2xotS2CrEpMpM=",
-        "owner": "cmacrae",
-        "repo": "spacebar",
-        "rev": "96e210e579c1f7a0ce80074e0f22b73e7a7cef00",
-        "type": "github"
-      },
-      "original": {
-        "owner": "cmacrae",
-        "ref": "v1.3.0",
-        "repo": "spacebar",
-        "type": "github"
+        "nixpkgs": "nixpkgs"
       }
     },
     "utils": {
