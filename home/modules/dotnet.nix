@@ -6,7 +6,7 @@ let
 
   lookup = with pkgs; (with dotnetCorePackages; {
     "2.2" = myPkgs.dotnet.sdk_2_2;
-    "3.1" = sdk_3_1;
+    "3.1" = myPkgs.dotnet.sdk_3_1;
     "6.0" = myPkgs.dotnet.sdk_6_0;
   });
 
