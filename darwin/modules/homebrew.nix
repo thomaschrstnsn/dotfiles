@@ -46,6 +46,7 @@ in
       "karabiner-elements"
       "numi"
       "maccy"
+      "raycast"
       "rocket"
       "spotify"
       "visual-studio-code"
