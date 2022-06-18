@@ -26,6 +26,8 @@ let
     else "";
 
   scripts = ./skhd;
+
+  resizePixels = "50";
 in
 {
   options.tc.skhd = with types; {
@@ -129,14 +131,14 @@ in
           hyper - m : yabai -m window --toggle native-fullscreen
           hyper - f : yabai -m window --toggle zoom-fullscreen
 
-          hyper - left  : yabai -m window --resize left:-20:0; \
-                          yabai -m window --resize right:-20:0;
-          hyper - right : yabai -m window --resize right:20:0; \
-                          yabai -m window --resize left:20:0;
-          hyper - down  : yabai -m window --resize top:0:20; \
-                          yabai -m window --resize bottom:0:20
-          hyper - up    : yabai -m window --resize bottom:0:-20; \
-                          yabai -m window --resize top:0:-20
+          hyper - left  : yabai -m window --resize left:-${resizePixels}:0; \
+                          yabai -m window --resize right:-${resizePixels}:0;
+          hyper - right : yabai -m window --resize right:${resizePixels}:0; \
+                          yabai -m window --resize left:${resizePixels}:0;
+          hyper - down  : yabai -m window --resize top:0:${resizePixels}; \
+                          yabai -m window --resize bottom:0:${resizePixels}
+          hyper - up    : yabai -m window --resize bottom:0:-${resizePixels}; \
+                          yabai -m window --resize top:0:-${resizePixels}
 
           hyper - space : yabai -m space --rotate 270
 
