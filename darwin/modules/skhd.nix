@@ -6,22 +6,37 @@ let
   mkAppShortcut = (shortcut: app: "${shortcut} : open -a \"${app}\"");
   mkShortcut = (shortcut: cmd: "${shortcut} : ${cmd}");
 
-  mkPrefixAppShortcut = (shortcut: app: "prefix < ${shortcut} : skhd -k escape ; open -a \"${app}\"");
-  mkPrefixShortcut = (shortcut: command: "prefix < ${shortcut} : skhd -k escape ; ${command}");
-  toPrefixConfig = config:
-    if (config.leadingShortcut != null && config.appShortcuts != { })
+  mkPrefixShortcut = (prefix: shortcut: command: "${prefix} < ${shortcut} : ${command}");
+
+  toWmPrefixConfig = wmPrefixShortcut: shortcuts:
+    concatStringsSep "\n"
+      ([
+        "# wmprefix"
+        (":: default" + (optionalString (cfg.prefixShortcuts.commands.off != null) " : ${cfg.prefixShortcuts.commands.off}"))
+        (":: wmprefix " + (optionalString (cfg.prefixShortcuts.commands.on != null) " : ${cfg.prefixShortcuts.commands.on}"))
+        "${wmPrefixShortcut} ; wmprefix"
+        "wmprefix < ${wmPrefixShortcut} ; default"
+        "wmprefix < escape ; default"
+      ] ++ (attrValues (mapAttrs (mkPrefixShortcut "wmprefix") shortcuts))
+      ++ [ "" ]
+      );
+
+  mkCfgPrefixAppShortcut = (shortcut: app: (mkPrefixShortcut "cfgprefix" shortcut "skhd -k escape ; open -a \"${app}\""));
+  mkCfgPrefixShortcut = (shortcut: command: (mkPrefixShortcut "cfgprefix" shortcut "skhd -k escape ; ${command}"));
+  toCfgPrefixConfig = config:
+    if (config.leadingShortcut != null && (config.appShortcuts != { } || config.shortcuts != { }))
     then
       concatStringsSep "\n"
         ([
-          "# modal fun"
-          (":: default" + (optionalString (config.commands.off != null) " : ${config.commands.off}"))
-          (":: prefix " + (optionalString (config.commands.on != null) " : ${config.commands.on}"))
-          "${config.leadingShortcut} ; prefix"
-          "prefix < ${config.leadingShortcut} ; default"
-          "prefix < escape ; default"
+          "# cfgprefix"
+          (":: cfgprefix " + (optionalString (config.commands.on != null) " : ${config.commands.on}"))
+          "${config.leadingShortcut} ; cfgprefix"
+          "cfgprefix < ${config.leadingShortcut} ; default"
+          "cfgprefix < escape ; default"
         ]
-        ++ (attrValues (mapAttrs mkPrefixAppShortcut config.appShortcuts))
-        ++ (attrValues (mapAttrs mkPrefixShortcut config.shortcuts))
+        ++ (attrValues (mapAttrs mkCfgPrefixAppShortcut config.appShortcuts))
+        ++ (attrValues (mapAttrs mkCfgPrefixShortcut config.shortcuts))
+        ++ [ "" ]
         )
     else "";
 
@@ -140,25 +155,35 @@ in
           hyper - up    : yabai -m window --resize bottom:0:-${resizePixels}; \
                           yabai -m window --resize top:0:-${resizePixels}
 
-          hyper - space : yabai -m space --rotate 270
-          ctrl + alt - space : yabai -m window --toggle split
-
           lctrl - up   : skhd -k "pageup"
           lctrl - down : skhd -k "pagedown"
-
-          # Float / Unfloat window
-          hyper - n : yabai -m window --toggle float; yabai -m window --grid 4:4:1:1:2:2
 
           # app shortcuts
           hyper - b : open -a "${cfg.browser}"
           hyper - t : open -a "iTerm"
           hyper - x : open -a "Visual Studio Code"
         ''
+        + (toWmPrefixConfig "hyper - space" {
+          f = "yabai -m window --toggle float; yabai -m window --grid 4:4:1:1:2:2"; # float/unfloat
+          q = "yabai -m space --rotate 90";
+          w = "yabai -m space --rotate 270";
+          s = "yabai -m window --toggle split";
+          j = "yabai -m window --focus west";
+          l = "yabai -m window --focus east";
+          i = "yabai -m window --focus north";
+          k = "yabai -m window --focus south";
+          n = "${scripts}/yabaiCycleCounterClockwise.sh";
+          m = "${scripts}/yabaiCycleClockwise.sh";
+          up = "yabai -m window --warp north";
+          down = "yabai -m window --warp south";
+          left = "yabai -m window --warp west";
+          right = "yabai -m window --warp east";
+        })
         + concatStringsSep "\n" (attrValues (mapAttrs mkShortcut cfg.extraShortcuts))
         + "\n"
         + concatStringsSep "\n" (attrValues (mapAttrs mkAppShortcut cfg.extraAppShortcuts))
         + "\n"
-        + toPrefixConfig cfg.prefixShortcuts
+        + toCfgPrefixConfig cfg.prefixShortcuts
       ;
     };
   };
