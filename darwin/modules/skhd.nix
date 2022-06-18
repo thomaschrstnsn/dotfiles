@@ -142,6 +142,9 @@ in
 
           hyper - space : yabai -m space --rotate 270
 
+          lctrl - up   : skhd -k "pageup"
+          lctrl - down : skhd -k "pagedown"
+
           # app shortcuts
           hyper - b : open -a "${cfg.browser}"
           hyper - t : open -a "iTerm"
