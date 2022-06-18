@@ -145,6 +145,9 @@ in
           lctrl - up   : skhd -k "pageup"
           lctrl - down : skhd -k "pagedown"
 
+          # Float / Unfloat window
+          hyper - n : yabai -m window --toggle float; yabai -m window --grid 4:4:1:1:2:2
+
           # app shortcuts
           hyper - b : open -a "${cfg.browser}"
           hyper - t : open -a "iTerm"
