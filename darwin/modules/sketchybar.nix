@@ -31,6 +31,12 @@ let
   warning_highlight_color = "0xffD08770";
   label_font = icon_font;
   events.bluetooth_change = "bluetooth_change";
+
+  singleItemBracket = item:
+    {
+      bracket = "";
+      items = [ item ];
+    };
 in
 {
   options.tc.sketchybar = with types; {
@@ -108,7 +114,7 @@ in
         { name = events.bluetooth_change; notificationCenterEvent = "com.apple.bluetooth.status"; }
       ];
       config.items = [
-        {
+        (singleItemBracket {
           name = "yabai_mode";
           position = "left";
           attrs = {
@@ -116,147 +122,220 @@ in
             "background.color" = "0xffD08770";
           };
           subscribe = [ "yabai_layout" "space_change" ];
-        }
-        {
-          # from https://github.com/FelixKratz/SketchyBar/discussions/12#discussioncomment-1633997
-          name = "app_name";
-          position = "left";
-          attrs = {
-            "label.font" = heavy_font;
-            "label.color" = label_highlight_color;
-          };
-        }
-        {
-          # from https://github.com/FelixKratz/SketchyBar/discussions/12#discussioncomment-1633997
-          name = "window";
-          position = "center";
-          attrs = {
-            script = "${scripts}/window-title.sh";
-            "background.color" = "0xFFB48EAD";
-            "icon.drawing" = "off";
-            "background.drawing" = "off";
-          };
-          subscribe = [ "window_focus" "title_change" "window" "front_app_switched" "space_change" ];
-        }
-        {
-          name = "clock";
-          position = "right";
-          attrs = {
-            update_freq = 10;
-            script = "${scripts}/status.sh";
-            "icon.padding_left" = 2;
-          };
-        }
-        {
-          name = "battery";
-          position = "right";
-          attrs = {
-            update_freq = 60;
-            script = "${scripts}/battery.sh";
-            "icon.highlight_color" = warning_highlight_color;
-            "label.highlight_color" = warning_highlight_color;
-          };
-        }
-        {
-          name = "wifi";
-          position = "right";
-          attrs = {
-            click_script = "${scripts}/click-wifi.sh";
-          };
-        }
-        {
-          name = "ram_label";
-          position = "right";
-          attrs = {
-            "label.font" = small_label_font;
-            label = "RAM";
-            y_offset = 6;
-            width = 0;
-          };
-        }
-        {
-          name = "ram_percentage";
-          position = "right";
-          attrs =
-            {
-              "label.font" = small_label_font;
-              y_offset = -4;
-              script = "${scripts}/ram.sh";
-              update_freq = 1;
+        })
+        (singleItemBracket
+          {
+            # from https://github.com/FelixKratz/SketchyBar/discussions/12#discussioncomment-1633997
+            name = "app_name";
+            position = "left";
+            attrs = {
+              "label.font" = heavy_font;
+              "label.color" = label_highlight_color;
             };
-        }
-        {
-          name = "cpu_label";
-          position = "right";
-          attrs = {
-            "label.font" = small_label_font;
-            label = "CPU";
-            y_offset = 6;
-            width = 0;
-          };
-        }
-        {
-          name = "cpu_percentage";
-          position = "right";
-          attrs =
-            {
-              "label.font" = small_label_font;
-              y_offset = -4;
-              script = "${scripts}/cpu.sh";
-              update_freq = 1;
+          }
+        )
+        (singleItemBracket
+          {
+            # from https://github.com/FelixKratz/SketchyBar/discussions/12#discussioncomment-1633997
+            name = "window";
+            position = "center";
+            attrs = {
+              script = "${scripts}/window-title.sh";
+              "background.color" = "0xFFB48EAD";
+              "icon.drawing" = "off";
+              "background.drawing" = "off";
             };
-        }
-        {
-          name = "network_up";
-          position = "right";
-          attrs = {
-            "label.font" = small_label_font;
-            y_offset = 6;
-            width = 0;
-            script = "${scripts}/window-indicator.sh";
-          };
-          subscribe = [ "window_focus" "title_change" "window" "front_app_switched" "space_change" ];
-        }
-        {
-          name = "network_down";
-          position = "right";
-          attrs =
-            {
-              "label.font" = small_label_font;
-              y_offset = -4;
+            subscribe = [ "window_focus" "title_change" "window" "front_app_switched" "space_change" ];
+          }
+        )
+        (singleItemBracket
+          {
+            name = "clock";
+            position = "right";
+            attrs = {
+              update_freq = 10;
+              script = "${scripts}/status.sh";
+              "icon.padding_left" = 2;
             };
+          }
+        )
+        (singleItemBracket
+          {
+            name = "battery";
+            position = "right";
+            attrs = {
+              update_freq = 60;
+              script = "${scripts}/battery.sh";
+              "icon.highlight_color" = warning_highlight_color;
+              "label.highlight_color" = warning_highlight_color;
+            };
+          }
+        )
+        (singleItemBracket
+          {
+            name = "wifi";
+            position = "right";
+            attrs = {
+              click_script = "${scripts}/click-wifi.sh";
+            };
+          }
+        )
+        {
+          bracket = "ram";
+          items = [
+            {
+              name = "label";
+              position = "right";
+              attrs = {
+                "label.font" = small_label_font;
+                label = "RAM";
+                y_offset = 6;
+                width = 0;
+              };
+            }
+            {
+              name = "percentage";
+              position = "right";
+              attrs =
+                {
+                  "label.font" = small_label_font;
+                  y_offset = -4;
+                  script = "${scripts}/ram.sh";
+                  update_freq = 1;
+                };
+            }
+          ];
         }
         {
-          name = "headphones";
-          position = "right";
-          subscribe = [ events.bluetooth_change "mouse.clicked" ];
-          attrs = {
-            icon = "";
-            script = "${scripts}/airpods_battery.sh";
-            "icon.highlight_color" = warning_highlight_color;
-          };
+          bracket = "cpu";
+          items = [
+            {
+              name = "separator";
+              position = "right";
+              attrs = {
+                "icon.drawing" = "off";
+                "label.drawing" = "off";
+                "background.padding_left" = 0;
+                "background.padding_right" = 0;
+              };
+            }
+            {
+              name = "topproc";
+              position = "right";
+              attrs = {
+                label = "CPU";
+                "label.font" = small_label_font;
+                "icon.drawing" = "off";
+                width = 0;
+                y_offset = 6;
+                update_freq = 5;
+                script = "${scripts}/topproc.sh";
+              };
+            }
+            {
+              name = "percent";
+              position = "right";
+              attrs = {
+                "label.font" = label_font;
+                label = "CPU";
+                y_offset = -4;
+                width = 40;
+                "icon.drawing" = "off";
+                update_freq = 2;
+              };
+            }
+            {
+              name = "sys";
+              itemType = "graph";
+              position = "right";
+              graphWidth = 100;
+              attrs = {
+                width = 0;
+                "graph.color" = warning_highlight_color;
+                "graph.fill_color" = warning_highlight_color;
+                "label.drawing" = "off";
+                "icon.drawing" = "off";
+              };
+            }
+            {
+              name = "user";
+              itemType = "graph";
+              position = "right";
+              graphWidth = 100;
+              attrs = {
+                "graph.color" = label_highlight_color;
+                update_freq = 2;
+                "label.drawing" = "off";
+                "icon.drawing" = "off";
+                script = "${scripts}/cpu.sh";
+              };
+            }
+          ];
         }
         {
-          name = "headphones.left";
-          position = { popup = "headphones"; };
-          attrs = {
-            icon = "L";
-          };
+          bracket = "network";
+          items = [
+            {
+              name = "up";
+              position = "right";
+              attrs = {
+                "label.font" = small_label_font;
+                y_offset = 6;
+                width = 0;
+                script = "${scripts}/window-indicator.sh";
+              };
+              subscribe = [ "window_focus" "title_change" "window" "front_app_switched" "space_change" ];
+            }
+            {
+              name = "down";
+              position = "right";
+              attrs =
+                {
+                  "label.font" = small_label_font;
+                  y_offset = -4;
+                };
+            }
+          ];
         }
-        {
-          name = "headphones.case";
-          position = { popup = "headphones"; };
-          attrs = {
-            icon = "C";
-          };
-        }
-        {
-          name = "headphones.right";
-          position = { popup = "headphones"; };
-          attrs = {
-            icon = "R";
-          };
-        }
+        ## TODO broken
+        # (singleItemBracket
+        #   {
+        #     name = "headphones_item";
+        #     position = "right";
+        #     subscribe = [ events.bluetooth_change "mouse.clicked" ];
+        #     attrs = {
+        #       icon = "";
+        #       script = "${scripts}/airpods_battery.sh";
+        #       "icon.highlight_color" = warning_highlight_color;
+        #     };
+        #   }
+        # )
+        # {
+        #   bracket = "headphones";
+        #   items = [
+        #     {
+        #       name = "left";
+        #       position = { popup = "headphones"; };
+        #       attrs = {
+        #         icon = "L";
+        #       };
+        #     }
+        #     {
+        #       name = "case";
+        #       position = { popup = "headphones"; };
+        #       attrs = {
+        #         icon = "C";
+        #       };
+        #     }
+        #     {
+        #       name = "right";
+        #       position = { popup = "headphones"; };
+        #       attrs = {
+        #         icon = "R";
+        #       };
+        #     }
+        #   ];
+        # }
       ];
     };
 

@@ -69,5 +69,5 @@ get_network
 sketchybar -m \
   --set clock label="$(date +' W%U %d/%m/%y  %R')" \
   --set wifi icon="$WIFI_ICON" icon.padding_right="$WIFI_PADDING" label="$WIFI_LABEL" \
-  --set network_up label="↑$(readable "$OSPEED")" \
-  --set network_down label="↓$(readable "$ISPEED")"
+  --set network.up label="↑$(readable "$OSPEED")" \
+  --set network.down label="↓$(readable "$ISPEED")"

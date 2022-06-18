@@ -3,7 +3,7 @@
 with lib;
 
 # for debugging:
-# ./build-darwin.sh && less $(grep sketchybarrc result/user/Library/LaunchAgents/org.nixos.sketchybar.plist | sed 's/<string>//' | sed 's|</string>||' | awk '{print $1}')
+# ./build-darwin.sh && less $(grep sketchybarrc result/user/Library/LaunchAgents/org.nixos.sketchybar.plist | sed 's/<string>//' | sed 's|</string>|/sketchybar/sketchybarrc|' | awk '{print $1}')
 let
   cfg = config.services.sketchybar;
   tab = "    ";
@@ -51,21 +51,56 @@ let
     in
     concatStringsSep " \\\n" (filter (s: s != "") [ header attrs ]) + "\n";
 
-  itemToSketchyBar = item:
+  itemToSketchyBar = bracketName: item:
     let
       mkPosition = position:
         if (builtins.typeOf position == "string") # string = enum?
-        then "${position}"
+        then
+          if (item.graphWidth != null)
+          then
+            "${position} ${toString item.graphWidth}"
+          else
+            "${position}"
         else
           if (builtins.typeOf position == "set")
           then "popup.${position.popup}"
           else abort "position: '${builtins.typeOf position}' not a str or a popup (should not be possible)";
-      header = "${modify} --add item ${item.name} ${mkPosition item.position}";
-      script = optionalString (item.script != null) (''${tab}--set ${item.name} script="${item.script}'');
-      subscribe = optionalString (item.subscribe != [ ]) (''${tab}--subscribe ${item.name} ${concatStringsSep " " item.subscribe}'');
-      attrs = attrsToSetSketchyBar item.name item.attrs;
+      name =
+        if (bracketName == "")
+        then
+          item.name
+        else
+          "${bracketName}.${item.name}";
+      header = "${modify} --add ${item.itemType} ${name} ${mkPosition item.position}";
+      script = optionalString (item.script != null) (''${tab}--set ${name} script="${item.script}'');
+      subscribe = optionalString (item.subscribe != [ ]) (''${tab}--subscribe ${name} ${concatStringsSep " " item.subscribe}'');
+      attrs = attrsToSetSketchyBar name item.attrs;
     in
     concatStringsSep " \\\n" (filter (s: s != "") [ header script subscribe attrs ]) + "\n";
+
+  addBracket = bracket:
+    let
+      name = bracket.bracket;
+      header = "${modify} --add bracket ${name}";
+      items = concatStringsSep " " (map (item: "${name}.${item.name}") bracket.items);
+      #attrs = attrsToSetSketchyBar name item.attrs;
+    in
+    concatStringsSep " " [ header items ] + "\n";
+
+  bracketToSketchyBar = bracket:
+    if (bracket.bracket == "")
+    then
+      if (length bracket.items == 1)
+      then
+        (concatStringsSep "\n" (map (itemToSketchyBar "") bracket.items)) + "\n"
+      else
+        builtins.throw "empty named brackets only supported for 'single-item' brackets"
+    else
+      (concatStringsSep "\n"
+        ([ ]
+        ++ (map (itemToSketchyBar bracket.bracket) bracket.items)
+        ++ [ "" ]
+        )) + (addBracket bracket);
 
   toSketchybarConfig = config:
     concatStringsSep "\n"
@@ -76,7 +111,7 @@ let
         ]
         ++ (map spaceToSketchyBar config.spaces)
         ++ (map eventToSketchyBar config.events)
-        ++ (map itemToSketchyBar config.items)
+        ++ (map bracketToSketchyBar config.items)
       ));
 
   configFile =
@@ -93,63 +128,9 @@ let
   };
 in
 {
-  options = with types; {
-    services.sketchybar.enable = mkEnableOption "sketchybar";
-
-    services.sketchybar.package = mkOption {
-      type = path;
-      description = "The sketchybar package to use.";
-    };
-
-    services.sketchybar.config.bar = mkOption {
-      type = attrs;
-      default = { };
-      description = "bar's visual attributes";
-    };
-
-    services.sketchybar.config.default = mkOption {
-      type = attrs;
-      default = { };
-      description = "item defaults";
-    };
-
-    services.sketchybar.config.spaces = mkOption {
-      type = listOf (submodule {
-        options = {
-          name = mkOption {
-            type = str;
-          };
-          position = mkOption {
-            type = enum [ "left" "center" "right" ];
-          };
-          attrs = mkOption {
-            type = attrs;
-          };
-        };
-      });
-    };
-
-    services.sketchybar.config.events = mkOption {
-      type = listOf (submodule {
-        options = {
-          name = mkOption {
-            type = str;
-            description = "Name of event";
-          };
-          notificationCenterEvent = mkOption {
-            type = nullOr str;
-            default = null;
-            description = "NSDistributedNotificationCenter event to hook into";
-            example = "com.apple.bluetooth.state";
-          };
-        };
-      });
-      default = [ ];
-      description = "external events to be defined";
-    };
-
-    services.sketchybar.config.items = mkOption {
-      type = listOf (submodule {
+  options = with types;
+    let
+      item = submodule {
         options = {
           name = mkOption {
             type = str;
@@ -169,66 +150,174 @@ in
               })
             ];
           };
-          attrs = mkOption {
-            type = attrs;
-            default = { };
+          itemType = mkOption {
+            type = enum [ "item" "graph" ];
+            default = "item";
           };
-          subscribe = mkOption {
-            type = listOf str;
-            default = [ ];
-            description = "events subscribed to";
-          };
-          script = mkOption {
-            type = nullOr path;
+          graphWidth = mkOption {
+            type = nullOr int;
             default = null;
-            description = "script to execute";
+            description = "width (when a graph)";
+          };
+          attrs = mkOption
+            {
+              type = attrs;
+              default = { };
+            };
+          subscribe = mkOption
+            {
+              type = listOf str;
+              default = [ ];
+              description = "events subscribed to";
+            };
+          script = mkOption
+            {
+              type = nullOr path;
+              default = null;
+              description = "script to execute";
+            };
+        };
+      };
+      bracket = submodule
+        {
+          options = {
+            bracket = mkOption {
+              type = str;
+              description = "name of bracket";
+            };
+            items = mkOption {
+              type = nonEmptyListOf item;
+            };
           };
         };
-      });
-      default = [ ];
-      example = literalExpression ''
-        [
-          {
-            name = "app_name";
-            position = "left";
-            attrs = {
-              label.font = "heavyfont";
-              label.color = "FF00FF";
+    in
+    {
+      services.sketchybar.enable = mkEnableOption "sketchybar";
+
+      services.sketchybar.package = mkOption {
+        type = path;
+        description = "The sketchybar package to use.";
+      };
+
+      services.sketchybar.config.bar = mkOption {
+        type = attrs;
+        default = { };
+        description = "bar's visual attributes";
+      };
+
+      services.sketchybar.config.default = mkOption {
+        type = attrs;
+        default = { };
+        description = "item defaults";
+      };
+
+      services.sketchybar.config.spaces = mkOption {
+        type = listOf (submodule {
+          options = {
+            name = mkOption {
+              type = str;
             };
-            script = "myscript.sh";
-            subscribe = [ "title" "window_focus" ];
-          }
-        ]
-      '';
-      description = "items";
-    };
+            position = mkOption {
+              type = enum [ "left" "center" "right" ];
+            };
+            attrs = mkOption {
+              type = attrs;
+            };
+          };
+        });
+      };
 
-    services.sketchybar.extraConfig = mkOption {
-      type = str;
-      default = "";
-      example = literalExpression ''
-        echo "sketchybar config loaded..."
-      '';
-      description = ''
-        Extra arbitrary configuration to append to the configuration file.
-      '';
-    };
-  };
+      services.sketchybar.config.events = mkOption {
+        type = listOf (submodule {
+          options = {
+            name = mkOption {
+              type = str;
+              description = "Name of event";
+            };
+            notificationCenterEvent = mkOption {
+              type = nullOr str;
+              default = null;
+              description = "NSDistributedNotificationCenter event to hook into";
+              example = "com.apple.bluetooth.state";
+            };
+          };
+        });
+        default = [ ];
+        description = "external events to be defined";
+      };
 
-  config = mkIf (cfg.enable) {
-    environment.systemPackages = [ cfg.package ];
+      # ideally this would be typed as `listOf (oneOf [bracket item])` but that is not possible
+      services.sketchybar.config.items = mkOption {
+        type = listOf bracket;
+        default = [ ];
+        example = literalExpression ''
+          [ 
+            # items in bracket be prefixed with bracket name, e.g. "bracket1.app_name"
+            { 
+              name = "bracket1";
+              items = [
+                {
+                  name = "app_name";
+                  position = "left";
+                  attrs = {
+                    label.font = "heavyfont";
+                    label.color = "FF00FF";
+                  };
+                  script = "myscript.sh";
+                  subscribe = [ "title" "window_focus" ];
+                }
+              ];
+            }
+            # special handling of 'single-item' bracket, no prefixing occurs.
+            # requires: 1 item and empty name
+            {
+              name = "";
+              items = [
+                {
+                  name = "app_name";
+                  position = "left";
+                  attrs = {
+                    label.font = "heavyfont";
+                    label.color = "FF00FF";
+                  };
+                  script = "myscript.sh";
+                  subscribe = [ "title" "window_focus" ];
+                }
+              ];
+            }
+          ]
+        '';
+        description = "items";
+      };
 
-    launchd.user.agents.sketchybar = {
-      serviceConfig.ProgramArguments = [ "${cfg.package}/bin/sketchybar" ];
-
-      serviceConfig.KeepAlive = true;
-      serviceConfig.RunAtLoad = true;
-      serviceConfig.EnvironmentVariables = {
-        PATH = "${cfg.package}/bin:${config.environment.systemPath}";
-        XDG_CONFIG_HOME = mkIf (cfg.config != "") "${configHome}";
+      services.sketchybar.extraConfig = mkOption {
+        type = str;
+        default = "";
+        example = literalExpression ''
+          echo "sketchybar config loaded..."
+        '';
+        description = ''
+          Extra arbitrary configuration to append to the configuration file.
+        '';
       };
     };
-  };
+
+  config = mkIf
+    (cfg.enable)
+    {
+      environment.systemPackages = [ cfg.package ];
+
+      launchd.user.agents.sketchybar = {
+        serviceConfig.ProgramArguments = [ "${cfg.package}/bin/sketchybar" ];
+
+        serviceConfig.KeepAlive = true;
+        serviceConfig.RunAtLoad = true;
+        serviceConfig.EnvironmentVariables = {
+          PATH = "${cfg.package}/bin:${config.environment.systemPath}";
+          XDG_CONFIG_HOME = mkIf (cfg.config != "") "${configHome}";
+        };
+      };
+    };
 }
 
 
