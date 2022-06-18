@@ -141,6 +141,7 @@ in
                           yabai -m window --resize top:0:-${resizePixels}
 
           hyper - space : yabai -m space --rotate 270
+          ctrl + alt - space : yabai -m window --toggle split
 
           lctrl - up   : skhd -k "pageup"
           lctrl - down : skhd -k "pagedown"
