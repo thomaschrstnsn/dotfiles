@@ -42,7 +42,13 @@ let
 
   scripts = ./skhd;
 
-  resizePixels = "50";
+  resize = rec {
+    pixels = "50";
+    left = "yabai -m window --resize left:-${pixels}:0; yabai -m window --resize right:-${pixels}:0";
+    right = "yabai -m window --resize right:${pixels}:0; yabai -m window --resize left:${pixels}:0;";
+    down = "yabai -m window --resize top:0:${pixels}; yabai -m window --resize bottom:0:${pixels}";
+    up = "yabai -m window --resize bottom:0:-${pixels}; yabai -m window --resize top:0:-${pixels}";
+  };
 in
 {
   options.tc.skhd = with types; {
@@ -146,14 +152,10 @@ in
           hyper - m : yabai -m window --toggle native-fullscreen
           hyper - f : yabai -m window --toggle zoom-fullscreen
 
-          hyper - left  : yabai -m window --resize left:-${resizePixels}:0; \
-                          yabai -m window --resize right:-${resizePixels}:0;
-          hyper - right : yabai -m window --resize right:${resizePixels}:0; \
-                          yabai -m window --resize left:${resizePixels}:0;
-          hyper - down  : yabai -m window --resize top:0:${resizePixels}; \
-                          yabai -m window --resize bottom:0:${resizePixels}
-          hyper - up    : yabai -m window --resize bottom:0:-${resizePixels}; \
-                          yabai -m window --resize top:0:-${resizePixels}
+          hyper - left  : ${resize.left}
+          hyper - right : ${resize.right}
+          hyper - down  : ${resize.down}
+          hyper - up    : ${resize.up}
 
           lctrl - up   : skhd -k "pageup"
           lctrl - down : skhd -k "pagedown"
@@ -168,16 +170,29 @@ in
           q = "yabai -m space --rotate 90";
           w = "yabai -m space --rotate 270";
           s = "yabai -m window --toggle split";
+
           j = "yabai -m window --focus west";
           l = "yabai -m window --focus east";
           i = "yabai -m window --focus north";
           k = "yabai -m window --focus south";
+
+          "shift - j" = "yabai -m window --swap west";
+          "shift - l" = "yabai -m window --swap east";
+          "shift - i" = "yabai -m window --swap north";
+          "shift - k" = "yabai -m window --swap south";
+
           n = "${scripts}/yabaiCycleCounterClockwise.sh";
           m = "${scripts}/yabaiCycleClockwise.sh";
+
           up = "yabai -m window --warp north";
           down = "yabai -m window --warp south";
           left = "yabai -m window --warp west";
           right = "yabai -m window --warp east";
+
+          "shift - left" = resize.left;
+          "shift - right" = resize.right;
+          "shift - down" = resize.down;
+          "shift - up" = resize.up;
         })
         + concatStringsSep "\n" (attrValues (mapAttrs mkShortcut cfg.extraShortcuts))
         + "\n"
