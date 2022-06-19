@@ -71,6 +71,7 @@ in
         yabai -m rule --add app="JetBrains Toolbox" manage=off
         yabai -m rule --add title='Go to Line:Column' manage=off # Rider
         yabai -m rule --add title='launcher' manage=off
+        yabai -m space 2 --layout stack
 
         # defaults write NSGlobalDomain NSAutomaticWindowAnimationsEnabled -bool false
       '' + sketchySignals;
