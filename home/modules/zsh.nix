@@ -79,6 +79,9 @@ in
           # https://github.com/LnL7/nix-darwin/issues/333
           skhd-reload = "launchctl stop org.nixos.skhd && launchctl start org.nixos.skhd";
         })
+        {
+          format-for-sql = ''awk '{printf "|%s|,\n", $1}' | sed "s/|/'/g"'';
+        }
       ];
 
       sessionVariables = {
