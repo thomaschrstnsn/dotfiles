@@ -135,6 +135,7 @@ in
             attrs = {
               "label.font" = heavy_font;
               "label.color" = label_highlight_color;
+              "label.padding_right" = 10;
             };
           }
         )
@@ -142,7 +143,7 @@ in
           {
             # from https://github.com/FelixKratz/SketchyBar/discussions/12#discussioncomment-1633997
             name = "window";
-            position = "center";
+            position = "left";
             attrs = {
               script = "${scripts}/window-title.sh";
               "background.color" = colorSolid theme.nord15;

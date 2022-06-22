@@ -6,11 +6,12 @@ data=$(yabai -m query --windows --window)
 window_title=$(echo $data | jq -r '.title' \
     | sed 's/ - Google Chrome$//g' \
     | sed 's/ - Microsoft Edge$//g' \
+    | sed 's/ - Brave$//g' \
     | sed 's/ - Audio playing$//g' \
     | sed 's/ - Camera or microphone recording$//g' \
     | sed 's/ - Part of group ..*$//g')
 
-[ "${#window_title}" -gt 80 ] && window_title="$(echo $window_title | head -c 80)…"
+[ "${#window_title}" -gt 60 ] && window_title="$(echo $window_title | head -c 60)…"
 
 # app name
 
