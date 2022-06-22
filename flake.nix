@@ -17,9 +17,14 @@
       url = github:wfxr/forgit;
       flake = false;
     };
+
+    nixos-vscode-server = {
+      url = "github:msteen/nixos-vscode-server";
+      flake = false;
+    };
   };
 
-  outputs = { nixpkgs, home-manager, darwin, forgit-git, ... }@inputs:
+  outputs = { nixpkgs, home-manager, darwin, forgit-git, nixos-vscode-server, ... }@inputs:
     let
       inherit (nixpkgs) lib;
 
@@ -67,7 +72,11 @@
 
               home.packages = extraPackages pkgs;
 
-              imports = [ ./home/modules ];
+              imports = [
+                "${nixos-vscode-server}/modules/vscode-server/home.nix"
+
+                ./home/modules
+              ];
             };
             homeDirectory = homedir;
           }
