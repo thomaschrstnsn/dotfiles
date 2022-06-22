@@ -13,8 +13,9 @@ in
     home.packages = with pkgs; [
       awscli2
       saml2aws
-      tfswitch
+      ssm-session-manager-plugin
       terraform-ls
+      tfswitch
     ];
 
     programs.zsh.sessionVariables = {
