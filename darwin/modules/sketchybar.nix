@@ -16,7 +16,7 @@ let
     };
     laptop = {
       font.small = 10;
-      font.normal = 13;
+      font.normal = 14;
       bar.height = 24;
     };
   }.${cfg.scale};
@@ -145,7 +145,7 @@ in
             position = "center";
             attrs = {
               script = "${scripts}/window-title.sh";
-              "background.color" = "0xFFB48EAD";
+              "background.color" = colorSolid theme.nord15;
               "icon.drawing" = "off";
               "background.drawing" = "off";
             };
@@ -363,7 +363,7 @@ in
     services.yabai.config = {
       external_bar =
         let
-          value = toString (dimensions.bar.height + 2);
+          value = toString (dimensions.bar.height);
         in
         "main:${if cfg.position == "top" then value else "0"}:${if cfg.position == "top" then "0" else value}";
     };
