@@ -2,6 +2,8 @@
 
 {
   imports = [
+    # ./nord-theme.nix
+
     ./fonts.nix
     ./homebrew.nix
     ./osx.nix

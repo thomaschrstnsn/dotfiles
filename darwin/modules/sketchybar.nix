@@ -3,6 +3,7 @@
 with lib;
 
 let
+  theme = pkgs.callPackage ./nord-theme.nix { };
   scripts = ./sketchybar;
   skhd = ./skhd;
   cfg = config.tc.sketchybar;
@@ -20,15 +21,18 @@ let
     };
   }.${cfg.scale};
 
-  bar_color = "0x442E3440";
+  colorAlpha = alpha: color: "0x${alpha}${color}";
+  colorSolid = colorAlpha "ff";
+
+  bar_color = colorAlpha "44" theme.nord0;
   label_color = icon_color;
-  icon_color = "0xffECEFF4";
+  icon_color = colorSolid theme.nord6;
   small_label_font = "JetBrainsMono Nerd Font:Regular:${toString dimensions.font.small}";
   icon_font = "JetBrainsMono Nerd Font:Regular:${toString dimensions.font.normal}";
   heavy_font = "JetBrainsMono Nerd Font:Bold Italic:${toString dimensions.font.normal}";
-  icon_highlight_color = "0xffEBCB8B";
+  icon_highlight_color = colorSolid theme.yellow;
   label_highlight_color = icon_highlight_color;
-  warning_highlight_color = "0xffD08770";
+  warning_highlight_color = colorSolid theme.orange;
   label_font = icon_font;
   events.bluetooth_change = "bluetooth_change";
 
@@ -119,7 +123,7 @@ in
           position = "left";
           attrs = {
             script = "${scripts}/yabai-mode.sh";
-            "background.color" = "0xffD08770";
+            "background.color" = colorSolid theme.orange;
           };
           subscribe = [ "yabai_layout" "space_change" ];
         })
