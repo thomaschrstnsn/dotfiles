@@ -10,7 +10,7 @@ let
 
   dimensions = {
     desktop = {
-      font.small = 11;
+      font.small = 10;
       font.normal = 15;
       bar.height = 26;
     };
