@@ -13,7 +13,6 @@ in
     ./nodejs.nix
     ./smd_launcher.nix
     ./tmux.nix
-    ./vscode-server.nix
     ./zsh.nix
 
     ./haskell

@@ -72,11 +72,14 @@
 
               home.packages = extraPackages pkgs;
 
-              imports = [
-                "${nixos-vscode-server}/modules/vscode-server/home.nix"
-
-                ./home/modules
-              ];
+              imports = [ ./home/modules ] ++
+                (if (pkgs.stdenv.isLinux)
+                then [
+                  "${nixos-vscode-server}/modules/vscode-server/home.nix"
+                  ./home/modules/vscode-server.nix
+                ]
+                else
+                  [ ]);
             };
             homeDirectory = homedir;
           }

@@ -214,13 +214,11 @@ in
           editor = "vim";
         };
         tmux.enable = true;
+        vscode-server.enable = true;
       };
       system = systems.arm-linux;
 
       extraPackages = pkgs: with pkgs; [
-        nodejs
-        shellcheck
-        nixpkgs-fmt
       ];
     };
 
