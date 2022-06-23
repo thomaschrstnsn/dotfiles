@@ -151,7 +151,7 @@ in
             ];
           };
           itemType = mkOption {
-            type = enum [ "item" "graph" ];
+            type = enum [ "item" "graph" "alias" ];
             default = "item";
           };
           graphWidth = mkOption {

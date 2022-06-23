@@ -304,6 +304,18 @@ in
             }
           ];
         }
+        (singleItemBracket
+          {
+            name = "MeetingBar";
+            itemType = "alias";
+            position = "right";
+            attrs = {
+              "background.padding_right" = "-8";
+              "background.padding_left" = "-6";
+              "update_freq" = 10;
+            };
+
+          })
         ## TODO broken
         # (singleItemBracket
         #   {
