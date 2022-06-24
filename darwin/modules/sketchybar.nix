@@ -4,7 +4,6 @@ with lib;
 
 let
   theme = pkgs.callPackage ./nord-theme.nix { };
-  scripts = ./sketchybar;
   skhd = ./skhd;
   cfg = config.tc.sketchybar;
 
@@ -26,7 +25,7 @@ let
 
   bar_color = colorAlpha "44" theme.nord0;
   label_color = icon_color;
-  icon_color = colorSolid theme.nord6;
+  icon_color = colorSolid theme.white;
   small_label_font = "JetBrainsMono Nerd Font:Regular:${toString dimensions.font.small}";
   icon_font = "JetBrainsMono Nerd Font:Regular:${toString dimensions.font.normal}";
   heavy_font = "JetBrainsMono Nerd Font:Bold Italic:${toString dimensions.font.normal}";
@@ -41,6 +40,8 @@ let
       bracket = "";
       items = [ item ];
     };
+
+  scripts = ./sketchybar;
 in
 {
   options.tc.sketchybar = with types; {
@@ -268,7 +269,7 @@ in
               position = "right";
               graphWidth = 100;
               attrs = {
-                "graph.color" = label_highlight_color;
+                "graph.color" = colorSolid theme.nord10;
                 update_freq = 2;
                 "label.drawing" = "off";
                 "icon.drawing" = "off";

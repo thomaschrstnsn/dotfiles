@@ -29,4 +29,5 @@ rec {
   orange = nord12;
   yellow = nord13;
   green = nord14;
+  white = nord6;
 }

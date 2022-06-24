@@ -1,27 +1,28 @@
-#!/usr/bin/env sh
+#!/usr/bin/env zsh
 
-# source "$HOME/.config/sketchybar/colors.sh"
+# shellcheck source=/dev/null
+source "${0:a:h}"/colors.sh
 
 CORE_COUNT=$(sysctl -n machdep.cpu.thread_count)
 CPU_INFO=$(ps -eo pcpu,user)
-CPU_SYS=$(echo "$CPU_INFO" | grep -v $(whoami) | sed "s/[^ 0-9\.]//g" | awk "{sum+=\$1} END {print sum/(100.0 * $CORE_COUNT)}")
-CPU_USER=$(echo "$CPU_INFO" | grep $(whoami) | sed "s/[^ 0-9\.]//g" | awk "{sum+=\$1} END {print sum/(100.0 * $CORE_COUNT)}")
+CPU_SYS=$(echo "$CPU_INFO" | grep -v "$(whoami)" | sed "s/[^ 0-9\.]//g" | awk "{sum+=\$1} END {print sum/(100.0 * $CORE_COUNT)}")
+CPU_USER=$(echo "$CPU_INFO" | grep "$(whoami)" | sed "s/[^ 0-9\.]//g" | awk "{sum+=\$1} END {print sum/(100.0 * $CORE_COUNT)}")
 
 CPU_PERCENT="$(echo "$CPU_SYS $CPU_USER" | awk '{printf "%.0f\n", ($1 + $2)*100}')"
 
-COLOR="0xffFFffFF" # $WHITE
+COLOR=$WHITE
 case "$CPU_PERCENT" in
-  [1-2][0-9]) COLOR="0xffD08770" # $YELLOW
+  [1-2][0-9]) COLOR=$YELLOW
   ;;
-  [3-6][0-9]) COLOR="0xffEBCB8B" # $ORANGE
+  [3-6][0-9]) COLOR=$ORANGE
   ;;
-  [7-9][0-9]|100) COLOR="0xFFFF0000" # $RED
+  [7-9][0-9]|100) COLOR=$RED
   ;;
 esac
 
 
-sketchybar --set cpu.percent label=$CPU_PERCENT% \
-                             label.color=$COLOR \
-           --push cpu.sys $CPU_SYS \
-           --push cpu.user $CPU_USER
+sketchybar --set cpu.percent label="$CPU_PERCENT"% \
+                             label.color="$COLOR" \
+           --push cpu.sys "$CPU_SYS" \
+           --push cpu.user "$CPU_USER"
  
