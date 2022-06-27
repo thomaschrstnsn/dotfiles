@@ -60,28 +60,25 @@
         in
         (
           home-manager.lib.homeManagerConfiguration {
-            inherit system username pkgs;
-            stateVersion = version;
-            configuration = {
-              tc = homeConfig;
-
-              nixpkgs.overlays = overlays;
-              nixpkgs.config.allowUnfree = true;
-
-              home.stateVersion = version;
-
-              home.packages = extraPackages pkgs;
-
-              imports = [ ./home/modules ] ++
-                (if (pkgs.stdenv.isLinux)
-                then [
-                  "${nixos-vscode-server}/modules/vscode-server/home.nix"
-                  ./home/modules/vscode-server.nix
-                ]
-                else
-                  [ ]);
-            };
-            homeDirectory = homedir;
+            inherit pkgs;
+            modules = [
+              {
+                tc = homeConfig;
+                home = {
+                  homeDirectory = homedir;
+                  stateVersion = version;
+                  packages = extraPackages pkgs;
+                };
+              }
+              ./home/modules
+            ] ++
+            (if (pkgs.stdenv.isLinux)
+            then [
+              "${nixos-vscode-server}/modules/vscode-server/home.nix"
+              ./home/modules/vscode-server.nix
+            ]
+            else
+              [ ]);
           }
         );
 
