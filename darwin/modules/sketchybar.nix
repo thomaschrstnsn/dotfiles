@@ -59,6 +59,10 @@ in
     position = mkOption {
       type = enum [ "top" "bottom" ];
     };
+    aliases = {
+      meetingbar.enable = mkEnableOption "MeetingBar Alias";
+      appgate.enable = mkEnableOption "AppGate SDP Alias";
+    };
   };
 
   config = mkIf (cfg.enable) {
@@ -304,18 +308,36 @@ in
             }
           ];
         }
-        (singleItemBracket
-          {
-            name = "MeetingBar";
-            itemType = "alias";
-            position = "right";
-            attrs = {
-              "background.padding_right" = "-8";
-              "background.padding_left" = "-6";
-              "update_freq" = 10;
-            };
+        (mkIf (cfg.aliases.meetingbar.enable)
+          (singleItemBracket
+            {
+              name = "MeetingBar";
+              itemType = "alias";
+              position = "right";
+              attrs = {
+                "background.color" = bar_color;
+                "background.padding_right" = -8;
+                "background.padding_left" = -6;
+                "icon.padding_left" = -16;
+                "update_freq" = 10;
+              };
 
-          })
+            })
+        )
+        (mkIf (cfg.aliases.appgate.enable)
+          (singleItemBracket
+            {
+              name = "Appgate SDP,Item-0";
+              itemType = "alias";
+              position = "right";
+              attrs = {
+                "background.color" = bar_color;
+                "background.padding_left" = -6;
+                "icon.padding_left" = -16;
+                "update_freq" = 10;
+              };
+            })
+        )
         ## TODO broken
         # (singleItemBracket
         #   {

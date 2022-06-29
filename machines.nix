@@ -149,6 +149,8 @@ in
           spaces = 10;
           scale = "desktop";
           position = "top";
+          aliases.appgate.enable = true;
+          aliases.meetingbar.enable = true;
         };
         yabai.enable = true;
       };

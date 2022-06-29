@@ -68,9 +68,9 @@ let
       name =
         if (bracketName == "")
         then
-          item.name
+          ''"${item.name}"''
         else
-          "${bracketName}.${item.name}";
+          ''"${bracketName}.${item.name}"'';
       header = "${modify} --add ${item.itemType} ${name} ${mkPosition item.position}";
       script = optionalString (item.script != null) (''${tab}--set ${name} script="${item.script}'');
       subscribe = optionalString (item.subscribe != [ ]) (''${tab}--subscribe ${name} ${concatStringsSep " " item.subscribe}'');
