@@ -146,7 +146,6 @@ in
         };
         sketchybar = {
           enable = true;
-          spaces = 10;
           scale = "desktop";
           position = "top";
           aliases.appgate.enable = true;

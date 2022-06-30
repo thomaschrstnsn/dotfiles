@@ -51,7 +51,7 @@ in
     spaces = mkOption {
       description = "Number of spaces";
       type = int;
-      default = 8;
+      default = 20;
     };
     scale = mkOption {
       type = enum [ "desktop" "laptop" ];
@@ -315,7 +315,6 @@ in
               itemType = "alias";
               position = "right";
               attrs = {
-                "background.color" = bar_color;
                 "background.padding_right" = -8;
                 "background.padding_left" = -6;
                 "icon.padding_left" = -16;
@@ -331,13 +330,24 @@ in
               itemType = "alias";
               position = "right";
               attrs = {
-                "background.color" = bar_color;
                 "background.padding_left" = -6;
                 "icon.padding_left" = -16;
                 "update_freq" = 10;
               };
             })
         )
+        (singleItemBracket
+          {
+            name = "Control Centre,Sound";
+            itemType = "alias";
+            position = "right";
+            attrs = {
+              "background.padding_left" = -6;
+              "icon.padding_left" = -16;
+              "update_freq" = 10;
+            };
+          })
+
         ## TODO broken
         # (singleItemBracket
         #   {
