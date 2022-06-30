@@ -1,3 +1,10 @@
 #!/bin/bash
 
-sketchybar -m --set "$NAME" icon.highlight="$SELECTED" label.highlight="$SELECTED"
+DRAWING="true"
+if [ "$SELECTED" = "false" ]
+then
+    DRAWING="false";
+fi;
+
+sketchybar -m --set "$NAME" icon.highlight="$SELECTED" label.highlight="$SELECTED" drawing="$DRAWING"
+

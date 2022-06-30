@@ -109,6 +109,7 @@ in
                 icon = "${space}";
                 click_script = "${skhd}/focusFirstWindowInSpace.sh ${space}";
                 script = "${scripts}/space.sh";
+                "label.padding_right" = 8;
               };
             })
           (genList (i: i + 1) cfg.spaces);
