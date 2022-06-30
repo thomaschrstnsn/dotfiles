@@ -11,7 +11,9 @@ window_title=$(echo $data | jq -r '.title' \
     | sed 's/ - Camera or microphone recording$//g' \
     | sed 's/ - Part of group ..*$//g')
 
-[ "${#window_title}" -gt 60 ] && window_title="$(echo $window_title | head -c 60)…"
+cutoff=80
+
+[ "${#window_title}" -gt $cutoff ] && window_title="$(echo $window_title | head -c $cutoff)…"
 
 # app name
 
