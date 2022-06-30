@@ -172,13 +172,15 @@ in
         )
         (singleItemBracket
           {
-            name = "battery";
+            name = "Control Centre,Battery";
+            itemType = "alias";
             position = "right";
             attrs = {
-              update_freq = 60;
-              script = "${scripts}/battery.sh";
-              "icon.highlight_color" = warning_highlight_color;
-              "label.highlight_color" = warning_highlight_color;
+              # "background.padding_left" = -2;
+              # "icon.padding_left" = -4;
+              "background.padding_right" = -6;
+              "icon.padding_right" = -8;
+              "update_freq" = 10;
             };
           }
         )
@@ -342,8 +344,8 @@ in
             itemType = "alias";
             position = "right";
             attrs = {
-              "background.padding_left" = -6;
-              "icon.padding_left" = -16;
+              "background.padding_right" = -6;
+              "icon.padding_right" = -8;
               "update_freq" = 10;
             };
           })
