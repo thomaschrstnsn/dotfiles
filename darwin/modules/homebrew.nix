@@ -13,6 +13,18 @@ in
       type = listOf str;
       default = [ ];
     };
+    extraBrews = mkOption
+      {
+        description = "additional brews to setup";
+        type = listOf str;
+        default = [ ];
+      };
+    extraTaps = mkOption
+      {
+        description = "additional taps to setup";
+        type = listOf str;
+        default = [ ];
+      };
   };
 
   config = mkIf (cfg.enable) {
@@ -35,7 +47,9 @@ in
     homebrew.taps = [
       "homebrew/cask"
       "homebrew/cask-versions"
-    ];
+    ] ++ cfg.extraTaps;
+
+    homebrew.brews = cfg.extraBrews;
 
     homebrew.casks = [
       # "1password-beta"
