@@ -106,6 +106,10 @@ in
       darwin = {
         homebrew = {
           enable = true;
+          extraTaps = [ "Microsoft/homebrew-mssql-release" ];
+          extraBrews = [
+            "microsoft/mssql-release/mssql-tools" # 🤦‍♂️ first time install, you need to type: "YES" + enter while the prompt: "Installing microsoft/mssql-release/mssql-tools" is present
+          ];
           extraCasks = [
             "asana"
             "azure-data-studio"
