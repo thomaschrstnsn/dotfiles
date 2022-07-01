@@ -18,6 +18,11 @@ in
       type = types.str;
       default = "code --wait";
     };
+    extraAliases = mkOption {
+      description = "Extra aliases for zsh";
+      type = types.attrs;
+      default = { };
+    };
   };
 
   config = mkIf (cfg.enable) {
@@ -82,6 +87,7 @@ in
         {
           format-for-sql = ''awk '{printf "|%s|,\n", $1}' | sed "s/|/'/g"'';
         }
+        cfg.extraAliases
       ];
 
       sessionVariables = {

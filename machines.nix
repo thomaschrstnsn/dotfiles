@@ -91,6 +91,9 @@ in
         zsh = {
           enable = true;
           skhd = true;
+          extraAliases = {
+            meet-billing-and-reporting = ''"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --app=http://g.co/meet/billing-and-reporting'';
+          };
         };
         smd_launcher.enable = true;
         direnv.enable = true;
