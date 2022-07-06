@@ -83,9 +83,9 @@ let
       name = bracket.bracket;
       header = "${modify} --add bracket ${name}";
       items = concatStringsSep " " (map (item: "${name}.${item.name}") bracket.items);
-      #attrs = attrsToSetSketchyBar name item.attrs;
+      attrs = attrsToSetSketchyBar name bracket.attrs;
     in
-    concatStringsSep " " [ header items ] + "\n";
+    concatStringsSep " " [ header items attrs ] + "\n";
 
   bracketToSketchyBar = bracket:
     if (bracket.bracket == "")
@@ -188,6 +188,11 @@ in
             items = mkOption {
               type = nonEmptyListOf item;
             };
+            attrs = mkOption
+              {
+                type = attrs;
+                default = { };
+              };
           };
         };
     in

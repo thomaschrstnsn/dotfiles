@@ -20,24 +20,26 @@ let
     };
   }.${cfg.scale};
 
-  colorAlpha = alpha: color: "0x${alpha}${color}";
-  colorSolid = colorAlpha "ff";
+  color_alpha = alpha: color: "0x${alpha}${color}";
+  color_solid = color_alpha "ff";
+  bar_trans = "44";
 
-  bar_color = colorAlpha "44" theme.nord0;
+  default_padding = 10;
+
+  bar_color = color_alpha bar_trans theme.nord0;
   label_color = icon_color;
-  icon_color = colorSolid theme.white;
+  icon_color = color_solid theme.white;
   small_label_font = "JetBrainsMono Nerd Font:Regular:${toString dimensions.font.small}";
   icon_font = "JetBrainsMono Nerd Font:Regular:${toString dimensions.font.normal}";
   heavy_font = "JetBrainsMono Nerd Font:Bold Italic:${toString dimensions.font.normal}";
-  icon_highlight_color = colorSolid theme.yellow;
+  icon_highlight_color = color_solid theme.yellow;
   label_highlight_color = icon_highlight_color;
-  warning_highlight_color = colorSolid theme.orange;
+  warning_highlight_color = color_solid theme.orange;
   label_font = icon_font;
   events.bluetooth_change = "bluetooth_change";
 
   background =
     {
-      color = bar_color;
       blur_radius = 50;
     };
 
@@ -86,13 +88,15 @@ in
       config.bar = {
         height = dimensions.bar.height;
         position = cfg.position;
-        padding_left = 10;
-        padding_right = 10;
+        padding_left = default_padding;
+        padding_right = default_padding;
         topmost = "off";
         display = "main";
         corner_radius = 10;
         font_smoothing = "on";
-      } // background;
+        color = bar_color;
+        blur_radius = background.blur_radius;
+      };
       config.default = {
         cache_scripts = "on";
         "icon.font" = icon_font;
@@ -101,8 +105,8 @@ in
         "label.font" = label_font;
         "label.color" = label_color;
         "label.highlight_color" = label_highlight_color;
-        "icon.padding_left" = 10;
-        "icon.padding_right" = 10;
+        "icon.padding_left" = default_padding;
+        "icon.padding_right" = default_padding;
       } // background;
       config.spaces =
         map
@@ -135,7 +139,7 @@ in
           position = "left";
           attrs = {
             script = "${scripts}/yabai-mode.sh";
-            "background.color" = colorSolid theme.orange;
+            "background.color" = color_alpha bar_trans theme.orange;
           };
           subscribe = [ "yabai_layout" "space_change" ];
         })
@@ -147,7 +151,7 @@ in
             attrs = {
               "label.font" = heavy_font;
               "label.color" = label_highlight_color;
-              "label.padding_right" = 10;
+              "label.padding_right" = default_padding;
             };
           }
         )
@@ -158,7 +162,7 @@ in
             position = "left";
             attrs = {
               script = "${scripts}/window-title.sh";
-              "background.color" = colorSolid theme.nord15;
+              "background.color" = color_solid theme.nord15;
               "icon.drawing" = "off";
               "background.drawing" = "off";
             };
@@ -171,8 +175,20 @@ in
             position = "right";
             attrs = {
               update_freq = 10;
+              icon = "";
               script = "${scripts}/status.sh";
-              "icon.padding_left" = 2;
+              "icon.padding_right" = 2;
+            };
+          }
+        )
+        (singleItemBracket
+          {
+            name = "date";
+            position = "right";
+            attrs = {
+              icon = "";
+              "label.padding_right" = default_padding;
+              "background.color" = color_alpha bar_trans theme.orange;
             };
           }
         )
@@ -227,6 +243,9 @@ in
         }
         {
           bracket = "cpu";
+          attrs = {
+            "background.color" = color_alpha bar_trans theme.green;
+          };
           items = [
             {
               name = "separator";
@@ -282,7 +301,7 @@ in
               position = "right";
               graphWidth = 100;
               attrs = {
-                "graph.color" = colorSolid theme.nord10;
+                "graph.color" = color_solid theme.nord10;
                 update_freq = 2;
                 "label.drawing" = "off";
                 "icon.drawing" = "off";
