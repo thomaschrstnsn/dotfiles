@@ -35,6 +35,12 @@ let
   label_font = icon_font;
   events.bluetooth_change = "bluetooth_change";
 
+  background =
+    {
+      color = bar_color;
+      blur_radius = 50;
+    };
+
   singleItemBracket = item:
     {
       bracket = "";
@@ -42,6 +48,7 @@ let
     };
 
   scripts = ./sketchybar;
+
 in
 {
   options.tc.sketchybar = with types; {
@@ -81,13 +88,11 @@ in
         position = cfg.position;
         padding_left = 10;
         padding_right = 10;
-        color = bar_color;
         topmost = "off";
         display = "main";
         corner_radius = 10;
-        blur_radius = 50;
         font_smoothing = "on";
-      };
+      } // background;
       config.default = {
         cache_scripts = "on";
         "icon.font" = icon_font;
@@ -98,7 +103,7 @@ in
         "label.highlight_color" = label_highlight_color;
         "icon.padding_left" = 10;
         "icon.padding_right" = 10;
-      };
+      } // background;
       config.spaces =
         map
           (i:
