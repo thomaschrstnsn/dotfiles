@@ -226,6 +226,7 @@ in
                 label = "RAM";
                 y_offset = 6;
                 width = 0;
+                "icon.padding_left" = 0;
               };
             }
             {
@@ -237,6 +238,7 @@ in
                   y_offset = -4;
                   script = "${scripts}/ram.sh";
                   update_freq = 1;
+                  "icon.padding_left" = 0;
                 };
             }
           ];
