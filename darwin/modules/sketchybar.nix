@@ -120,7 +120,6 @@ in
                 associated_display = 1;
                 associated_space = "${space}";
                 icon = "${space}";
-                click_script = "${skhd}/focusFirstWindowInSpace.sh ${space}";
                 script = "${scripts}/space.sh";
                 "label.padding_right" = 8;
                 drawing = false;

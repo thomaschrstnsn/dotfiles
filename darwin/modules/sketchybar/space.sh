@@ -6,5 +6,5 @@ then
     DRAWING="false";
 fi;
 
-sketchybar -m --set "$NAME" icon.highlight="$SELECTED" label.highlight="$SELECTED" drawing="$DRAWING"
+sketchybar -m --set "$NAME" label.highlight="$SELECTED" drawing="$DRAWING"
 
