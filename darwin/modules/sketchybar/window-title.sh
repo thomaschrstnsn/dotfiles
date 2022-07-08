@@ -19,6 +19,15 @@ cutoff=80
 
 app_name=$(echo $data | jq -r '.app')
 
+case "$app_name" in
+    "Brave Browser")
+    app_name="Brave"
+    ;;
+    *)
+    app_name="$app_name"
+    ;;
+esac
+
 [ "${#app_name}" -gt 30 ] && app_name="$(echo $app_name | head -c 30)…"
 
 # setting items
