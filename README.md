@@ -1,4 +1,4 @@
-# dotfiles aka home-manager nix-darwin as a nix flake
+# dotfiles aka machine configuration (home-manager + nix-darwin + nixos as a nix flake)
 
 personal dotfiles for Thomas Christensen
 
@@ -9,7 +9,7 @@ personal dotfiles for Thomas Christensen
 
 ## using home-manager
 
-`./apply-home.sh` will apply the `homeManagerConfigurations` defined as `$HOST`.`$USER` in `flake.nix`
+`./apply-home.sh` will apply the `homeManagerConfigurations` defined as `$HOST`.`$USER` in `machines.nix`
 
 hint: to apply and reload: `./apply-home.sh && reload_zshrc`
 
@@ -39,11 +39,17 @@ when successful, open a new terminal session and continue below
 
 ### updating/refreshing
 
-`./apply-darwin.sh` will apply the `darwinConfigurations` defined as `$HOST` in `flake.nix`
+`./apply-darwin.sh` will apply the `darwinConfigurations` defined as `$HOST` in `machines.nix`
 
 to preview changes without applying:
 
 `./build-darwin.sh`
+
+## using nixos
+
+`./nixos.sh switch` will apply the nixos configuration defined for `$HOST` in `machines.nix`
+
+to preview changes without applying: `./nixos.sh build`
 
 ## updating lockfile
 

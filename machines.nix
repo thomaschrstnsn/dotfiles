@@ -2,7 +2,7 @@ let
   systems = {
     arm-linux = "aarch64-linux";
     x64-linux = "x86_64-linux";
-    m1_darwin = "aarch64-darwin";
+    m1-darwin = "aarch64-darwin";
     x64-darwin = "x86_64-darwin";
   };
 
@@ -69,7 +69,7 @@ in
         nixpkgs-fmt
       ];
 
-      system = systems.m1_darwin;
+      system = systems.m1-darwin;
     };
 
     A125228-DK = {
@@ -228,11 +228,26 @@ in
 
       extraPackages = pkgs: with pkgs; [
       ];
+
+      nixosCfg = {
+
+      };
+      nixosBase = {
+        imports =
+          [ # Include the results of the hardware scan.
+            ./nixos/hardware/vmnix.nix
+            ./nixos/vmnix.nix
+          ];
+
+      };
     };
 
     # Minimal configuration to bootstrap darwin systems
-    bootstrap = {
+    darwin-bootstrap-x64 = {
       system = systems.x64-darwin;
+    };
+    darwin-bootstrap-aarch64 = {
+      system = systems.m1-darwin;
     };
   };
 }

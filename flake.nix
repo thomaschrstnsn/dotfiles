@@ -3,6 +3,9 @@
   inputs = {
     nixpkgs.url = "nixpkgs/nixpkgs-unstable";
 
+    # nixos-stable.url = "nixpkgs/nixos-stable";
+    # nixos-unstable.url = "nixpkgs/nixos-unstable";
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -45,6 +48,26 @@
             ./darwin/modules/bootstrap.nix
             ./darwin/services
             ./darwin/modules
+          ] ++ extraModules ++ [{ config.tc = config; }];
+        };
+
+      mkNixosSystem =
+        { extraModules ? [ ]
+        , system
+        , config ? { }
+        }:
+        let
+          inherit (pkgsAndOverlaysForSystem system) pkgs overlays;
+        in
+          lib.nixosSystem {
+          inherit system;
+          modules = [
+            {
+              nixpkgs.overlays = overlays;
+            }
+            ./nixos/modules/bootstrap.nix
+            ./nixos/services
+            ./nixos/modules
           ] ++ extraModules ++ [{ config.tc = config; }];
         };
 
@@ -125,6 +148,19 @@
           }
         );
 
+      machineToNixos =
+        (machine:
+          { system
+          , nixosCfg ? { }
+          , nixosBase ? { }
+          , ...
+          }: mkNixosSystem {
+            system = system;
+            config = nixosCfg;
+            extraModules = [nixosBase];
+          }
+        );
+
       inherit (import ./machines.nix) machines;
     in
     rec {
@@ -133,5 +169,8 @@
 
       darwinConfigurations =
         builtins.mapAttrs machineToDarwin machines;
+      
+      nixosConfigurations =
+        builtins.mapAttrs machineToNixos machines;
     };
 }
