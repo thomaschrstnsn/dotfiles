@@ -29,7 +29,9 @@ $ sudo cp /etc/bashrc /etc/bashrc.backup-before-darwin
 $ sudo cp /etc/zshrc /etc/zshrc.backup-before-darwin
 ```
 
-Bootstrap using: `./apply-darwin.sh bootstrap`
+Bootstrap using: 
+- for x64: `./apply-darwin.sh darwin-bootstrap-x64`
+- for m1:  `./apply-darwin.sh darwin-bootstrap-aarch64`
 
 If this fails, you may need to:
 - `rm ~/.nix-defexpr/channels`
