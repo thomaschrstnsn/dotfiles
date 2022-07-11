@@ -230,15 +230,14 @@ in
       ];
 
       nixosCfg = {
-
+        users.enable = true;
       };
       nixosBase = {
         imports =
-          [ # Include the results of the hardware scan.
+          [
             ./nixos/hardware/vmnix.nix
-            ./nixos/vmnix.nix
+            ./nixos/machines/vmnix.nix
           ];
-
       };
     };
 
