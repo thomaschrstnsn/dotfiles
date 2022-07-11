@@ -21,8 +21,8 @@ in
           sdks = [ "6.0" ];
         };
         git.enable = true;
-        # haskell.stack.enable = true;
-        # haskell.ihp.enable = true;
+        haskell.stack.enable = true;
+        haskell.ihp.enable = true;
         smd_launcher.enable = true;
         zsh = {
           enable = true;
