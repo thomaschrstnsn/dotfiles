@@ -35,6 +35,7 @@
         { extraModules ? [ ]
         , system
         , config ? { }
+        , home-manager-config ? { }
         }:
         let
           inherit (pkgsAndOverlaysForSystem system) pkgs overlays;
@@ -42,13 +43,33 @@
         darwin.lib.darwinSystem {
           inherit system;
           modules = [
+            { config.tc = config; }
             {
               nixpkgs.overlays = overlays;
             }
+
+            home-manager.darwinModule
+
             ./darwin/modules/bootstrap.nix
+
+            {
+              options.tc.user.name = lib.mkOption {
+                type = lib.types.str;
+                description = "username";
+              };
+            }
+
+            {
+              home-manager = {
+                users."${config.user.name}" = home-manager-config;
+                useGlobalPkgs = true;
+                useUserPackages = true;
+              };
+            }
+
             ./darwin/services
             ./darwin/modules
-          ] ++ extraModules ++ [{ config.tc = config; }];
+          ] ++ extraModules;
         };
 
       mkNixosSystem =
@@ -92,7 +113,6 @@
         }:
         let
           version = "21.11";
-          inherit (homeConfig.user) homedir username;
           inherit (pkgsAndOverlaysForSystem system) pkgs overlays;
         in
         {
@@ -101,7 +121,6 @@
             {
               tc = homeConfig;
               home = {
-                homeDirectory = homedir;
                 stateVersion = version;
                 packages = extraPackages pkgs;
               };
@@ -161,10 +180,24 @@
         (machine:
           { system
           , darwin ? { }
+          , home ? null
+          , extraPackages ? _: [ ]
           , ...
-          }: mkDarwinSystem {
+          }:
+          let
+            fixedUser = home.user // { homedir = null; };
+            hm-config = mkHMUser' {
+              homeConfig = home // {
+                user = fixedUser;
+              };
+              extraPackages = extraPackages;
+              system = system;
+            };
+          in
+          mkDarwinSystem {
             system = system;
-            config = darwin;
+            config = darwin // { user.name = home.user.username; };
+            home-manager-config = { imports = hm-config.modules; };
           }
         );
 

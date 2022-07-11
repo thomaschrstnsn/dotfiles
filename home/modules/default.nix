@@ -18,18 +18,21 @@ in
     ./haskell
   ];
 
-  options.tc.user = {
+  options.tc.user = with types; {
     username = mkOption {
-      type = types.str;
+      type = str;
     };
     homedir = mkOption {
-      type = types.str;
+      type = nullOr str;
     };
   };
 
   config = {
-    home.packages = with pkgs; [ git-crypt ];
-    home.username = cfg.username;
-    home.homeDirectory = cfg.homedir;
+    home = {
+      packages = with pkgs; [ git-crypt ];
+      username = cfg.username;
+    } // mkIf (cfg.homedir != null) {
+      homeDirectory = cfg.homedir;
+    };
   };
 }

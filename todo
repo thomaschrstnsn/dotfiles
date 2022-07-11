@@ -1,6 +1,3 @@
-- nix-darwin integrated with home-manager?
-- nixos configurations
-    - https://nixos.wiki/wiki/Flakes#Using_nix_flakes_with_NixOS
 - karabiner https://github.com/kpritam/nixpkgs/blob/15206cc36ba70d7f750073b816af23d8a7fa68b5/configs/karabiner.json
 - gh fuzzyclone
 - templating: https://www.reddit.com/r/NixOS/comments/v7jfth/configuring_github_with_nix/
