@@ -52,23 +52,37 @@
         };
 
       mkNixosSystem =
-        { extraModules ? [ ]
+        { base ? { }
         , system
         , config ? { }
+        , home-manager-config ? { }
         }:
         let
           inherit (pkgsAndOverlaysForSystem system) pkgs overlays;
         in
-          lib.nixosSystem {
+        lib.nixosSystem {
           inherit system;
           modules = [
-            {
-              nixpkgs.overlays = overlays;
-            }
+            { config.tc = config; }
+            { nixpkgs.overlays = overlays; }
+
+            inputs.home-manager.nixosModules.home-manager
+
             ./nixos/modules/bootstrap.nix
+
+            {
+              home-manager = {
+                users.thomas = { };
+                useGlobalPkgs = true;
+                useUserPackages = true;
+              };
+            }
+
             ./nixos/services
             ./nixos/modules
-          ] ++ extraModules ++ [{ config.tc = config; }];
+
+            base
+          ];
         };
 
       mkHMUser =
@@ -151,17 +165,28 @@
       machineToNixos =
         (machine:
           { system
-          , nixosCfg ? { }
-          , nixosBase ? { }
+          , nixos ? { config = { }; base = { }; }
+          , home ? null
+          , extraPackages ? _: [ ]
           , ...
-          }: mkNixosSystem {
+          }:
+          let
+            homeCfg = mkHMUser {
+              homeConfig = home;
+              extraPackages = extraPackages;
+              system = system;
+            };
+          in
+          mkNixosSystem {
             system = system;
-            config = nixosCfg;
-            extraModules = [nixosBase];
+            config = nixos.config;
+            base = nixos.base;
+            home-manager-config = homeCfg;
           }
         );
 
-      inherit (import ./machines.nix) machines;
+      inherit (import ./machines.nix)
+        machines;
     in
     rec {
       homeManagerConfigurations =
@@ -169,7 +194,7 @@
 
       darwinConfigurations =
         builtins.mapAttrs machineToDarwin machines;
-      
+
       nixosConfigurations =
         builtins.mapAttrs machineToNixos machines;
     };

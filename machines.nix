@@ -229,15 +229,19 @@ in
       extraPackages = pkgs: with pkgs; [
       ];
 
-      nixosCfg = {
-        user.enable = true;
-      };
-      nixosBase = {
-        imports =
-          [
-            ./nixos/hardware/vmnix.nix
-            ./nixos/machines/vmnix.nix
-          ];
+      nixos = {
+        config = {
+          user = {
+            name = "thomas";
+          };
+        };
+        base = {
+          imports =
+            [
+              ./nixos/hardware/vmnix.nix
+              ./nixos/machines/vmnix.nix
+            ];
+        };
       };
     };
 

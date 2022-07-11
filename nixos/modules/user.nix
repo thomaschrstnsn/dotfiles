@@ -7,14 +7,22 @@ let
 in
 {
   options.tc.user = with types; {
-    enable = mkEnableOption "user";
+    enable = mkOption {
+      description = "enable a default known user";
+      default = true;
+      type = bool;
+    };
+    name = mkOption {
+      type = str;
+      description = "username";
+    };
   };
 
   config = mkIf (cfg.enable) {
     users = {
       defaultUserShell = pkgs.zsh;
       mutableUsers = false;
-      users.thomas = {
+      users."${cfg.name}" = {
         isNormalUser = true;
         hashedPassword = "$6$LCmCC873.y/MhqLa$xrTZFdCYmo.FfCk1fkYCVNvVR1Xq1SrFAoD2a94pYlL7uk0apnrbJJbJIuo6WKofuA3egt7DOEasM44vyPJyZ.";
         extraGroups = [ "wheel" ];
