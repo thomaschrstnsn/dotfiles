@@ -230,7 +230,7 @@ in
       ];
 
       nixosCfg = {
-        users.enable = true;
+        user.enable = true;
       };
       nixosBase = {
         imports =

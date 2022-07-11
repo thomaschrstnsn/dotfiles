@@ -3,11 +3,11 @@
 with lib;
 
 let
-  cfg = config.tc.users;
+  cfg = config.tc.user;
 in
 {
-  options.tc.users = with types; {
-    enable = mkEnableOption "users";
+  options.tc.user = with types; {
+    enable = mkEnableOption "user";
   };
 
   config = mkIf (cfg.enable) {
