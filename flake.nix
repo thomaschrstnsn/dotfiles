@@ -72,7 +72,7 @@
 
             {
               home-manager = {
-                users.thomas = { };
+                users."${config.user.name}" = home-manager-config;
                 useGlobalPkgs = true;
                 useUserPackages = true;
               };
@@ -85,7 +85,7 @@
           ];
         };
 
-      mkHMUser =
+      mkHMUser' =
         { homeConfig
         , extraPackages ? _: [ ]
         , system
@@ -95,29 +95,35 @@
           inherit (homeConfig.user) homedir username;
           inherit (pkgsAndOverlaysForSystem system) pkgs overlays;
         in
-        (
-          home-manager.lib.homeManagerConfiguration {
-            inherit pkgs;
-            modules = [
-              {
-                tc = homeConfig;
-                home = {
-                  homeDirectory = homedir;
-                  stateVersion = version;
-                  packages = extraPackages pkgs;
-                };
-              }
-              ./home/modules
-            ] ++
-            (if (pkgs.stdenv.isLinux)
-            then [
-              "${nixos-vscode-server}/modules/vscode-server/home.nix"
-              ./home/modules/vscode-server.nix
-            ]
-            else
-              [ ]);
-          }
-        );
+        {
+          inherit pkgs;
+          modules = [
+            {
+              tc = homeConfig;
+              home = {
+                homeDirectory = homedir;
+                stateVersion = version;
+                packages = extraPackages pkgs;
+              };
+            }
+            ./home/modules
+          ] ++
+          (if (pkgs.stdenv.isLinux)
+          then [
+            "${nixos-vscode-server}/modules/vscode-server/home.nix"
+            ./home/modules/vscode-server.nix
+          ]
+          else
+            [ ]);
+        };
+
+      mkHMUser =
+        { homeConfig
+        , extraPackages ? _: [ ]
+        , system
+        }:
+        home-manager.lib.homeManagerConfiguration
+          (mkHMUser' { inherit homeConfig extraPackages system; });
 
       pkgsAndOverlaysForSystem = system:
         let
@@ -171,7 +177,7 @@
           , ...
           }:
           let
-            homeCfg = mkHMUser {
+            homeCfg = mkHMUser' {
               homeConfig = home;
               extraPackages = extraPackages;
               system = system;
@@ -179,9 +185,9 @@
           in
           mkNixosSystem {
             system = system;
-            config = nixos.config;
+            config = nixos.config // { user.name = home.user.username; };
             base = nixos.base;
-            home-manager-config = homeCfg;
+            home-manager-config = { imports = homeCfg.modules; };
           }
         );
 

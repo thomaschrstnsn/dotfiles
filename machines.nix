@@ -226,15 +226,8 @@ in
       };
       system = systems.arm-linux;
 
-      extraPackages = pkgs: with pkgs; [
-      ];
-
       nixos = {
-        config = {
-          user = {
-            name = "thomas";
-          };
-        };
+        config = { };
         base = {
           imports =
             [
