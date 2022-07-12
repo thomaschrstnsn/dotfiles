@@ -113,6 +113,7 @@
         }:
         let
           version = "21.11";
+          inherit (homeConfig.user) homedir username;
           inherit (pkgsAndOverlaysForSystem system) pkgs overlays;
         in
         {
@@ -122,6 +123,7 @@
               tc = homeConfig;
               home = {
                 stateVersion = version;
+                username = username;
                 packages = extraPackages pkgs;
               };
             }
