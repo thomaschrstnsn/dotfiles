@@ -49,9 +49,9 @@ to preview changes without applying:
 
 ## using nixos
 
-`./nixos.sh switch` will apply the nixos configuration defined for `$HOST` in `machines.nix`
+`./apply-nixos.sh` will apply the nixos configuration defined for `$HOST` in `machines.nix`
 
-to preview changes without applying: `./nixos.sh build`
+to preview changes without applying: `./build-nixos.sh`
 
 ## updating lockfile
 
