@@ -96,8 +96,8 @@ in
         ReadWriteDirectories = cfg.dataDir;
       };
       restartTriggers = [
-        (builtins.hashFile "sha256" cfg.configFile)
-        (builtins.hashFile "sha256" "/etc/${cfg.secretsPathDeployment}")
+        cfg.configFile
+        cfg.secretsFile
       ];
     };
 
