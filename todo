@@ -1,4 +1,6 @@
 - karabiner https://github.com/kpritam/nixpkgs/blob/15206cc36ba70d7f750073b816af23d8a7fa68b5/configs/karabiner.json
-- gh fuzzyclone
 - templating: https://www.reddit.com/r/NixOS/comments/v7jfth/configuring_github_with_nix/
 - https://github.com/NixOS/nixos-hardware
+- ssh.config from home-manager: 
+    - https://github.com/nix-community/home-manager/blob/master/modules/programs/ssh.nix
+    - https://nix-community.github.io/home-manager/options.html#opt-programs.ssh.matchBlocks
