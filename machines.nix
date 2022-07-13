@@ -238,35 +238,39 @@ in
         };
       };
 
-    "${vmnix}" = {
-      home = {
-        user = {
-          username = "thomas";
-          homedir = "/home/thomas";
+    "${vmnix}" =
+      let
+        configurationRoot = ./nixos/machines/vmnix;
+      in
+      {
+        home = {
+          user = {
+            username = "thomas";
+            homedir = "/home/thomas";
+          };
+          git.enable = true;
+          zsh = {
+            enable = true;
+            editor = "vim";
+          };
+          tmux.enable = true;
+          vscode-server.enable = true;
         };
-        git.enable = true;
-        zsh = {
-          enable = true;
-          editor = "vim";
-        };
-        tmux.enable = true;
-        vscode-server.enable = true;
-      };
-      system = systems.arm-linux;
+        system = systems.arm-linux;
 
-      nixos = {
-        config = {
-          networking.hostname = vmnix;
-        };
-        base = {
-          imports =
-            [
-              ./nixos/vmnix/hardware.nix
-              ./nixos/vmnix/configuration.nix
-            ];
+        nixos = {
+          config = {
+            networking.hostname = vmnix;
+          };
+          base = {
+            imports =
+              [
+                (configurationRoot + "/hardware.nix")
+                (configurationRoot + "/configuration.nix")
+              ];
+          };
         };
       };
-    };
 
     # Minimal configuration to bootstrap darwin systems
     darwin-bootstrap-x64 = {
