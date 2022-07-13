@@ -6,6 +6,9 @@ let
     x64-darwin = "x86_64-darwin";
   };
 
+  nixos-raspi-4 = "nixos-raspi-4";
+  vmnix = "vmnix";
+
   skhd-scripts = ./darwin/modules/skhd;
 in
 {
@@ -190,27 +193,52 @@ in
       system = systems.x64-linux;
     };
 
-    nixos-raspi-4 = {
-      home = {
-        user = {
-          username = "pi";
-          homedir = "/home/pi";
+    "${nixos-raspi-4}" =
+      let
+        username = "pi";
+        configurationRoot = ./nixos/machines/nixos-raspi-4;
+      in
+      {
+        home = {
+          user = {
+            username = username;
+            homedir = "/home/${username}";
+          };
+          git.enable = true;
+          zsh = {
+            enable = true;
+            editor = "vim";
+          };
+          tmux.enable = true;
+          vscode-server.enable = true;
         };
-        git.enable = true;
-        zsh = {
-          enable = true;
-          editor = "vim";
+        system = systems.arm-linux;
+
+        extraPackages = pkgs: with pkgs; [
+        ];
+
+        nixos = {
+          config = {
+            user = {
+              name = username;
+              groups = [ "wheel" "docker" ];
+            };
+            networking.hostname = nixos-raspi-4;
+
+            services.cloudflared = {
+              enable = true;
+              configFile = configurationRoot + "/tunnel/cloudflare.yml";
+              secretsFile = configurationRoot + "/tunnel/secrets/db1b2350-154b-4c33-962d-2f9796c3f37e.json";
+              secretsPathDeployment = "cloudflare-secrets.json";
+            };
+          };
+          base = {
+            imports = [ (configurationRoot + "/configuration.nix") ];
+          };
         };
-        tmux.enable = true;
-        vscode-server.enable = true;
       };
-      system = systems.arm-linux;
 
-      extraPackages = pkgs: with pkgs; [
-      ];
-    };
-
-    vmnix = {
+    "${vmnix}" = {
       home = {
         user = {
           username = "thomas";
@@ -227,12 +255,14 @@ in
       system = systems.arm-linux;
 
       nixos = {
-        config = { };
+        config = {
+          networking.hostname = vmnix;
+        };
         base = {
           imports =
             [
-              ./nixos/hardware/vmnix.nix
-              ./nixos/machines/vmnix.nix
+              ./nixos/vmnix/hardware.nix
+              ./nixos/vmnix/configuration.nix
             ];
         };
       };

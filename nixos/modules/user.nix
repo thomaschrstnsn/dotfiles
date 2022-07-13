@@ -16,6 +16,11 @@ in
       type = str;
       description = "username";
     };
+    groups = mkOption {
+      type = listOf str;
+      default = [ "wheel" ];
+      description = "groups for the user";
+    };
   };
 
   config = mkIf (cfg.enable) {
@@ -25,7 +30,7 @@ in
       users."${cfg.name}" = {
         isNormalUser = true;
         hashedPassword = "$6$LCmCC873.y/MhqLa$xrTZFdCYmo.FfCk1fkYCVNvVR1Xq1SrFAoD2a94pYlL7uk0apnrbJJbJIuo6WKofuA3egt7DOEasM44vyPJyZ.";
-        extraGroups = [ "wheel" ];
+        extraGroups = cfg.groups;
         openssh.authorizedKeys.keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICTvFy5gC46MnA0Eu+DoYQbldwxoJJVd9KVpAFwkS+ZH" ];
       };
     };

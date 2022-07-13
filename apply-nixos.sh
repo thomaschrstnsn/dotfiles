@@ -2,10 +2,10 @@
 set -e
 
 DEFAULT_CONFIGURATION="$(hostname -s)"
-CONFIGURATION=$DEFAULT_CONFIGURATION
+CONFIGURATION="${1:-$DEFAULT_CONFIGURATION}"
 
 echo activating system "$CONFIGURATION" configuration
 
-sudo nixos-rebuild switch --flake .#
+sudo nixos-rebuild switch --flake .#"$CONFIGURATION"
 
 echo successfully activated system "$CONFIGURATION"

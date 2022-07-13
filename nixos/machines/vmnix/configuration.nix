@@ -5,8 +5,6 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "vmnix"; # Define your hostname.
-
   # Set your time zone.
   time.timeZone = "Europe/Copenhagen";
 
@@ -23,7 +21,6 @@
   services.openssh.enable = true;
 
   nix = {
-    # package = pkgs.nixUnstable; # already in shared.nix
     autoOptimiseStore = true;
     gc = {
       automatic = true;
