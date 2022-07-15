@@ -6,6 +6,6 @@ CONFIGURATION="${1:-$DEFAULT_CONFIGURATION}"
 
 echo activating system "$CONFIGURATION" configuration
 
-sudo nixos-rebuild switch --flake .#"$CONFIGURATION"
+nixos-rebuild switch --use-remote-sudo --flake .#"$CONFIGURATION"
 
 echo successfully activated system "$CONFIGURATION"
