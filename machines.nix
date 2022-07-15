@@ -193,6 +193,7 @@ in
           enable = true;
           editor = "vim";
         };
+        vscode-server.enable = true;
       };
       system = systems.x64-linux;
     };
