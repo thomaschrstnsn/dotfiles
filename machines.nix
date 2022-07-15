@@ -1,3 +1,5 @@
+{ lib, inputs, ... }:
+
 let
   systems = {
     arm-linux = "aarch64-linux";
@@ -231,6 +233,8 @@ in
             imports = [
               (configurationRoot + "/configuration.nix")
               (configurationRoot + "/cloudflare.nix")
+
+              inputs.nixos-hardware.nixosModules.raspberry-pi-4
             ];
 
           };

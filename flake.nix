@@ -35,6 +35,8 @@
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nixos-hardware.url = github:NixOS/nixos-hardware/master;
   };
 
   outputs = { nixpkgs, home-manager, darwin, forgit-git, nixos-vscode-server, ... }@inputs:
@@ -237,7 +239,7 @@
           }
         );
 
-      inherit (import ./machines.nix)
+      inherit (import ./machines.nix { inherit inputs lib; })
         machines;
     in
     rec {

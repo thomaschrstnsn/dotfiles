@@ -2,9 +2,7 @@
 
 {
   boot = {
-    kernelPackages = pkgs.linuxPackages_rpi4;
     tmpOnTmpfs = true;
-    initrd.availableKernelModules = [ "usbhid" "usb_storage" ];
     # ttyAMA0 is the serial console broken out to the GPIO
     kernelParams = [
       "8250.nr_uarts=1"
@@ -14,9 +12,6 @@
       "cma=128M"
     ];
   };
-
-  boot.loader.grub.enable = false;
-  boot.loader.generic-extlinux-compatible.enable = true;
 
   boot.loader.raspberryPi.firmwareConfig = "dtparam=sd_poll_once=on";
 
