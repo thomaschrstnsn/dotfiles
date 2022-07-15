@@ -70,6 +70,8 @@ in
         shellcheck
         rnix-lsp
         nixpkgs-fmt
+
+        cloudflared # for ssh through cloudflare
       ];
 
       system = systems.m1-darwin;

@@ -59,7 +59,7 @@ use `./update.sh` to write a new lock file (updating all the inputs)
 
 to preview what has changed, try `./lock-to-github.sh` which can show github links to the different inputs including differences to the currently locked.
 
-## listing dependenents
+## listing dependents
 
 `nix-store --query --referrers /nix/store/8mlz1pppq90x4j959932jzhm982rb2rc-gtk4-4.6.5`
 
