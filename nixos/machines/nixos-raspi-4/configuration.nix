@@ -15,8 +15,12 @@
 
   boot.loader.raspberryPi.firmwareConfig = "dtparam=sd_poll_once=on";
 
-  # Required for the Wireless firmware
-  hardware.enableRedistributableFirmware = true;
+  hardware = {
+    enableRedistributableFirmware = true; # Required for the Wireless firmware
+    bluetooth.enable = true;
+  };
+
+  powerManagement.cpuFreqGovernor = "ondemand";
 
   networking.firewall.allowedTCPPorts = [ 8123 ];
 
@@ -24,13 +28,13 @@
 
   services.cron.enable = true;
 
+  virtualisation.docker.enable = true;
+
   environment.systemPackages = with pkgs; [
     vim
     docker-compose
     rclone
   ];
-
-  hardware.bluetooth.enable = true;
 
   environment.variables = {
     EDITOR = "vim";
@@ -46,7 +50,7 @@
   };
 
   nix = {
-    autoOptimiseStore = true;
+    settings.auto-optimise-store = true;
     gc = {
       automatic = true;
       dates = "weekly";
@@ -73,10 +77,6 @@
   nixpkgs.config = {
     allowUnfree = true;
   };
-  powerManagement.cpuFreqGovernor = "ondemand";
   system.stateVersion = "20.09";
-
-  virtualisation.docker.enable = true;
-
   #swapDevices = [ { device = "/swapfile"; size = 3072; } ];
 }
