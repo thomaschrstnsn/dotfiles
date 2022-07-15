@@ -25,6 +25,11 @@
       url = "github:msteen/nixos-vscode-server";
       flake = false;
     };
+
+    ragenix = {
+      url = "github:yaxitech/ragenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { nixpkgs, home-manager, darwin, forgit-git, nixos-vscode-server, ... }@inputs:
@@ -88,6 +93,7 @@
             { nixpkgs.overlays = overlays; }
 
             inputs.home-manager.nixosModules.home-manager
+            inputs.ragenix.nixosModule
 
             ./nixos/modules/bootstrap.nix
 

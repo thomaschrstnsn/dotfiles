@@ -86,6 +86,8 @@ in
         })
         {
           format-for-sql = ''awk '{printf "|%s|,\n", $1}' | sed "s/|/'/g"'';
+          ragenix = ''nix run github:yaxitech/ragenix --'';
+          agenix = ''nix run github:ryantm/agenix --'';
         }
         cfg.extraAliases
       ];

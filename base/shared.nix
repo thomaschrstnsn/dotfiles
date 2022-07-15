@@ -17,7 +17,7 @@
     ];
   };
 
-  environment.systemPackages = with pkgs; [ git-crypt ];
+  environment.systemPackages = with pkgs; [ ];
 
   programs = {
     zsh = {
