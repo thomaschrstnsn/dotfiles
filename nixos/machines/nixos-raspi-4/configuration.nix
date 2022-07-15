@@ -3,21 +3,29 @@
 {
   boot = {
     tmpOnTmpfs = true;
-    # ttyAMA0 is the serial console broken out to the GPIO
-    kernelParams = [
-      "8250.nr_uarts=1"
-      "console=ttyAMA0,115200"
-      "console=tty1"
-      # Some gui programs need this
-      "cma=128M"
-    ];
+    kernelParams = [ "console=ttyS0,115200n8" "console=tty0" ];
   };
 
   boot.loader.raspberryPi.firmwareConfig = "dtparam=sd_poll_once=on";
 
   hardware = {
     enableRedistributableFirmware = true; # Required for the Wireless firmware
-    bluetooth.enable = true;
+    bluetooth = {
+      package = pkgs.bluez;
+      enable = true;
+      powerOnBoot = true;
+    };
+  };
+
+  systemd.services = {
+    btattach = {
+      before = [ "bluetooth.service" ];
+      after = [ "dev-ttyAMA0.device" ];
+      wantedBy = [ "multi-user.target" ];
+      serviceConfig = {
+        ExecStart = "${pkgs.bluez}/bin/btattach -B /dev/ttyAMA0 -P bcm -S 3000000";
+      };
+    };
   };
 
   powerManagement.cpuFreqGovernor = "ondemand";
