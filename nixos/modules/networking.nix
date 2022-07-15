@@ -7,16 +7,19 @@ let
 in
 {
   options.tc.networking = with types; {
+    enable = mkOption
+      {
+        description = "networking";
+        type = bool;
+        default = true;
+      };
     hostname = mkOption {
       type = str;
       description = "hostname";
     };
   };
 
-  config = {
+  config = mkIf cfg.enable {
     networking.hostName = cfg.hostname;
   };
 }
-
-
-

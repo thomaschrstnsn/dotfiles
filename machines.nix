@@ -178,25 +178,46 @@ in
       system = systems.x64-darwin;
     };
 
-    DESKTOP-IP1G00V = {
-      home = {
-        user = {
-          username = "nixos";
-          homedir = "/home/nixos";
+    DESKTOP-IP1G00V =
+      let
+        username = "nixos";
+        configurationRoot = ./nixos/machines/DESKTOP-IP1G00V;
+      in
+      {
+        home = {
+          user = {
+            username = username;
+            homedir = "/home/${username}";
+          };
+          aws.enable = false;
+          dotnet.enable = false;
+          git.enable = true;
+          haskell.stack.enable = false;
+          haskell.ihp.enable = false;
+          zsh = {
+            enable = true;
+            editor = "vim";
+          };
+          vscode-server.enable = true;
         };
-        aws.enable = false;
-        dotnet.enable = false;
-        git.enable = true;
-        haskell.stack.enable = false;
-        haskell.ihp.enable = false;
-        zsh = {
-          enable = true;
-          editor = "vim";
+        system = systems.x64-linux;
+
+        nixos = {
+          config = {
+            user = {
+              name = username;
+              groups = [ "wheel" ];
+            };
+            networking.enable = false;
+          };
+          base = {
+            imports = [
+              (configurationRoot + "/configuration.nix")
+            ];
+          };
         };
-        vscode-server.enable = true;
+
       };
-      system = systems.x64-linux;
-    };
 
     "${nixos-raspi-4}" =
       let
