@@ -224,16 +224,13 @@ in
               groups = [ "wheel" "docker" ];
             };
             networking.hostname = nixos-raspi-4;
-
-            services.cloudflared = {
-              enable = true;
-              configFile = configurationRoot + "/tunnel/cloudflare.yml";
-              secretsFile = configurationRoot + "/tunnel/secrets/db1b2350-154b-4c33-962d-2f9796c3f37e.json";
-              secretsPathDeployment = "cloudflare-secrets.json";
-            };
           };
           base = {
-            imports = [ (configurationRoot + "/configuration.nix") ];
+            imports = [
+              (configurationRoot + "/configuration.nix")
+              (configurationRoot + "/cloudflare.nix")
+            ];
+
           };
         };
       };

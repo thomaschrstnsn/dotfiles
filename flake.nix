@@ -30,6 +30,11 @@
       url = "github:yaxitech/ragenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { nixpkgs, home-manager, darwin, forgit-git, nixos-vscode-server, ... }@inputs:
@@ -93,7 +98,7 @@
             { nixpkgs.overlays = overlays; }
 
             inputs.home-manager.nixosModules.home-manager
-            inputs.ragenix.nixosModule
+            inputs.agenix.nixosModule
 
             ./nixos/modules/bootstrap.nix
 
