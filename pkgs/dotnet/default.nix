@@ -8,16 +8,18 @@ let
   buildNetCoreSdk = attrs: buildDotnet (attrs // { type = "sdk"; });
 in
 {
-  # ./print-dotnet-hashes.sh 2.2 3.1 6.0
+  # ./pkgs/dotnet/print-dotnet-hashes.sh 2.2 3.1 6.0
+  # v2.2 (eol)
   sdk_2_2 = buildNetCoreSdk {
     version = "2.2.207";
     sha512 = {
-      x86_64-linux = "sha512-nXC0qKY7ZtqQVECHGZoPaB0TW/kNQ8pTsS6pfMYAp2iwo9L4JM/ie9MijgWLBgxjMZzYYDO+i40nklKD+Z3pWA==;";
+      x86_64-linux = "9d70b4a8a63b66da90544087199a0f681d135bf90d43ca53b12ea97cc600a768b0a3d2f824cfe27bd3228e058b060c63319cd86033be8b8d27925283f99de958";
       aarch64-linux = "565fe5cbc2c388e54b3ee548d5b98e1fd85d920ceeeb5475a2bf2daa7f090fc925d8afef19b2b76973af439fbb749c6996711790287eafd588e4d916a016e84c";
-      x86_64-darwin = "2pafmx09mjri25v4xidnhhnbygy1r9bw8sj0z5mp2blw2nc5q9ddqzp8k51sjscwv3mxzhy3vqsc8wj44swdj6a1brsh25sa4w6h3fn";
+      x86_64-darwin = "d60d683851ba08a8f30acac8c635219223a6f11e1efe5ec7e64c4b1dca44f7e3d6122ecc0a4e97b8b57c2035e22be5e09f5f1642db6227bb8898654da057a7ae";
     };
   };
 
+  # v3.1 (maintenance)
   sdk_3_1 = buildNetCoreSdk {
     version = "3.1.421";
     sha512 = {
@@ -27,6 +29,7 @@ in
     };
   };
 
+  # v6.0 (lts)
   sdk_6_0 = buildNetCoreSdk {
     version = "6.0.302";
     sha512 = {
