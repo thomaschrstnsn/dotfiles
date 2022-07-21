@@ -4,3 +4,6 @@
     - https://github.com/nix-community/home-manager/blob/master/modules/programs/ssh.nix
     - https://nix-community.github.io/home-manager/options.html#opt-programs.ssh.matchBlocks
 - raspberry pi 4 bluetooth: https://github.com/NixOS/nixpkgs/issues/123725
+- code sign (yabai, skhd, sketchybar) to retain rights between versions.
+  Example from yabai: https://github.com/koekeishiya/yabai/wiki/Installing-yabai-(from-HEAD)
+  
