@@ -10,6 +10,7 @@ let
 
   nixos-raspi-4 = "nixos-raspi-4";
   vmnix = "vmnix";
+  DESKTOP-IP1G00V = "DESKTOP-IP1G00V";
 
   skhd-scripts = ./darwin/modules/skhd;
 in
@@ -178,7 +179,7 @@ in
       system = systems.x64-darwin;
     };
 
-    DESKTOP-IP1G00V =
+    "${DESKTOP-IP1G00V}" =
       let
         username = "nixos";
         configurationRoot = ./nixos/machines/DESKTOP-IP1G00V;
@@ -189,11 +190,7 @@ in
             username = username;
             homedir = "/home/${username}";
           };
-          aws.enable = false;
-          dotnet.enable = false;
           git.enable = true;
-          haskell.stack.enable = false;
-          haskell.ihp.enable = false;
           zsh = {
             enable = true;
             editor = "vim";
@@ -208,7 +205,7 @@ in
               name = username;
               groups = [ "wheel" ];
             };
-            networking.enable = false;
+            networking.hostname = DESKTOP-IP1G00V;
           };
           base = {
             imports = [
