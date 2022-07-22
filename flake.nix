@@ -56,6 +56,7 @@
             { config.tc = config; }
             {
               nixpkgs.overlays = overlays;
+              nixpkgs.config.allowUnfree = true;
             }
 
             home-manager.darwinModule
