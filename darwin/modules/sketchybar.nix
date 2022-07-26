@@ -75,7 +75,7 @@ in
   };
 
   config = mkIf (cfg.enable) {
-    environment.systemPackages = [ pkgs.jq ];
+    environment.systemPackages = with pkgs; [ jq choose ];
 
     launchd.user.agents.sketchybar.serviceConfig = {
       StandardErrorPath = "/tmp/sketchybar.log";

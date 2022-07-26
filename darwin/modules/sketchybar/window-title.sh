@@ -11,9 +11,9 @@ window_title=$(echo $data | jq -r '.title' \
     | sed 's/ - Camera or microphone recording$//g' \
     | sed 's/ - Part of group ..*$//g')
 
-cutoff=80
+window_cutoff=80
 
-[ "${#window_title}" -gt $cutoff ] && window_title="$(echo $window_title | head -c $cutoff)…"
+[ "${#window_title}" -gt $window_cutoff ] && window_title="$(echo $window_title | choose -c 0:$window_cutoff)"
 
 # app name
 
@@ -28,7 +28,8 @@ case "$app_name" in
     ;;
 esac
 
-[ "${#app_name}" -gt 30 ] && app_name="$(echo $app_name | head -c 30)…"
+app_cutoff=30
+[ "${#app_name}" -gt $app_cutoff ] && app_name="$(echo $app_name | choose -c 0:$app_cutoff)"
 
 # setting items
 
