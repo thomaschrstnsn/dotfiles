@@ -144,7 +144,7 @@ in
             "hyper - 0x32" = "Asana"; # >/<
           };
           extraShortcuts = {
-            "hyper - 0" = "alacritty --working-directory ~/bin -e ~/bin/smd"; # smd-launcher
+            "hyper - 0" = "alacritty --working-directory ~/bin -e zsh -c ~/bin/smd"; # smd-launcher
             "hyper - e" = "yabai -m space --toggle mission-control";
             "hyper - 0x0A" = "yabai -m space --toggle show-desktop"; # button left of 1
             "shift - f14" = "osascript ${skhd-scripts}/toggle-mute-mic.applescript";
