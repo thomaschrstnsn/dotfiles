@@ -1,13 +1,23 @@
-# dotfiles aka machine configuration (home-manager + nix-darwin + nixos as a nix flake)
+# dotfiles aka machine configuration 
 
-personal dotfiles for Thomas Christensen
+A configuration setup based on Nix flakes for: 
 
-## pre-requisites
+- [Home Manager](https://github.com/nix-community/home-manager)
+- [nix-darwin](https://github.com/LnL7/nix-darwin)
+- [NixOS](https://nixos.org/)
+
+This is the personal configuration for Thomas Christensen.
+Feel free to borrow parts and/or make your own based on this.
+
+A motivation/overview of Nix flakes for configuring machines: 
+[NIX FLAKES, PART 3: MANAGING NIXOS SYSTEMS](https://www.tweag.io/blog/2020-07-31-nixos-flakes/).
+
+## Prerequisites
 
 - [Nix](https://nixos.org/manual/nix/stable/#chap-installation)
 - Experimental [`nix flake` support](https://nixos.wiki/wiki/flakes#Installing_flakes) until released
 
-## using home-manager
+## Using home-manager
 
 `./apply-home.sh` will apply the `homeManagerConfigurations` defined as `$HOST`.`$USER` in `machines.nix`
 
@@ -17,9 +27,9 @@ to preview changes without applying:
 
 `./build-home.sh`
 
-## using nix-darwin
+## Using nix-darwin
 
-### initial bootstrap
+### Initial bootstrap
 
 Before doing this:
 - ensure cleanup after any previous nix-darwin setup
@@ -37,29 +47,27 @@ If this fails, you may need to:
 - `rm ~/.nix-defexpr/channels`
 - `sudo rm /etc/nix/nix.conf` (between `./build-darwin.sh bootstrap` and `./result/sw/bin/darwin-rebuild switch --flake .#bootstrap`)
 
-when successful, open a new terminal session and continue below
+When successful, open a new terminal session and continue below
 
-### updating/refreshing
+### Applying changes
 
 `./apply-darwin.sh` will apply the `darwinConfigurations` defined as `$HOST` in `machines.nix`
 
-to preview changes without applying:
+To preview changes without applying: `./build-darwin.sh`. The built configuration will be placed in `./result`.
 
-`./build-darwin.sh`
+## Using nixos
 
-## using nixos
+`./apply-nixos.sh` will apply the nixos configuration defined for `$HOST` in `machines.nix`.
 
-`./apply-nixos.sh` will apply the nixos configuration defined for `$HOST` in `machines.nix`
+To preview changes without applying: `./build-nixos.sh`
 
-to preview changes without applying: `./build-nixos.sh`
+## Updating lockfile
 
-## updating lockfile
+Use `./update.sh` to write a new lock file (updating all the inputs)
 
-use `./update.sh` to write a new lock file (updating all the inputs)
+To preview what has changed, try `./lock-to-github.sh` which can show github links to the different inputs including differences to the currently locked.
 
-to preview what has changed, try `./lock-to-github.sh` which can show github links to the different inputs including differences to the currently locked.
-
-## listing dependents
+## Listing dependents
 
 `nix-store --query --referrers /nix/store/8mlz1pppq90x4j959932jzhm982rb2rc-gtk4-4.6.5`
 
