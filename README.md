@@ -1,13 +1,19 @@
 # dotfiles aka machine configuration 
 
+This is the personal configuration for Thomas Christensen.
+
+Feel free to borrow parts and/or make your own based on this.
+
 A configuration setup based on Nix flakes for: 
 
 - [Home Manager](https://github.com/nix-community/home-manager)
 - [nix-darwin](https://github.com/LnL7/nix-darwin)
 - [NixOS](https://nixos.org/)
 
-This is the personal configuration for Thomas Christensen.
-Feel free to borrow parts and/or make your own based on this.
+As such it can be used to configure: 
+- my home directory (shell and utils, dev setup) on a UNIX system (using Nix the package manager with Home Manager)
+- my macOS user (defaults, apps and the above) (using Nix the package manager with nix-darwin)
+- a full machine running NixOS (apps, services, hardware and kernel config)
 
 A motivation/overview of Nix flakes for configuring machines: 
 [NIX FLAKES, PART 3: MANAGING NIXOS SYSTEMS](https://www.tweag.io/blog/2020-07-31-nixos-flakes/).
