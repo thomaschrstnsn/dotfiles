@@ -58,6 +58,7 @@ in
       };
 
       extraConfig = {
+        push.autoSetupRemote = "true"; # since 2.37.0
         push.default = "current";
         branch.autosetuprebase = "always";
         fetch.prune = "true";
