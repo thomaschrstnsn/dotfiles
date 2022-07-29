@@ -172,6 +172,7 @@ in
 
       extraPackages = pkgs: with pkgs; [
         gh
+        gum
         shellcheck
         rnix-lsp
         nixpkgs-fmt
