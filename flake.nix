@@ -229,10 +229,11 @@
               extraPackages = extraPackages;
               system = system;
             };
+            user = nixos.config.user // { name = home.user.username; };
           in
           mkNixosSystem {
             system = system;
-            config = nixos.config // { user.name = home.user.username; };
+            config = nixos.config // { inherit user; };
             base = nixos.base;
             home-manager-config = { imports = homeCfg.modules; };
           }
