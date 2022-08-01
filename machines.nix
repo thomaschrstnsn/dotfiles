@@ -90,7 +90,9 @@ in
           username = "thomas.christensen@schibsted.com";
           homedir = "/Users/${username}";
         };
+
         aws.enable = true;
+        direnv.enable = true;
         dotnet = {
           enable = true;
           sdks = [ "2.2" "3.1" "6.0" ];
@@ -100,6 +102,16 @@ in
           userEmail = user.username;
           githubs = [ "github.schibsted.io" ];
         };
+        nodejs = {
+          enable = true;
+          pkg = pkgs: pkgs.nodejs-16_x;
+        };
+        ssh = {
+          enable = true;
+          use1PasswordAgentOnMac = true;
+          hosts = [ "rpi4" ];
+        };
+        smd_launcher.enable = true;
         zsh = {
           enable = true;
           skhd = true;
@@ -107,12 +119,6 @@ in
             meet-billing-and-reporting = ''"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --app=http://g.co/meet/billing-and-reporting &'';
             meet-browser = ''"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --app=http://g.co/meet/ &'';
           };
-        };
-        smd_launcher.enable = true;
-        direnv.enable = true;
-        nodejs = {
-          enable = true;
-          pkg = pkgs: pkgs.nodejs-16_x;
         };
       };
 
