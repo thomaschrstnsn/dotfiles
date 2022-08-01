@@ -29,6 +29,12 @@ in
         git.enable = true;
         haskell.stack.enable = true;
         haskell.ihp.enable = true;
+        ssh = {
+          enable = true;
+          use1PasswordAgentOnMac = true;
+          hosts = [ "rpi4" "vmnix" ];
+          includes = [ "personal_config" ];
+        };
         smd_launcher.enable = true;
         zsh = {
           enable = true;
@@ -73,8 +79,6 @@ in
         shellcheck
         rnix-lsp
         nixpkgs-fmt
-
-        cloudflared # for ssh through cloudflare
       ];
 
       system = systems.m1-darwin;
