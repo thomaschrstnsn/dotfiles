@@ -92,6 +92,7 @@ in
         })
         {
           format-for-sql = ''awk '{printf "|%s|,\n", $1}' | sed "s/|/'/g"'';
+          ndjson-to-jsonarray = "sed '1 s/^/[/ ; 2,$ s/^/,/; $ s/$/]/'";
           ragenix = ''nix run github:yaxitech/ragenix --'';
           agenix = ''nix run github:ryantm/agenix --'';
         }
