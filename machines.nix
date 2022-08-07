@@ -52,6 +52,8 @@ in
         skhd = {
           enable = true;
           browser = "Brave Browser";
+          terminal = "iTerm2";
+          useOpenForAppShortcuts = false;
           extraAppShortcuts = {
             "hyper - r" = "Rider";
             "hyper - u" = "Inkdrop";

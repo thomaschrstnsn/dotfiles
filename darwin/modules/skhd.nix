@@ -3,7 +3,11 @@ with lib;
 
 let
   cfg = config.tc.skhd;
-  mkAppShortcut = (shortcut: app: "${shortcut} : open -a \"${app}\"");
+  switchToApp = app:
+    if cfg.useOpenForAppShortcuts
+    then ''open -a "${app}"''
+    else ''${scripts}/switchToApp.sh "${app}"'';
+  mkAppShortcut = (shortcut: app: "${shortcut} : ${switchToApp app}");
   mkShortcut = (shortcut: cmd: "${shortcut} : ${cmd}");
 
   mkPrefixShortcut = (prefix: shortcut: command: "${prefix} < ${shortcut} : ${command}");
@@ -21,7 +25,7 @@ let
       ++ [ "" ]
       );
 
-  mkCfgPrefixAppShortcut = (shortcut: app: (mkPrefixShortcut "cfgprefix" shortcut "skhd -k escape ; open -a \"${app}\""));
+  mkCfgPrefixAppShortcut = (shortcut: app: (mkPrefixShortcut "cfgprefix" shortcut "skhd -k escape ; ${switchToApp app}"));
   mkCfgPrefixShortcut = (shortcut: command: (mkPrefixShortcut "cfgprefix" shortcut "skhd -k escape ; ${command}"));
   toCfgPrefixConfig = config:
     if (config.leadingShortcut != null && (config.appShortcuts != { } || config.shortcuts != { }))
@@ -57,6 +61,16 @@ in
       description = "Which app to use as browser shortcut";
       type = str;
       default = "Safari";
+    };
+    terminal = mkOption {
+      description = "Which app to use as terminal shortcut";
+      type = str;
+      default = "iTerm";
+    };
+    useOpenForAppShortcuts = mkOption {
+      type = bool;
+      description = "Use 'open -a' to open apps (otherwise use custom switchToApp script)";
+      default = true;
     };
     extraAppShortcuts = mkOption {
       description = "Extra shortcuts to open apps";
@@ -161,9 +175,9 @@ in
           lctrl - down : skhd -k "pagedown"
 
           # app shortcuts
-          hyper - b : open -a "${cfg.browser}"
-          hyper - t : open -a "iTerm"
-          hyper - x : open -a "Visual Studio Code"
+          hyper - b : ${switchToApp cfg.browser}
+          hyper - t : ${switchToApp cfg.terminal}
+          hyper - x : ${switchToApp "Visual Studio Code"}
         ''
         + (toWmPrefixConfig "hyper - space" {
           f = "yabai -m window --toggle float; yabai -m window --grid 4:4:1:1:2:2"; # float/unfloat
@@ -203,3 +217,4 @@ in
     };
   };
 }
+
