@@ -143,6 +143,7 @@ in
         skhd = {
           enable = true;
           browser = "Microsoft Edge";
+          useOpenForAppShortcuts = false;
           extraAppShortcuts = {
             "hyper - z" = "zoom.us";
             "hyper - c" = "Slack";
