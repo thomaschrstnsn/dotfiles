@@ -2,11 +2,22 @@
 with lib;
 
 let
+  # keyed by the app name (file in /Applications sans the .app) and contains the app name on windows
+  windowNames = {
+    "Visual Studio Code" = "Code";
+    "iTerm" = "iTerm2";
+  };
+
+  windowNameForApp = app:
+    if hasAttr app windowNames
+    then getAttr app windowNames
+    else app;
+
   cfg = config.tc.skhd;
   switchToApp = app:
     if cfg.useOpenForAppShortcuts
     then ''open -a "${app}"''
-    else ''${scripts}/switchToApp.sh "${app}"'';
+    else ''${scripts}/switchToApp.sh "${windowNameForApp app}" "${app}"'';
   mkAppShortcut = (shortcut: app: "${shortcut} : ${switchToApp app}");
   mkShortcut = (shortcut: cmd: "${shortcut} : ${cmd}");
 
@@ -66,6 +77,11 @@ in
       description = "Which app to use as terminal shortcut";
       type = str;
       default = "iTerm";
+    };
+    code = mkOption {
+      description = "Which app to use for the code shortcut";
+      type = str;
+      default = "Visual Studio Code";
     };
     useOpenForAppShortcuts = mkOption {
       type = bool;
@@ -177,7 +193,7 @@ in
           # app shortcuts
           hyper - b : ${switchToApp cfg.browser}
           hyper - t : ${switchToApp cfg.terminal}
-          hyper - x : ${switchToApp "Visual Studio Code"}
+          hyper - x : ${switchToApp cfg.code}
         ''
         + (toWmPrefixConfig "hyper - space" {
           f = "yabai -m window --toggle float; yabai -m window --grid 4:4:1:1:2:2"; # float/unfloat
