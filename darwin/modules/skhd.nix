@@ -163,6 +163,8 @@ in
           hyper - p : ${scripts}/moveWindowToSpaceOnSameDisplay.sh next
           hyper - tab : ${scripts}/moveWindowToFirstEmptySpaceOnSameDisplay.sh
 
+          cmd - 0x32 : ${scripts}/cycleApp.sh
+
           hyper - return : ${scripts}/toggleLayoutOnCurrentSpace.sh
 
           hyper - 1 : ${scripts}/focusFirstWindowInSpace.sh 1

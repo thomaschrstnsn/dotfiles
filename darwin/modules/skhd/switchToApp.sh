@@ -2,8 +2,13 @@
 
 currentWindow=$(yabai -m query --windows --window)
 currentWindowId=$(echo "$currentWindow" | jq -r '.id')
+if [ -z "$currentWindowId" ]
+then
+    currentWindowId=1
+fi
 
-windowsForApp=$(yabai -m query --windows | jq -r "sort_by(.id) | .[] | select(.app == \"$1\")")
+
+windowsForApp=$(yabai -m query --windows | jq -r ".[] | select(.app == \"$1\")")
 
 if [ -z "$windowsForApp" ]
 then
@@ -12,7 +17,8 @@ then
     exit
 fi
 
-windowsForApp=$(yabai -m query --windows | jq -r "sort_by(.id) | .[] | select(.id != $currentWindowId) | select(.app == \"$1\")")
+# multiply ids lower than this to cycle
+windowsForApp=$(yabai -m query --windows | jq -r "sort_by(if .id <= $currentWindowId then .id * 100 else .id end) | .[] | select(.id != $currentWindowId) | select(.app == \"$1\")")
 
 currentDisplay=$(echo "$currentWindow" | jq -r ".display")
 if [ -z "$currentDisplay" ]
@@ -21,6 +27,10 @@ then
 fi
 
 currentSpace=$(echo "$currentWindow" | jq -r ".space")
+if [ -z "$currentSpace" ]
+then
+    currentSpace="1"
+fi
 
 appIsFocused=$(echo "$currentWindow" | jq -r "select (.app == \"$1\") | .id" | head -n 1)
 if [ -n "$appIsFocused" ]
@@ -37,6 +47,8 @@ function switchAndExit {
         yabai -m window --focus "$window" && exit
     fi
 }
+
+switchAndExit ".\"is-native-fullscreen\" == true" "fullscreened"
 
 switchAndExit ".space == $currentSpace and .display == $currentDisplay" "on current space"
 
