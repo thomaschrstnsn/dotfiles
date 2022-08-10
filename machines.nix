@@ -154,6 +154,7 @@ in
             "hyper - h" = "Brave Browser";
             "hyper - d" = "Azure Data Studio";
             "hyper - 0x32" = "Asana"; # >/<
+            "hyper - y" = "Microsoft Remote Desktop";
           };
           extraShortcuts = {
             "hyper - 0" = "alacritty --working-directory ~/bin -e zsh -c ~/bin/smd"; # smd-launcher
@@ -166,9 +167,7 @@ in
           };
           prefixShortcuts = {
             leadingShortcut = "hyper - 9";
-            appShortcuts = {
-              r = "Microsoft Remote Desktop";
-            };
+            appShortcuts = { };
             shortcuts = { };
           };
         };
