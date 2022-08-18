@@ -5,35 +5,62 @@ let
   cfg = config.tc.zsh;
 in
 {
-  options.tc.zsh = {
+  options.tc.zsh = with types; {
     enable = mkEnableOption "zsh with settings";
 
     skhd = mkOption {
       description = "Enable reload skhd alias";
-      type = types.bool;
+      type = bool;
       default = false;
     };
     editor = mkOption {
       description = "Set $EDITOR (for cmdline git etc)";
-      type = types.str;
+      type = str;
       default = "code --wait";
     };
     extraAliases = mkOption {
       description = "Extra aliases for zsh";
-      type = types.attrs;
+      type = attrs;
       default = { };
+    };
+    prompt = mkOption {
+      type = enum [ "p10k" "starship" ];
+      description = "Which prompt to use";
+      default = "starship";
     };
   };
 
   config = mkIf (cfg.enable) {
+
+    programs.starship = {
+      enable = cfg.prompt == "starship";
+      settings = {
+        aws = {
+          disabled = true;
+        };
+        directory = {
+          truncation_symbol = "…/";
+        };
+      };
+    };
+
     home.packages = with pkgs; [
       fd
       tree
       wget
       zsh-fzf-tab
-      zsh-powerlevel10k
-    ];
-    home.file.".p10k.zsh".source = ./zsh/p10k.zsh;
+    ] ++ optional (cfg.prompt == "p10k") zsh-powerlevel10k;
+
+    home.file = mkIf (cfg.prompt == "p10k") {
+      ".p10k.zsh".source = ./zsh/p10k.zsh;
+    };
+    programs.zsh.initExtraBeforeCompInit =
+      if cfg.prompt == "p10k"
+      then ''
+        source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
+        source ~/.p10k.zsh
+      ''
+      else "";
 
     programs.exa = {
       enable = true;
@@ -42,7 +69,7 @@ in
 
     programs.bat = {
       enable = true;
-      config.theme = "Visual Studio Dark+";
+      config.theme = "Nord";
     };
 
     programs.fzf = {
@@ -76,10 +103,6 @@ in
         zstyle ':completion:*:descriptions' format '[%d]'
         zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1 --color=always $realpath'
         zstyle ':fzf-tab:*' switch-group ',' '.'
-      '';
-      initExtraBeforeCompInit = ''
-        source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
-        source ~/.p10k.zsh
       '';
       shellAliases = mkMerge [
         (mkIf true {
