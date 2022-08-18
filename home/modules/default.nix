@@ -8,6 +8,7 @@
     ./git.nix
     ./home.nix
     ./nodejs.nix
+    ./rancher.nix
     ./ssh.nix
     ./smd_launcher.nix
     ./tmux.nix

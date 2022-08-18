@@ -107,6 +107,9 @@ in
           enable = true;
           pkg = pkgs: pkgs.nodejs-16_x;
         };
+        rancher = {
+          enable = true;
+        };
         ssh = {
           enable = true;
           use1PasswordAgentOnMac = true;
@@ -128,6 +131,7 @@ in
           enable = true;
           extraTaps = [ "Microsoft/homebrew-mssql-release" ];
           extraBrews = [
+            "docker-compose"
             "microsoft/mssql-release/mssql-tools" # 🤦‍♂️ first time install, you need to type: "YES" + enter while the prompt: "Installing microsoft/mssql-release/mssql-tools" is present
           ];
           extraCasks = [
