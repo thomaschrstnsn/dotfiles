@@ -281,11 +281,12 @@ in
     "${vmnix}" =
       let
         configurationRoot = ./nixos/machines/vmnix;
+        username = "thomas";
       in
       {
         home = {
           user = {
-            username = "thomas";
+            username = username;
             homedir = "/home/thomas";
           };
           git.enable = true;
@@ -301,6 +302,10 @@ in
         nixos = {
           config = {
             networking.hostname = vmnix;
+            user = {
+              name = username;
+              groups = [ "wheel" "docker" ];
+            };
           };
           base = {
             imports =
