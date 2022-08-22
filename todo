@@ -3,3 +3,4 @@
 - raspberry pi 4 bluetooth: https://github.com/NixOS/nixpkgs/issues/123725
 - code sign (yabai, skhd, sketchybar) to retain rights between versions.
   Example from yabai: https://github.com/koekeishiya/yabai/wiki/Installing-yabai-(from-HEAD)
+- linux desktop inspiration: https://sr.ht/~misterio/nix-config/
