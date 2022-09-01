@@ -1,8 +1,8 @@
-{ pkgs, ... }:
+{ pkgs, nixpkgs, ... }:
 
 with pkgs;
 let
-  buildDotnet = attrs: callPackage (import ./build-dotnet.nix attrs) { };
+  buildDotnet = attrs: callPackage (import "${nixpkgs}/pkgs/development/compilers/dotnet/build-dotnet.nix" attrs) { };
   buildAspNetCore = attrs: buildDotnet (attrs // { type = "aspnetcore"; });
   buildNetCore = attrs: buildDotnet (attrs // { type = "netcore"; });
   buildNetCoreSdk = attrs: buildDotnet (attrs // { type = "sdk"; });

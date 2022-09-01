@@ -161,7 +161,7 @@
       pkgsAndOverlaysForSystem = system:
         let
           inherit (import ./pkgs {
-            inherit pkgs forgit-git;
+            inherit pkgs forgit-git nixpkgs;
           }) myPkgs;
           inherit (import ./overlays {
             inherit system pkgs lib myPkgs;
