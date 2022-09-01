@@ -1,7 +1,7 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p curl jq
+#!nix-shell -i bash -p curl jq nix gnused
 
-set -eu
+set -euo pipefail
 
 release () {
   local content="$1"
@@ -34,7 +34,7 @@ platform_sources () {
     "aarch64-darwin osx-arm64" \
   )
 
-  echo "sha512 = {"
+  echo "srcs = {"
   for kv in "${platforms[@]}"; do
     local nix_platform=${kv%% *}
     local ms_platform=${kv##* }
@@ -43,9 +43,28 @@ platform_sources () {
     local hash=$(release_platform_attr "$release_files" "$ms_platform" hash)
 
     [[ -z "$url" || -z "$hash" ]] && continue
-    echo "      $nix_platform = \"$hash\";"
+    echo "      $nix_platform = {
+        url     = \"$url\";
+        sha512  = \"$hash\";
+      };"
     done
     echo "    };"
+}
+
+generate_package_list() {
+    local version pkgs nuget_url
+    version="$1"
+    shift
+    pkgs=( "$@" )
+
+    nuget_url="$(curl -f "https://api.nuget.org/v3/index.json" | jq --raw-output '.resources[] | select(."@type" == "PackageBaseAddress/3.0.0")."@id"')"
+
+    for pkg in "${pkgs[@]}"; do
+        local url hash
+        url="${nuget_url}${pkg,,}/${version,,}/${pkg,,}.${version,,}.nupkg"
+        hash="$(nix-prefetch-url "$url")"
+        echo "      (fetchNuGet { pname = \"${pkg}\"; version = \"${version}\"; sha256 = \"${hash}\"; })"
+    done
 }
 
 main () {
@@ -62,13 +81,20 @@ Examples:
   fi
 
   for sem_version in "$@"; do
+    echo "Generating ./versions/${sem_version}.nix"
     patch_specified=false
+    # Check if a patch was specified as an argument.
+    # If so, generate file for the specific version.
+    # If only x.y version was provided, get the latest patch
+    # version of the given x.y version.
     if [[ "$sem_version" =~ ^[0-9]{1,}\.[0-9]{1,}\.[0-9]{1,}$ ]]; then
         patch_specified=true
     elif [[ ! "$sem_version" =~ ^[0-9]{1,}\.[0-9]{1,}$ ]]; then
         continue
     fi
 
+    # Make sure the x.y version is properly passed to .NET release metadata url.
+    # Then get the json file and parse it to find the latest patch release.
     major_minor=$(sed 's/^\([0-9]*\.[0-9]*\).*$/\1/' <<< "$sem_version")
     content=$(curl -sL https://dotnetcli.blob.core.windows.net/dotnet/release-metadata/"$major_minor"/releases.json)
     major_minor_patch=$([ "$patch_specified" == true ] && echo "$sem_version" || jq -r '."latest-release"' <<< "$content")
@@ -81,12 +107,17 @@ Examples:
     major_minor_underscore=${major_minor/./_}
     channel_version=$(jq -r '."channel-version"' <<< "$content")
     support_phase=$(jq -r '."support-phase"' <<< "$content")
-    echo "
-  # v$channel_version ($support_phase)
-  sdk_$major_minor_underscore = buildNetCoreSdk {
+    echo "{ buildAspNetCore, buildNetRuntime, buildNetSdk, icu }:
+
+# v$channel_version ($support_phase)
+{
+  sdk_$major_minor_underscore = buildNetSdk {
+    inherit icu;
     version = \"${sdk_version}\";
     $(platform_sources "$sdk_files")
-  }; "
+  };
+}" > "./versions/${sem_version}.nix"
+    echo "Generated ./versions/${sem_version}.nix"
   done
 }
 
