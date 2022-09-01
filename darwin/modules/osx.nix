@@ -10,8 +10,8 @@
     orientation = "right";
     autohide = true;
     mru-spaces = false;
-    expose-animation-duration = "0";
-    autohide-time-modifier = "0";
+    expose-animation-duration = 0.0;
+    autohide-time-modifier = 0.0;
   };
 
   system.defaults.LaunchServices.LSQuarantine = false;
@@ -33,7 +33,7 @@
     NSNavPanelExpandedStateForSaveMode = true;
     NSNavPanelExpandedStateForSaveMode2 = true;
 
-    NSWindowResizeTime = "0";
+    NSWindowResizeTime = 0.0;
   };
 
   # todo: enable Accessibility > Display > Reduce Motion 
