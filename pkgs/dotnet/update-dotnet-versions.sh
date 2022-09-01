@@ -115,6 +115,7 @@ Examples:
     inherit icu;
     version = \"${sdk_version}\";
     $(platform_sources "$sdk_files")
+    packages = { fetchNuGet }: [ ];
   };
 }" > "./versions/${sem_version}.nix"
     echo "Generated ./versions/${sem_version}.nix"

@@ -19,5 +19,6 @@
         sha512  = "d60d683851ba08a8f30acac8c635219223a6f11e1efe5ec7e64c4b1dca44f7e3d6122ecc0a4e97b8b57c2035e22be5e09f5f1642db6227bb8898654da057a7ae";
       };
     };
+    packages = { fetchNuGet }: [ ];
   };
 }
