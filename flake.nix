@@ -61,6 +61,7 @@
 
             home-manager.darwinModule
 
+            ./base/nix.nix
             ./darwin/modules/bootstrap.nix
 
             {
@@ -101,6 +102,7 @@
             inputs.home-manager.nixosModules.home-manager
             inputs.agenix.nixosModule
 
+            ./base/nix.nix
             ./nixos/modules/bootstrap.nix
 
             {
