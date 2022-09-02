@@ -9,6 +9,19 @@
 
       myNerdfonts = self.nerdfonts.override { fonts = [ "JetBrainsMono" "Meslo" ]; };
 
+      sketchybar =
+        super.sketchybar.overrideAttrs (
+          o: rec {
+            version = "2.7.1";
+            src = super.fetchFromGitHub {
+              owner = "FelixKratz";
+              repo = "SketchyBar";
+              rev = "v${version}";
+              sha256 = "sha256-JzZ7X/McWIui9nkSkSGTSdBvJvMics/j7Qqh9wZU7iM=";
+            };
+          }
+        );
+
       # https://github.com/azuwis/nix-config/blob/f927c463e42c7bf017ddf4a603c0fcd282bf1d98/darwin/overlays.nix#L72-L93
       yabai =
         let
