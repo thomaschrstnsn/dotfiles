@@ -18,14 +18,12 @@ in
       tfswitch
     ];
 
-    programs.zsh.sessionVariables = {
-      AWS_PROFILE = "playground";
-    };
-
     programs.zsh.oh-my-zsh.plugins = [ "terraform" "aws" ];
 
     programs.zsh.initExtra = ''
       export PATH=~/bin:$PATH
+
+      export AWS_PROFILE="playground"
     '';
   };
 }

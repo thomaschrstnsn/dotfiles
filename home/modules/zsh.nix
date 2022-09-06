@@ -89,6 +89,9 @@ in
       initExtra = ''
         source ${pkgs.myPkgs.zsh-forgit}/share/zsh-forgit/forgit.plugin.zsh
 
+        export EDITOR="${cfg.editor}"
+        export MANPAGER="sh -c 'col -bx | bat -l man -p'" # batman
+
         # term title
         export ZSH_THEME_TERM_TITLE_IDLE="%~"
 
@@ -121,11 +124,6 @@ in
         }
         cfg.extraAliases
       ];
-
-      sessionVariables = {
-        EDITOR = cfg.editor;
-        MANPAGER = "sh -c 'col -bx | bat -l man -p'"; # batman
-      };
 
       oh-my-zsh = {
         enable = true;

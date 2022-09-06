@@ -18,8 +18,8 @@ in
       enableZshIntegration = true;
     };
 
-    programs.zsh.sessionVariables = {
-      IHP_EDITOR = "code --goto";
-    };
+    programs.zsh.initExtra = ''
+      export IHP_EDITOR="code --goto"
+    '';
   };
 }
