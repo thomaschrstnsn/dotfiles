@@ -8,7 +8,7 @@ in
   options.tc.ssh = with types; {
     enable = mkEnableOption "ssh";
     hosts = mkOption {
-      type = listOf (enum [ "rpi4" "vmnix" ]);
+      type = listOf (enum [ "rpi4" "vmnix" "aero-nix" ]);
       default = [ ];
       description = "known hosts to add to ssh config";
     };
@@ -32,6 +32,12 @@ in
           "ssh.chrstnsn.dk" = {
             user = "pi";
             proxyCommand = "${pkgs.cloudflared}/bin/cloudflared access ssh --hostname %h";
+          };
+        };
+        "aero-nix" = {
+          "aero-nix" = {
+            user = "thomas";
+            hostname = "192.168.1.193";
           };
         };
         "vmnix" = {

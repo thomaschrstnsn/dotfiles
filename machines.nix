@@ -32,7 +32,7 @@ in
         ssh = {
           enable = true;
           use1PasswordAgentOnMac = true;
-          hosts = [ "rpi4" "vmnix" ];
+          hosts = [ "rpi4" "vmnix" "aero-nix" ];
           includes = [ "personal_config" ];
         };
         smd_launcher.enable = true;
