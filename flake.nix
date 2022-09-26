@@ -249,7 +249,7 @@
     in
     rec {
       homeManagerConfigurations =
-        mapAttrWhenHasAttr mapAttrWhenHasAttr "home" machines;
+        mapAttrWhenHasAttr machineToHome "home" machines;
 
       darwinConfigurations =
         mapAttrWhenHasAttr machineToDarwin "darwin" machines;
