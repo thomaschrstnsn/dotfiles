@@ -8,11 +8,6 @@ in
   options.tc.zsh = with types; {
     enable = mkEnableOption "zsh with settings";
 
-    skhd = mkOption {
-      description = "Enable reload skhd alias";
-      type = bool;
-      default = false;
-    };
     editor = mkOption {
       description = "Set $EDITOR (for cmdline git etc)";
       type = str;
@@ -112,14 +107,9 @@ in
           cat = "${pkgs.bat}/bin/bat";
           reload_zshrc = "source ~/.zshrc";
         })
-        (mkIf (cfg.skhd) {
-          # https://github.com/LnL7/nix-darwin/issues/333
-          skhd-reload = "launchctl stop org.nixos.skhd && launchctl start org.nixos.skhd";
-        })
         {
           format-for-sql = ''awk '{printf "|%s|,\n", $1}' | sed "s/|/'/g"'';
           ndjson-to-jsonarray = "sed '1 s/^/[/ ; 2,$ s/^/,/; $ s/$/]/'";
-          ragenix = ''nix run github:yaxitech/ragenix --'';
           agenix = ''nix run github:ryantm/agenix --'';
         }
         cfg.extraAliases

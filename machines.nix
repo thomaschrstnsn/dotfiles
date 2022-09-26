@@ -38,7 +38,6 @@ in
         smd_launcher.enable = true;
         zsh = {
           enable = true;
-          skhd = true;
         };
       };
 
@@ -118,7 +117,6 @@ in
         smd_launcher.enable = true;
         zsh = {
           enable = true;
-          skhd = true;
           extraAliases = {
             meet-billing-and-reporting = ''"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --app=http://g.co/meet/billing-and-reporting &'';
             meet-browser = ''"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --app=http://g.co/meet/ &'';

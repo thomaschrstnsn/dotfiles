@@ -26,8 +26,9 @@ in
   };
 
   config = mkIf (cfg.enable) {
-    home.packages = [
+    home.packages = with pkgs; [
       combinedDotnet
+      fd
     ];
 
     programs.zsh.oh-my-zsh.plugins = [ "dotnet" ];
