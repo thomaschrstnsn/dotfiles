@@ -23,7 +23,6 @@
 
     nixos-vscode-server = {
       url = "github:msteen/nixos-vscode-server";
-      flake = false;
     };
 
     agenix = {
@@ -113,6 +112,8 @@
               };
             }
 
+            nixos-vscode-server.nixosModule
+
             ./nixos/services
             ./nixos/modules
 
@@ -142,14 +143,7 @@
               };
             }
             ./home/modules
-          ] ++
-          (if (pkgs.stdenv.isLinux)
-          then [
-            "${nixos-vscode-server}/modules/vscode-server/home.nix"
-            ./home/modules/vscode-server.nix
-          ]
-          else
-            [ ]);
+          ];
         };
 
       mkHMUser =

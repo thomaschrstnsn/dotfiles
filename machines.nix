@@ -264,7 +264,6 @@ in
             enable = true;
             editor = "vim";
           };
-          vscode-server.enable = true;
         };
         system = systems.x64-linux;
 
@@ -302,7 +301,6 @@ in
             editor = "vim";
           };
           tmux.enable = true;
-          vscode-server.enable = true;
         };
         system = systems.arm-linux;
 
@@ -346,7 +344,6 @@ in
             editor = "vim";
           };
           tmux.enable = true;
-          vscode-server.enable = true;
         };
         system = systems.arm-linux;
 

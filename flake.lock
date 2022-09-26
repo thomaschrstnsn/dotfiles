@@ -94,7 +94,9 @@
       }
     },
     "nixos-vscode-server": {
-      "flake": false,
+      "inputs": {
+        "nixpkgs": "nixpkgs"
+      },
       "locked": {
         "lastModified": 1662442857,
         "narHash": "sha256-e2ex4mO4q6UBoJvPSRdYBX1vIvpulqs6SNxvdSsL6uE=",
@@ -110,6 +112,20 @@
       }
     },
     "nixpkgs": {
+      "locked": {
+        "lastModified": 1655361562,
+        "narHash": "sha256-chPaIIhmdL6jdZWpf/K6yQCsuBNOYuMqbJsNpLfrdTE=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "0b59d075675dc28bf9ebab466033280096c8d4fe",
+        "type": "github"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "type": "indirect"
+      }
+    },
+    "nixpkgs_2": {
       "locked": {
         "lastModified": 1663372752,
         "narHash": "sha256-HxP/vZFDD/5Q9VEyX3VmsnCnm7vsH4IX6j/xE/+IVkc=",
@@ -132,7 +148,7 @@
         "home-manager": "home-manager",
         "nixos-hardware": "nixos-hardware",
         "nixos-vscode-server": "nixos-vscode-server",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs_2"
       }
     },
     "utils": {

@@ -4,12 +4,16 @@ with lib;
 let cfg = config.tc.vscode-server;
 in
 {
-  options.tc.vscode-server = {
-    enable = mkEnableOption "vscode-server";
+  options.tc.vscode-server = with types; {
+    enable = mkOption {
+      type = bool;
+      default = true;
+      description = "enable vscode-server";
+    };
   };
 
   config = mkIf (cfg.enable) {
-    home.packages = with pkgs; [
+    environment.systemPackages = with pkgs; [
       nixpkgs-fmt
       nodejs-16_x # server dep
       rnix-lsp # language server
