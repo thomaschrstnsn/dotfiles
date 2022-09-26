@@ -220,7 +220,7 @@
       machineToNixos =
         (machine:
           { system
-          , nixos ? { config = { }; base = { }; }
+          , nixos
           , home ? null
           , extraPackages ? _: [ ]
           , ...
@@ -243,15 +243,18 @@
 
       inherit (import ./machines.nix { inherit inputs lib; })
         machines;
+
+      mapAttrWhenHasAttr = f: musthave: attr:
+        builtins.mapAttrs f (lib.filterAttrs (n: v: builtins.hasAttr musthave v) attr);
     in
     rec {
       homeManagerConfigurations =
-        builtins.mapAttrs machineToHome machines;
+        mapAttrWhenHasAttr mapAttrWhenHasAttr "home" machines;
 
       darwinConfigurations =
-        builtins.mapAttrs machineToDarwin machines;
+        mapAttrWhenHasAttr machineToDarwin "darwin" machines;
 
       nixosConfigurations =
-        builtins.mapAttrs machineToNixos machines;
+        mapAttrWhenHasAttr machineToNixos "nixos" machines;
     };
 }
