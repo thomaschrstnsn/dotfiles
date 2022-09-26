@@ -229,6 +229,7 @@ in
           nixpkgs-fmt
           _1password-gui
           vscode
+          wl-clipboard
         ];
 
         nixos = {
