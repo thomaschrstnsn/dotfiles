@@ -39,10 +39,7 @@
         "hyper - r" = "Rider";
         "hyper - u" = "Inkdrop";
       };
-      extraShortcuts = {
-        "hyper - 0x0A" = "yabai -m space --toggle show-desktop"; # button left of 1
-        "hyper - e" = "yabai -m space --toggle mission-control";
-      };
+      extraShortcuts = { };
       prefixShortcuts = {
         leadingShortcut = "hyper - 9";
         appShortcuts = {

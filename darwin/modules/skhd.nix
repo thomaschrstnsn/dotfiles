@@ -167,6 +167,9 @@ in
 
           hyper - return : ${scripts}/toggleLayoutOnCurrentSpace.sh
 
+          hyper - 0x0A : yabai -m space --toggle show-desktop # button left of 1
+          hyper - e : yabai -m space --toggle mission-control
+
           hyper - 1 : ${scripts}/focusFirstWindowInSpace.sh 1
           hyper - 2 : ${scripts}/focusFirstWindowInSpace.sh 2
           hyper - 3 : ${scripts}/focusFirstWindowInSpace.sh 3
