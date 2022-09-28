@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, inputs, ... }:
 
 let
   systems = {
@@ -16,7 +16,7 @@ in
     aeris = import ./aeris { inherit systems; };
     A125228-DK = import ./A125228-DK { inherit systems skhd-scripts; };
     DESKTOP-IP1G00V = import ./DESKTOP-IP1G00V { inherit systems; };
-    nixos-raspi-4 = import ./nixos-raspi-4 { inherit systems; };
+    nixos-raspi-4 = import ./nixos-raspi-4 { inherit systems inputs; };
     vmnix = import ./vmnix { inherit systems; };
 
     # Minimal configuration to bootstrap darwin systems

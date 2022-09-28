@@ -1,6 +1,5 @@
 { systems, ... }:
 
-
 let
   username = "thomas";
 in
@@ -21,7 +20,7 @@ in
 
   nixos = {
     config = {
-      networking.hostname = vmnix;
+      networking.hostname = "vmnix";
       user = {
         name = username;
         groups = [ "wheel" "docker" ];

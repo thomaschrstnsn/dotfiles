@@ -1,5 +1,4 @@
-{ systems, ... }:
-
+{ systems, inputs, ... }:
 
 let
   username = "pi";
@@ -28,7 +27,7 @@ in
         name = username;
         groups = [ "wheel" "docker" ];
       };
-      networking.hostname = nixos-raspi-4;
+      networking.hostname = "nixos-raspi-4";
     };
     base = {
       imports = [
