@@ -235,7 +235,7 @@
           }
         );
 
-      inherit (import ./machines.nix { inherit inputs lib; })
+      inherit (import ./machines { inherit inputs lib; })
         machines;
 
       mapAttrWhenHasAttr = f: musthave: attr:

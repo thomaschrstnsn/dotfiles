@@ -1,0 +1,30 @@
+{ lib, ... }:
+
+let
+  systems = {
+    arm-linux = "aarch64-linux";
+    x64-linux = "x86_64-linux";
+    m1-darwin = "aarch64-darwin";
+    x64-darwin = "x86_64-darwin";
+  };
+
+  skhd-scripts = ./darwin/modules/skhd;
+in
+{
+  machines = {
+    aero-nix = import ./aero-nix { inherit systems; };
+    aeris = import ./aeris { inherit systems; };
+    A125228-DK = import ./A125228-DK { inherit systems skhd-scripts; };
+    DESKTOP-IP1G00V = import ./DESKTOP-IP1G00V { inherit systems; };
+    nixos-raspi-4 = import ./nixos-raspi-4 { inherit systems; };
+    vmnix = import ./vmnix { inherit systems; };
+
+    # Minimal configuration to bootstrap darwin systems
+    darwin-bootstrap-x64 = {
+      system = systems.x64-darwin;
+    };
+    darwin-bootstrap-aarch64 = {
+      system = systems.m1-darwin;
+    };
+  };
+}
