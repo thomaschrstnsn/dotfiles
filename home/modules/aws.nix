@@ -25,5 +25,9 @@ in
 
       export AWS_PROFILE="playground"
     '';
+
+    programs.zsh.shellAliases = {
+      rdp2bastion = ''(cd ~/src/aws-cli-tooling/bastion; AWS_PROFILE=pro-devops python3 rdp2bastion.py)'';
+    };
   };
 }
