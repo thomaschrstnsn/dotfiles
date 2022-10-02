@@ -25,13 +25,13 @@ A motivation/overview of Nix flakes for configuring machines:
 
 ## Using home-manager
 
-`./apply-home.sh` will apply the `homeManagerConfigurations` defined as `$HOST`.`$USER` in `machines.nix`
+`./apply.sh home` will apply the `homeManagerConfigurations` defined as `$HOST`.`$USER` in `machines.nix`
 
-hint: to apply and reload: `./apply-home.sh && reload_zshrc`
+hint: to apply and reload: `./apply.sh home && reload_zshrc`
 
 to preview changes without applying:
 
-`./build-home.sh`
+`./build.sh home`
 
 ## Using nix-darwin
 
@@ -46,8 +46,8 @@ $ sudo cp /etc/zshrc /etc/zshrc.backup-before-darwin
 ```
 
 Bootstrap using: 
-- for x64: `./apply-darwin.sh darwin-bootstrap-x64`
-- for m1:  `./apply-darwin.sh darwin-bootstrap-aarch64`
+- for x64: `./apply.sh darwin darwin-bootstrap-x64`
+- for m1:  `./apply.sh darwin darwin-bootstrap-aarch64`
 
 If this fails, you may need to:
 - `rm ~/.nix-defexpr/channels`
@@ -57,15 +57,15 @@ When successful, open a new terminal session and continue below
 
 ### Applying changes
 
-`./apply-darwin.sh` will apply the `darwinConfigurations` defined as `$HOST` in `machines.nix`
+`./apply.sh darwin` will apply the `darwinConfigurations` defined as `$HOST` in `machines.nix`
 
-To preview changes without applying: `./build-darwin.sh`. The built configuration will be placed in `./result`.
+To preview changes without applying: `./build.sh darwin`. The built configuration will be placed in `./result`.
 
 ## Using nixos
 
-`./apply-nixos.sh` will apply the nixos configuration defined for `$HOST` in `machines.nix`.
+`./apply.sh nixos` will apply the nixos configuration defined for `$HOST` in `machines.nix`.
 
-To preview changes without applying: `./build-nixos.sh`
+To preview changes without applying: `./build.sh nixos`
 
 ## Updating lockfile
 
