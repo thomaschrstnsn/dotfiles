@@ -24,7 +24,7 @@ in
       default = "starship";
     };
     vi-mode.enable = mkOption {
-      description = "use vi-mode";
+      description = ''use vi-mode: https://github.com/jeffreytse/zsh-vi-mode'';
       type = bool;
       default = true;
     };
