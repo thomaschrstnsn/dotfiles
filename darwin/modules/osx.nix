@@ -36,6 +36,7 @@
     NSWindowResizeTime = 0.0;
   };
 
+  security.pam.enableSudoTouchIdAuth = true;
   # todo: enable Accessibility > Display > Reduce Motion 
   # system.defaults.universalaccess.reduceMotion = 1;
 }
