@@ -23,6 +23,11 @@ in
       description = "Which prompt to use";
       default = "starship";
     };
+    vi-mode.enable = mkOption {
+      description = "use vi-mode";
+      type = bool;
+      default = true;
+    };
   };
 
   config = mkIf (cfg.enable) {
@@ -101,7 +106,11 @@ in
         zstyle ':completion:*:descriptions' format '[%d]'
         zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1 --color=always $realpath'
         zstyle ':fzf-tab:*' switch-group ',' '.'
-      '';
+      '' + (if cfg.vi-mode.enable
+      then ''
+        source ${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+      ''
+      else "");
       shellAliases = mkMerge [
         (mkIf true {
           cat = "${pkgs.bat}/bin/bat";
