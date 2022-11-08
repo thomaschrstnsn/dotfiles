@@ -40,17 +40,19 @@ get_wifi() {
   then
       WIFI_ICON=""
       WIFI_PADDING=6
+      NETWORK_IF="en0"
   else
       WIFI_LABEL=""
       WIFI_ICON="睊"
       WIFI_PADDING=0
+      NETWORK_IF="en5"
   fi
 }
 
 get_network() {
   local network ibytes obytes last_ibytes last_obytes
-  network=$(netstat -ibn -I en0)
-  network="${network##*en0}"
+  network=$(netstat -ibn -I $NETWORK_IF)
+  network="${network##*"$NETWORK_IF"}"
   read -r _ _ _ _ _ ibytes _ _ obytes _ <<< "${network}"
   ISPEED="-1"
   OSPEED="-1"
