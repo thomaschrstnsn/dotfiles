@@ -231,6 +231,7 @@
               homeConfig = home;
               extraPackages = extraPackages;
               system = system;
+              inherit nixvim;
             };
             user = nixos.config.user // { name = home.user.username; };
           in
