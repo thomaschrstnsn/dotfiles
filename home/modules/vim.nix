@@ -19,6 +19,7 @@ in
 
         shiftwidth = 4;
         tabstop = 4;
+        scrolloff = 25;
 
         clipboard = "unnamedplus";
 
@@ -34,7 +35,6 @@ in
           separatorStyle = "thin";
         };
         gitgutter.enable = true;
-        #lightline.enable = true;
         lualine = { enable = true; };
         lsp = {
           enable = true;
@@ -75,14 +75,19 @@ in
       };
       maps = {
         normal."-" = "/";
+        normal."<leader>e" = {
+          silent = true;
+          action = "<cmd>NvimTreeFindFileToggle<CR>";
+        };
+        normal."<leader><leader>" = "<cmd>nohl<CR>";
+        normal."<Tab>" = "<cmd>bn<CR>";
+        normal."<S-Tab>" = "<cmd>bp<CR>";
       };
       extraPlugins = with pkgs.vimPlugins; [
         which-key-nvim
-        csharpls-extended-lsp-nvim
       ];
       extraConfigLua = ''
         local __which_key = require('which-key')
-        __which_key.register({['b'] = {['b'] = {'<cmd>BufferLineCyclePrev<cr>','Previous'},['j'] = {'<cmd>BufferLinePick<cr>','Jump'},['name'] = '+Buffers',['w'] = {'<cmd>bd<cr>','Wipeout'}},['f'] = {['f'] = {'<cmd>Telescope find_files<cr>','Find File'},['j'] = {'<cmd>EditVifm<cr>','vifm'},['name'] = '+Files'},['g'] = {'<cmd>FloatermNew lazygit<cr>','Lazygit'},['gcc'] = {['name'] = 'Comment'},['l'] = {['a'] = {'<cmd>Lspsaga code_action<cr>','Code Actions'},['d'] = {'<cmd>Telescope lsp_definitions<cr>','Definitions'},['k'] = {'<cmd>Lspsaga hover_doc<cr>','Hover Documentation'},['name'] = '+LSP',['r'] = {'<cmd>Lspsaga rename<cr>','Rename'},['t'] = {'<cmd>TroubleToggle<cr>','Toggle Troube'}},['p'] = {'<cmd>Telescope projects<cr>','Open Project'},['q'] = {'<cmd>q<cr>','Quit'},['r'] = {'<cmd>TodoTrouble<cr>','List all project todos'},['t'] = {['name'] = '+Train',['o'] = {'<cmd>TrainTextObj<cr>','Train for movements related to text objects'},['u'] = {'<cmd>TrainUpDown<cr>','Train for movements up and down'},['w'] = {'<cmd>TrainWord<cr>','Train for movements related to words'}},['w'] = {'<cmd>w<cr>','Save'}}, {['mode'] = 'n',['prefix'] = '<leader>'})
         __which_key.setup{['show_help'] = true,['window'] = {['border'] = 'single'}}
       '';
     };
