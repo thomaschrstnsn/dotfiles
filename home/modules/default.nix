@@ -12,6 +12,7 @@
     ./ssh.nix
     ./smd_launcher.nix
     ./tmux.nix
+    ./vim.nix
     ./zsh.nix
 
     ./haskell

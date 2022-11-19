@@ -19,6 +19,7 @@
       includes = [ "personal_config" ];
     };
     smd_launcher.enable = true;
+    vim.enable = true;
     zsh = {
       enable = true;
     };

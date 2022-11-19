@@ -33,9 +33,14 @@
     nixos-hardware = {
       url = github:NixOS/nixos-hardware/master;
     };
+
+    nixvim = {
+      url = github:pta2002/nixvim;
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { nixpkgs, home-manager, darwin, forgit-git, nixos-vscode-server, ... }@inputs:
+  outputs = { nixpkgs, home-manager, darwin, forgit-git, nixos-vscode-server, nixvim, ... }@inputs:
     let
       inherit (nixpkgs) lib;
 
@@ -124,6 +129,7 @@
         { homeConfig
         , extraPackages ? _: [ ]
         , system
+        , nixvim
         }:
         let
           version = "21.11";
@@ -141,6 +147,7 @@
                 packages = extraPackages pkgs;
               };
             }
+            nixvim.homeManagerModules.nixvim
             ./home/modules
           ];
         };
@@ -151,7 +158,7 @@
         , system
         }:
         home-manager.lib.homeManagerConfiguration
-          (mkHMUser' { inherit homeConfig extraPackages system; });
+          (mkHMUser' { inherit homeConfig extraPackages system nixvim; });
 
       pkgsAndOverlaysForSystem = system:
         let
@@ -201,6 +208,7 @@
               };
               extraPackages = extraPackages;
               system = system;
+              inherit nixvim;
             };
           in
           mkDarwinSystem {
