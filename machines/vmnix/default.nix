@@ -15,6 +15,7 @@ in
       editor = "vim";
     };
     tmux.enable = true;
+    vim.enable = true;
   };
   system = systems.arm-linux;
 
