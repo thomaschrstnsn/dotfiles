@@ -59,11 +59,12 @@ in
           };
         };
         nix.enable = true;
+        notify.enable = true;
         null-ls = {
           enable = true;
           sources = {
             diagnostics.shellcheck.enable = true;
-            # formatting.nixfmt.enable = true;
+            # formatting.nixfmt.enable = true; # disabled since rnix also offers this - decide how to avoid the conflict
           };
         };
         nvim-cmp = { enable = true; };
