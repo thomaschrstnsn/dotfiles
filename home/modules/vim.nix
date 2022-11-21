@@ -164,7 +164,9 @@ in
                    ['j'] = {'<cmd>BufferLinePick<cr>','Jump'},
                    ['name'] = '+Buffers',
                    ['w'] = {'<cmd>bd<cr>','Wipeout'}},
-          ['f'] = {['f'] = {'<cmd>Telescope find_files<cr>','Find File'},
+         ['f'] = {
+                   ['f'] = {'<cmd>Telescope find_files<cr>','Find File'},
+                   ['w'] = {'<cmd>Telescope live_grep<cr>','Find Word'},
                    ['name'] = '+Files'},
           ['l'] = {['a'] = {'<cmd>Lspsaga code_action<cr>','Code Actions'},
           ['d'] = {'<cmd>Telescope lsp_definitions<cr>','Definitions'},
