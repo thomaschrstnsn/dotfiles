@@ -26,7 +26,7 @@ in
     vi-mode.enable = mkOption {
       description = ''use vi-mode: https://github.com/jeffreytse/zsh-vi-mode'';
       type = bool;
-      default = true;
+      default = false;
     };
   };
 
