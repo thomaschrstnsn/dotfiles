@@ -41,12 +41,17 @@ in
           separatorStyle = "thin";
         };
         comment-nvim = { enable = true; };
-        dashboard = {enable = true; };
+        dashboard = { enable = true; };
         gitgutter.enable = true;
         lualine = { enable = true; };
         lsp = {
           enable = true;
-          servers = { rnix-lsp.enable = true; };
+          servers = {
+            eslint.enable = true;
+            jsonls.enable = true;
+            rnix-lsp.enable = true;
+            tsserver.enable = true;
+          };
         };
         lspsaga = {
           enable = true;
@@ -67,7 +72,44 @@ in
             # formatting.nixfmt.enable = true; # disabled since rnix also offers this - decide how to avoid the conflict
           };
         };
-        nvim-cmp = { enable = true; };
+        nvim-cmp = {
+          enable = true;
+          completion = {
+            completeopt = "menu,menuone,noselect";
+            keyword_length = 2;
+          };
+          snippet.expand = ''
+            function(args)
+              require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+            end
+          '';
+          mapping = {
+            "<CR>" = "cmp.mapping.confirm({ select = true })";
+            "<Tab>" = ''cmp.mapping(function(fallback)
+                -- This little snippet will confirm with tab, and if no entry is selected, will confirm the first item
+                if (cmp.visible()) then
+                  local entry = cmp.get_selected_entry()
+                  if not entry then
+                    cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+                  else
+                    cmp.confirm()
+                  end
+                else
+                  fallback()
+                end
+              end, {"i","s",}) '';
+            "<Up>" = "cmp.mapping.select_prev_item()";
+            "<Down>" = "cmp.mapping.select_next_item()";
+          };
+          sources = [
+            { name = "nvim_lsp"; }
+            { name = "nvim_lsp_document_symbol"; }
+            { name = "nvim_lsp_signature_help"; }
+            { name = "buffer"; }
+            { name = "path"; }
+            { name = "luasnip"; }
+          ];
+        };
         nvim-tree = {
           enable = true;
           disableNetrw = true;
@@ -92,6 +134,11 @@ in
         normal."<Tab>" = "<cmd>bn<CR>";
         normal."<S-Tab>" = "<cmd>bp<CR>";
 
+        normal."<leader>fc" = {
+          action = ''<cmd>lua require("telescope.builtin").current_buffer_fuzzy_find { }<CR>'';
+          description = "find in current buffer";
+        };
+
         # keep selection when indenting
         visual.">" = {
           noremap = true;
@@ -105,6 +152,7 @@ in
         normal."<leader><CR>" = "<cmd>lua vim.lsp.buf.format {async = true;}<CR>";
       };
       extraPlugins = with pkgs.vimPlugins; [
+        auto-session
         nvim-treesitter-context
         which-key-nvim
       ];
@@ -181,6 +229,10 @@ in
             action = 'Telescope live_grep',
             shortcut = 'SPC f w'},
           }
+
+        require("auto-session").setup {
+          log_level = "error"
+        }
       '';
     };
     programs.zsh.shellAliases = {
