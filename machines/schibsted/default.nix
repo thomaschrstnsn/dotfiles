@@ -31,7 +31,9 @@
       hosts = [ "rpi4" ];
     };
     smd_launcher.enable = true;
+    vim.enable = true;
     zsh = {
+      editor = "nvim";
       enable = true;
       extraAliases = {
         meet-billing-and-reporting = ''"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --app=http://g.co/meet/billing-and-reporting &'';
