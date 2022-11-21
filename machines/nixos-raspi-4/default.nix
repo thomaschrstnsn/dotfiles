@@ -12,9 +12,10 @@ in
     git.enable = true;
     zsh = {
       enable = true;
-      editor = "vim";
+      editor = "nvim";
     };
     tmux.enable = true;
+    vim.enable = true;
   };
   system = systems.arm-linux;
 
