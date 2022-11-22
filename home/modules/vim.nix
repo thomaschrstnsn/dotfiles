@@ -100,14 +100,15 @@ in
               end, {"i","s",}) '';
             "<Up>" = "cmp.mapping.select_prev_item()";
             "<Down>" = "cmp.mapping.select_next_item()";
+            "<C-Space>" = "cmp.mapping.complete()";
           };
           sources = [
+            { name = "luasnip"; }
             { name = "nvim_lsp"; }
             { name = "nvim_lsp_document_symbol"; }
             { name = "nvim_lsp_signature_help"; }
             { name = "buffer"; }
             { name = "path"; }
-            { name = "luasnip"; }
           ];
         };
         nvim-tree = {
@@ -195,6 +196,8 @@ in
       };
       extraPlugins = with pkgs.vimPlugins; [
         auto-session
+        friendly-snippets
+        luasnip
         nvim-treesitter-context
         which-key-nvim
       ];
@@ -269,6 +272,8 @@ in
         require("auto-session").setup {
           log_level = "error"
         }
+
+        require("luasnip/loaders/from_vscode").lazy_load()
       '';
     };
     programs.zsh.shellAliases = {
