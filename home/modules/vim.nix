@@ -71,6 +71,7 @@ in
             diagnostics.shellcheck.enable = true;
             # formatting.nixfmt.enable = true; # disabled since rnix also offers this - decide how to avoid the conflict
           };
+          # todo: format on save, see https://youtu.be/vdn_pKJUda8?t=3912)
         };
         nvim-cmp = {
           enable = true;
@@ -107,6 +108,7 @@ in
             { name = "nvim_lsp"; }
             { name = "nvim_lsp_document_symbol"; }
             { name = "nvim_lsp_signature_help"; }
+            { name = "treesitter"; }
             { name = "buffer"; }
             { name = "path"; }
           ];
@@ -193,6 +195,8 @@ in
         normal."<C-j>" = "<cmd>wincmd j<CR>";
         normal."<C-k>" = "<cmd>wincmd k<CR>";
         normal."<C-l>" = "<cmd>wincmd l<CR>";
+
+        # LSP (todo, inspiration: https://youtu.be/vdn_pKJUda8?t=3129)
       };
       extraPlugins = with pkgs.vimPlugins; [
         auto-session
