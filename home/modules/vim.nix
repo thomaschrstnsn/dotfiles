@@ -149,7 +149,32 @@ in
           action = "<gv";
         };
 
-        normal."<leader><CR>" = "<cmd>lua vim.lsp.buf.format {async = true;}<CR>";
+        normal."<leader><CR>" = {
+          action = "<cmd>lua vim.lsp.buf.format {async = true;}<CR>";
+          description = "Format buffer (via LSP)";
+        };
+
+        # splits
+        normal."<leader>sv" = {
+          action = "<C-w>v";
+          description = "split vertically";
+        };
+        normal."<leader>sh" = {
+          action = "<C-w>s";
+          description = "split horizontally";
+        };
+        normal."<leader>se" = {
+          action = "<C-w>=";
+          description = "even splits";
+        };
+        normal."<leader>sx" = {
+          action = "<cmd>:close<CR>";
+          description = "close current window split";
+        };
+        normal."<C-h>" = "<cmd>:wincmd h<CR>";
+        normal."<C-j>" = "<cmd>:wincmd j<CR>";
+        normal."<C-k>" = "<cmd>:wincmd k<CR>";
+        normal."<C-l>" = "<cmd>:wincmd l<CR>";
       };
       extraPlugins = with pkgs.vimPlugins; [
         auto-session
