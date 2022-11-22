@@ -134,9 +134,26 @@ in
         normal."<Tab>" = "<cmd>bn<CR>";
         normal."<S-Tab>" = "<cmd>bp<CR>";
 
+        # Telescope
         normal."<leader>fc" = {
           action = ''<cmd>lua require("telescope.builtin").current_buffer_fuzzy_find { }<CR>'';
           description = "find in current buffer";
+        };
+        normal."<leader>ff" = {
+          action = ''<cmd>Telescope find_files<CR>'';
+          description = "find file";
+        };
+        normal."<leader>fs" = {
+          action = ''<cmd>Telescope live_grep<CR>'';
+          description = "find word";
+        };
+        normal."<leader>fb" = {
+          action = ''<cmd>Telescope buffers<CR>'';
+          description = "find buffer";
+        };
+        normal."<leader>fh" = {
+          action = ''<cmd>Telescope help_tags<CR>'';
+          description = "find help";
         };
 
         # keep selection when indenting
@@ -171,10 +188,10 @@ in
           action = "<cmd>:close<CR>";
           description = "close current window split";
         };
-        normal."<C-h>" = "<cmd>:wincmd h<CR>";
-        normal."<C-j>" = "<cmd>:wincmd j<CR>";
-        normal."<C-k>" = "<cmd>:wincmd k<CR>";
-        normal."<C-l>" = "<cmd>:wincmd l<CR>";
+        normal."<C-h>" = "<cmd>wincmd h<CR>";
+        normal."<C-j>" = "<cmd>wincmd j<CR>";
+        normal."<C-k>" = "<cmd>wincmd k<CR>";
+        normal."<C-l>" = "<cmd>wincmd l<CR>";
       };
       extraPlugins = with pkgs.vimPlugins; [
         auto-session
@@ -189,10 +206,6 @@ in
                    ['j'] = {'<cmd>BufferLinePick<cr>','Jump'},
                    ['name'] = '+Buffers',
                    ['w'] = {'<cmd>bd<cr>','Wipeout'}},
-         ['f'] = {
-                   ['f'] = {'<cmd>Telescope find_files<cr>','Find File'},
-                   ['w'] = {'<cmd>Telescope live_grep<cr>','Find Word'},
-                   ['name'] = '+Files'},
           ['l'] = {['a'] = {'<cmd>Lspsaga code_action<cr>','Code Actions'},
           ['d'] = {'<cmd>Telescope lsp_definitions<cr>','Definitions'},
                    ['k'] = {'<cmd>Lspsaga hover_doc<cr>','Hover Documentation'},
@@ -247,14 +260,10 @@ in
             desc = 'Find  File                              ',
             action = 'Telescope find_files find_command=rg,--hidden,--files',
             shortcut = 'SPC f f'},
-            {icon = '  ',
-            desc ='File Browser                            ',
-            action =  'Telescope file_browser',
-            shortcut = 'SPC f b'},
             {icon = '  ',
             desc = 'Find  word                              ',
             action = 'Telescope live_grep',
-            shortcut = 'SPC f w'},
+            shortcut = 'SPC f s'},
           }
 
         require("auto-session").setup {
