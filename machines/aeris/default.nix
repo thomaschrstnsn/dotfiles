@@ -9,7 +9,10 @@
       enable = true;
       sdks = [ "6.0" ];
     };
-    git.enable = true;
+    git = {
+      enable = true;
+      githubs = [ ];
+    };
     haskell.stack.enable = true;
     haskell.ihp.enable = true;
     ssh = {
