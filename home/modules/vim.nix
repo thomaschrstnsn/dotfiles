@@ -201,8 +201,10 @@ in
       extraPlugins = with pkgs.vimPlugins; [
         auto-session
         friendly-snippets
+        lsp-format-nvim
         luasnip
         nvim-treesitter-context
+        rust-tools-nvim
         which-key-nvim
       ];
       extraConfigLua = ''
@@ -278,6 +280,26 @@ in
         }
 
         require("luasnip/loaders/from_vscode").lazy_load()
+
+        local rt = require("rust-tools")
+
+        rt.setup({
+          server = {
+            on_attach = function(_, bufnr)
+              -- Hover actions
+              vim.keymap.set("n", "gh", rt.hover_actions.hover_actions, { buffer = bufnr })
+              -- Code action groups
+              vim.keymap.set("n", "<Leader>.", rt.code_action_group.code_action_group, { buffer = bufnr })
+            end,
+          },
+        })
+
+        require("lsp-format").setup {}
+        local on_attach = function(client)
+          require("lsp-format").on_attach(client)
+        end
+        require("lspconfig").rust_analyzer.setup { on_attach = on_attach }
+        require("lspconfig").rnix.setup { on_attach = on_attach }
       '';
     };
     programs.zsh.shellAliases = {
