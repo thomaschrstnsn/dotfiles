@@ -12,8 +12,10 @@ in
     git.enable = true;
     zsh = {
       enable = true;
-      editor = "vim";
+      editor = "nvim";
     };
+    vim.enable = true;
+    direnv.enable = true;
   };
   system = systems.x64-linux;
 
