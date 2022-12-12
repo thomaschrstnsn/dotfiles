@@ -32,6 +32,7 @@
   darwin = {
     homebrew = {
       enable = true;
+      extraBrews = [ "exiv2" ];
       extraCasks = [
         "brave-browser"
       ];
