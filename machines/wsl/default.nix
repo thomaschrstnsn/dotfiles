@@ -9,7 +9,10 @@ in
       username = username;
       homedir = "/home/${username}";
     };
-    git.enable = true;
+    git = {
+      enable = true;
+      githubs = [ ];
+    };
     zsh = {
       enable = true;
       editor = "nvim";
