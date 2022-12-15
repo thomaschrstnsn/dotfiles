@@ -14,11 +14,11 @@ let
     else app;
 
   cfg = config.tc.skhd;
-  switchToApp = app:
+  switchToApp = onlySwitchIfOpen: app: 
     if cfg.useOpenForAppShortcuts
     then ''open -a "${app}"''
-    else ''${scripts}/switchToApp.sh "${windowNameForApp app}" "${app}"'';
-  mkAppShortcut = (shortcut: app: "${shortcut} : ${switchToApp app}");
+    else ''${scripts}/switchToApp.sh "${windowNameForApp app}" "${if onlySwitchIfOpen then "" else app}"'';
+  mkAppShortcut = (onlySwitchIfOpen: shortcut: app: "${shortcut} : ${switchToApp onlySwitchIfOpen app}");
   mkShortcut = (shortcut: cmd: "${shortcut} : ${cmd}");
 
   mkPrefixShortcut = (prefix: shortcut: command: "${prefix} < ${shortcut} : ${command}");
@@ -90,6 +90,14 @@ in
     };
     extraAppShortcuts = mkOption {
       description = "Extra shortcuts to open apps";
+      type = attrsOf str;
+      default = { };
+      example = {
+        "hyper - z" = "zoom.us";
+      };
+    };
+    extraAppShortcutsOnlySwitch = mkOption {
+      description = "Extra shortcuts to only switch to apps (not open them of they are not running)";
       type = attrsOf str;
       default = { };
       example = {
@@ -196,9 +204,9 @@ in
           lctrl - down : skhd -k "pagedown"
 
           # app shortcuts
-          hyper - b : ${switchToApp cfg.browser}
-          hyper - t : ${switchToApp cfg.terminal}
-          hyper - x : ${switchToApp cfg.code}
+          hyper - b : ${(switchToApp false) cfg.browser}
+          hyper - t : ${(switchToApp false) cfg.terminal}
+          hyper - x : ${(switchToApp false) cfg.code}
         ''
         + (toWmPrefixConfig "hyper - space" {
           f = "yabai -m window --toggle float; yabai -m window --grid 4:4:1:1:2:2"; # float/unfloat
@@ -231,7 +239,9 @@ in
         })
         + concatStringsSep "\n" (attrValues (mapAttrs mkShortcut cfg.extraShortcuts))
         + "\n"
-        + concatStringsSep "\n" (attrValues (mapAttrs mkAppShortcut cfg.extraAppShortcuts))
+        + concatStringsSep "\n" (attrValues (mapAttrs (mkAppShortcut false) cfg.extraAppShortcuts))
+        + "\n"
+        + concatStringsSep "\n" (attrValues (mapAttrs (mkAppShortcut true) cfg.extraAppShortcutsOnlySwitch))
         + "\n"
         + toCfgPrefixConfig cfg.prefixShortcuts
       ;

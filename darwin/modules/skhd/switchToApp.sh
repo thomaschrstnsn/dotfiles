@@ -12,7 +12,7 @@ windowsForApp=$(yabai -m query --windows | jq -r ".[] | select(.app == \"$1\")")
 
 if [ -z "$windowsForApp" ]
 then
-    echo "$1" has no windows, opening
+    echo "$1" has no windows, opening "$2"
     open -a "$2"
     exit
 fi

@@ -68,13 +68,15 @@
         "hyper - z" = "zoom.us";
         "hyper - c" = "Slack";
         "hyper - r" = "Rider";
-        "hyper - v" = "VMWare Fusion";
         "hyper - u" = "Inkdrop";
         "hyper - g" = "Google Chrome";
         "hyper - h" = "Brave Browser";
         "hyper - d" = "Azure Data Studio";
         "hyper - 0x32" = "Asana"; # >/<
         "hyper - y" = "Microsoft Remote Desktop";
+      };
+      extraAppShortcutsOnlySwitch = {
+        "hyper - v" = "VMWare Fusion";
       };
       extraShortcuts = {
         "hyper - 0" = "alacritty --working-directory ~/bin -e zsh -c ~/bin/smd"; # smd-launcher
