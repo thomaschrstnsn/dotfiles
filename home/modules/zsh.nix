@@ -87,7 +87,7 @@ in
       enableAutosuggestions = true;
       enableSyntaxHighlighting = true;
       initExtra = ''
-        source ${pkgs.myPkgs.zsh-forgit}/share/zsh-forgit/forgit.plugin.zsh
+        source ${pkgs.zsh-forgit}/share/zsh/zsh-forgit/forgit.plugin.zsh
 
         export EDITOR="${cfg.editor}"
         export MANPAGER="sh -c 'col -bx | bat -l man -p'" # batman

@@ -16,11 +16,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    forgit-git = {
-      url = github:wfxr/forgit;
-      flake = false;
-    };
-
     nixos-vscode-server = {
       url = "github:msteen/nixos-vscode-server";
     };
@@ -40,7 +35,7 @@
     };
   };
 
-  outputs = { nixpkgs, home-manager, darwin, forgit-git, nixos-vscode-server, nixvim, ... }@inputs:
+  outputs = { nixpkgs, home-manager, darwin, nixos-vscode-server, nixvim, ... }@inputs:
     let
       inherit (nixpkgs) lib;
 
@@ -168,7 +163,7 @@
       pkgsAndOverlaysForSystem = system:
         let
           inherit (import ./pkgs {
-            inherit pkgs forgit-git nixpkgs;
+            inherit pkgs nixpkgs;
           }) myPkgs;
           inherit (import ./overlays {
             inherit system pkgs lib myPkgs;
