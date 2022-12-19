@@ -140,7 +140,7 @@ in
         normal."<S-Tab>" = "<cmd>bp<CR>";
 
         # Telescope
-        normal."<leader>fc" = {
+        normal."<leader>-" = {
           action = ''<cmd>lua require("telescope.builtin").current_buffer_fuzzy_find { }<CR>'';
           description = "find in current buffer";
         };
