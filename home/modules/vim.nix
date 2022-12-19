@@ -203,6 +203,7 @@ in
       extraPlugins = with pkgs.vimPlugins; [
         auto-session
         friendly-snippets
+        indent-blankline-nvim
         lsp-format-nvim
         luasnip
         nvim-treesitter-context
@@ -313,6 +314,14 @@ in
           group = highlight_group,
           pattern = '*',
         })
+
+        require("indent_blankline").setup {
+            space_char_blankline = " ",
+            show_current_context = true,
+            show_current_context_start = true,
+            char = '┊',
+            show_trailing_blankline_indent = false,
+        }
       '';
     };
     programs.zsh.shellAliases = {
