@@ -14,7 +14,7 @@ let
     else app;
 
   cfg = config.tc.skhd;
-  switchToApp = onlySwitchIfOpen: app: 
+  switchToApp = onlySwitchIfOpen: app:
     if cfg.useOpenForAppShortcuts
     then ''open -a "${app}"''
     else ''${scripts}/switchToApp.sh "${windowNameForApp app}" "${if onlySwitchIfOpen then "" else app}"'';
@@ -36,7 +36,7 @@ let
       ++ [ "" ]
       );
 
-  mkCfgPrefixAppShortcut = (shortcut: app: (mkPrefixShortcut "cfgprefix" shortcut "skhd -k escape ; ${switchToApp app}"));
+  mkCfgPrefixAppShortcut = (shortcut: app: (mkPrefixShortcut "cfgprefix" shortcut "skhd -k escape ; ${switchToApp false app}"));
   mkCfgPrefixShortcut = (shortcut: command: (mkPrefixShortcut "cfgprefix" shortcut "skhd -k escape ; ${command}"));
   toCfgPrefixConfig = config:
     if (config.leadingShortcut != null && (config.appShortcuts != { } || config.shortcuts != { }))
