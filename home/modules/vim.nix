@@ -16,7 +16,7 @@ in
 
         shiftwidth = 4;
         tabstop = 4;
-        scrolloff = 25;
+        scrolloff = 49;
 
         clipboard = "unnamedplus";
 
@@ -31,6 +31,8 @@ in
         undofile = true;
         swapfile = false;
         writebackup = false;
+
+        breakindent = true;
       };
       colorschemes.gruvbox.enable = true;
       plugins = {
