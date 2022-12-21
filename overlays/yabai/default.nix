@@ -5,14 +5,13 @@
 
 stdenv.mkDerivation rec {
   pname = "yabai";
-  version = "5.0.1";
+  version = "4.0.1";
 
   src = fetchFromGitHub {
     owner = "koekeishiya";
     repo = "yabai";
-    # rev = "v${version}";
-    rev = "c02de22e0c7c653d2048fd15eb1f86677d0f43e5";
-    sha256 = "sha256-zo4uDLI1Exmd+Z4pgdVvBfpbIAJ/C+WxlPlxNayzIo0=";
+    rev = "v${version}";
+    sha256 = "sha256-H1zMg+/VYaijuSDUpO6RAs/KLAAZNxhkfIC6CHk/xoI=";
   };
 
   postPatch =

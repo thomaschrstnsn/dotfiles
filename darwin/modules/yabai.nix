@@ -32,6 +32,7 @@ in
 
       # https://github.com/koekeishiya/yabai/blob/master/doc/yabai.asciidoc#window
       config = {
+        # debug_output = "on";
         focus_follows_mouse = "off";
         mouse_follows_focus = "off";
         window_placement = "second_child";

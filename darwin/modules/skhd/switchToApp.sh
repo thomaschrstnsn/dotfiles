@@ -43,7 +43,7 @@ function switchAndExit {
     local window=$(echo "$windowsForApp" | jq -r "select($1) | .id" | head -n 1)
     if [ -n "$window" ]
     then
-        echo app is "$2"
+        echo app is "$2" window is "$window"
         yabai -m window --focus "$window" && exit
     fi
 }
