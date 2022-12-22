@@ -36,7 +36,8 @@ in
       enable = cfg.prompt == "starship";
       settings = {
         aws = {
-          disabled = true;
+          format = "on $symbol ($profile) ($style)";
+          symbol = "";
         };
         directory = {
           truncation_symbol = "…/";

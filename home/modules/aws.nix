@@ -23,7 +23,7 @@ in
     programs.zsh.initExtra = ''
       export PATH=~/bin:$PATH
 
-      export AWS_PROFILE="playground"
+      export AWS_PROFILE="pre"
     '';
 
     programs.zsh.shellAliases = {
