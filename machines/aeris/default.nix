@@ -63,8 +63,11 @@
 
   extraPackages = pkgs: with pkgs; [
     shellcheck
-    rnix-lsp
     nixpkgs-fmt
+    rnix-lsp
+
+    glow
+    visidata
   ];
 
   system = systems.m1-darwin;

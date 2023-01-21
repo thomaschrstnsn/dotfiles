@@ -47,6 +47,8 @@ in
 
     home.packages = with pkgs; [
       fd
+      jq
+      jid
       tree
       wget
       zsh-fzf-tab

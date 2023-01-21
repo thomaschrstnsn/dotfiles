@@ -108,6 +108,9 @@
     rnix-lsp
     nixpkgs-fmt
     ripgrep
+
+    glow
+    visidata
   ];
 
   system = systems.x64-darwin;
