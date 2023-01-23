@@ -67,7 +67,6 @@
       extraAppShortcuts = {
         "hyper - z" = "zoom.us";
         "hyper - c" = "Slack";
-        "hyper - r" = "Rider";
         "hyper - u" = "Inkdrop";
         "hyper - g" = "Google Chrome";
         "hyper - h" = "Brave Browser";
@@ -77,6 +76,7 @@
       };
       extraAppShortcutsOnlySwitch = {
         "hyper - v" = "VMWare Fusion";
+        "hyper - r" = "JetBrains Rider";
       };
       extraShortcuts = {
         "hyper - 0" = "alacritty --working-directory ~/bin -e zsh -c ~/bin/smd"; # smd-launcher
