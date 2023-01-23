@@ -6,7 +6,7 @@ let
 in
 {
   options.tc.aws = {
-    enable = mkEnableOption "aws + terraform";
+    enable = mkEnableOption "aws, k8s, terraform";
   };
 
   config = mkIf (cfg.enable) {
@@ -25,6 +25,7 @@ in
       export PATH=~/bin:$PATH
 
       export AWS_PROFILE="pre"
+      export KUBECONFIG=~/.kube/smd-qa01-01:~/.kube/smd-qa02-01:~/.kube/smd-qa03-01
     '';
 
     programs.zsh.shellAliases = {
