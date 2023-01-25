@@ -8,6 +8,7 @@ let
     "2.2" = myPkgs.dotnet.sdk_2_2;
     "3.1" = myPkgs.dotnet.sdk_3_1;
     "6.0" = myPkgs.dotnet.sdk_6_0;
+    "7.0" = myPkgs.dotnet.sdk_7_0;
   });
 
   # https://github.com/NixOS/nixpkgs/blob/master/pkgs/development/compilers/dotnet/default.nix
