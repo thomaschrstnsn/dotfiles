@@ -35,6 +35,8 @@
       extraBrews = [ "exiv2" ];
       extraCasks = [
         "brave-browser"
+        "google-drive"
+        "obsidian"
       ];
     };
     skhd = {
@@ -43,7 +45,7 @@
       useOpenForAppShortcuts = false;
       extraAppShortcuts = {
         "hyper - r" = "Rider";
-        "hyper - u" = "Inkdrop";
+        "hyper - u" = "Obsidian";
       };
       extraShortcuts = { };
       prefixShortcuts = {

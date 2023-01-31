@@ -54,6 +54,7 @@
         "asana"
         "azure-data-studio"
         "brave-browser"
+        "google-drive"
         "jetbrains-toolbox"
         "meetingbar"
         "microsoft-edge"

@@ -54,8 +54,6 @@ in
     homebrew.casks = [
       # "1password-beta"
       "1password-cli"
-      "google-drive"
-      "inkdrop"
       "iterm2"
       "karabiner-elements"
       "numi"
