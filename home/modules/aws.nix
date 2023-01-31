@@ -25,7 +25,7 @@ in
       export PATH=~/bin:$PATH
 
       export AWS_PROFILE="pre"
-      export KUBECONFIG=~/.kube/smd-qa01-01:~/.kube/smd-qa02-01:~/.kube/smd-qa03-01
+      export KUBECONFIG=~/.kube/smd-qa01-01:~/.kube/smd-qa02-01:~/.kube/smd-qa03-01:~/.kube/smd-cicd-dev:~/.kube/smd-cicd-pro
     '';
 
     programs.zsh.shellAliases = {
