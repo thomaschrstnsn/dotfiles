@@ -58,6 +58,7 @@
         "meetingbar"
         "microsoft-edge"
         "microsoft-remote-desktop"
+        "obsidian"
       ];
     };
     skhd = {
@@ -67,7 +68,7 @@
       extraAppShortcuts = {
         "hyper - z" = "zoom.us";
         "hyper - c" = "Slack";
-        "hyper - u" = "Inkdrop";
+        "hyper - u" = "Obsidian";
         "hyper - g" = "Google Chrome";
         "hyper - h" = "Brave Browser";
         "hyper - d" = "Azure Data Studio";
