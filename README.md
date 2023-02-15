@@ -35,6 +35,10 @@ to preview changes without applying:
 
 ## Using nix-darwin
 
+The nix-darwin (Nix on macOS) can be configured to use [Yabai](https://github.com/koekeishiya/yabai) + [SKHD](https://github.com/koekeishiya/skhd) 
+(tiling window manager with a hotkey daemon). For more information on this type of setup, 
+see this [video](https://www.youtube.com/watch?v=k94qImbFKWE).
+
 ### Initial bootstrap
 
 Before doing this:
