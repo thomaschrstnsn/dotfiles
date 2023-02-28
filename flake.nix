@@ -98,7 +98,7 @@
             { nixpkgs.overlays = overlays; }
 
             inputs.home-manager.nixosModules.home-manager
-            inputs.agenix.nixosModule
+            inputs.agenix.nixosModules.default
 
             ./base/nix.nix
             ./nixos/modules/bootstrap.nix
