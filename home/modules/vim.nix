@@ -135,13 +135,23 @@ in
           silent = true;
           action = "<cmd>NvimTreeFindFileToggle<CR>";
         };
-        normal."<leader><leader>" = "<cmd>nohl<CR>";
+        normal."<esc>" = {
+          action = "<cmd>noh<cr><esc>";
+          description = "Escape and clear hlsearch";
+        };
         normal."<Tab>" = "<cmd>bn<CR>";
         normal."<S-Tab>" = "<cmd>bp<CR>";
 
+        normal."<C-S-j>" = { action = "<cmd>m .+1<cr>=="; description = "Move down"; };
+        normal."<C-S-k>" = { action = "<cmd>m .-2<cr>=="; description = "Move up"; };
+        insert."<C-S-j>" = { action = "<esc><cmd>m .+1<cr>==gi"; description = "Move down"; };
+        insert."<C-S-k>" = { action = "<esc><cmd>m .-2<cr>==gi"; description = "Move up"; };
+        visual."<C-S-j>" = { action = ":m '>+1<cr>gv=gv"; description = "Move down"; };
+        visual."<C-S-k>" = { action = ":m '<-2<cr>gv=gv"; description = "Move up"; };
+
         # Telescope
         normal."<leader>-" = {
-          action = ''<cmd>lua require("telescope.builtin").current_buffer_fuzzy_find { }<CR>'';
+          action = ''<cmd>Telescope current_buffer_fuzzy_find<CR>'';
           description = "find in current buffer";
         };
         normal."<leader>ff" = {
@@ -159,6 +169,14 @@ in
         normal."<leader>fh" = {
           action = ''<cmd>Telescope help_tags<CR>'';
           description = "find help";
+        };
+        normal."<leader>:" = {
+          action = "<cmd>Telescope command_history<cr>";
+          description = "Command History";
+        };
+        normal."<leader>sk" = {
+          action = "<cmd>Telescope keymaps<cr>";
+          description = "Key Maps";
         };
 
         # keep selection when indenting

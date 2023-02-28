@@ -14,12 +14,9 @@
           ['p'] = {'<cmd>Telescope projects<cr>','Open Project'},
           ['q'] = {'<cmd>q<cr>','Quit'},
           ['r'] = {'<cmd>TodoTrouble<cr>','List all project todos'},
-          ['t'] = {['name'] = '+Train',
-                   ['o'] = {'<cmd>TrainTextObj<cr>','Train for movements related to text objects'},
-                   ['u'] = {'<cmd>TrainUpDown<cr>','Train for movements up and down'},
-                   ['w'] = {'<cmd>TrainWord<cr>','Train for movements related to words'}},
           ['w'] = {'<cmd>w<cr>','Save'}}, 
-          {['mode'] = 'n',['prefix'] = '<leader>'})
+          {['mode'] = 'n',['prefix'] = '<leader>'
+		})
 
         __which_key.setup{['show_help'] = true,['window'] = {['border'] = 'single'}}
 
