@@ -225,6 +225,7 @@ in
         lsp-format-nvim
         luasnip
         nvim-treesitter-context
+        noice-nvim
         rust-tools-nvim
         which-key-nvim
       ];
