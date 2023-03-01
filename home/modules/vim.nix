@@ -142,6 +142,10 @@ in
         normal."<Tab>" = "<cmd>bn<CR>";
         normal."<S-Tab>" = "<cmd>bp<CR>";
 
+        # Move inside wrapped line
+        normal."j" = { action = "v:count == 0 ? 'gj' : 'j'"; silent = true; expr = true; };
+        normal."k" = { action = "v:count == 0 ? 'gk' : 'k'"; silent = true; expr = true; };
+
         normal."<C-S-j>" = { action = "<cmd>m .+1<cr>=="; description = "Move down"; };
         normal."<C-S-k>" = { action = "<cmd>m .-2<cr>=="; description = "Move up"; };
         insert."<C-S-j>" = { action = "<esc><cmd>m .+1<cr>==gi"; description = "Move down"; };
