@@ -34,7 +34,10 @@ in
 
         breakindent = true;
       };
-      colorschemes.gruvbox.enable = true;
+      colorschemes.tokyonight = {
+        enable = true;
+        style = "night";
+      };
       plugins = {
         nvim-autopairs.enable = true;
         bufferline = {
