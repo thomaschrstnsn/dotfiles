@@ -23,6 +23,7 @@
     };
     smd_launcher.enable = true;
     vim.enable = true;
+    wezterm = { enable = true; };
     zsh = {
       enable = true;
       editor = "nvim";
@@ -42,6 +43,7 @@
     skhd = {
       enable = true;
       browser = "Brave Browser";
+      terminal = "WezTerm";
       useOpenForAppShortcuts = false;
       extraAppShortcuts = {
         "hyper - r" = "Rider";

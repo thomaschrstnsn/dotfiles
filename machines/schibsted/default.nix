@@ -32,6 +32,7 @@
     };
     smd_launcher.enable = true;
     vim.enable = true;
+    wezterm.enable = true;
     zsh = {
       editor = "nvim";
       enable = true;
@@ -65,6 +66,7 @@
     skhd = {
       enable = true;
       browser = "Microsoft Edge";
+      terminal = "WezTerm";
       useOpenForAppShortcuts = false;
       extraAppShortcuts = {
         "hyper - z" = "zoom.us";
