@@ -238,6 +238,7 @@ in
         luasnip
         nvim-treesitter-context
         noice-nvim
+        mini-nvim
         rust-tools-nvim
         which-key-nvim
       ];

@@ -73,6 +73,11 @@ vim.api.nvim_create_autocmd("BufEnter", {
     end
 })
 
+-- mini.nvim https://github.com/echasnovski/mini.nvim
+require('mini.indentscope').setup()
+require('mini.surround').setup()
+require('mini.jump').setup()
+
 local db = require('dashboard')
 db.custom_center = {{
     icon = '  ',
