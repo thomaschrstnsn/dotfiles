@@ -40,10 +40,8 @@ in
       };
       plugins = {
         nvim-autopairs.enable = true;
-        bufferline = {
+        barbar = {
           enable = true;
-          showCloseIcon = false;
-          separatorStyle = "thin";
         };
         comment-nvim = { enable = true; };
         dashboard = { enable = true; };
