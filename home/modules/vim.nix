@@ -7,6 +7,9 @@ in
   options.tc.vim = { enable = mkEnableOption "vim"; };
 
   config = mkIf (cfg.enable) {
+
+    home.packages = with pkgs; [ ripgrep ];
+
     programs.nixvim = {
       enable = true;
       globals.mapleader = " ";
@@ -182,6 +185,10 @@ in
         normal."<leader>sk" = {
           action = "<cmd>Telescope keymaps<cr>";
           description = "Key Maps";
+        };
+        normal."<leader>," = {
+          action = "<cmd>Telescope buffers<cr>";
+          description = "recent buffers";
         };
 
         # keep selection when indenting
