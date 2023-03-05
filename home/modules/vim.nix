@@ -53,11 +53,16 @@ in
         lsp = {
           enable = true;
           servers = {
+            bashls.enable = true;
             eslint.enable = true;
             jsonls.enable = true;
+            lua-ls.enable = true;
             rnix-lsp.enable = true;
             tsserver.enable = true;
           };
+        };
+        lsp-lines = {
+          enable = true;
         };
         lspsaga = {
           enable = true;
@@ -132,6 +137,7 @@ in
           enable = true;
           nixGrammars = true;
         };
+        trouble = { enable = true; };
       };
       maps = {
         normal."-" = "/";
@@ -143,8 +149,22 @@ in
           action = "<cmd>noh<cr><esc>";
           description = "Escape and clear hlsearch";
         };
+
+        normal."<leader>w" = { action = "<cmd>w<cr>"; description = "Save"; };
+        normal."<leader>q" = { action = "<cmd>q<cr>"; description = "Quit"; };
+
+        # buffers 
+        normal."<leader>bx" = { action = "<cmd>bd<cr>"; description = "Close buffer"; };
+        normal."<leader>bj" = { action = "<cmd>BufferPick<cr>"; description = "Pick buffer"; };
         normal."<Tab>" = "<cmd>bn<CR>";
         normal."<S-Tab>" = "<cmd>bp<CR>";
+
+        # lsp
+        normal."<leader>la" = { action = "<cmd>Lspsaga code_action<cr>"; description = "Code Actions"; };
+        normal."<leader>ld" = { action = "<cmd>Telescope lsp_definitions<cr>"; description = "Definitions"; };
+        normal."<leader>lk" = { action = "<cmd>Lspsaga hover_doc<cr>"; description = "Hover Docs"; };
+        normal."<leader>lr" = { action = "<cmd>Lspsaga rename<cr>"; description = "Rename"; };
+        normal."<leader>lt" = { action = "<cmd>TroubleToggle<cr>"; description = "Toggle Trouble"; };
 
         # Move inside wrapped line
         normal."j" = { action = "v:count == 0 ? 'gj' : 'j'"; silent = true; expr = true; };

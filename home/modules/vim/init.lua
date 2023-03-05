@@ -19,30 +19,6 @@ require("noice").setup({
 
 local __which_key = require('which-key')
 
-__which_key.register({
-    ['b'] = {
-        ['b'] = {'<cmd>BufferLineCyclePrev<cr>', 'Previous'},
-        ['j'] = {'<cmd>BufferLinePick<cr>', 'Jump'},
-        ['name'] = '+Buffers',
-        ['w'] = {'<cmd>bd<cr>', 'Wipeout'}
-    },
-    ['l'] = {
-        ['a'] = {'<cmd>Lspsaga code_action<cr>', 'Code Actions'},
-        ['d'] = {'<cmd>Telescope lsp_definitions<cr>', 'Definitions'},
-        ['k'] = {'<cmd>Lspsaga hover_doc<cr>', 'Hover Documentation'},
-        ['name'] = '+LSP',
-        ['r'] = {'<cmd>Lspsaga rename<cr>', 'Rename'},
-        ['t'] = {'<cmd>TroubleToggle<cr>', 'Toggle Trouble'}
-    },
-    ['p'] = {'<cmd>Telescope projects<cr>', 'Open Project'},
-    ['q'] = {'<cmd>q<cr>', 'Quit'},
-    ['r'] = {'<cmd>TodoTrouble<cr>', 'List all project todos'},
-    ['w'] = {'<cmd>w<cr>', 'Save'}
-}, {
-    ['mode'] = 'n',
-    ['prefix'] = '<leader>'
-})
-
 __which_key.setup {
     ['show_help'] = true,
     ['window'] = {
