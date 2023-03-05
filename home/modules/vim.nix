@@ -43,9 +43,7 @@ in
       };
       plugins = {
         nvim-autopairs.enable = true;
-        barbar = {
-          enable = true;
-        };
+        barbar = { enable = true; };
         comment-nvim = { enable = true; };
         dashboard = { enable = true; };
         gitgutter.enable = true;
@@ -155,7 +153,12 @@ in
 
         # buffers 
         normal."<leader>bx" = { action = "<cmd>bd<cr>"; description = "Close buffer"; };
+        normal."<leader>bX" = {
+          action = "<cmd>BufferCloseAllButCurrentOrPinned<cr>";
+          description = "Close buffers (except current and pinned)";
+        };
         normal."<leader>bj" = { action = "<cmd>BufferPick<cr>"; description = "Pick buffer"; };
+        normal."<leader>bp" = { action = "<cmd>BufferPin<cr>"; description = "Pin buffer"; };
         normal."<Tab>" = "<cmd>bn<CR>";
         normal."<S-Tab>" = "<cmd>bp<CR>";
 
@@ -164,7 +167,20 @@ in
         normal."<leader>ld" = { action = "<cmd>Telescope lsp_definitions<cr>"; description = "Definitions"; };
         normal."<leader>lk" = { action = "<cmd>Lspsaga hover_doc<cr>"; description = "Hover Docs"; };
         normal."<leader>lr" = { action = "<cmd>Lspsaga rename<cr>"; description = "Rename"; };
+        ## trouble
         normal."<leader>lt" = { action = "<cmd>TroubleToggle<cr>"; description = "Toggle Trouble"; };
+        normal."<F8>" = {
+          action = ''<cmd>lua require("trouble").next({skip_groups = true, jump = true});<cr>'';
+          description = "Next trouble";
+        };
+        normal."<F7>" = {
+          action = ''<cmd>lua require("trouble").previous({skip_groups = true, jump = true});<cr>'';
+          description = "Previous trouble";
+        };
+        normal."gR" = {
+          action = "<cmd>TroubleToggle lsp_references<cr>";
+          description = "references";
+        };
 
         # Move inside wrapped line
         normal."j" = { action = "v:count == 0 ? 'gj' : 'j'"; silent = true; expr = true; };
