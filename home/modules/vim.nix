@@ -235,6 +235,11 @@ in
           description = "recent buffers";
         };
 
+        normal."<leader>." = {
+          action = "<cmd>@:<CR>";
+          description = "Repeat last command";
+        };
+
         # keep selection when indenting
         visual.">" = {
           noremap = true;
