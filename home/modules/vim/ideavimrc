@@ -1,0 +1,37 @@
+set relativenumber
+set number 
+set ignorecase
+set visualbell
+set hlsearch
+set incsearch
+set startofline
+
+set scrolloff=50
+
+set ideajoin
+set idearefactormode=keep
+set clipboard=ideaput,unnamedplus
+set ideawrite=all
+
+" plugins
+set NERDTree
+set argtextobj
+set highlightedyank
+
+
+let mapleader=" "
+
+map <Esc> :noh<CR><Esc>
+map <leader>ff <Action>(GotoFile)
+map <leader>w :w<CR>
+map <leader>r :source ~/.ideavimrc<CR>
+map <leader>e :NERDTreeFind<CR>
+map - /
+map gcc <Action>(CommentByLineComment)
+map gh <Action>(ShowErrorDescription)
+
+vnoremap < <gv
+vnoremap > >gv
+
+" for trying out new settings without doing the nix dance
+source ~/.ideavimrc.notnix

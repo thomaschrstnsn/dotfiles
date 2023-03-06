@@ -4,11 +4,18 @@ with lib;
 let cfg = config.tc.vim;
 in
 {
-  options.tc.vim = { enable = mkEnableOption "vim"; };
+  options.tc.vim = {
+    enable = mkEnableOption "vim";
+    ideavim = mkEnableOption "ideavimrc";
+  };
 
   config = mkIf (cfg.enable) {
 
     home.packages = with pkgs; [ ripgrep ];
+
+    home.file = mkIf cfg.ideavim {
+      ".ideavimrc".source = ./vim/ideavimrc;
+    };
 
     programs.nixvim = {
       enable = true;

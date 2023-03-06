@@ -31,7 +31,10 @@
       hosts = [ "rpi4" ];
     };
     smd_launcher.enable = true;
-    vim.enable = true;
+    vim = {
+      enable = true;
+      ideavim = true;
+    };
     wezterm.enable = true;
     zsh = {
       editor = "nvim";
