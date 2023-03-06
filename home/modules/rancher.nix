@@ -9,7 +9,7 @@ in
     enable = mkEnableOption "rancher";
   };
 
-  config = mkIf (cfg.enable) {
+  config = mkIf cfg.enable {
     programs.zsh.initExtraBeforeCompInit = ''
       export PATH=$PATH:~/.rd/bin
     '';

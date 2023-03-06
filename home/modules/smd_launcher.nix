@@ -9,7 +9,7 @@ in
     enable = mkEnableOption "smd-launcher";
   };
 
-  config = mkIf (cfg.enable) {
+  config = mkIf cfg.enable {
     programs.alacritty = {
       enable = true;
       settings = {

@@ -9,7 +9,7 @@ in
     enable = mkEnableOption "aws, k8s, terraform";
   };
 
-  config = mkIf (cfg.enable) {
+  config = mkIf cfg.enable {
     home.packages = with pkgs; [
       awscli2
       k9s

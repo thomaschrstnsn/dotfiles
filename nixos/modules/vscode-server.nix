@@ -12,7 +12,7 @@ in
     };
   };
 
-  config = mkIf (cfg.enable) {
+  config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
       nixpkgs-fmt
       nodejs-16_x # server dep

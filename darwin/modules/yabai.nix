@@ -5,7 +5,7 @@ let
   cfg = config.tc.yabai;
   sketchyCfg = config.tc.sketchybar;
   sketchySignals =
-    if (sketchyCfg.enable)
+    if sketchyCfg.enable
     then
       ''
         # SKETCHYBAR EVENTS
@@ -19,7 +19,7 @@ in
     enable = mkEnableOption "yabai window manager";
   };
 
-  config = mkIf (cfg.enable) {
+  config = mkIf cfg.enable {
 
     # launchd.user.agents.yabai.serviceConfig = {
     #   StandardErrorPath = "/tmp/yabai.log";

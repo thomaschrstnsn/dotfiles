@@ -23,7 +23,7 @@ in
     };
   };
 
-  config = mkIf (cfg.enable) {
+  config = mkIf cfg.enable {
     users = {
       defaultUserShell = pkgs.zsh;
       mutableUsers = false;

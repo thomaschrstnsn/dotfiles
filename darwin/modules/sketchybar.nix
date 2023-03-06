@@ -74,7 +74,7 @@ in
     };
   };
 
-  config = mkIf (cfg.enable) {
+  config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [ jq choose ];
 
     launchd.user.agents.sketchybar.serviceConfig = {
@@ -337,7 +337,7 @@ in
             }
           ];
         }
-        (mkIf (cfg.aliases.meetingbar.enable)
+        (mkIf cfg.aliases.meetingbar.enable
           (singleItemBracket
             {
               name = "MeetingBar";
@@ -352,7 +352,7 @@ in
 
             })
         )
-        (mkIf (cfg.aliases.appgate.enable)
+        (mkIf cfg.aliases.appgate.enable
           (singleItemBracket
             {
               name = "Appgate SDP,Item-0";

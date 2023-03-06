@@ -146,7 +146,7 @@ in
     };
   };
 
-  config = mkIf (cfg.enable) {
+  config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
       jq
       skhd

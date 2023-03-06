@@ -27,7 +27,7 @@ in
       };
   };
 
-  config = mkIf (cfg.enable) {
+  config = mkIf cfg.enable {
     environment.shellInit = ''
       eval "$(${config.homebrew.brewPrefix}/brew shellenv)"
     '';

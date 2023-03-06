@@ -9,7 +9,7 @@ in
     ideavim = mkEnableOption "ideavimrc";
   };
 
-  config = mkIf (cfg.enable) {
+  config = mkIf cfg.enable {
 
     home.packages = with pkgs; [ ripgrep ];
 

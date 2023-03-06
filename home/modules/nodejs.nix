@@ -14,7 +14,7 @@ in
     };
   };
 
-  config = mkIf (cfg.enable) {
+  config = mkIf cfg.enable {
     home.packages = [ (cfg.pkg pkgs) ];
 
     programs.zsh.oh-my-zsh.plugins = [ "node" "npm" ];
