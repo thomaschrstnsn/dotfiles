@@ -43,6 +43,7 @@ in
         writebackup = false;
 
         breakindent = true;
+        autowriteall = true;
       };
       colorschemes.tokyonight = {
         enable = true;
@@ -247,6 +248,10 @@ in
         normal."<leader><CR>" = {
           action = "<cmd>lua vim.lsp.buf.format {async = true;}<CR>";
           description = "Format buffer (via LSP)";
+        };
+        visual."<leader><CR>" = {
+          action = ''<cmd>lua FormatSelection()<CR>'';
+          description = "Format selection (via LSP)";
         };
 
         # splits
