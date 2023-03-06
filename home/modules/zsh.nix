@@ -72,7 +72,7 @@ in
 
     programs.bat = {
       enable = true;
-      config.theme = "Nord";
+      config.theme = "Dark+";
     };
 
     programs.fzf = {
