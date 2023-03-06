@@ -72,7 +72,17 @@ in
 
     programs.bat = {
       enable = true;
-      config.theme = "Dark+";
+      config.theme = "enki-tokyo-night";
+      themes = {
+        # enki: https://github.com/enkia/enki-theme
+        enki-tokyo-night = builtins.readFile (pkgs.fetchFromGitHub
+          {
+            owner = "enkia";
+            repo = "enki-theme"; # Bat uses sublime syntax for its themes
+            rev = "0b629142733a27ba3a6a7d4eac04f81744bc714f";
+            sha256 = "sha256-Q+sac7xBdLhjfCjmlvfQwGS6KUzt+2fu+crG4NdNr4w=";
+          } + "/scheme/Enki-Tokyo-Night.tmTheme");
+      };
     };
 
     programs.fzf = {
