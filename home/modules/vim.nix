@@ -176,11 +176,11 @@ in
         normal."<leader>lr" = { action = "<cmd>Lspsaga rename<cr>"; description = "Rename"; };
         ## trouble
         normal."<leader>lt" = { action = "<cmd>TroubleToggle<cr>"; description = "Toggle Trouble"; };
-        normal."<F8>" = {
+        normal."<leader>n" = {
           action = ''<cmd>lua require("trouble").next({skip_groups = true, jump = true});<cr>'';
           description = "Next trouble";
         };
-        normal."<F7>" = {
+        normal."<leader>N" = {
           action = ''<cmd>lua require("trouble").previous({skip_groups = true, jump = true});<cr>'';
           description = "Previous trouble";
         };
