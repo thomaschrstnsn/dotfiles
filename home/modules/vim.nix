@@ -240,6 +240,19 @@ in
           description = "Repeat last command";
         };
 
+        #nvim-rest
+        normal."<leader>rr" = {
+          action = "<cmd>lua require('rest-nvim').run()<CR>";
+        };
+        normal."<leader>rl" = {
+          action = "<cmd>lua require('rest-nvim').last()<CR>";
+          description = "Replay last request";
+        };
+        normal."<leader>rp" = {
+          action = "<cmd>lua require('rest-nvim').run(true)<CR>";
+          description = "Preview request";
+        };
+
         # keep selection when indenting
         visual.">" = {
           noremap = true;
@@ -292,6 +305,8 @@ in
         nvim-treesitter-context
         noice-nvim
         mini-nvim
+        plenary-nvim
+        rest-nvim
         rust-tools-nvim
         which-key-nvim
       ];
