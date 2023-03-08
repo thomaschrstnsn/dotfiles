@@ -17,21 +17,33 @@ set ideawrite=all
 set NERDTree
 set argtextobj
 set highlightedyank
+set surround
 
 
 let mapleader=" "
 
-map <Esc> :noh<CR><Esc>
-map <leader>ff <Action>(GotoFile)
-map <leader>w :w<CR>
-map <leader>r :source ~/.ideavimrc<CR>
-map <leader>e :NERDTreeFind<CR>
-map - /
-map gcc <Action>(CommentByLineComment)
-map gh <Action>(ShowErrorDescription)
+nmap <Esc> :noh<CR><Esc>
+nmap <leader>ff <Action>(GotoFile)
+nmap <leader>w :w<CR>
+nmap <leader>r :source ~/.ideavimrc<CR>
+nmap <leader>e :NERDTreeFind<CR>
+nmap - /
+nmap gcc <Action>(CommentByLineComment)
+nmap gh <Action>(ShowErrorDescription)
 
 vnoremap < <gv
 vnoremap > >gv
+
+nnoremap <S-Tab> :action PreviousTab<cr>
+nnoremap <Tab> :action NextTab<cr>
+
+nmap <leader>sh :action SplitHorizontally<cr>
+nmap <leader>sv :action SplitVertically<cr>
+nmap <leader>sx :action Unsplit<cr>
+
+" expand selection
+vmap <C-Space> <Action>(EditorSelectWord)
+
 
 " for trying out new settings without doing the nix dance
 source ~/.ideavimrc.notnix
