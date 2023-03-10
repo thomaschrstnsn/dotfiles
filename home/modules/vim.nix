@@ -328,6 +328,7 @@ in
         lsp-format-nvim
         luasnip
         nvim-treesitter-context
+        nvim-treesitter-textobjects # for queries in mini-ai
         nvim-test
         noice-nvim
         mini-nvim
