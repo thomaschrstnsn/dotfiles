@@ -67,6 +67,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
 require('mini.indentscope').setup()
 require('mini.surround').setup()
 require('mini.jump').setup()
+-- not yet in the nix pkg: require('mini.splitjoin').setup()
 
 local db = require('dashboard')
 db.custom_center = { {
