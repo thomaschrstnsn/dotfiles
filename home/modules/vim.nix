@@ -154,6 +154,15 @@ in
         treesitter = {
           enable = true;
           nixGrammars = true;
+          incrementalSelection = {
+            enable = true;
+            keymaps = {
+              initSelection = "<C-space>";
+              nodeIncremental = "<C-space>";
+              scopeIncremental = "<nop>";
+              nodeDecremental = "<bs>";
+            };
+          };
         };
         treesitter-context = { enable = true; };
         trouble = { enable = true; };
