@@ -184,3 +184,12 @@ vim.api.nvim_create_autocmd(
   "FileType",
   { pattern = { "httpResult" }, command = [[nnoremap <buffer><silent> q :close<CR>]] }
 )
+
+-- toggleterm
+require("toggleterm").setup()
+local Terminal  = require('toggleterm.terminal').Terminal
+local lazygit = Terminal:new({ cmd = "lazygit", hidden = true, direction = "float" })
+
+function Lazygit_toggle()
+  lazygit:toggle()
+end

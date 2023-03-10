@@ -11,7 +11,7 @@ in
 
   config = mkIf cfg.enable {
 
-    home.packages = with pkgs; [ ripgrep ];
+    home.packages = with pkgs; [ lazygit ripgrep ];
 
     home.file = mkIf cfg.ideavim {
       ".ideavimrc".source = ./vim/ideavimrc;
@@ -191,6 +191,9 @@ in
           description = "references";
         };
 
+        # toggleterm
+        normal."<leader>g" = { action = "<cmd>lua Lazygit_toggle()<CR>"; };
+
         # Move inside wrapped line
         normal."j" = { action = "v:count == 0 ? 'gj' : 'j'"; silent = true; expr = true; };
         normal."k" = { action = "v:count == 0 ? 'gk' : 'k'"; silent = true; expr = true; };
@@ -309,6 +312,7 @@ in
         plenary-nvim
         rest-nvim
         rust-tools-nvim
+        toggleterm-nvim
         which-key-nvim
       ];
       extraConfigLua = builtins.readFile ./vim/init.lua;
