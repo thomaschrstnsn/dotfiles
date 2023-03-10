@@ -198,3 +198,12 @@ local lazygit = Terminal:new({ cmd = "lazygit", hidden = true, direction = "floa
 function Lazygit_toggle()
   lazygit:toggle()
 end
+
+-- nvim-test
+require("nvim-test").setup{
+	term = "toggleterm",
+	termOpts = {
+		direction = 'horizontal'
+	}
+}
+

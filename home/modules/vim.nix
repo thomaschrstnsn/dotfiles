@@ -1,7 +1,19 @@
 { pkgs, config, lib, ... }:
 with lib;
 
-let cfg = config.tc.vim;
+let
+  cfg = config.tc.vim;
+  nvim-test = pkgs.vimUtils.buildVimPluginFrom2Nix {
+    pname = "nvim-test";
+    version = "1.3.0";
+    src = pkgs.fetchFromGitHub {
+      owner = "klen";
+      repo = "nvim-test";
+      rev = "4e30d0772a43bd67ff299cfe201964c5bd799d73";
+      sha256 = "sha256-iUkBnJxvK71xSqbH8JLm7gwvpiNxfWlAd2+3frNEXXQ=";
+    };
+    meta.homepage = "https://github.com/klen/nvim-neotest/";
+  };
 in
 {
   options.tc.vim = {
@@ -301,6 +313,12 @@ in
         normal."<C-k>" = "<cmd>wincmd k<CR>";
         normal."<C-l>" = "<cmd>wincmd l<CR>";
 
+        # nvim-test
+        normal."<leader>uu" = "<cmd>TestLast<CR>";
+        normal."<leader>uf" = "<cmd>TestFile<CR>";
+        normal."<leader>ur" = "<cmd>TestNearest<CR>";
+        normal."<leader>ua" = "<cmd>TestSuite<CR>";
+
         # LSP (todo, inspiration: https://youtu.be/vdn_pKJUda8?t=3129)
       };
       extraPlugins = with pkgs.vimPlugins; [
@@ -310,6 +328,7 @@ in
         lsp-format-nvim
         luasnip
         nvim-treesitter-context
+        nvim-test
         noice-nvim
         mini-nvim
         plenary-nvim
@@ -327,3 +346,4 @@ in
     };
   };
 }
+
