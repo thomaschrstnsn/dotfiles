@@ -193,6 +193,9 @@ in
 
         # toggleterm
         normal."<leader>g" = { action = "<cmd>lua Lazygit_toggle()<CR>"; };
+        normal."<C-1>" = { action = ":ToggleTerm size=15 direction=horizontal<CR>"; };
+        normal."<C-2>" = { action = ":ToggleTerm direction=float<CR>"; };
+        # toggle <c-.>
 
         # Move inside wrapped line
         normal."j" = { action = "v:count == 0 ? 'gj' : 'j'"; silent = true; expr = true; };

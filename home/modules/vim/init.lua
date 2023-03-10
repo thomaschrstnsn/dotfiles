@@ -186,7 +186,11 @@ vim.api.nvim_create_autocmd(
 )
 
 -- toggleterm
-require("toggleterm").setup()
+-- https://github.com/akinsho/toggleterm.nvim
+require("toggleterm").setup({
+	open_mapping = [[<c-.>]],
+	direction = 'float'
+})
 local Terminal  = require('toggleterm.terminal').Terminal
 local lazygit = Terminal:new({ cmd = "lazygit", hidden = true, direction = "float" })
 
