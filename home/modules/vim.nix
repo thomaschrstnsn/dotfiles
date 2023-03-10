@@ -143,6 +143,7 @@ in
           enable = true;
           nixGrammars = true;
         };
+        treesitter-context = { enable = true; };
         trouble = { enable = true; };
       };
       maps = {
