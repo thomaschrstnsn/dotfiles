@@ -106,13 +106,9 @@ in
           enable = true;
           completion = {
             completeopt = "menu,menuone,noselect";
-            keyword_length = 2;
+            keywordLength = 2;
           };
-          snippet.expand = ''
-            function(args)
-              require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
-            end
-          '';
+          snippet.expand = "luasnip";
           mapping = {
             "<CR>" = "cmp.mapping.confirm({ select = true })";
             "<Tab>" = ''cmp.mapping(function(fallback)
