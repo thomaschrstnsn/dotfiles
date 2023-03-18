@@ -3,7 +3,7 @@
 with lib;
 
 let
-  theme = pkgs.callPackage ./nord-theme.nix { };
+  theme = pkgs.callPackage ./tokyonight.nix { };
   skhd = ./skhd;
   cfg = config.tc.sketchybar;
 
@@ -26,9 +26,9 @@ let
 
   default_padding = 10;
 
-  bar_color = color_alpha bar_trans theme.nord0;
+  bar_color = color_alpha bar_trans theme.background;
   label_color = icon_color;
-  icon_color = color_solid theme.white;
+  icon_color = color_solid theme.foreground;
   small_label_font = "JetBrainsMono Nerd Font:Regular:${toString dimensions.font.small}";
   icon_font = "JetBrainsMono Nerd Font:Regular:${toString dimensions.font.normal}";
   heavy_font = "JetBrainsMono Nerd Font:Bold Italic:${toString dimensions.font.normal}";
@@ -161,7 +161,7 @@ in
             position = "left";
             attrs = {
               script = "${scripts}/window-title.sh";
-              "background.color" = color_solid theme.nord15;
+              "background.color" = color_solid theme.terminalBlack;
               "icon.drawing" = "off";
               "background.drawing" = "off";
             };
@@ -303,7 +303,7 @@ in
               position = "right";
               graphWidth = 100;
               attrs = {
-                "graph.color" = color_solid theme.nord10;
+                "graph.color" = color_solid theme.cyan;
                 update_freq = 2;
                 "label.drawing" = "off";
                 "icon.drawing" = "off";
