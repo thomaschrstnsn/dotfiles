@@ -22,7 +22,7 @@ in
     gitui = mkOption {
       type = enum [ "lazygit" "gitui" ];
       description = "Which gitui to use inside nvim";
-      default = "gitui";
+      default = "lazygit";
     };
   };
 
