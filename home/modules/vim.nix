@@ -16,14 +16,23 @@ let
   };
 in
 {
-  options.tc.vim = {
+  options.tc.vim = with types; {
     enable = mkEnableOption "vim";
     ideavim = mkEnableOption "ideavimrc";
+    gitui = mkOption {
+      type = enum [ "lazygit" "gitui" ];
+      description = "Which gitui to use inside nvim";
+      default = "gitui";
+    };
   };
 
   config = mkIf cfg.enable {
 
-    home.packages = with pkgs; [ lazygit ripgrep ];
+
+    home.packages = with pkgs; let
+      gitpkg = if cfg.gitui == "lazygit" then lazygit else gitui;
+    in
+    [ gitpkg ripgrep ];
 
     home.file = mkIf cfg.ideavim {
       ".ideavimrc".source = ./vim/ideavimrc;
@@ -204,7 +213,7 @@ in
         };
 
         # toggleterm
-        normal."<leader>g" = { action = "<cmd>lua Lazygit_toggle()<CR>"; };
+        normal."<leader>g" = { action = "<cmd>lua Gitui_toggle()<CR>"; };
         normal."<C-1>" = { action = ":ToggleTerm size=15 direction=horizontal<CR>"; };
         normal."<C-2>" = { action = ":ToggleTerm direction=float<CR>"; };
         # toggle <c-.>
@@ -338,7 +347,7 @@ in
         toggleterm-nvim
         which-key-nvim
       ];
-      extraConfigLua = builtins.readFile ./vim/init.lua;
+      extraConfigLua = replaceStrings [ "$GITUI$" ] [ cfg.gitui ] (builtins.readFile ./vim/init.lua);
     };
     programs.zsh.shellAliases = {
       vi = "nvim";

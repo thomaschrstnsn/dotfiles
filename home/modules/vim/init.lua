@@ -205,10 +205,10 @@ require("toggleterm").setup({
 	direction = 'float'
 })
 local Terminal  = require('toggleterm.terminal').Terminal
-local lazygit = Terminal:new({ cmd = "lazygit", hidden = true, direction = "float" })
+local gitui = Terminal:new({ cmd = "$GITUI$", hidden = true, direction = "float" })
 
-function Lazygit_toggle()
-  lazygit:toggle()
+function Gitui_toggle()
+  gitui:toggle()
 end
 
 -- nvim-test
