@@ -20,7 +20,7 @@
     };
     nodejs = {
       enable = true;
-      pkg = pkgs: pkgs.nodejs-16_x;
+      pkg = pkgs: pkgs.nodejs-18_x;
     };
     rancher = {
       enable = true;
