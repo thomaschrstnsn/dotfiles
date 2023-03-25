@@ -28,7 +28,7 @@ in
         name = username;
         groups = [ "wheel" ];
       };
-      networking.hostname = "DESKTOP-IP1G00V";
+      networking.hostname = "Atlas";
     };
     base = {
       imports = [
