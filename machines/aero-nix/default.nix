@@ -21,7 +21,7 @@ in
     vim.enable = true;
     zsh = {
       enable = true;
-      editor = "vim";
+      editor = "nvim";
     };
   };
 

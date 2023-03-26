@@ -43,7 +43,7 @@
   services.xserver = {
     layout = "dk";
     xkbVariant = "mac_nodeadkeys";
-    xkbOptions = "ctrl:nocaps";
+    xkbOptions = "caps:escape"; # caps:hyper
     # Enable touchpad support (enabled default in most desktopManager).
     libinput.enable = true;
   };
