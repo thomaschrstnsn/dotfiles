@@ -35,14 +35,17 @@
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
-  # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
+  # services.xserver.displayManager.gdm.enable = false;
+  # services.xserver.desktopManager.gnome.enable = false;
+  services.xserver.windowManager.i3.enable = true;
 
   # Configure keymap in X11
   services.xserver = {
     layout = "dk";
     xkbVariant = "mac_nodeadkeys";
+    xkbOptions = "ctrl:nocaps";
+    # Enable touchpad support (enabled default in most desktopManager).
+    libinput.enable = true;
   };
 
   # Configure console keymap
@@ -68,8 +71,6 @@
     #media-session.enable = true;
   };
 
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.defaultUserShell = pkgs.zsh;
@@ -78,10 +79,8 @@
     description = "thomas";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
-      git
-      firefox
-      vim
-      #  thunderbird
+      # git
+      # vim
     ];
   };
 

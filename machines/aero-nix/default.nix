@@ -21,17 +21,16 @@ in
     vim.enable = true;
     zsh = {
       enable = true;
+      editor = "vim";
     };
   };
 
   extraPackages = pkgs: with pkgs; [
     brave
-    shellcheck
-    rnix-lsp
-    nixpkgs-fmt
     _1password-gui
     vscode
-    wl-clipboard
+    dmenu
+    wezterm
   ];
 
   nixos = {
