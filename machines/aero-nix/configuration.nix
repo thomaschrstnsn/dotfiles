@@ -58,6 +58,8 @@
         wl-clipboard
         mako
         grim
+        waybar
+        font-awesome # for default waybar cfg
         wofi
       ];
 
