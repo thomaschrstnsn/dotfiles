@@ -59,7 +59,6 @@
         mako
         grim
         waybar
-        font-awesome # for default waybar cfg
         wofi
       ];
 
@@ -72,6 +71,9 @@
       '';
     };
   programs.waybar.enable = true;
+  fonts.fonts = with pkgs; [
+    font-awesome # for default waybar cfg
+  ];
 
   # Configure console keymap
   console.keyMap = "dk-latin1";
