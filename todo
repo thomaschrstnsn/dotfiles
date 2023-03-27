@@ -5,3 +5,12 @@
   Example from yabai: https://github.com/koekeishiya/yabai/wiki/Installing-yabai-(from-HEAD)
 - linux desktop inspiration: https://sr.ht/~misterio/nix-config/
 - vim:
+	- configure https://github.com/glepnir/lspsaga.nvim
+	- plugins with scripts: https://github.com/solidsnakedev/nixos-config/blob/489dc548fe95743aae0f6cdae28f8c99f2d7ccc0/home.nix#L159-L165
+- rust:
+	- tmux -> https://zellij.dev/
+	- zsh -> https://www.nushell.sh/
+	- irust (repl)
+	- bacon (test runner / compiler output)
+	- speedtest-rs
+

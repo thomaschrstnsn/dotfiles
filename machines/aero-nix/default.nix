@@ -18,6 +18,7 @@ in
       enable = true;
       hosts = [ "rpi4" "vmnix" ];
     };
+    vim.enable = true;
     zsh = {
       enable = true;
     };

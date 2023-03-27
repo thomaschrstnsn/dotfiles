@@ -115,13 +115,9 @@ in
           enable = true;
           completion = {
             completeopt = "menu,menuone,noselect";
-            keyword_length = 2;
+            keywordLength = 2;
           };
-          snippet.expand = ''
-            function(args)
-              require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
-            end
-          '';
+          snippet.expand = "luasnip";
           mapping = {
             "<CR>" = "cmp.mapping.confirm({ select = true })";
             "<Tab>" = ''cmp.mapping(function(fallback)
@@ -163,6 +159,15 @@ in
         treesitter = {
           enable = true;
           nixGrammars = true;
+          incrementalSelection = {
+            enable = true;
+            keymaps = {
+              initSelection = "<C-space>";
+              nodeIncremental = "<C-space>";
+              scopeIncremental = "<nop>";
+              nodeDecremental = "<bs>";
+            };
+          };
         };
         treesitter-context = { enable = true; };
         trouble = { enable = true; };
@@ -195,7 +200,7 @@ in
         # lsp
         normal."<leader>la" = { action = "<cmd>Lspsaga code_action<cr>"; description = "Code Actions"; };
         normal."<leader>ld" = { action = "<cmd>Telescope lsp_definitions<cr>"; description = "Definitions"; };
-        normal."<leader>lk" = { action = "<cmd>Lspsaga hover_doc<cr>"; description = "Hover Docs"; };
+        normal."K" = { action = "<cmd>Lspsaga hover_doc<cr>"; description = "Hover Docs"; };
         normal."<leader>lr" = { action = "<cmd>Lspsaga rename<cr>"; description = "Rename"; };
         ## trouble
         normal."<leader>lt" = { action = "<cmd>TroubleToggle<cr>"; description = "Toggle Trouble"; };
