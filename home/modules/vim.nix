@@ -150,6 +150,7 @@ in
         nvim-tree = {
           enable = true;
           disableNetrw = true;
+          actions.openFile.quitOnOpen = true;
         };
         project-nvim.enable = true;
         telescope = {
