@@ -68,6 +68,9 @@ in
     position = mkOption {
       type = enum [ "top" "bottom" ];
     };
+    modules = {
+      cpugraph = mkEnableOption "cpu graph";
+    };
     aliases = {
       meetingbar.enable = mkEnableOption "MeetingBar Alias";
       appgate.enable = mkEnableOption "AppGate SDP Alias";
@@ -243,75 +246,76 @@ in
             }
           ];
         }
-        {
-          bracket = "cpu";
-          attrs = {
-            "background.color" = color_alpha bar_trans theme.green;
-          };
-          items = [
-            {
-              name = "separator";
-              position = "right";
-              attrs = {
-                "icon.drawing" = "off";
-                "label.drawing" = "off";
-                "background.padding_left" = 0;
-                "background.padding_right" = 0;
-              };
-            }
-            {
-              name = "topproc";
-              position = "right";
-              attrs = {
-                label = "CPU";
-                "label.font" = small_label_font;
-                "icon.drawing" = "off";
-                width = 0;
-                y_offset = 6;
-                update_freq = 5;
-                script = "${scripts}/topproc.sh";
-              };
-            }
-            {
-              name = "percent";
-              position = "right";
-              attrs = {
-                "label.font" = label_font;
-                label = "CPU";
-                y_offset = -4;
-                width = 40;
-                "icon.drawing" = "off";
-                update_freq = 2;
-              };
-            }
-            {
-              name = "sys";
-              itemType = "graph";
-              position = "right";
-              graphWidth = 100;
-              attrs = {
-                width = 0;
-                "graph.color" = warning_highlight_color;
-                "graph.fill_color" = warning_highlight_color;
-                "label.drawing" = "off";
-                "icon.drawing" = "off";
-              };
-            }
-            {
-              name = "user";
-              itemType = "graph";
-              position = "right";
-              graphWidth = 100;
-              attrs = {
-                "graph.color" = color_solid theme.cyan;
-                update_freq = 2;
-                "label.drawing" = "off";
-                "icon.drawing" = "off";
-                script = "${scripts}/cpu.sh";
-              };
-            }
-          ];
-        }
+        (mkIf cfg.modules.cpugraph
+          {
+            bracket = "cpu";
+            attrs = {
+              "background.color" = color_alpha bar_trans theme.green;
+            };
+            items = [
+              {
+                name = "separator";
+                position = "right";
+                attrs = {
+                  "icon.drawing" = "off";
+                  "label.drawing" = "off";
+                  "background.padding_left" = 0;
+                  "background.padding_right" = 0;
+                };
+              }
+              {
+                name = "topproc";
+                position = "right";
+                attrs = {
+                  label = "CPU";
+                  "label.font" = small_label_font;
+                  "icon.drawing" = "off";
+                  width = 0;
+                  y_offset = 6;
+                  update_freq = 5;
+                  script = "${scripts}/topproc.sh";
+                };
+              }
+              {
+                name = "percent";
+                position = "right";
+                attrs = {
+                  "label.font" = label_font;
+                  label = "CPU";
+                  y_offset = -4;
+                  width = 40;
+                  "icon.drawing" = "off";
+                  update_freq = 2;
+                };
+              }
+              {
+                name = "sys";
+                itemType = "graph";
+                position = "right";
+                graphWidth = 100;
+                attrs = {
+                  width = 0;
+                  "graph.color" = warning_highlight_color;
+                  "graph.fill_color" = warning_highlight_color;
+                  "label.drawing" = "off";
+                  "icon.drawing" = "off";
+                };
+              }
+              {
+                name = "user";
+                itemType = "graph";
+                position = "right";
+                graphWidth = 100;
+                attrs = {
+                  "graph.color" = color_solid theme.cyan;
+                  update_freq = 2;
+                  "label.drawing" = "off";
+                  "icon.drawing" = "off";
+                  script = "${scripts}/cpu.sh";
+                };
+              }
+            ];
+          })
         {
           bracket = "network";
           items = [
