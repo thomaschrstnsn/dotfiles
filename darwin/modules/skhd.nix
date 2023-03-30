@@ -187,9 +187,9 @@ in
           hyper - 7 : ${scripts}/focusFirstWindowInSpace.sh 7
           hyper - 8 : ${scripts}/focusFirstWindowInSpace.sh 8
 
-          hyper - j : yabai -m window --focus west
+          hyper - h : yabai -m window --focus west
           hyper - l : yabai -m window --focus east
-          hyper - i : yabai -m window --focus north
+          hyper - j : yabai -m window --focus north
           hyper - k : yabai -m window --focus south
 
           hyper - m : yabai -m window --toggle native-fullscreen
@@ -214,14 +214,14 @@ in
           w = "yabai -m space --rotate 270";
           s = "yabai -m window --toggle split";
 
-          j = "yabai -m window --focus west";
+          h = "yabai -m window --focus west";
           l = "yabai -m window --focus east";
-          i = "yabai -m window --focus north";
+          j = "yabai -m window --focus north";
           k = "yabai -m window --focus south";
 
-          "shift - j" = "yabai -m window --swap west";
+          "shift - h" = "yabai -m window --swap west";
           "shift - l" = "yabai -m window --swap east";
-          "shift - i" = "yabai -m window --swap north";
+          "shift - j" = "yabai -m window --swap north";
           "shift - k" = "yabai -m window --swap south";
 
           n = "${scripts}/yabaiCycleCounterClockwise.sh";
