@@ -50,13 +50,6 @@ in
         )
       }
 
-      export ASPNETCORE_MSSQL__USERID="sa"
-      export ASPNETCORE_MSSQL__PASSWORD="***REMOVED***"
-      export ASPNETCORE_MSSQL__DATASOURCE="localhost"
-
-      export SERVICE_TEST_HTTP_HOST="localhost"
-      export SERVICE_TEST_HTTP_SCHEME="https"
-
       export ASPNETCORE_ENVIRONMENT="Development"
       export DOTNET_ROOT="${combinedDotnet}"
       export DOTNET_HOST_PATH="${combinedDotnet}"
