@@ -3,16 +3,14 @@ with lib;
 
 let
   cfg = config.tc.vim;
-  nvim-test = pkgs.vimUtils.buildVimPluginFrom2Nix {
-    pname = "nvim-test";
-    version = "1.3.0";
-    src = pkgs.fetchFromGitHub {
-      owner = "klen";
-      repo = "nvim-test";
-      rev = "4e30d0772a43bd67ff299cfe201964c5bd799d73";
-      sha256 = "sha256-iUkBnJxvK71xSqbH8JLm7gwvpiNxfWlAd2+3frNEXXQ=";
+
+  fromGitHub = repo: version: rev: pkgs.vimUtils.buildVimPluginFrom2Nix {
+    pname = "${lib.strings.sanitizeDerivationName repo}";
+    version = version;
+    src = builtins.fetchGit {
+      url = "https://github.com/${repo}.git";
+      rev = rev;
     };
-    meta.homepage = "https://github.com/klen/nvim-neotest/";
   };
 in
 {
@@ -342,9 +340,10 @@ in
         indent-blankline-nvim
         lsp-format-nvim
         luasnip
+        (fromGitHub "chrisgrieser/nvim-spider" "head" "f0fd485bd8e413623b8804ab29cab63e0d35fb2a")
         nvim-treesitter-context
         nvim-treesitter-textobjects # for queries in mini-ai
-        nvim-test
+        (fromGitHub "klen/nvim-test" "1.3.0" "4e30d0772a43bd67ff299cfe201964c5bd799d73")
         noice-nvim
         mini-nvim
         plenary-nvim
