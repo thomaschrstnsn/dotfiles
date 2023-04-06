@@ -7,8 +7,10 @@
 	- https://sr.ht/~misterio/nix-config/
 	- https://github.com/pandoraxdn/nixos-configuration
 	- keyd setup: https://gitlab.com/ajgrf/dotfiles/-/blob/master/nixos/modules/keyboard.nix (with nix-module)
+	- https://github.com/k0kubun/xremap (also for wayland)
 - vim:
 	- configure https://github.com/glepnir/lspsaga.nvim
+	- https://github.com/echasnovski/mini.nvim/blob/main/readmes/mini-bracketed.md
 	- plugins with scripts: https://github.com/solidsnakedev/nixos-config/blob/489dc548fe95743aae0f6cdae28f8c99f2d7ccc0/home.nix#L159-L165
 		- does not seem to work with nixvim
 - rust:
