@@ -345,7 +345,7 @@ in
         nvim-treesitter-textobjects # for queries in mini-ai
         (fromGitHub "klen/nvim-test" "1.3.0" "4e30d0772a43bd67ff299cfe201964c5bd799d73")
         noice-nvim
-        mini-nvim
+        (fromGitHub "echasnovski/mini.nvim" "0.8.0" "889be69623395ad183ae6f3c21c8efe006350226")
         plenary-nvim
         rest-nvim
         rust-tools-nvim
