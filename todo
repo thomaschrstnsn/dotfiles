@@ -15,8 +15,10 @@
 	- nixvim cmp vs telescope:
 		https://github.com/pta2002/nixvim/blob/main/plugins/completion/nvim-cmp/default.nix#L466
 		https://www.reddit.com/r/neovim/comments/vtw4vl/disable_nvimcmp_in_telescopes_buffer/
+		https://github.com/pta2002/nixvim/pull/324
+		Until then:  ./apply.sh darwin --override-input nixvim /Users/thomas/src/nixvim
 
-		Should not simply be enabled = true;
+
 - rust:
 	- tmux -> https://zellij.dev/
 	- zsh -> https://www.nushell.sh/
