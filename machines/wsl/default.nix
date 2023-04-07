@@ -13,6 +13,10 @@ in
       enable = true;
       githubs = [ ];
     };
+    ssh = {
+      enable = true;
+      hosts = [ "rpi4" ];
+    };
     zsh = {
       enable = true;
       editor = "nvim";
