@@ -50,11 +50,6 @@ fi
 
 echo using configuration "$CONFIGURATION" 
 
-# echo nix build .#darwinConfigurations."$CONFIGURATION".system "$@"
-# echo nix build .#homeManagerConfigurations."$CONFIGURATION".activationPackage "$@"
-# echo nix build .#nixosConfigurations."$CONFIGURATION".config.system.build.toplevel
-# echo nixos-rebuild build --flake .#"$CONFIGURATION" "$@"
-
 case "$target" in
     "home") 
         flakeuri=".#homeManagerConfigurations.$CONFIGURATION.activationPackage"
