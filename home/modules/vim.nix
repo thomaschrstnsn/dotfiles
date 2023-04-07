@@ -179,41 +179,41 @@ in
         };
         normal."<esc>" = {
           action = "<cmd>noh<cr><esc>";
-          description = "Escape and clear hlsearch";
+          desc = "Escape and clear hlsearch";
         };
 
-        normal."<leader>w" = { action = "<cmd>w<cr>"; description = "Save"; };
-        normal."<leader>q" = { action = "<cmd>q<cr>"; description = "Quit"; };
+        normal."<leader>w" = { action = "<cmd>w<cr>"; desc = "Save"; };
+        normal."<leader>q" = { action = "<cmd>q<cr>"; desc = "Quit"; };
 
         # buffers 
-        normal."<leader>bx" = { action = "<cmd>bd<cr>"; description = "Close buffer"; };
+        normal."<leader>bx" = { action = "<cmd>bd<cr>"; desc = "Close buffer"; };
         normal."<leader>bX" = {
           action = "<cmd>BufferCloseAllButCurrentOrPinned<cr>";
-          description = "Close buffers (except current and pinned)";
+          desc = "Close buffers (except current and pinned)";
         };
-        normal."<leader>bj" = { action = "<cmd>BufferPick<cr>"; description = "Pick buffer"; };
-        normal."<leader>bp" = { action = "<cmd>BufferPin<cr>"; description = "Pin buffer"; };
+        normal."<leader>bj" = { action = "<cmd>BufferPick<cr>"; desc = "Pick buffer"; };
+        normal."<leader>bp" = { action = "<cmd>BufferPin<cr>"; desc = "Pin buffer"; };
         normal."<Tab>" = "<cmd>bn<CR>";
         normal."<S-Tab>" = "<cmd>bp<CR>";
 
         # lsp
-        normal."<leader>la" = { action = "<cmd>Lspsaga code_action<cr>"; description = "Code Actions"; };
-        normal."<leader>ld" = { action = "<cmd>Telescope lsp_definitions<cr>"; description = "Definitions"; };
-        normal."K" = { action = "<cmd>Lspsaga hover_doc<cr>"; description = "Hover Docs"; };
-        normal."<leader>lr" = { action = "<cmd>Lspsaga rename<cr>"; description = "Rename"; };
+        normal."<leader>la" = { action = "<cmd>Lspsaga code_action<cr>"; desc = "Code Actions"; };
+        normal."<leader>ld" = { action = "<cmd>Telescope lsp_definitions<cr>"; desc = "Definitions"; };
+        normal."K" = { action = "<cmd>Lspsaga hover_doc<cr>"; desc = "Hover Docs"; };
+        normal."<leader>lr" = { action = "<cmd>Lspsaga rename<cr>"; desc = "Rename"; };
         ## trouble
-        normal."<leader>lt" = { action = "<cmd>TroubleToggle<cr>"; description = "Toggle Trouble"; };
+        normal."<leader>lt" = { action = "<cmd>TroubleToggle<cr>"; desc = "Toggle Trouble"; };
         normal."<leader>n" = {
           action = ''<cmd>lua require("trouble").next({skip_groups = true, jump = true});<cr>'';
-          description = "Next trouble";
+          desc = "Next trouble";
         };
         normal."<leader>N" = {
           action = ''<cmd>lua require("trouble").previous({skip_groups = true, jump = true});<cr>'';
-          description = "Previous trouble";
+          desc = "Previous trouble";
         };
         normal."gR" = {
           action = "<cmd>TroubleToggle lsp_references<cr>";
-          description = "references";
+          desc = "references";
         };
 
         # toggleterm
@@ -226,50 +226,50 @@ in
         normal."j" = { action = "v:count == 0 ? 'gj' : 'j'"; silent = true; expr = true; };
         normal."k" = { action = "v:count == 0 ? 'gk' : 'k'"; silent = true; expr = true; };
 
-        normal."<C-S-j>" = { action = "<cmd>m .+1<cr>=="; description = "Move down"; };
-        normal."<C-S-k>" = { action = "<cmd>m .-2<cr>=="; description = "Move up"; };
-        insert."<C-S-j>" = { action = "<esc><cmd>m .+1<cr>==gi"; description = "Move down"; };
-        insert."<C-S-k>" = { action = "<esc><cmd>m .-2<cr>==gi"; description = "Move up"; };
-        visual."<C-S-j>" = { action = ":m '>+1<cr>gv=gv"; description = "Move down"; };
-        visual."<C-S-k>" = { action = ":m '<-2<cr>gv=gv"; description = "Move up"; };
+        normal."<C-S-j>" = { action = "<cmd>m .+1<cr>=="; desc = "Move down"; };
+        normal."<C-S-k>" = { action = "<cmd>m .-2<cr>=="; desc = "Move up"; };
+        insert."<C-S-j>" = { action = "<esc><cmd>m .+1<cr>==gi"; desc = "Move down"; };
+        insert."<C-S-k>" = { action = "<esc><cmd>m .-2<cr>==gi"; desc = "Move up"; };
+        visual."<C-S-j>" = { action = ":m '>+1<cr>gv=gv"; desc = "Move down"; };
+        visual."<C-S-k>" = { action = ":m '<-2<cr>gv=gv"; desc = "Move up"; };
 
         # Telescope
         normal."<leader>-" = {
           action = ''<cmd>Telescope current_buffer_fuzzy_find<CR>'';
-          description = "find in current buffer";
+          desc = "find in current buffer";
         };
         normal."<leader>ff" = {
           action = ''<cmd>Telescope find_files<CR>'';
-          description = "find file";
+          desc = "find file";
         };
         normal."<leader>fs" = {
           action = ''<cmd>Telescope live_grep<CR>'';
-          description = "find word";
+          desc = "find word";
         };
         normal."<leader>fb" = {
           action = ''<cmd>Telescope buffers<CR>'';
-          description = "find buffer";
+          desc = "find buffer";
         };
         normal."<leader>fh" = {
           action = ''<cmd>Telescope help_tags<CR>'';
-          description = "find help";
+          desc = "find help";
         };
         normal."<leader>:" = {
           action = "<cmd>Telescope command_history<cr>";
-          description = "Command History";
+          desc = "Command History";
         };
         normal."<leader>sk" = {
           action = "<cmd>Telescope keymaps<cr>";
-          description = "Key Maps";
+          desc = "Key Maps";
         };
         normal."<leader>," = {
           action = "<cmd>Telescope buffers<cr>";
-          description = "recent buffers";
+          desc = "recent buffers";
         };
 
         normal."<leader>." = {
           action = "<cmd>@:<CR>";
-          description = "Repeat last command";
+          desc = "Repeat last command";
         };
 
         #nvim-rest
@@ -278,11 +278,11 @@ in
         };
         normal."<leader>rl" = {
           action = "<cmd>lua require('rest-nvim').last()<CR>";
-          description = "Replay last request";
+          desc = "Replay last request";
         };
         normal."<leader>rp" = {
           action = "<cmd>lua require('rest-nvim').run(true)<CR>";
-          description = "Preview request";
+          desc = "Preview request";
         };
 
         # keep selection when indenting
@@ -297,29 +297,29 @@ in
 
         normal."<leader><CR>" = {
           action = "<cmd>lua vim.lsp.buf.format {async = true;}<CR>";
-          description = "Format buffer (via LSP)";
+          desc = "Format buffer (via LSP)";
         };
         visual."<leader><CR>" = {
           action = ''<cmd>lua FormatSelection()<CR>'';
-          description = "Format selection (via LSP)";
+          desc = "Format selection (via LSP)";
         };
 
         # splits
         normal."<leader>sv" = {
           action = "<C-w>v";
-          description = "split vertically";
+          desc = "split vertically";
         };
         normal."<leader>sh" = {
           action = "<C-w>s";
-          description = "split horizontally";
+          desc = "split horizontally";
         };
         normal."<leader>se" = {
           action = "<C-w>=";
-          description = "even splits";
+          desc = "even splits";
         };
         normal."<leader>sx" = {
           action = "<cmd>:close<CR>";
-          description = "close current window split";
+          desc = "close current window split";
         };
         normal."<C-h>" = "<cmd>wincmd h<CR>";
         normal."<C-j>" = "<cmd>wincmd j<CR>";
