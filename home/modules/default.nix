@@ -13,6 +13,7 @@
     ./smd_launcher.nix
     ./tmux.nix
     ./vim.nix
+    ./wsl.nix
     ./wezterm.nix
     ./zsh.nix
 

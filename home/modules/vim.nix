@@ -3,6 +3,7 @@ with lib;
 
 let
   cfg = config.tc.vim;
+  wslCfg = config.tc.wsl;
 
   fromGitHub = repo: version: rev: pkgs.vimUtils.buildVimPluginFrom2Nix {
     pname = "${lib.strings.sanitizeDerivationName repo}";
@@ -353,6 +354,22 @@ in
         which-key-nvim
       ];
       extraConfigLua = replaceStrings [ "$GITUI$" ] [ cfg.gitui ] (builtins.readFile ./vim/init.lua);
+      extraConfigVim =
+        if wslCfg.enable
+        then ''
+          let g:clipboard = {
+                      \   'name': 'WslClipboard',
+                      \   'copy': {
+                      \      '+': 'clip.exe',
+                      \      '*': 'clip.exe',
+                      \    },
+                      \   'paste': {
+                      \      '+': 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+                      \      '*': 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+                      \   },
+                      \   'cache_enabled': 0,
+                      \ }
+        '' else null;
     };
     programs.zsh.shellAliases = {
       vi = "nvim";

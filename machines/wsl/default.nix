@@ -17,6 +17,7 @@ in
       enable = true;
       hosts = [ "rpi4" ];
     };
+    wsl.enable = true;
     zsh = {
       enable = true;
       editor = "nvim";
