@@ -1,5 +1,6 @@
 #!/usr/bin/env nix-shell
 #!nix-shell -i bash -p curl jq nix gnused
+# shellcheck shell=bash
 
 set -euo pipefail
 
@@ -67,6 +68,19 @@ generate_package_list() {
     done
 }
 
+version_older () {
+    cur_version=$1
+    max_version=$2
+    result=$(nix-instantiate -I ../../../../. \
+        --eval -E "(import <nixpkgs> {}).lib.versionOlder \"$cur_version\" \"$max_version\"")
+    if [[ "$result" == "true" ]]; then
+        return 0
+    else
+        return 1
+    fi
+}
+
+
 main () {
   pname=$(basename "$0")
   if [[ ! "$*" =~ ^.*[0-9]{1,}\.[0-9]{1,}.*$ ]]; then
@@ -74,8 +88,8 @@ main () {
 Get updated dotnet src (platform - url & sha512) expressions for specified versions
 
 Examples:
-  $pname 3.1.21 5.0.12    - specific x.y.z versions
-  $pname 3.1 5.0 6.0      - latest x.y versions
+  $pname 6.0.14 7.0.201    - specific x.y.z versions
+  $pname 6.0 7.0           - latest x.y versions
 " >&2
     exit 1
   fi
@@ -98,24 +112,53 @@ Examples:
     major_minor=$(sed 's/^\([0-9]*\.[0-9]*\).*$/\1/' <<< "$sem_version")
     content=$(curl -sL https://dotnetcli.blob.core.windows.net/dotnet/release-metadata/"$major_minor"/releases.json)
     major_minor_patch=$([ "$patch_specified" == true ] && echo "$sem_version" || jq -r '."latest-release"' <<< "$content")
+    major_minor_underscore=${major_minor/./_}
 
     release_content=$(release "$content" "$major_minor_patch")
+    aspnetcore_version=$(jq -r '."aspnetcore-runtime".version' <<< "$release_content")
+    runtime_version=$(jq -r '.runtime.version' <<< "$release_content")
     sdk_version=$(jq -r '.sdk.version' <<< "$release_content")
 
+    # If patch was not specified, check if the package is already the latest version
+    # If it is, exit early
+    if [ "$patch_specified" == false ] && [ -f "./versions/${sem_version}.nix" ]; then
+        current_version=$(nix-instantiate --eval -E "(import ./versions/${sem_version}.nix { \
+            buildAspNetCore = { ... }: {}; \
+            buildNetRuntime = { ... }: {}; \
+            buildNetSdk = { version, ... }: version; \
+            }).sdk_${major_minor_underscore}" | jq -r)
+
+        if [[ "$current_version" == "$sdk_version" ]]; then
+            echo "Nothing to update."
+            exit
+        fi
+    fi
+
+    aspnetcore_files="$(release_files "$release_content" "aspnetcore-runtime")"
+    runtime_files="$(release_files "$release_content" "runtime")"
     sdk_files="$(release_files "$release_content" "sdk")"
 
-    major_minor_underscore=${major_minor/./_}
     channel_version=$(jq -r '."channel-version"' <<< "$content")
     support_phase=$(jq -r '."support-phase"' <<< "$content")
-    echo "{ buildAspNetCore, buildNetRuntime, buildNetSdk, icu }:
+    echo "{ buildAspNetCore, buildNetRuntime, buildNetSdk }:
 
 # v$channel_version ($support_phase)
 {
+  aspnetcore_$major_minor_underscore = buildAspNetCore {
+    version = \"${aspnetcore_version}\";
+    $(platform_sources "$aspnetcore_files")
+  };
+
+  runtime_$major_minor_underscore = buildNetRuntime {
+    version = \"${runtime_version}\";
+    $(platform_sources "$runtime_files")
+  };
+
   sdk_$major_minor_underscore = buildNetSdk {
-    inherit icu;
     version = \"${sdk_version}\";
     $(platform_sources "$sdk_files")
-    packages = { fetchNuGet }: [ ];
+    packages = { fetchNuGet }: [
+    ];
   };
 }" > "./versions/${sem_version}.nix"
     echo "Generated ./versions/${sem_version}.nix"
