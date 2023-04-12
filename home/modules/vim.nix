@@ -369,7 +369,7 @@ in
                       \   },
                       \   'cache_enabled': 0,
                       \ }
-        '' else null;
+        '' else "";
     };
     programs.zsh.shellAliases = {
       vi = "nvim";
