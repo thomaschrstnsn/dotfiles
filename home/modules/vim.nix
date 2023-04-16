@@ -183,6 +183,7 @@ in
             { name = "treesitter"; }
             { name = "buffer"; }
             { name = "path"; }
+            { name = "crates"; }
           ];
         };
         nvim-tree = {
@@ -368,6 +369,27 @@ in
         normal."<C-k>" = "<cmd>wincmd k<CR>";
         normal."<C-l>" = "<cmd>wincmd l<CR>";
 
+        # crates-nvim
+        normal."<leader>ct" = ":lua require('crates').toggle()<cr>";
+        normal."<leader>cr" = ":lua require('crates').reload()<cr>";
+
+        normal."<leader>cv" = ":lua require('crates').show_versions_popup()<cr>";
+        normal."<leader>cf" = ":lua require('crates').show_features_popup()<cr>";
+        normal."<leader>cd" = ":lua require('crates').show_dependencies_popup()<cr>";
+
+        normal."<leader>cu" = ":lua require('crates').update_crate()<cr>";
+        visual."<leader>cu" = ":lua require('crates').update_crates()<cr>";
+        normal."<leader>ca" = ":lua require('crates').update_all_crates()<cr>";
+        normal."<leader>cU" = ":lua require('crates').upgrade_crate()<cr>";
+        visual."<leader>cU" = ":lua require('crates').upgrade_crates()<cr>";
+        normal."<leader>cA" = ":lua require('crates').upgrade_all_crates()<cr>";
+
+        normal."<leader>cH" = ":lua require('crates').open_homepage()<cr>";
+        normal."<leader>cR" = ":lua require('crates').open_repository()<cr>";
+        normal."<leader>cD" = ":lua require('crates').open_documentation()<cr>";
+        normal."<leader>cC" = ":lua require('crates').open_crates_io()<cr>";
+
+
         # nvim-test
         normal."<leader>uu" = "<cmd>TestLast<CR>";
         normal."<leader>uf" = "<cmd>TestFile<CR>";
@@ -378,6 +400,7 @@ in
       };
       extraPlugins = with pkgs.vimPlugins; [
         auto-session
+        crates-nvim
         friendly-snippets
         indent-blankline-nvim
         lsp-format-nvim

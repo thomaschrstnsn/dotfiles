@@ -103,6 +103,7 @@ rt.setup({
 		end
 	}
 })
+require('crates').setup()
 
 require("lsp-format").setup {}
 local on_attach = function(client)
