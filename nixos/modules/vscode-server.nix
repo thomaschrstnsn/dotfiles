@@ -7,7 +7,7 @@ in
   options.tc.vscode-server = with types; {
     enable = mkOption {
       type = bool;
-      default = true;
+      default = false;
       description = "enable vscode-server";
     };
   };
