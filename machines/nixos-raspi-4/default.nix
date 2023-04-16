@@ -17,22 +17,7 @@ in
     tmux.enable = true;
     vim = {
       enable = true;
-      treesitter.installedLanguages = [
-        "bash"
-        "diff"
-        "dockerfile"
-        "git_rebase"
-        "git_config"
-        "gitcommit"
-        "gitignore"
-        "jq"
-        "json"
-        "lua"
-        "markdown"
-        "markdown_inline"
-        "nix"
-        "yaml"
-      ];
+      treesitter.grammarPackageSet = "slim";
       lsp.servers.javascript = false;
     };
   };

@@ -13,6 +13,29 @@ let
       rev = rev;
     };
   };
+
+  treesitterGrammars = grammarSet: package:
+    if grammarSet == "all"
+    then package.passthru.allGrammars
+    else if grammarSet == "slim"
+    then
+      with package.passthru.builtGrammars; [
+        bash
+        diff
+        dockerfile
+        git_rebase
+        git_config
+        gitcommit
+        gitignore
+        jq
+        json
+        lua
+        markdown
+        markdown_inline
+        nix
+        yaml
+      ]
+    else error "bahh";
 in
 {
   options.tc.vim = with types; {
@@ -23,10 +46,17 @@ in
       description = "Which gitui to use inside nvim";
       default = "lazygit";
     };
-    treesitter.installedLanguages = mkOption {
-      type = with types; oneOf [ (enum [ "all" ]) (listOf str) ];
-      default = "all";
-      description = "Either \"all\" or a list of languages";
+    treesitter = {
+      package = mkOption {
+        type = types.package;
+        default = pkgs.vimPlugins.nvim-treesitter;
+        description = "Plugin to use for nvim-treesitter. If using nixGrammars, it should include a `withPlugins` function";
+      };
+      grammarPackageSet = mkOption {
+        type = with types; enum [ "all" "slim" ];
+        default = "all";
+        description = "all or slim (intended for servers)";
+      };
     };
     lsp.servers.javascript = mkOption {
       type = types.bool;
@@ -168,7 +198,8 @@ in
         treesitter = {
           enable = true;
           nixGrammars = true;
-          ensureInstalled = cfg.treesitter.languagesInstalled;
+          package = cfg.treesitter.package;
+          grammarPackages = treesitterGrammars cfg.treesitter.grammarPackageSet cfg.treesitter.package;
           incrementalSelection = {
             enable = true;
             keymaps = {
