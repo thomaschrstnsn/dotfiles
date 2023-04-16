@@ -15,7 +15,26 @@ in
       editor = "nvim";
     };
     tmux.enable = true;
-    vim.enable = true;
+    vim = {
+      enable = true;
+      treesitter.installedLanguages = [
+        "bash"
+        "diff"
+        "dockerfile"
+        "git_rebase"
+        "git_config"
+        "gitcommit"
+        "gitignore"
+        "jq"
+        "json"
+        "lua"
+        "markdown"
+        "markdown_inline"
+        "nix"
+        "yaml"
+      ];
+      lsp.servers.javascript = false;
+    };
   };
   system = systems.arm-linux;
 

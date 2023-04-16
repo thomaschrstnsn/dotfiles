@@ -23,10 +23,19 @@ in
       description = "Which gitui to use inside nvim";
       default = "lazygit";
     };
+    treesitter.installedLanguages = mkOption {
+      type = with types; oneOf [ (enum [ "all" ]) (listOf str) ];
+      default = "all";
+      description = "Either \"all\" or a list of languages";
+    };
+    lsp.servers.javascript = mkOption {
+      type = types.bool;
+      default = true;
+      description = "javascript lsp enabled";
+    };
   };
 
   config = mkIf cfg.enable {
-
 
     home.packages = with pkgs; let
       gitpkg = if cfg.gitui == "lazygit" then lazygit else gitui;
@@ -80,11 +89,11 @@ in
           enable = true;
           servers = {
             bashls.enable = true;
-            eslint.enable = true;
+            eslint.enable = cfg.lsp.servers.javascript;
             jsonls.enable = true;
             lua-ls.enable = true;
             rnix-lsp.enable = true;
-            tsserver.enable = true;
+            tsserver.enable = cfg.lsp.servers.javascript;
           };
         };
         lsp-lines = {
@@ -159,6 +168,7 @@ in
         treesitter = {
           enable = true;
           nixGrammars = true;
+          ensureInstalled = cfg.treesitter.languagesInstalled;
           incrementalSelection = {
             enable = true;
             keymaps = {
