@@ -261,9 +261,10 @@ in
 
         # toggleterm
         normal."<leader>g" = { action = "<cmd>lua Gitui_toggle()<CR>"; };
-        normal."<C-1>" = { action = ":ToggleTerm size=15 direction=horizontal<CR>"; };
-        normal."<C-2>" = { action = ":ToggleTerm direction=float<CR>"; };
-        # toggle <c-.>
+        normal."<leader>th" = { action = ":ToggleTerm direction=horizontal<CR>"; };
+        normal."<leader>tv" = { action = ":ToggleTerm direction=vertical<CR>"; };
+        normal."<leader>tf" = { action = ":ToggleTerm direction=float<CR>"; };
+        # toggle is \\
 
         # Move inside wrapped line
         normal."j" = { action = "v:count == 0 ? 'gj' : 'j'"; silent = true; expr = true; };
