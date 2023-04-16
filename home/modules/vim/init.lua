@@ -178,7 +178,7 @@ vim.api.nvim_create_autocmd(
 -- toggleterm
 -- https://github.com/akinsho/toggleterm.nvim
 require("toggleterm").setup({
-	open_mapping = [[<c-.>]],
+	open_mapping = [[\\]],
 	direction = 'float'
 })
 local Terminal  = require('toggleterm.terminal').Terminal
