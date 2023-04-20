@@ -46,6 +46,7 @@ in
     };
 
     home.packages = with pkgs; [
+      du-dust
       fd
       jq
       jid
