@@ -13,7 +13,10 @@ ingress:
 
   - hostname: home.chrstnsn.dk
     service: http://localhost:8123
-  
+
+  - hostname: pihole.chrstnsn.dk
+    service: http://localhost:80
+
   - hostname: ssh.chrstnsn.dk
     service: ssh://localhost:22
     
