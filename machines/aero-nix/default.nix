@@ -9,6 +9,7 @@ in
       username = username;
       homedir = "/home/${username}";
     };
+    direnv.enable = true;
     dotnet = {
       enable = true;
       sdks = [ "6.0" ];
