@@ -15,11 +15,44 @@ in
       enable = true;
       clock24 = true;
       baseIndex = 1;
-      sensibleOnTop = true;
-      terminal = "screen-256color";
+      terminal = "xterm-256color";
+      keyMode = "vi";
+      mouse = true;
+      shortcut = "Space";
       extraConfig = ''
-        set -g mouse on
+        set-option -sa terminal-overrides ",xterm*:Tc"
+        
+        # Vim style pane selection
+        bind h select-pane -L
+        bind j select-pane -D 
+        bind k select-pane -U
+        bind l select-pane -R
+
+        bind '"' split-window -v -c "#{pane_current_path}"
+        bind % split-window -h -c "#{pane_current_path}"
       '';
+      plugins = with pkgs; [
+        tmuxPlugins.vim-tmux-navigator
+        tmuxPlugins.sensible
+        # tmuxPlugins.yank
+        {
+          plugin = tmuxPlugins.mkTmuxPlugin {
+            pluginName = "catppuccin-tmux";
+            version = "26617ca";
+            rtpFilePath = "catppuccin.tmux";
+            src = pkgs.fetchFromGitHub {
+              owner = "dreamsofcode-io";
+              repo = "catppuccin-tmux";
+              rev = "b4e0715356f820fc72ea8e8baf34f0f60e891718";
+              sha256 = "sha256-FJHM6LJkiAwxaLd5pnAoF3a7AE1ZqHWoCpUJE0ncCA8=";
+            };
+          };
+          extraConfig = ''
+            set -g @catppuccin_date_time "%Y-%m-%d %H:%M"
+            set -g @catppuccin_host "on"
+          '';
+        }
+      ];
     };
 
     programs.zsh.initExtraBeforeCompInit = ''

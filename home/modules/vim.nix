@@ -416,6 +416,7 @@ in
         rest-nvim
         rust-tools-nvim
         toggleterm-nvim
+        vim-tmux-navigator
         which-key-nvim
       ];
       extraConfigLua = replaceStrings [ "$GITUI$" ] [ cfg.gitui ] (builtins.readFile ./vim/init.lua);
