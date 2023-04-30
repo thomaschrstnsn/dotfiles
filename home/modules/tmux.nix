@@ -21,6 +21,10 @@ in
       shortcut = "Space";
       extraConfig = ''
         set-option -sa terminal-overrides ",xterm*:Tc"
+        set-option -g status-position top
+
+        unbind r
+        bind r source ~/.config/tmux/tmux.conf
         
         # Vim style pane selection
         bind h select-pane -L
@@ -31,12 +35,11 @@ in
         bind '"' split-window -v -c "#{pane_current_path}"
         bind % split-window -h -c "#{pane_current_path}"
       '';
-      plugins = with pkgs; [
-        tmuxPlugins.vim-tmux-navigator
-        tmuxPlugins.sensible
-        # tmuxPlugins.yank
+      plugins = with pkgs.tmuxPlugins; [
+        vim-tmux-navigator
+        sensible
         {
-          plugin = tmuxPlugins.mkTmuxPlugin {
+          plugin = mkTmuxPlugin {
             pluginName = "catppuccin-tmux";
             version = "26617ca";
             rtpFilePath = "catppuccin.tmux";
@@ -67,6 +70,7 @@ in
         fi
         export SSH_AUTH_SOCK=/tmp/ssh-agent-${usercfg.username}-tmux
       fi
+      export ZSH_TMUX_CONFIG=~/.config/tmux/tmux.conf
     '';
 
     programs.zsh.oh-my-zsh.plugins = [ "tmux" ];
