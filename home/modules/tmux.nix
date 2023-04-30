@@ -15,12 +15,12 @@ in
       enable = true;
       clock24 = true;
       baseIndex = 1;
-      terminal = "xterm-256color";
       keyMode = "vi";
       mouse = true;
       shortcut = "Space";
       extraConfig = ''
-        set-option -sa terminal-overrides ",xterm*:Tc"
+        # set-option -sa terminal-overrides ",xterm*:Tc"
+        set-option -ga terminal-overrides ",xterm-256color:Tc,screen-256color:Tc,tmux-256color:Tc"
         set-option -g status-position top
 
         unbind r
@@ -70,6 +70,7 @@ in
         fi
         export SSH_AUTH_SOCK=/tmp/ssh-agent-${usercfg.username}-tmux
       fi
+      export ZSH_TMUX_UNICODE=true
       export ZSH_TMUX_CONFIG=~/.config/tmux/tmux.conf
     '';
 
