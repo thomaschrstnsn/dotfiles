@@ -11,6 +11,7 @@
     ./rancher.nix
     ./ssh.nix
     ./smd_launcher.nix
+    ./sway.nix
     ./tmux.nix
     ./vim.nix
     ./wsl.nix
