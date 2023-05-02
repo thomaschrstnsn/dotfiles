@@ -17,6 +17,7 @@ in
       enable = true;
       hosts = [ "rpi4" ];
     };
+    tmux.enable = true;
     wsl.enable = true;
     zsh = {
       enable = true;
