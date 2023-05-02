@@ -37,6 +37,8 @@ in
       '';
       plugins = with pkgs.tmuxPlugins; [
         vim-tmux-navigator
+        extrakto # https://github.com/laktak/extrakto
+        tmux-thumbs # https://github.com/fcsonline/tmux-thumbs
         sensible
         {
           plugin = mkTmuxPlugin {
