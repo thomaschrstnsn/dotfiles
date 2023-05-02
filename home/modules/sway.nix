@@ -1,7 +1,7 @@
 { pkgs, config, lib, ... }:
 with lib;
 
-let cfg = config.tc.vim;
+let cfg = config.tc.sway;
 in
 {
   options.tc.sway = {
@@ -9,8 +9,8 @@ in
   };
 
   config = mkIf cfg.enable {
-    options.wayland.windowManager.sway = {
-      enable = true;
-    };
+    # options.wayland.windowManager.sway = {
+    #   enable = true;
+    # };
   };
 }
