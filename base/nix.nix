@@ -1,6 +1,8 @@
 { pkgs, ... }:
 
 {
+  time.timeZone = "Europe/Copenhagen";
+
   nix = {
     package = pkgs.nixVersions.stable;
     extraOptions = "experimental-features = nix-command flakes";
