@@ -24,13 +24,16 @@ in
         set-option -g status-position top
 
         unbind r
-        bind r source ~/.config/tmux/tmux.conf
+        bind r source ~/.config/tmux/tmux.conf; display "reloaded config"
         
         # Vim style pane selection
         bind h select-pane -L
         bind j select-pane -D 
         bind k select-pane -U
         bind l select-pane -R
+
+        bind C-o display-popup -E "tms"
+        bind C-j display-popup -E "tms switch"
 
         bind '"' split-window -v -c "#{pane_current_path}"
         bind % split-window -h -c "#{pane_current_path}"
@@ -59,6 +62,10 @@ in
         }
       ];
     };
+
+    home.packages = with pkgs; [
+      tmux-sessionizer
+    ];
 
     programs.zsh.initExtraBeforeCompInit = ''
       export ZSH_TMUX_AUTOQUIT=false
