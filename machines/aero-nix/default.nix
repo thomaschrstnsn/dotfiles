@@ -28,10 +28,12 @@ in
   };
 
   extraPackages = pkgs: with pkgs; [
-    brave
     _1password-gui
-    vscode
+    brave
     dmenu
+    # obsidian 
+    # todoist-electron
+    vscode
     wezterm
   ];
 
