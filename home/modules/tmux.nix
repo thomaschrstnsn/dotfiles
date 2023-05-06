@@ -5,6 +5,8 @@ let
   cfg = config.tc.tmux;
   usercfg = config.tc.user;
   remoteConfigFile = "tmux.remote.conf";
+  mochaBg = "#1e1e2e";
+  disabledBg = "#d20f39";
 in
 {
   options.tc.tmux = {
@@ -14,8 +16,7 @@ in
   config = mkIf cfg.enable {
 
     xdg.configFile."tmux/${remoteConfigFile}".text = ''
-      display "hello remote"
-      set-option -g status-position bottom
+      # set-option -g status-position bottom
     '';
     programs.tmux = {
       enable = true;
@@ -53,12 +54,14 @@ in
           set prefix None \;\
           set key-table off \;\
           if -F '#{pane_in_mode}' 'send-keys -X cancel' \;\
+          set status-bg '${disabledBg}' \;\
           refresh-client -S \;\
 
         bind -T off F12 \
           set -u prefix \;\
           set -u key-table \;\
           set -u status-style \;\
+          set status-bg '${mochaBg}' \;\
           refresh-client -S
       '';
       plugins = with pkgs.tmuxPlugins; [
