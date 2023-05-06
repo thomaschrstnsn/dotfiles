@@ -4,6 +4,7 @@ with lib;
 let
   cfg = config.tc.tmux;
   usercfg = config.tc.user;
+  remoteConfigFile = "tmux.remote.conf";
 in
 {
   options.tc.tmux = {
@@ -11,6 +12,11 @@ in
   };
 
   config = mkIf cfg.enable {
+
+    xdg.configFile."tmux/${remoteConfigFile}".text = ''
+      display "hello remote"
+      set-option -g status-position bottom
+    '';
     programs.tmux = {
       enable = true;
       clock24 = true;
@@ -37,6 +43,23 @@ in
 
         bind '"' split-window -v -c "#{pane_current_path}"
         bind % split-window -h -c "#{pane_current_path}"
+
+        # remote / nested session support. 
+        # inspired by: https://github.com/samoshkin/tmux-config/blob/95efd543846a27cd2127496b74fd4f4da94f4a31/tmux/tmux.conf
+
+        if-shell 'test -n "$SSH_CLIENT"' 'source-file ~/.config/tmux/${remoteConfigFile}'
+
+        bind -T root F12 \
+          set prefix None \;\
+          set key-table off \;\
+          if -F '#{pane_in_mode}' 'send-keys -X cancel' \;\
+          refresh-client -S \;\
+
+        bind -T off F12 \
+          set -u prefix \;\
+          set -u key-table \;\
+          set -u status-style \;\
+          refresh-client -S
       '';
       plugins = with pkgs.tmuxPlugins; [
         vim-tmux-navigator
