@@ -90,6 +90,9 @@ require("luasnip/loaders/from_vscode").lazy_load()
 local rt = require("rust-tools")
 
 rt.setup({
+	tools = {
+		executor = require("rust-tools.executors").quickfix,
+	},
 	server = {
 		on_attach = function(_, bufnr)
 			-- Hover actions
@@ -103,6 +106,11 @@ rt.setup({
 		end
 	}
 })
+
+rt.inlay_hints.set()
+rt.inlay_hints.enable()
+rt.runnables.runnables()
+
 require('crates').setup()
 
 require("lsp-format").setup {}
