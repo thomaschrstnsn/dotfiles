@@ -403,6 +403,7 @@ in
         auto-session
         crates-nvim
         friendly-snippets
+        git-blame-nvim
         indent-blankline-nvim
         lsp-format-nvim
         luasnip
