@@ -109,10 +109,8 @@ in
         style = "night";
       };
       plugins = {
-        nvim-autopairs.enable = true;
         barbar = { enable = true; };
         comment-nvim = { enable = true; };
-        dashboard = { enable = true; };
         gitgutter.enable = true;
         lualine = { enable = true; };
         lsp = {
@@ -149,6 +147,7 @@ in
           };
           # todo: format on save, see https://youtu.be/vdn_pKJUda8?t=3912)
         };
+        nvim-autopairs.enable = true;
         nvim-cmp = {
           enable = true;
           completion = {
