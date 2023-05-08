@@ -29,6 +29,20 @@ in
         # set-option -sa terminal-overrides ",xterm*:Tc"
         set-option -ga terminal-overrides ",xterm-256color:Tc,screen-256color:Tc,tmux-256color:Tc"
         set-option -g status-position top
+        set-option -g set-clipboard on
+
+        # https://github.com/samoshkin/tmux-config/blob/af2efd9561f41f30c51c9deeeab9451308c4086b/tmux/yank.sh
+        yank="${tmux/yank.sh}"
+
+        # Remap keys which perform copy to pipe copied text to OS clipboard
+        bind -T copy-mode-vi Enter send-keys -X copy-pipe-and-cancel "$yank"
+        bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "$yank"
+        bind -T copy-mode-vi Y send-keys -X copy-pipe-and-cancel "$yank; tmux paste-buffer"
+        bind -T copy-mode-vi C-j send-keys -X copy-pipe-and-cancel "$yank"
+        bind-key -T copy-mode-vi D send-keys -X copy-end-of-line \;\
+            run "tmux save-buffer - | $yank"
+        bind-key -T copy-mode-vi A send-keys -X append-selection-and-cancel \;\
+            run "tmux save-buffer - | $yank"
 
         unbind r
         bind r source ~/.config/tmux/tmux.conf; display "reloaded config"
