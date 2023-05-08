@@ -421,6 +421,7 @@ in
         plenary-nvim
         rest-nvim
         rust-tools-nvim
+        (fromGitHub "ibhagwan/smartyank.nvim" "feb25" "7e3905578f646503525b2f7018b8afd17861018c")
         toggleterm-nvim
         vim-tmux-navigator
         which-key-nvim
