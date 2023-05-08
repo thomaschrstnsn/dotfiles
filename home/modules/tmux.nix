@@ -44,6 +44,8 @@ in
         bind-key -T copy-mode-vi A send-keys -X append-selection-and-cancel \;\
             run "tmux save-buffer - | $yank"
 
+        set -g @thumbs-command 'echo {} | $yank && tmux display-message \"Copied {}\"'
+
         unbind r
         bind r source ~/.config/tmux/tmux.conf; display "reloaded config"
         
