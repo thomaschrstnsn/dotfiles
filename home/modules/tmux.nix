@@ -45,6 +45,7 @@ in
             run "tmux save-buffer - | $yank"
 
         set -g @thumbs-command 'echo {} | $yank && tmux display-message \"Copied {}\"'
+        set -g @extrakto_clip_tool '$yank'
 
         unbind r
         bind r source ~/.config/tmux/tmux.conf; display "reloaded config"
