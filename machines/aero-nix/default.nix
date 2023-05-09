@@ -19,6 +19,7 @@ in
       enable = true;
       hosts = [ "rpi4" "vmnix" ];
     };
+    sway.enable = true;
     tmux.enable = true;
     vim.enable = true;
     zsh = {

@@ -71,9 +71,9 @@
       '';
     };
   programs.waybar.enable = true;
-  fonts.fonts = with pkgs; [
-    font-awesome # for default waybar cfg
-  ];
+  # fonts.fonts = with pkgs; [
+  #   font-awesome # for default waybar cfg
+  # ];
 
   # Configure console keymap
   console.keyMap = "dk-latin1";
@@ -81,10 +81,20 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
+  services.dbus.enable = true;
+  xdg.portal = {
+    enable = true;
+    wlr.enable = true;
+    # gtk portal needed to make gtk apps happy
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+  };
+
+
   # Enable sound with pipewire.
   sound.enable = true;
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
+  # security.polkit.enable = true;
   services.pipewire = {
     enable = true;
     alsa.enable = true;
