@@ -81,6 +81,10 @@ To preview what has changed, try `./lock-to-github.sh` which can show github lin
 
 `nix-store --query --referrers /nix/store/8mlz1pppq90x4j959932jzhm982rb2rc-gtk4-4.6.5`
 
+## Cleaning old system generations
+
+Running `./clean-old-generations.sh` (as with `sudo` for nixos/nix-darwin) will clean any profiles older than 30 days.
+
 # Inspiration
 
 - [wiltaylor](https://github.com/wiltaylor/dotfiles) and his awesome [videos](https://www.youtube.com/watch?v=QKoQ1gKJY5A)
