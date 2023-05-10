@@ -22,7 +22,7 @@ in
     githubs = mkOption {
       description = "Githubs to replace 'https:// to git@' with, so that you can git clone from the https url and still use ssh";
       type = types.listOf types.str;
-      default = [ "github.com" ];
+      default = [ ];
     };
 
     differ = mkOption {
