@@ -32,9 +32,8 @@ in
     _1password-gui
     brave
     dmenu
-    # obsidian 
+    obsidian
     # todoist-electron
-    vscode
     wezterm
   ];
 
