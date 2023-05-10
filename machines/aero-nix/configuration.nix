@@ -58,7 +58,6 @@
         wl-clipboard
         mako
         grim
-        waybar
         wofi
       ];
 

@@ -18,6 +18,7 @@ in
       font-awesome
       swaylock
       swayidle
+      waybar
     ];
     wayland.windowManager.sway = {
       enable = true;
@@ -52,7 +53,7 @@ in
           };
         };
         bars = [{
-          command = "${pkgs.sway}/bin/swaybar";
+          command = "waybar";
           position = "top";
         }];
         startup = [
