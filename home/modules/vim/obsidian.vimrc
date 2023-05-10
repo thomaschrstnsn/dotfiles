@@ -11,6 +11,7 @@ exmap back obcommand app:go-back
 nmap <C-o> :back
 exmap forward obcommand app:go-forward
 nmap <C-i> :forward
+"
 
 nmap - /
 
@@ -64,4 +65,9 @@ exmap followNextLinkTab obcommand editor:open-link-in-new-leaf
 nmap gD :followNextLinkTab
 
 exmap toggleChecklist obcommand editor:toggle-checklist-status
-nmap <Space>x :toggleChecklist
+nmap <Space>x :toggleChecklist :normal A 
+vmap <Space>x :toggleChecklist
+
+
+exmap toggleCode surround ` `
+vmap ` :toggleCode

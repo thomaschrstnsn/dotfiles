@@ -18,21 +18,42 @@ set NERDTree
 set argtextobj
 set highlightedyank
 set surround
-
+set which-key
+set timeoutlen=3500
 
 let mapleader=" "
 
 nmap <Esc> :noh<CR><Esc>
 nmap <leader>ff <Action>(GotoFile)
+nmap <leader>fs <Action>(FindInPath)
 nmap <leader>w :w<CR>
+nmap <leader>q :q<CR>
 nmap <leader>r :source ~/.ideavimrc<CR>
 nmap <leader>e :NERDTreeFind<CR>
 nmap - /
 nmap gcc <Action>(CommentByLineComment)
-nmap gh <Action>(ShowErrorDescription)
+vmap gc <Action>(CommentByLineComment)
+
+"https://youtrack.jetbrains.com/issue/IDEA-306871/Question-What-is-the-action-when-the-mouse-hovers
+nmap K <Action>(ShowErrorDescription)<Action>(QuickJavaDoc) 
+noremap gi :action GotoImplementation<CR>
+
+nnoremap <c-.> :action ActivateTerminalToolWindow<CR>
+nnoremap \\\\ :action ActivateTerminalToolWindow<CR>
+
+nnoremap <leader>u :action FindUsages<CR>
 
 vnoremap < <gv
 vnoremap > >gv
+
+nnoremap [[ :action MethodUp<CR>
+nnoremap ]] :action MethodDown<CR>
+
+nnoremap <leader>, :action RecentFiles<CR>
+nnoremap <leader>g :action ActivateCommitToolWindow<CR>
+
+nnoremap ge :action NextOccurence<CR>
+nnoremap gE :action PreviousOccurence<CR>
 
 nnoremap <S-Tab> :action PreviousTab<cr>
 nnoremap <Tab> :action NextTab<cr>
@@ -40,10 +61,25 @@ nnoremap <Tab> :action NextTab<cr>
 nmap <leader>sh :action SplitHorizontally<cr>
 nmap <leader>sv :action SplitVertically<cr>
 nmap <leader>sx :action Unsplit<cr>
+nmap <leader>bX :action CloseAllUnpinnedEditors<cr>
+nmap <leader>bx :action CloseEditor<cr>
+
+" nmap <leader>m :action ProjectView.ShowMembers
+
+nmap <C-l> <C-w>l
+nmap <C-h> <C-w>h
+nmap <C-j> <C-w>j
+nmap <C-k> <C-w>k
 
 " expand selection
 vmap <C-Space> <Action>(EditorSelectWord)
 
+" debug / run
+
+" not quite fully baked: see https://towardsdatascience.com/the-essential-ideavim-remaps-291d4cd3971b
+nnoremap ,r :action ContextRun<CR>
+nnoremap ,b :action ToggleLineBreakpoint<CR>
+nnoremap ,d :action ContextDebug<CR>
 
 " for trying out new settings without doing the nix dance
 source ~/.ideavimrc.notnix
