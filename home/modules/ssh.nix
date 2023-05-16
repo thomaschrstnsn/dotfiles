@@ -13,6 +13,7 @@ in
       description = "known hosts to add to ssh config";
     };
     use1PasswordAgentOnMac = mkEnableOption "1Password ssh-agent on mac";
+    agent.enable = mkEnableOption "ssh-agent enabled";
     includes = mkOption
       {
         type = listOf str;

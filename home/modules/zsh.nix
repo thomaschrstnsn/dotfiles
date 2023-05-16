@@ -3,6 +3,7 @@ with lib;
 
 let
   cfg = config.tc.zsh;
+  ssh-cfg = config.tc.ssh;
 in
 {
   options.tc.zsh = with types; {
@@ -124,6 +125,12 @@ in
       then ''
         source ${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
       ''
+      else "")
+      + (if ssh-cfg.agent.enable
+      then ''
+        zstyle :omz:plugins:ssh-agent lazy yes 
+        zstyle :omz:plugins:ssh-agent agent-forwarding yes
+      ''
       else "");
       shellAliases = mkMerge [
         (mkIf true {
@@ -145,7 +152,7 @@ in
           "git"
           "history-substring-search"
           "zsh-interactive-cd"
-        ];
+        ] ++ (if ssh-cfg.agent.enable then [ "ssh-agent" ] else [ ]);
       };
     };
   };

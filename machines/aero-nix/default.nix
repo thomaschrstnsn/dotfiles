@@ -18,6 +18,7 @@ in
     ssh = {
       enable = true;
       hosts = [ "rpi4" "vmnix" ];
+      agent.enable = true;
     };
     sway.enable = true;
     tmux.enable = true;

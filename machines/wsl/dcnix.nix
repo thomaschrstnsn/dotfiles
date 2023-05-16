@@ -16,6 +16,7 @@ in
     ssh = {
       enable = true;
       hosts = [ "rpi4" ];
+      agent.enable = true;
     };
     tmux.enable = true;
     wsl.enable = true;
