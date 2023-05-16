@@ -36,7 +36,12 @@
 
   services.cron.enable = true;
 
-  virtualisation.docker.enable = true;
+  virtualisation.docker = {
+    enable = true;
+    daemon.settings = {
+      dns = [ "192.168.1.1" ];
+    };
+  };
 
   environment.systemPackages = with pkgs; [
     vim
