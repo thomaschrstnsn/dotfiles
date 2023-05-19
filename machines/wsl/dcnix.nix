@@ -9,6 +9,10 @@ in
       username = username;
       homedir = "/home/${username}";
     };
+    dotnet = {
+      enable = true;
+      sdks = [ "6.0" "7.0" ];
+    };
     git = {
       enable = true;
       githubs = [ ];
