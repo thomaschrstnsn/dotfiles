@@ -31,6 +31,8 @@ in
     vim.enable = true;
     direnv.enable = true;
   };
+  extraPackages = pkgs: with pkgs; [ k9s ];
+
   system = systems.x64-linux;
 
   nixos = {
