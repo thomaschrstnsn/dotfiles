@@ -12,12 +12,12 @@
       sketchybar =
         super.sketchybar.overrideAttrs (
           o: rec {
-            version = "2.8.6";
+            version = "2.15.1";
             src = super.fetchFromGitHub {
               owner = "FelixKratz";
               repo = "SketchyBar";
               rev = "v${version}";
-              sha256 = "sha256-57Jd358pSyt++q4yrte2IVhB06KWvF/noEBy+toFncI=";
+              sha256 = "sha256-0jCVDaFc7ZvA8apeHRoQvPhAlaGlBHzqUkS9or88PcM";
             };
           }
         );
