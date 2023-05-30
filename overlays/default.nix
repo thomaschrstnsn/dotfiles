@@ -21,6 +21,9 @@
             };
           }
         );
+
+      # https://github.com/azuwis/nix-config/tree/c38647695bd6180a2037dfa1675d5a9322250a3c/pkgs/yabai
+      yabai = super.callPackage ./yabai { };
     })
   ];
 }
