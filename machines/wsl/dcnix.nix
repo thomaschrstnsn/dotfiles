@@ -22,7 +22,9 @@ in
       hosts = [ "rpi4" ];
       agent.enable = true;
     };
-    tmux.enable = true;
+    tmux = {
+      enable = true;
+    };
     wsl.enable = true;
     zsh = {
       enable = true;
@@ -31,7 +33,13 @@ in
     vim.enable = true;
     direnv.enable = true;
   };
-  extraPackages = pkgs: with pkgs; [ k9s ];
+  extraPackages = pkgs: with pkgs; [
+    k9s
+    pijul
+    nerdctl
+    unzip
+    zip
+  ];
 
   system = systems.x64-linux;
 
