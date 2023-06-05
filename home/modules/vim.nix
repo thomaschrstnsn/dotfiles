@@ -126,16 +126,16 @@ in
         };
         lsp-lines = {
           enable = true;
+          currentLine = true;
         };
         lspsaga = {
           enable = true;
-          icons = { codeAction = ""; };
           signs = {
-            error = "";
-            hint = "";
-            info = "";
-            warning = "";
+            use = false;
           };
+        };
+        nvim-lightbulb = {
+          enable = true;
         };
         nix.enable = true;
         notify.enable = true;
