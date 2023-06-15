@@ -35,7 +35,8 @@ in
   };
   extraPackages = pkgs: with pkgs; [
     k9s
-    pijul
+    kubernetes-helm
+    kubectl
     nerdctl
     unzip
     zip
