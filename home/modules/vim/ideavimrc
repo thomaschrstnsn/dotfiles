@@ -26,6 +26,7 @@ let mapleader=" "
 nmap <Esc> :noh<CR><Esc>
 nmap <leader>ff <Action>(GotoFile)
 nmap <leader>fs <Action>(FindInPath)
+nmap <leader>fd <Action>(GotoSymbol)
 nmap <leader>w :w<CR>
 nmap <leader>q :q<CR>
 nmap <leader>r :source ~/.ideavimrc<CR>
@@ -54,6 +55,9 @@ nnoremap <leader>g :action ActivateCommitToolWindow<CR>
 
 nnoremap ge :action NextOccurence<CR>
 nnoremap gE :action PreviousOccurence<CR>
+
+nnoremap C-o :action Back<CR>
+nnoremap C-i :action Forward<CR>
 
 nnoremap <S-Tab> :action PreviousTab<cr>
 nnoremap <Tab> :action NextTab<cr>
