@@ -3,6 +3,7 @@
 - raspberry pi 4 bluetooth: https://github.com/NixOS/nixpkgs/issues/123725
 - code sign (yabai, skhd, sketchybar) to retain rights between versions.
   Example from yabai: https://github.com/koekeishiya/yabai/wiki/Installing-yabai-(from-HEAD)
+- flake-checker: https://determinate.systems/posts/flake-checker
 - linux desktop inspiration: 
 	- https://sr.ht/~misterio/nix-config/
 	- https://github.com/pandoraxdn/nixos-configuration
@@ -17,6 +18,7 @@
 		- does not seem to work with nixvim
 	- try noice from nixvim instead of custom
 	- rust setup (dap): https://www.youtube.com/watch?v=mh_EJhH49Ms
+	- https://www.reddit.com/r/neovim/comments/14da1l6/use_gd_to_go_to_def_when_youre_on_a_reference_and/
 - rust:
 	- tmux -> https://zellij.dev/
 	- zsh -> https://www.nushell.sh/
