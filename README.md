@@ -93,3 +93,5 @@ Running `./clean-old-generations.sh` (as with `sudo` for nixos/nix-darwin) will 
 - [Luca Cambiaghi](https://www.lucacambiaghi.com/nixpkgs/readme.html)
 - [shaunsingh](https://github.com/shaunsingh/nix-darwin-dotfiles/)
 - [azuwis (aarch64)](https://github.com/azuwis/nix-config)
+
+- Excellent introduction to nix (sans flakes it seems): [Chris Titus Tech](https://www.youtube.com/watch?v=fuWPuJZ9NcU)
