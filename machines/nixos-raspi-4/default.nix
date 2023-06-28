@@ -9,6 +9,7 @@ in
       username = username;
       homedir = "/home/${username}";
     };
+    direnv.enable = true;
     git.enable = true;
     zsh = {
       enable = true;

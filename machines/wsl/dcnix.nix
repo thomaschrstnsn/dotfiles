@@ -50,7 +50,7 @@ in
         name = username;
         groups = [ "wheel" ];
       };
-      networking.hostname = "PC04137";
+      networking.hostname = "PC04236";
     };
     base = {
       imports = [
