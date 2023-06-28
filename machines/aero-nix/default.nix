@@ -12,7 +12,7 @@ in
     direnv.enable = true;
     dotnet = {
       enable = true;
-      sdks = [ "6.0" ];
+      sdks = [ "7.0" ];
     };
     git.enable = true;
     ssh = {
@@ -32,6 +32,7 @@ in
   extraPackages = pkgs: with pkgs; [
     _1password-gui
     brave
+    file
     dmenu
     obsidian
     # todoist-electron
