@@ -16,7 +16,7 @@ in
     aeris = import ./aeris { inherit systems; };
     A125228-DK = import ./schibsted { inherit systems skhd-scripts; };
     Atlas = import ./wsl { inherit systems; };
-    PC04137 = import ./wsl/dcnix.nix { inherit systems; };
+    PC04236 = import ./wsl/dcnix.nix { inherit systems; };
     nixos-raspi-4 = import ./nixos-raspi-4 { inherit systems inputs; };
     vmnix = import ./vmnix { inherit systems; };
 
