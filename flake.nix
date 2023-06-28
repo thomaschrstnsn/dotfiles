@@ -63,6 +63,10 @@
             ./darwin/modules/bootstrap.nix
 
             {
+              options.tc.user.homedir = lib.mkOption {
+                type = lib.types.path;
+                description = "home directory";
+              };
               options.tc.user.name = lib.mkOption {
                 type = lib.types.str;
                 description = "username";
@@ -213,7 +217,10 @@
           in
           mkDarwinSystem {
             system = system;
-            config = darwin // { user.name = home.user.username; };
+            config = darwin // {
+              user.name = home.user.username;
+              user.homedir = home.user.homedir;
+            };
             home-manager-config = { imports = hm-config.modules; };
           }
         );

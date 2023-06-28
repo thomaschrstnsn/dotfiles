@@ -1,5 +1,8 @@
 { config, pkgs, lib, ... }:
 
+let
+  userCfg = config.tc.user;
+in
 {
   environment.systemPackages = with pkgs; [ ];
 
@@ -15,6 +18,8 @@
       "@admin"
     ];
   };
+
+  users.users."${userCfg.name}".home = userCfg.homedir;
 
   services.nix-daemon.enable = true;
   nix.configureBuildUsers = true;
