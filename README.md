@@ -83,10 +83,11 @@ To preview what has changed, try `./lock-to-github.sh` which can show github lin
 
 ## `nix-tree`
 
-`nix-shell -p nix-tree`
 
-`nix-tree --derivation '.#nixosConfigurations.PC04236.config.system.build.toplevel'` 
-
+```bash
+nix-shell -p nix-tree
+nix-tree --derivation .#nixosConfigurations.`hostname -s`.config.system.build.toplevel`
+```
 
 ## Cleaning old system generations
 
