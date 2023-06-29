@@ -81,13 +81,9 @@ To preview what has changed, try `./lock-to-github.sh` which can show github lin
 
 `nix-store --query --referrers /nix/store/8mlz1pppq90x4j959932jzhm982rb2rc-gtk4-4.6.5`
 
-## `nix-tree`
+## `nix-tree.sh`
 
-
-```bash
-nix-shell -p nix-tree
-nix-tree --derivation .#nixosConfigurations.`hostname -s`.config.system.build.toplevel`
-```
+As with `apply.sh` and `build.sh`, this command will invoke [`nix-tree`](https://github.com/utdemir/nix-tree) with the current (or specified) configuration.
 
 ## Cleaning old system generations
 
