@@ -85,6 +85,15 @@ To preview what has changed, try `./lock-to-github.sh` which can show github lin
 
 As with `apply.sh` and `build.sh`, this command will invoke [`nix-tree`](https://github.com/utdemir/nix-tree) with the current (or specified) configuration.
 
+## Why depends?
+
+```bash
+# home manager
+nix why-depends .#homeManagerConfigurations.aeris.thomas.activationPackage nixpkgs#ghc-8.10.4
+# darwin (with allow unfree)
+NIXPKGS_ALLOW_UNFREE=1 nix why-depends --impure .#darwinConfigurations.aeris.system nixpkgs#nodePackages.vscode-langservers-extracted
+```
+
 ## Cleaning old system generations
 
 Running `./clean-old-generations.sh` (as with `sudo` for nixos/nix-darwin) will clean any profiles older than 30 days.
