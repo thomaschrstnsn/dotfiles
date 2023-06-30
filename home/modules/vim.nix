@@ -118,7 +118,7 @@ in
           servers = {
             bashls.enable = true;
             eslint.enable = cfg.lsp.servers.javascript;
-            jsonls.enable = true;
+            jsonls.enable = cfg.lsp.servers.javascript;
             lua-ls.enable = true;
             rnix-lsp.enable = true;
             tsserver.enable = cfg.lsp.servers.javascript;
