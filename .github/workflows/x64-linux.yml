@@ -3,8 +3,11 @@ on:
   pull_request:
   push:
 jobs:
-  tests:
+  build-configuration:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        configuration: [ PC04236.nixos, Atlas.nixos, aero-nix.thomas ]
     steps:
     - uses: actions/checkout@v3
     - uses: cachix/install-nix-action@v20
@@ -15,4 +18,4 @@ jobs:
         name: mycache
         # If you chose API tokens for write access OR if you have a private cache
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
-    - run: ./build.sh home aero-nix.thomas
+    - run: ./build.sh nixos '${{ matrix.configuration }}'
