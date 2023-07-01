@@ -9,6 +9,7 @@ in
       username = username;
       homedir = "/home/${username}";
     };
+    direnv.enable = true;
     git = {
       enable = true;
       githubs = [ ];
@@ -17,13 +18,15 @@ in
       enable = true;
       hosts = [ "rpi4" ];
     };
+    tmux = {
+      enable = true;
+    };
+    vim.enable = true;
     wsl.enable = true;
     zsh = {
       enable = true;
       editor = "nvim";
     };
-    vim.enable = true;
-    direnv.enable = true;
   };
   system = systems.x64-linux;
 
