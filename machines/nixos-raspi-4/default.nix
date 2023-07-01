@@ -19,7 +19,6 @@ in
     vim = {
       enable = true;
       treesitter.grammarPackageSet = "slim";
-      lsp.servers.javascript = false;
     };
   };
   system = systems.arm-linux;
