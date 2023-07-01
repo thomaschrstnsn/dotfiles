@@ -3,7 +3,7 @@
 {
   home = rec {
     user = rec {
-      username = "thomas.christensen@schibsted.com";
+      username = "thomaschrstnsn";
       homedir = "/Users/${username}";
     };
 
@@ -15,8 +15,7 @@
     };
     git = {
       enable = true;
-      userEmail = user.username;
-      githubs = [ "github.schibsted.io" ];
+      userEmail = "thomas@chrstnsn.dk";
     };
     nodejs = {
       enable = true;
@@ -39,10 +38,7 @@
     zsh = {
       editor = "nvim";
       enable = true;
-      extraAliases = {
-        meet-billing-and-reporting = ''"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --app=http://g.co/meet/billing-and-reporting &'';
-        meet-browser = ''"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --app=http://g.co/meet/ &'';
-      };
+      extraAliases = { };
     };
   };
 
@@ -87,10 +83,6 @@
       };
       extraShortcuts = {
         "hyper - 0" = "alacritty --working-directory ~/bin -e zsh -c ~/bin/smd"; # smd-launcher
-        # "shift - f14" = "osascript ${skhd-scripts}/toggle-mute-mic.applescript";
-        # "cmd + shift - f14" = "say command";
-        # "hyper - f14" = "say hyper";
-        # "alt + shift - f14" = "say alt";
       };
       prefixShortcuts = {
         leadingShortcut = "hyper - 9";
@@ -105,7 +97,7 @@
       aliases.appgate.enable = true;
       aliases.meetingbar.enable = true;
     };
-    yabai.enable = true;
+    yabai.enable = false; # does not build cleanly on gha
   };
 
   extraPackages = pkgs: with pkgs; [

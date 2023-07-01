@@ -14,7 +14,7 @@ in
   machines = {
     aero-nix = import ./aero-nix { inherit systems; };
     aeris = import ./aeris { inherit systems; };
-    A125228-DK = import ./schibsted { inherit systems skhd-scripts; };
+    ci-x64-darwin = import ./ci-x64-darwin { inherit systems skhd-scripts; };
     Atlas = import ./wsl { inherit systems; };
     PC04236 = import ./wsl/dcnix.nix { inherit systems; };
     nixos-raspi-4 = import ./nixos-raspi-4 { inherit systems inputs; };
