@@ -3,7 +3,7 @@ on:
   pull_request:
   push:
 jobs:
-  tests:
+  build-configuration:
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v3
