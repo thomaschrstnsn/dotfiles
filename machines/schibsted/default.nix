@@ -11,7 +11,7 @@
     direnv.enable = true;
     dotnet = {
       enable = true;
-      sdks = [ "2.2" "3.1" "6.0" "7.0" ];
+      sdks = [ "6.0" "7.0" ];
     };
     git = {
       enable = true;
