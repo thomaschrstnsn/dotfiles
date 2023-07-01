@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        configuration: [ PC04236.nixos, Atlas.nixos, aero-nix.thomas ]
+        configuration: [PC04236, Atlas, aero-nix]
     steps:
     - uses: actions/checkout@v3
     - uses: cachix/install-nix-action@v20
