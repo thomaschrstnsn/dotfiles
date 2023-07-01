@@ -15,7 +15,7 @@ in
     aero-nix = import ./aero-nix { inherit systems; };
     aeris = import ./aeris { inherit systems; };
     ci-x64-darwin = import ./ci-x64-darwin { inherit systems skhd-scripts; };
-    Atlas = import ./wsl { inherit systems; };
+    Atlas = import ./wsl/atlas.nix { inherit systems; };
     PC04236 = import ./wsl/dcnix.nix { inherit systems; };
     nixos-raspi-4 = import ./nixos-raspi-4 { inherit systems inputs; };
     vmnix = import ./vmnix { inherit systems; };
