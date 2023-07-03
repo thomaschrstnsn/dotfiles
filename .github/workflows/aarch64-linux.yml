@@ -1,0 +1,26 @@
+name: "aarch64 Linux"
+on:
+  pull_request:
+  push:
+jobs:
+  build-configuration:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        configuration: [nixos-raspi-4]
+    steps:
+      - uses: actions/checkout@v3
+      - uses: uraimo/run-on-arch-action@v2
+        name: build in aarch
+        id: build-aarch
+        with:
+          arch: aarch64
+          distro: ubuntu_latest
+          githubToken: ${{ github.token }}
+          run: |
+            wget https://raw.githubusercontent.com/cachix/install-nix-action/master/install-nix.sh
+            ./install-nix.sh
+            nix --version
+            nix-env -i cachix
+            nix-env -i jq
+            cachix authtoken '${{ secrets.CACHIX_AUTH_TOKEN }}'
