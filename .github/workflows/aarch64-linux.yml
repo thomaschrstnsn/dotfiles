@@ -4,23 +4,34 @@ on:
   push:
 jobs:
   build-configuration:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        configuration: [nixos-raspi-4]
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v3
       - uses: uraimo/run-on-arch-action@v2
-        name: build in aarch
+        name: build on aarch64
         id: build-aarch
         with:
           arch: aarch64
-          distro: ubuntu_latest
+          distro: ubuntu22.04
           githubToken: ${{ github.token }}
-          run: |
+          install: |
+            apt-get update && \
+            apt-get install -y wget sudo curl xz-utils jq git
             wget https://raw.githubusercontent.com/cachix/install-nix-action/master/install-nix.sh
+            chmod +x ./install-nix.sh && \
+            INPUT_EXTRA_NIX_CONFIG="" \
+            INPUT_INSTALL_OPTIONS="" \
+            GITHUB_PATH="./gh" \
             ./install-nix.sh
+            
+          run: |
+            export USER=root
+            export CI=true
+            . /root/.nix-profile/etc/profile.d/nix.sh
             nix --version
-            nix-env -i cachix
-            nix-env -i jq
-            cachix authtoken '${{ secrets.CACHIX_AUTH_TOKEN }}'
+            nix shell nixpkgs#cachix --command cachix authtoken '${{ secrets.CACHIX_AUTH_TOKEN }}'
+            nix shell nixpkgs#cachix --command cachix use thomaschrstnsn
+            # nix build .#nixosConfigurations.nixos-raspi-4.config.system.build.toplevel --quiet --json | jq -r '.[].outputs | to_entries[].value' | cachix push thomaschrstnsn
+            ./build.sh nixos nixos-raspi-4
+            nix shell nixpkgs#cachix --command cachix watch-store thomaschrstnsn
+
