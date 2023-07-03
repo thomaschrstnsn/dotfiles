@@ -15,8 +15,16 @@ in
       editor = "vim";
     };
     tmux.enable = true;
-    vim.enable = true;
+    vim = {
+      enable = true;
+      treesitter.grammarPackageSet = "slim";
+    };
   };
+  extraPackages = pkgs: with pkgs; [
+    cachix
+    jq
+  ];
+
   system = systems.arm-linux;
 
   nixos = {
