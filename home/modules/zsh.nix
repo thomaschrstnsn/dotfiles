@@ -102,6 +102,8 @@ in
       enableAutosuggestions = true;
       syntaxHighlighting.enable = true;
       initExtra = ''
+        export PATH=~/bin:$PATH
+
         source ${pkgs.zsh-forgit}/share/zsh/zsh-forgit/forgit.plugin.zsh
 
         export EDITOR="${cfg.editor}"
