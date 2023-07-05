@@ -44,7 +44,7 @@ in
         "vmnix" = {
           "vmnix" = {
             user = "thomas";
-            hostname = "192.168.64.4";
+            hostname = "192.168.64.6";
           };
         };
       };
