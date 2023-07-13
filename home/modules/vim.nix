@@ -229,12 +229,12 @@ in
         normal."<leader>q" = { action = "<cmd>q<cr>"; desc = "Quit"; };
 
         # buffers 
-        normal."<leader>x" = { action = "<cmd>bd<cr>"; desc = "Close buffer"; };
+        normal."<leader>x" = { action = "<cmd>BufferClose<cr>"; desc = "Close buffer"; };
         normal."<leader>X" = {
           action = "<cmd>BufferCloseAllButCurrentOrPinned<cr>";
           desc = "Close buffers (except current and pinned)";
         };
-        normal."<leader>bx" = { action = "<cmd>bd<cr>"; desc = "Close buffer"; };
+        normal."<leader>bx" = { action = "<cmd>BufferClose<cr>"; desc = "Close buffer"; };
         normal."<leader>bX" = {
           action = "<cmd>BufferCloseAllButCurrentOrPinned<cr>";
           desc = "Close buffers (except current and pinned)";
