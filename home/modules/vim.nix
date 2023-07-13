@@ -108,6 +108,7 @@ in
         enable = true;
         style = "night";
       };
+      luaLoader.enable = true;
       plugins = {
         barbar = { enable = true; };
         comment-nvim = { enable = true; };
