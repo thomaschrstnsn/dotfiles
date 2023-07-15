@@ -1,13 +1,3 @@
-local __which_key = require('which-key')
-
-__which_key.setup {
-	['show_help'] = true,
-	['window'] = {
-		['border'] = 'single'
-	}
-}
-
-
 local trouble = require("trouble.providers.telescope")
 local telescope = require("telescope")
 

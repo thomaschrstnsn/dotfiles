@@ -237,6 +237,10 @@ in
         };
         treesitter-context = { enable = true; };
         trouble = { enable = true; };
+        which-key = {
+          enable = true;
+          window.border = "single";
+        };
       };
       maps = {
         normal."-" = "/";
@@ -457,7 +461,6 @@ in
         (fromGitHub "ibhagwan/smartyank.nvim" "feb25" "7e3905578f646503525b2f7018b8afd17861018c")
         toggleterm-nvim
         vim-tmux-navigator
-        which-key-nvim
       ];
       extraConfigLua = replaceStrings [ "$GITUI$" ] [ cfg.gitui ] (builtins.readFile ./vim/init.lua);
       extraConfigVim =
