@@ -14,6 +14,30 @@ let
     };
   };
 
+  /* Import a luafile inside of a vimrc.
+
+    Example:
+    mkLuaFile "foo.lua"
+    => "lua << EOF dofile(\"foo.lua\") EOF"
+  */
+  mkLuaFile = file: ''
+    lua << EOF
+      dofile("${file}")
+    EOF
+  '';
+
+  /* Generate a lua section for a vimrc file.
+
+    Example:
+    mkLua "print('hello world')"
+    => "lua << EOF print('hello world') EOF"
+  */
+  mkLua = lua: ''
+    lua << EOF
+      ${lua}
+    EOF
+  '';
+
   treesitterGrammars = grammarSet: package:
     if grammarSet == "all"
     then package.passthru.allGrammars
@@ -422,7 +446,10 @@ in
         nvim-treesitter-context
         nvim-treesitter-textobjects # for queries in mini-ai
         (fromGitHub "klen/nvim-test" "1.3.0" "4e30d0772a43bd67ff299cfe201964c5bd799d73")
-        noice-nvim
+        {
+          plugin = noice-nvim;
+          config = mkLuaFile ./vim/plugins/noice.lua;
+        }
         (fromGitHub "echasnovski/mini.nvim" "0.8.0" "889be69623395ad183ae6f3c21c8efe006350226")
         plenary-nvim
         rest-nvim
