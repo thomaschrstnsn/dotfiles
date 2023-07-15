@@ -480,7 +480,10 @@ in
           config = mkLuaFile ./vim/plugins/mini.lua;
         }
         plenary-nvim
-        rest-nvim
+        {
+          plugin = rest-nvim;
+          config = mkLuaFile ./vim/plugins/nvim-rest.lua;
+        }
         {
           plugin = rust-tools-nvim;
           config = mkLuaFile ./vim/plugins/rust-tools.lua;

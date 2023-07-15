@@ -53,15 +53,6 @@ nvim_tree_events.subscribe('TreeClose', function()
 	bufferline_api.set_offset(0)
 end)
 
--- rest-nvim
-require('rest-nvim').setup()
-
-vim.cmd "au BufRead,BufNewFile *.http set ft=http"
-vim.api.nvim_create_autocmd(
-  "FileType",
-  { pattern = { "httpResult" }, command = [[nnoremap <buffer><silent> q :close<CR>]] }
-)
-
 -- toggleterm
 -- https://github.com/akinsho/toggleterm.nvim
 require("toggleterm").setup({
@@ -75,19 +66,19 @@ require("toggleterm").setup({
 		end
 	end,
 })
-local Terminal  = require('toggleterm.terminal').Terminal
-local gitui = Terminal:new({ cmd = "$GITUI$", hidden = true, direction = "float" })
+local Terminal = require('toggleterm.terminal').Terminal
+local gitui    = Terminal:new({ cmd = "$GITUI$", hidden = true, direction = "float" })
 
 function Gitui_toggle()
-  gitui:toggle()
+	gitui:toggle()
 end
 
 function _G.set_terminal_keymaps()
-  local opts = {buffer = 0}
-  vim.keymap.set('t', '<C-h>', [[<Cmd>wincmd h<CR>]], opts)
-  vim.keymap.set('t', '<C-j>', [[<Cmd>wincmd j<CR>]], opts)
-  vim.keymap.set('t', '<C-k>', [[<Cmd>wincmd k<CR>]], opts)
-  vim.keymap.set('t', '<C-l>', [[<Cmd>wincmd l<CR>]], opts)
+	local opts = { buffer = 0 }
+	vim.keymap.set('t', '<C-h>', [[<Cmd>wincmd h<CR>]], opts)
+	vim.keymap.set('t', '<C-j>', [[<Cmd>wincmd j<CR>]], opts)
+	vim.keymap.set('t', '<C-k>', [[<Cmd>wincmd k<CR>]], opts)
+	vim.keymap.set('t', '<C-l>', [[<Cmd>wincmd l<CR>]], opts)
 end
 
 -- if you only want these mappings for toggle term use term://*toggleterm#* instead
@@ -95,15 +86,14 @@ vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
 
 
 -- nvim-test
-require("nvim-test").setup{
+require("nvim-test").setup {
 	term = "toggleterm",
 	termOpts = {
 		direction = 'horizontal'
 	}
 }
 
-vim.keymap.set({"n", "o", "x"}, "w", "<cmd>lua require('spider').motion('w')<CR>", { desc = "Spider-w" })
-vim.keymap.set({"n", "o", "x"}, "e", "<cmd>lua require('spider').motion('e')<CR>", { desc = "Spider-w" })
-vim.keymap.set({"n", "o", "x"}, "b", "<cmd>lua require('spider').motion('b')<CR>", { desc = "Spider-w" })
-vim.keymap.set({"n", "o", "x"}, "ge", "<cmd>lua require('spider').motion('ge')<CR>", { desc = "Spider-w" })
-
+vim.keymap.set({ "n", "o", "x" }, "w", "<cmd>lua require('spider').motion('w')<CR>", { desc = "Spider-w" })
+vim.keymap.set({ "n", "o", "x" }, "e", "<cmd>lua require('spider').motion('e')<CR>", { desc = "Spider-w" })
+vim.keymap.set({ "n", "o", "x" }, "b", "<cmd>lua require('spider').motion('b')<CR>", { desc = "Spider-w" })
+vim.keymap.set({ "n", "o", "x" }, "ge", "<cmd>lua require('spider').motion('ge')<CR>", { desc = "Spider-w" })
