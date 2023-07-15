@@ -454,7 +454,11 @@ in
           plugin = noice-nvim;
           config = mkLuaFile ./vim/plugins/noice.lua;
         }
-        (fromGitHub "echasnovski/mini.nvim" "0.8.0" "889be69623395ad183ae6f3c21c8efe006350226")
+        {
+          plugin =
+            (fromGitHub "echasnovski/mini.nvim" "0.8.0" "889be69623395ad183ae6f3c21c8efe006350226");
+          config = mkLuaFile ./vim/plugins/mini.lua;
+        }
         plenary-nvim
         rest-nvim
         rust-tools-nvim
