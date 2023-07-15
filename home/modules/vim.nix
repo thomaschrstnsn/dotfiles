@@ -464,7 +464,10 @@ in
         (fromGitHub "chrisgrieser/nvim-spider" "head" "f0fd485bd8e413623b8804ab29cab63e0d35fb2a")
         nvim-treesitter-context
         nvim-treesitter-textobjects # for queries in mini-ai
-        (fromGitHub "klen/nvim-test" "1.3.0" "4e30d0772a43bd67ff299cfe201964c5bd799d73")
+        {
+          plugin = (fromGitHub "klen/nvim-test" "1.3.0" "4e30d0772a43bd67ff299cfe201964c5bd799d73");
+          config = mkLuaFile ./vim/plugins/nvim-test.lua;
+        }
         {
           plugin = noice-nvim;
           config = mkLuaFile ./vim/plugins/noice.lua;

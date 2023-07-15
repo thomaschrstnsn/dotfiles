@@ -53,14 +53,6 @@ nvim_tree_events.subscribe('TreeClose', function()
 	bufferline_api.set_offset(0)
 end)
 
--- nvim-test
-require("nvim-test").setup {
-	term = "toggleterm",
-	termOpts = {
-		direction = 'horizontal'
-	}
-}
-
 vim.keymap.set({ "n", "o", "x" }, "w", "<cmd>lua require('spider').motion('w')<CR>", { desc = "Spider-w" })
 vim.keymap.set({ "n", "o", "x" }, "e", "<cmd>lua require('spider').motion('e')<CR>", { desc = "Spider-w" })
 vim.keymap.set({ "n", "o", "x" }, "b", "<cmd>lua require('spider').motion('b')<CR>", { desc = "Spider-w" })
