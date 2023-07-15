@@ -10,8 +10,6 @@ telescope.setup {
 	},
 }
 
-require('crates').setup()
-
 require("lsp-format").setup {}
 local on_attach = function(client)
 	require("lsp-format").on_attach(client)

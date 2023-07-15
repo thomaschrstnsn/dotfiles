@@ -447,7 +447,10 @@ in
             }
           '';
         }
-        crates-nvim
+        {
+          plugin = crates-nvim;
+          config = mkLua ''require('crates').setup()'';
+        }
         friendly-snippets
         git-blame-nvim
         indent-blankline-nvim
