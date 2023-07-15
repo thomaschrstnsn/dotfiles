@@ -220,6 +220,15 @@ in
           actions.openFile.quitOnOpen = true;
         };
         project-nvim.enable = true;
+        spider = {
+          enable = true;
+          keymaps.motions = {
+            w = "w";
+            e = "e";
+            b = "b";
+            ge = "ge";
+          };
+        };
         telescope = {
           enable = true;
           extensions.project-nvim.enable = true;
@@ -461,7 +470,6 @@ in
           plugin = luasnip;
           config = mkLua ''require("luasnip/loaders/from_vscode").lazy_load()'';
         }
-        (fromGitHub "chrisgrieser/nvim-spider" "head" "f0fd485bd8e413623b8804ab29cab63e0d35fb2a")
         nvim-treesitter-context
         nvim-treesitter-textobjects # for queries in mini-ai
         {
