@@ -153,6 +153,9 @@ in
           enable = true;
           currentLine = true;
         };
+        lsp-format = {
+          enable = true;
+        };
         lspsaga = {
           enable = true;
           signs = {
@@ -454,7 +457,6 @@ in
         friendly-snippets
         git-blame-nvim
         indent-blankline-nvim
-        lsp-format-nvim
         {
           plugin = luasnip;
           config = mkLua ''require("luasnip/loaders/from_vscode").lazy_load()'';

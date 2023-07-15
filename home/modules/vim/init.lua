@@ -10,17 +10,6 @@ telescope.setup {
 	},
 }
 
-require("lsp-format").setup {}
-local on_attach = function(client)
-	require("lsp-format").on_attach(client)
-end
-require("lspconfig").rust_analyzer.setup {
-	on_attach = on_attach
-}
-require("lspconfig").rnix.setup {
-	on_attach = on_attach
-}
-
 function FormatSelection()
 	vim.lsp.buf.format({
 		async = true,
