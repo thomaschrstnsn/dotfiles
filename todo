@@ -19,7 +19,6 @@
 	- try noice from nixvim instead of custom
 	- rust setup (dap): https://www.youtube.com/watch?v=mh_EJhH49Ms
 	- https://www.reddit.com/r/neovim/comments/14da1l6/use_gd_to_go_to_def_when_youre_on_a_reference_and/
-	- use the plugin lua modularisation from: https://github.com/IvarWithoutBones/dotfiles/blob/main/home-manager/modules/neovim/plugins.nix
 - rust:
 	- tmux -> https://zellij.dev/
 	- zsh -> https://www.nushell.sh/
