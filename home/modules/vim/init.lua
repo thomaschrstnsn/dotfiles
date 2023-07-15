@@ -10,10 +10,6 @@ telescope.setup {
 	},
 }
 
-require("auto-session").setup {
-	log_level = "error"
-}
-
 require("luasnip/loaders/from_vscode").lazy_load()
 
 local rt = require("rust-tools")

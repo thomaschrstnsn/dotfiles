@@ -439,7 +439,14 @@ in
         # LSP (todo, inspiration: https://youtu.be/vdn_pKJUda8?t=3129)
       };
       extraPlugins = with pkgs.vimPlugins; [
-        auto-session
+        {
+          plugin = auto-session;
+          config = mkLua ''
+            require("auto-session").setup {
+              log_level = "error"
+            }
+          '';
+        }
         crates-nvim
         friendly-snippets
         git-blame-nvim
