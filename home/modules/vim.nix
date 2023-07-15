@@ -137,6 +137,12 @@ in
         barbar = { enable = true; };
         comment-nvim = { enable = true; };
         gitgutter.enable = true;
+        indent-blankline = {
+          enable = true;
+          showCurrentContext = true;
+          showCurrentContextStart = true;
+          showTrailingBlanklineIndent = false;
+        };
         lualine = { enable = true; };
         lsp = {
           enable = true;
@@ -456,7 +462,6 @@ in
         }
         friendly-snippets
         git-blame-nvim
-        indent-blankline-nvim
         {
           plugin = luasnip;
           config = mkLua ''require("luasnip/loaders/from_vscode").lazy_load()'';

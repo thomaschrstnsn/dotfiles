@@ -33,14 +33,6 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 	pattern = '*'
 })
 
-require("indent_blankline").setup {
-	space_char_blankline = " ",
-	show_current_context = true,
-	show_current_context_start = true,
-	char = '│',
-	show_trailing_blankline_indent = false
-}
-
 -- barbar play nice with nvim-tree
 local nvim_tree_events = require('nvim-tree.events')
 local bufferline_api = require('bufferline.api')
