@@ -248,6 +248,7 @@ in
             };
           };
         };
+        tmux-navigator.enable = true;
         treesitter-context = { enable = true; };
         trouble = { enable = true; };
         which-key = {
@@ -499,7 +500,6 @@ in
           plugin = toggleterm-nvim;
           config = mkLuaFile ./vim/plugins/toggleterm.lua;
         }
-        vim-tmux-navigator
       ];
       extraConfigLua = builtins.readFile ./vim/init.lua;
       extraConfigVim =
