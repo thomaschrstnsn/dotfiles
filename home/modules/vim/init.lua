@@ -10,9 +10,6 @@ telescope.setup {
 	},
 }
 
-require("luasnip/loaders/from_vscode").lazy_load()
-
-
 require('crates').setup()
 
 require("lsp-format").setup {}

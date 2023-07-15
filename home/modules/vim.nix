@@ -452,7 +452,10 @@ in
         git-blame-nvim
         indent-blankline-nvim
         lsp-format-nvim
-        luasnip
+        {
+          plugin = luasnip;
+          config = mkLua ''require("luasnip/loaders/from_vscode").lazy_load()'';
+        }
         (fromGitHub "chrisgrieser/nvim-spider" "head" "f0fd485bd8e413623b8804ab29cab63e0d35fb2a")
         nvim-treesitter-context
         nvim-treesitter-textobjects # for queries in mini-ai
