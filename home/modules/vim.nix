@@ -456,7 +456,7 @@ in
         }
         {
           plugin =
-            (fromGitHub "echasnovski/mini.nvim" "0.8.0" "889be69623395ad183ae6f3c21c8efe006350226");
+            (fromGitHub "echasnovski/mini.nvim" "0.9.0" "296ebbbd3e5ba5e43f5125efe18ad76fe3b632cc");
           config = mkLuaFile ./vim/plugins/mini.lua;
         }
         plenary-nvim
