@@ -65,11 +65,6 @@ in
   options.tc.vim = with types; {
     enable = mkEnableOption "vim";
     ideavim = mkEnableOption "ideavimrc";
-    gitui = mkOption {
-      type = enum [ "lazygit" "gitui" ];
-      description = "Which gitui to use inside nvim";
-      default = "lazygit";
-    };
     treesitter = {
       package = mkOption {
         type = types.package;
@@ -91,10 +86,10 @@ in
 
   config = mkIf cfg.enable {
 
-    home.packages = with pkgs; let
-      gitpkg = if cfg.gitui == "lazygit" then lazygit else gitui;
-    in
-    [ gitpkg ripgrep ];
+    home.packages = with pkgs; [
+      lazygit
+      ripgrep
+    ];
 
     home.file = mkIf cfg.ideavim {
       ".ideavimrc".source = ./vim/ideavimrc;
@@ -489,10 +484,13 @@ in
           config = mkLuaFile ./vim/plugins/rust-tools.lua;
         }
         (fromGitHub "ibhagwan/smartyank.nvim" "feb25" "7e3905578f646503525b2f7018b8afd17861018c")
-        toggleterm-nvim
+        {
+          plugin = toggleterm-nvim;
+          config = mkLuaFile ./vim/plugins/toggleterm.lua;
+        }
         vim-tmux-navigator
       ];
-      extraConfigLua = replaceStrings [ "$GITUI$" ] [ cfg.gitui ] (builtins.readFile ./vim/init.lua);
+      extraConfigLua = builtins.readFile ./vim/init.lua;
       extraConfigVim =
         if wslCfg.enable
         then ''
