@@ -220,6 +220,9 @@ in
           actions.openFile.quitOnOpen = true;
         };
         project-nvim.enable = true;
+        rust-tools = {
+          enable = true;
+        };
         spider = {
           enable = true;
           keymaps.motions = {
@@ -490,10 +493,6 @@ in
         {
           plugin = rest-nvim;
           config = mkLuaFile ./vim/plugins/nvim-rest.lua;
-        }
-        {
-          plugin = rust-tools-nvim;
-          config = mkLuaFile ./vim/plugins/rust-tools.lua;
         }
         (fromGitHub "ibhagwan/smartyank.nvim" "feb25" "7e3905578f646503525b2f7018b8afd17861018c")
         {
