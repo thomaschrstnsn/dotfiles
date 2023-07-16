@@ -123,10 +123,14 @@ in
         breakindent = true;
         autowriteall = true;
       };
-      colorschemes.tokyonight = {
-        enable = true;
-        style = "night";
-      };
+      colorschemes.kanagawa =
+        let variation = "wave"; # wave, dragon, lotus
+        in
+        {
+          enable = true;
+          theme = variation;
+          background.dark = variation;
+        };
       luaLoader.enable = true;
       plugins = {
         barbar = { enable = true; };
