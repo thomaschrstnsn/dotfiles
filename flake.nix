@@ -30,7 +30,7 @@
     };
 
     nixvim = {
-      url = github:pta2002/nixvim;
+      url = github:nix-community/nixvim;
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
