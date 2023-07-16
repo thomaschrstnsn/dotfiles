@@ -33,6 +33,11 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 	pattern = '*'
 })
 
+-- Fix virtual text since we are using lsp_lines
+vim.diagnostic.config({
+	virtual_text = false,
+})
+
 -- barbar play nice with nvim-tree
 local nvim_tree_events = require('nvim-tree.events')
 local bufferline_api = require('bufferline.api')
