@@ -47,10 +47,12 @@ in
     };
 
     home.packages = with pkgs; [
+      btop
       du-dust
       fd
+      file
       jq
-      jid
+      # jid
       tree
       wget
       zsh-fzf-tab

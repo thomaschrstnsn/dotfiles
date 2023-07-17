@@ -32,7 +32,6 @@ in
   extraPackages = pkgs: with pkgs; [
     _1password-gui
     brave
-    file
     dmenu
     obsidian
     # todoist-electron
