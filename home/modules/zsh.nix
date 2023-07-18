@@ -47,7 +47,6 @@ in
     };
 
     home.packages = with pkgs; [
-      btop
       du-dust
       fd
       file
@@ -97,6 +96,11 @@ in
     };
 
     programs.htop.enable = true;
+
+    programs.btop = {
+      enable = true;
+    };
+
     programs.home-manager.enable = true;
 
     programs.zsh = {
