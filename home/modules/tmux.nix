@@ -48,7 +48,7 @@ in
         set -g @extrakto_clip_tool '$yank'
 
         unbind r
-        bind r source ~/.config/tmux/tmux.conf; display "reloaded config"
+        bind r 'source ~/.config/tmux/tmux.conf; display "reloaded config"'
         
         # Vim style pane selection
         bind h select-pane -L
