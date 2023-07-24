@@ -277,6 +277,11 @@ in
         normal."<leader>w" = { action = "<cmd>w<cr>"; desc = "Save"; };
         normal."<leader>q" = { action = "<cmd>q<cr>"; desc = "Quit"; };
 
+        normal."gd" = {
+          action = ''<cmd>lua require("definition-or-references").definition_or_references();<cr>'';
+          desc = "Go to definition or references";
+        };
+
         # buffers 
         normal."<leader>x" = { action = "<cmd>BufferClose<cr>"; desc = "Close buffer"; };
         normal."<leader>X" = {
@@ -471,6 +476,10 @@ in
         {
           plugin = crates-nvim;
           config = mkLua ''require('crates').setup()'';
+        }
+        {
+          plugin = (fromGitHub "KostkaBrukowa/definition-or-references.nvim" "0.0" "6e9f3b5a7e460094c7e0916b7f1fa69f4043061f");
+          config = mkLua ''require("definition-or-references").setup()'';
         }
         friendly-snippets
         git-blame-nvim
