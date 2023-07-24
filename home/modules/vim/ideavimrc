@@ -42,6 +42,7 @@ noremap gi :action GotoImplementation<CR>
 nnoremap <c-.> :action ActivateTerminalToolWindow<CR>
 nnoremap \\\\ :action ActivateTerminalToolWindow<CR>
 
+nnoremap gd :action GotoDeclaration<CR>
 nnoremap <leader>u :action FindUsages<CR>
 
 vnoremap < <gv
