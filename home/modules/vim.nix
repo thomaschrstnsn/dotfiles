@@ -509,6 +509,10 @@ in
         }
         (fromGitHub "ibhagwan/smartyank.nvim" "feb25" "7e3905578f646503525b2f7018b8afd17861018c")
         {
+          plugin = tint-nvim;
+          config = mkLua ''require("tint").setup()'';
+        }
+        {
           plugin = toggleterm-nvim;
           config = mkLuaFile ./vim/plugins/toggleterm.lua;
         }
