@@ -89,18 +89,19 @@ in
         {
           plugin = mkTmuxPlugin {
             pluginName = "catppuccin-tmux";
-            version = "26617ca";
+            version = "e7b50832f9bc59b0b5ef5316ba2cd6f61e4e22fc";
             rtpFilePath = "catppuccin.tmux";
             src = pkgs.fetchFromGitHub {
               owner = "dreamsofcode-io";
               repo = "catppuccin-tmux";
-              rev = "b4e0715356f820fc72ea8e8baf34f0f60e891718";
-              sha256 = "sha256-FJHM6LJkiAwxaLd5pnAoF3a7AE1ZqHWoCpUJE0ncCA8=";
+              rev = "e7b50832f9bc59b0b5ef5316ba2cd6f61e4e22fc";
+              sha256 = "sha256-9ZfUqEKEexSh06QyR5C+tYd4tNfBi3PsA+STzUv4+/s";
             };
           };
           extraConfig = ''
             set -g @catppuccin_date_time "%Y-%m-%d %H:%M"
             set -g @catppuccin_host "on"
+            set -g @catppuccin_datetime_icon "󰔠"
           '';
         }
       ];
