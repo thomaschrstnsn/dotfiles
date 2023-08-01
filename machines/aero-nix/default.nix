@@ -23,6 +23,10 @@ in
     sway.enable = true;
     tmux.enable = true;
     vim.enable = true;
+    wezterm = {
+      enable = true;
+      fontsize = 11.5;
+    };
     zsh = {
       enable = true;
       editor = "nvim";
