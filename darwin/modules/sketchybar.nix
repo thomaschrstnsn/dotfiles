@@ -177,7 +177,7 @@ in
             position = "right";
             attrs = {
               update_freq = 10;
-              icon = "";
+              icon = "󰔠";
               script = "${scripts}/status.sh";
               "icon.padding_right" = 2;
               "label.padding_right" = 4;
