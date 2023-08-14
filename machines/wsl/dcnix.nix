@@ -38,6 +38,7 @@ in
     kubernetes-helm
     kubectl
     nerdctl
+    pulsarctl
     unzip
     zip
   ];
