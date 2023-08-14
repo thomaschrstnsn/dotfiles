@@ -5,7 +5,7 @@ with lib;
 # for debugging:
 # ./build-darwin.sh && less $(grep sketchybarrc result/user/Library/LaunchAgents/org.nixos.sketchybar.plist | sed 's/<string>//' | sed 's|</string>|/sketchybar/sketchybarrc|' | awk '{print $1}')
 let
-  cfg = config.services.sketchybar;
+  cfg = config.services.sketchybar-custom;
   tab = "    ";
   modify = "sketchybar -m";
 
@@ -115,8 +115,8 @@ let
       ));
 
   configFile =
-    (if (cfg.config.items != [ ])
-    then "${toSketchybarConfig cfg.config}"
+    (if (cfg.items != [ ])
+    then "${toSketchybarConfig cfg}"
     else "")
     + optionalString (cfg.extraConfig != "") cfg.extraConfig;
 
@@ -197,26 +197,26 @@ in
         };
     in
     {
-      services.sketchybar.enable = mkEnableOption "sketchybar";
+      services.sketchybar-custom.enable = mkEnableOption "sketchybar";
 
-      services.sketchybar.package = mkOption {
+      services.sketchybar-custom.package = mkOption {
         type = path;
         description = "The sketchybar package to use.";
       };
 
-      services.sketchybar.config.bar = mkOption {
+      services.sketchybar-custom.bar = mkOption {
         type = attrs;
         default = { };
         description = "bar's visual attributes";
       };
 
-      services.sketchybar.config.default = mkOption {
+      services.sketchybar-custom.default = mkOption {
         type = attrs;
         default = { };
         description = "item defaults";
       };
 
-      services.sketchybar.config.spaces = mkOption {
+      services.sketchybar-custom.spaces = mkOption {
         type = listOf (submodule {
           options = {
             name = mkOption {
@@ -232,7 +232,7 @@ in
         });
       };
 
-      services.sketchybar.config.events = mkOption {
+      services.sketchybar-custom.events = mkOption {
         type = listOf (submodule {
           options = {
             name = mkOption {
@@ -252,7 +252,7 @@ in
       };
 
       # ideally this would be typed as `listOf (oneOf [bracket item])` but that is not possible
-      services.sketchybar.config.items = mkOption {
+      services.sketchybar-custom.items = mkOption {
         type = listOf bracket;
         default = [ ];
         example = literalExpression ''
@@ -295,7 +295,7 @@ in
         description = "items";
       };
 
-      services.sketchybar.extraConfig = mkOption {
+      services.sketchybar-custom.extraConfig = mkOption {
         type = str;
         default = "";
         example = literalExpression ''
@@ -319,7 +319,7 @@ in
         serviceConfig.RunAtLoad = true;
         serviceConfig.EnvironmentVariables = {
           PATH = "${cfg.package}/bin:${config.environment.systemPath}";
-          XDG_CONFIG_HOME = mkIf (cfg.config != "") "${configHome}";
+          XDG_CONFIG_HOME = "${configHome}";
         };
       };
     };

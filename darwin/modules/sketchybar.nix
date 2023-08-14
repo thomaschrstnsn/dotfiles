@@ -85,10 +85,10 @@ in
       StandardOutPath = "/tmp/sketchybar.log";
     };
 
-    services.sketchybar = {
+    services.sketchybar-custom = {
       enable = true;
       package = pkgs.sketchybar;
-      config.bar = {
+      bar = {
         height = dimensions.bar.height;
         position = cfg.position;
         padding_left = default_padding;
@@ -100,7 +100,7 @@ in
         color = bar_color;
         blur_radius = background.blur_radius;
       };
-      config.default = {
+      default = {
         cache_scripts = "on";
         "icon.font" = icon_font;
         "icon.color" = icon_color;
@@ -111,7 +111,7 @@ in
         "icon.padding_left" = default_padding;
         "icon.padding_right" = default_padding;
       } // background;
-      config.spaces =
+      spaces =
         map
           (i:
             let space = toString i;
@@ -129,13 +129,13 @@ in
               };
             })
           (genList (i: i + 1) cfg.spaces);
-      config.events = [
+      events = [
         { name = cfg.yabai.event.title_change; }
         { name = cfg.yabai.event.window_focus; }
         { name = "yabai_layout"; }
         { name = events.bluetooth_change; notificationCenterEvent = "com.apple.bluetooth.status"; }
       ];
-      config.items = [
+      items = [
         (singleItemBracket {
           name = "yabai_mode";
           position = "left";
@@ -423,7 +423,7 @@ in
       ];
     };
 
-    services.sketchybar.extraConfig = ''
+    services.sketchybar-custom.extraConfig = ''
       # from https://github.com/FelixKratz/SketchyBar/discussions/12#discussioncomment-1633997
 
       sketchybar -m --update
