@@ -130,6 +130,7 @@ in
           enable = true;
           theme = variation;
           background.dark = variation;
+          transparent = true;
         };
       luaLoader.enable = true;
       plugins = {
