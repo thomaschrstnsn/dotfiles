@@ -163,11 +163,7 @@ in
           enable = true;
         };
         lspsaga = {
-          enable = false; # disabled after breaking on update: E5113: Error while calling lua chunk: ... attempt to call field 'init_lsp_saga' (a nil value)
-
-          signs = {
-            use = false;
-          };
+          enable = true;
         };
         nvim-lightbulb = {
           enable = true;
