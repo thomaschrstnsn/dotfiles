@@ -106,6 +106,8 @@ in
         tabstop = 4;
         scrolloff = 49;
 
+        signcolumn = "yes";
+
         clipboard = "unnamedplus";
 
         autoindent = true;
@@ -164,9 +166,7 @@ in
         };
         lspsaga = {
           enable = true;
-        };
-        nvim-lightbulb = {
-          enable = true;
+          lightbulb.virtualText = false;
         };
         nix.enable = true;
         notify.enable = true;
@@ -301,6 +301,7 @@ in
         normal."<leader>ld" = { action = "<cmd>Telescope lsp_definitions<cr>"; desc = "Definitions"; };
         normal."K" = { action = "<cmd>Lspsaga hover_doc<cr>"; desc = "Hover Docs"; };
         normal."<leader>lr" = { action = "<cmd>Lspsaga rename<cr>"; desc = "Rename"; };
+        normal."<leader>lo" = { action = "<cmd>Lspsaga outline<cr>"; desc = "Outline"; };
         ## trouble
         normal."<leader>lt" = { action = "<cmd>TroubleToggle<cr>"; desc = "Toggle Trouble"; };
         normal."<leader>n" = {
