@@ -302,6 +302,11 @@ in
         normal."K" = { action = "<cmd>Lspsaga hover_doc<cr>"; desc = "Hover Docs"; };
         normal."<leader>lr" = { action = "<cmd>Lspsaga rename<cr>"; desc = "Rename"; };
         normal."<leader>lo" = { action = "<cmd>Lspsaga outline<cr>"; desc = "Outline"; };
+        normal."[e" = { action = "<cmd>Lspsaga diagnostic_jump_next<cr>"; };
+        normal."]e" = { action = "<cmd>Lspsaga diagnostic_jump_prev<cr>"; };
+        normal."[E" = { action = "<cmd>lua NextError()<cr>"; };
+        normal."]E" = { action = "<cmd>lua PrevError()<cr>"; };
+
         ## trouble
         normal."<leader>lt" = { action = "<cmd>TroubleToggle<cr>"; desc = "Toggle Trouble"; };
         normal."<leader>n" = {

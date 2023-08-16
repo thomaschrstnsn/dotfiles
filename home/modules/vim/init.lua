@@ -10,6 +10,14 @@ telescope.setup {
 	},
 }
 
+function PrevError()
+	require("lspsaga.diagnostic"):goto_prev({ severity = vim.diagnostic.severity.ERROR })
+end
+
+function NextError()
+	require("lspsaga.diagnostic"):goto_next({ severity = vim.diagnostic.severity.ERROR })
+end
+
 function FormatSelection()
 	vim.lsp.buf.format({
 		async = true,
