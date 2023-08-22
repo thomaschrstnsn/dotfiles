@@ -12,7 +12,7 @@ let
 in
 {
   machines = {
-    aero-nix = import ./aero-nix { inherit systems; };
+    aero-nix = import ./aero-nix { inherit systems inputs; };
     aeris = import ./aeris { inherit systems; };
     ci-x64-darwin = import ./ci-x64-darwin { inherit systems skhd-scripts; };
     Atlas = import ./wsl/atlas.nix { inherit systems; };

@@ -1,4 +1,4 @@
-{ systems, ... }:
+{ systems, inputs, ... }:
 let
   username = "thomas";
   configurationRoot = ./nixos/machines/aero-nix;
@@ -53,6 +53,8 @@ in
     base = {
       imports = [
         ./configuration.nix
+
+        inputs.nixos-hardware.nixosModules.apple-macbook-air-6
       ];
     };
   };
