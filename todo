@@ -24,4 +24,7 @@
 	- irust (repl)
 	- bacon (test runner / compiler output)
 	- speedtest-rs
-
+- linux issue:
+	- wifi gone on unstable, was:
+[    4.046160] eth0: Broadcom BCM43a0 802.11 Hybrid Wireless Controller 6.30.223.271 (r587334)
+[    5.154938] wl 0000:03:00.0 wlp3s0: renamed from eth0
