@@ -5,6 +5,5 @@
     ./bootstrap.nix
     ./networking.nix
     ./user.nix
-    ./vscode-server.nix
   ];
 }
