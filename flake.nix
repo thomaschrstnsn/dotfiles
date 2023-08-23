@@ -16,10 +16,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nixos-vscode-server = {
-      url = "github:msteen/nixos-vscode-server";
-    };
-
     agenix = {
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -35,7 +31,7 @@
     };
   };
 
-  outputs = { nixpkgs, home-manager, darwin, nixos-vscode-server, nixvim, ... }@inputs:
+  outputs = { nixpkgs, home-manager, darwin, nixvim, ... }@inputs:
     let
       inherit (nixpkgs) lib;
 
@@ -114,8 +110,6 @@
                 useUserPackages = true;
               };
             }
-
-            nixos-vscode-server.nixosModule
 
             ./nixos/services
             ./nixos/modules
