@@ -16,6 +16,7 @@ in
       wl-clipboard
       wofi
       font-awesome
+      pavucontrol
       swaylock
       swayidle
     ];

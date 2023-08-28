@@ -38,6 +38,9 @@ in
     brave
     dmenu
     obsidian
+    sonic-pi
+    qt5.qtwayland
+
     # todoist-electron
     wezterm
   ];
