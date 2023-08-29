@@ -4,6 +4,7 @@ with lib;
 let
   cfg = config.tc.sway;
   mod = "Mod4";
+  lockCmd = "'swaylock -f -c 445566'";
 in
 {
   options.tc.sway = {
@@ -17,6 +18,7 @@ in
       wofi
       font-awesome
       pavucontrol
+      pulseaudio
       swaylock
       swayidle
     ];
@@ -55,18 +57,25 @@ in
           command = "waybar";
           position = "top";
         }];
+        keybindings = lib.mkOptionDefault {
+          XF86MonBrightnessUp = "exec light -A 10";
+          XF86MonBrightnessDown = "exec light -U 10";
+          # Control volume
+          XF86AudioRaiseVolume = "exec pactl set-sink-volume @DEFAULT_SINK@ +10%";
+          XF86AudioLowerVolume = "exec pactl set-sink-volume @DEFAULT_SINK@ -10%";
+          XF86AudioMute = "exec pactl set-sink-mute @DEFAULT_SINK@ toggle";
+          XF86AudioMicMute = "exec pactl set-source-mute @DEFAULT_SOURCE@ toggle";
+          # "Mod4+l" = "exec ${lockCmd}";
+        };
         startup = [
           {
-            command =
-              let lockCmd = "'swaylock -f -c 445566'";
-              in
-              ''
-                swayidle -w \
-                  timeout 300 ${lockCmd} \
-                  timeout 600 'swaymsg "output * dpms off"' \
-                  resume 'swaymsg "output * dpms on"' \
-                  before-sleep ${lockCmd}
-              '';
+            command = ''
+              swayidle -w \
+                timeout 300 ${lockCmd} \
+                timeout 600 'swaymsg "output * dpms off"' \
+                resume 'swaymsg "output * dpms on"' \
+                before-sleep ${lockCmd}
+            '';
           }
         ];
       };
@@ -106,13 +115,12 @@ in
             interval = 1;
             on-click = "play-pause ${toString number}";
           };
-          audioSupport = true;
         in
         [{
           height = 40;
-          modules-left = [ "sway/workspaces" "sway/mode" (mkIf audioSupport "custom/media#0") (mkIf audioSupport "custom/media#1") ];
+          modules-left = [ "sway/workspaces" "sway/mode" "custom/media#0" "custom/media#1" ];
           modules-center = [ ];
-          modules-right = [ "tray" (mkIf audioSupport "pulseaudio") "network" "memory" "cpu" "backlight" "battery#bat0" "battery#bat1" "clock" "custom/power" ];
+          modules-right = [ "tray" "pulseaudio" "network" "memory" "cpu" "backlight" "battery#bat0" "battery#bat1" "clock" "custom/power" ];
           modules = {
             "sway/workspaces" = {
               all-outputs = true;
@@ -163,7 +171,7 @@ in
               format-alt = "{bandwidthDownBits}/{bandwidthUpBits}";
               on-click-middle = "nm-connection-editor";
             };
-            pulseaudio = mkIf audioSupport {
+            pulseaudio = {
               scroll-step = 1;
               format = "{volume}% {icon} {format_source}";
               format-bluetooth = "{volume}% {icon} {format_source}";
@@ -182,8 +190,8 @@ in
               };
               on-click = "pavucontrol";
             };
-            "custom/media#0" = mkIf audioSupport (media { number = 0; });
-            "custom/media#1" = mkIf audioSupport (media { number = 1; });
+            "custom/media#0" = media { number = 0; };
+            "custom/media#1" = media { number = 1; };
             "custom/power" = {
               format = "";
               on-click = "nwgbar -o 0.2";

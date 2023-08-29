@@ -90,9 +90,11 @@
   users.users.thomas = {
     isNormalUser = true;
     description = "thomas";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "video" ];
     packages = with pkgs; [ ];
   };
+
+  programs.light.enable = true;
 
   nixpkgs.config.allowUnfree = true;
 
