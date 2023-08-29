@@ -44,7 +44,6 @@ in
         input = {
           "type:keyboard" = {
             xkb_layout = "gb";
-            xkb_options = "caps:escape";
           };
           "type:touchpad" = {
             tap = "enabled";
