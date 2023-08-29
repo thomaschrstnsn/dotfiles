@@ -1,50 +1,37 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
 { config, pkgs, ... }:
 
 {
   imports =
     [
-      # Include the results of the hardware scan.
       ./hardware-configuration.nix
     ];
 
-  # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.efi.efiSysMountPoint = "/boot/efi";
-  boot.loader.systemd-boot.configurationLimit = 10;
+  boot.loader = {
+    systemd-boot.enable = true;
+    efi.canTouchEfiVariables = true;
+    efi.efiSysMountPoint = "/boot/efi";
+    systemd-boot.configurationLimit = 10;
+  };
 
-  networking.hostName = "aero-nix"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  networking.hostName = "aero-nix";
 
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # Enable networking
   networking.networkmanager.enable = true;
 
-  # Set your time zone.
   time.timeZone = "Europe/Copenhagen";
 
-  # Select internationalisation properties.
   i18n.defaultLocale = "en_DK.utf8";
 
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
-
-  # Configure keymap in X11
   services.xserver = {
+    enable = true;
     layout = "gb";
-    # Enable touchpad support (enabled default in most desktopManager).
     libinput.enable = true;
   };
 
-  # Configure console keymap
   console.keyMap = "uk";
+  console = {
+    font = "ter-i20n";
+    packages = with pkgs; [ terminus_font ];
+  };
 
   programs.sway = {
     enable = true;
@@ -69,14 +56,12 @@
 
   programs.waybar.enable = true;
 
-  # Enable CUPS to print documents.
   services.printing.enable = true;
 
   services.dbus.enable = true;
   xdg.portal = {
     enable = true;
     wlr.enable = true;
-    # gtk portal needed to make gtk apps happy
     extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   };
 
@@ -94,29 +79,18 @@
     jack.enable = true;
   };
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
   users.defaultUserShell = pkgs.zsh;
   users.users.thomas = {
     isNormalUser = true;
     description = "thomas";
     extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-      # git
-      # vim
-    ];
+    packages = with pkgs; [ ];
   };
 
-  # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    #  wget
-  ];
+  environment.systemPackages = with pkgs; [ ];
 
-  # Enable the OpenSSH daemon.
   services.openssh.enable = true;
 
   services.kanata = {
