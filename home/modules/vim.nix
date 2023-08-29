@@ -491,6 +491,10 @@ in
           plugin = luasnip;
           config = mkLua ''require("luasnip/loaders/from_vscode").lazy_load()'';
         }
+        {
+          plugin = (fromGitHub "chrishrb/gx.nvim" "0.2.0" "a7cb094499907b3561aa6e135240dccbd89ed8a8");
+          config = mkLua ''require("gx").setup()'';
+        }
         nvim-treesitter-context
         nvim-treesitter-textobjects # for queries in mini-ai
         {
