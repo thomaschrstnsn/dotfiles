@@ -12,9 +12,8 @@
 ## Linux Desktop
 
 ### keymapping (caps = escape and hyper (when combined)):
-- keyd setup: https://gitlab.com/ajgrf/dotfiles/-/blob/master/nixos/modules/keyboard.nix (with nix-module)
-- https://github.com/k0kubun/xremap (also for wayland)
-- xcape 
+- setup hyperkey and mappings ala yabai/osx for sway
+- https://github.com/jtroo/kanata/blob/main/docs/config.adoc#tap-hold
 
 ### sway:
 - https://github.com/kubqoa/dotfiles/blob/main/modules/desktop/swaywm.nix (fairly custom setup)
