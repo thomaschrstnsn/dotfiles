@@ -37,3 +37,7 @@
 - irust (repl)
 - bacon (test runner / compiler output)
 - speedtest-rs
+
+## tmux
+
+- moving panes around ("wm"): https://superuser.com/questions/600286/move-pane-to-a-new-window-in-tmux
