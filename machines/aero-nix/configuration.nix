@@ -27,10 +27,28 @@
     libinput.enable = true;
   };
 
-  console.keyMap = "uk";
   console = {
+    keyMap = "uk";
     font = "ter-i20n";
     packages = with pkgs; [ terminus_font ];
+    colors = [
+      "16161D"
+      "C34043"
+      "76946A"
+      "C0A36E"
+      "7E9CD8"
+      "957FB8"
+      "6A9589"
+      "C8C093"
+      "727169"
+      "E82424"
+      "98BB6C"
+      "E6C384"
+      "7FB4CA"
+      "938AA9"
+      "7AA89F"
+      "DCD7BA"
+    ];
   };
 
   programs.sway = {
