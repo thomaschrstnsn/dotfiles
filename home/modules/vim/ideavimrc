@@ -35,6 +35,14 @@ nmap - /
 nmap gcc <Action>(CommentByLineComment)
 vmap gc <Action>(CommentByLineComment)
 
+" harpoon: https://github.com/AlexGirardDev/HarpoonIJ
+nmap <leader>jj :action ShowHarpoon<CR>
+nmap <leader>ja :action AddToHarpoon<CR>
+nmap <C-f> :action GotoHarpoon1<CR>
+nmap <C-d> :action GotoHarpoon2<CR>
+nmap <C-s> :action GotoHarpoon3<CR>
+nmap <C-a> :action GotoHarpoon4<CR>
+
 "https://youtrack.jetbrains.com/issue/IDEA-306871/Question-What-is-the-action-when-the-mouse-hovers
 nmap K <Action>(ShowErrorDescription)<Action>(QuickJavaDoc) 
 noremap gi :action GotoImplementation<CR>
