@@ -11,7 +11,7 @@ in
     };
     dotnet = {
       enable = true;
-      sdks = [ "6.0" "7.0" ];
+      sdks = [ "7.0" ];
     };
     git = {
       enable = true;
@@ -30,7 +30,10 @@ in
       enable = true;
       editor = "nvim";
     };
-    vim.enable = true;
+    vim = {
+      enable = true;
+      lsp.servers.csharp = true;
+    };
     direnv.enable = true;
   };
   extraPackages = pkgs: with pkgs; [

@@ -77,6 +77,11 @@ in
         description = "all or slim (intended for servers)";
       };
     };
+    lsp.servers.csharp = mkOption {
+      type = types.bool;
+      default = false;
+      description = "csharp lsp enabled";
+    };
     lsp.servers.javascript = mkOption {
       type = types.bool;
       default = false;
@@ -165,6 +170,7 @@ in
           enable = true;
           servers = {
             bashls.enable = true;
+            csharp-ls.enable = cfg.lsp.servers.csharp;
             eslint.enable = cfg.lsp.servers.javascript;
             jsonls.enable = cfg.lsp.servers.javascript;
             lua-ls.enable = true;
