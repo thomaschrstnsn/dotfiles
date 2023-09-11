@@ -54,8 +54,8 @@ nnoremap ]] :action MethodDown<CR>
 nnoremap <leader>, :action RecentFiles<CR>
 nnoremap <leader>g :action ActivateCommitToolWindow<CR>
 
-nnoremap ge :action NextOccurence<CR>
-nnoremap gE :action PreviousOccurence<CR>
+nnoremap [e :action NextOccurence<CR>
+nnoremap ]e :action PreviousOccurence<CR>
 
 nnoremap C-o :action Back<CR>
 nnoremap C-i :action Forward<CR>
