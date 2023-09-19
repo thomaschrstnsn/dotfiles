@@ -9,17 +9,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1690228878,
-        "narHash": "sha256-9Xe7JV0krp4RJC9W9W9WutZVlw6BlHTFMiUP/k48LQY=",
-        "owner": "ryantm",
-        "repo": "agenix",
-        "rev": "d8c973fd228949736dedf61b7f8cc1ece3236792",
-        "type": "github"
+        "narHash": "sha256-/o/OubAsPMbxqru59tLlWzUI7LBNDaoW4rFwQ2Smxcg=",
+        "rev": "54693c91d923fecb4cf04c4535e3d84f8dec7919",
+        "revCount": 252,
+        "type": "tarball",
+        "url": "https://api.flakehub.com/f/pinned/ryantm/agenix/0.14.0/018a95ff-fb8b-733c-b44f-dec952c16ff7/source.tar.gz"
       },
       "original": {
-        "owner": "ryantm",
-        "repo": "agenix",
-        "type": "github"
+        "type": "tarball",
+        "url": "https://flakehub.com/f/ryantm/agenix/0.14.0.tar.gz"
       }
     },
     "beautysh": {
@@ -189,48 +187,41 @@
         ]
       },
       "locked": {
-        "lastModified": 1692131549,
-        "narHash": "sha256-MFjI8NL63/6HjMZpvJgnB/Pgg2dht22t45jOYtipZig=",
-        "owner": "nix-community",
-        "repo": "home-manager",
-        "rev": "75cfe974e2ca05a61b66768674032b4c079e55d4",
-        "type": "github"
+        "narHash": "sha256-tz5UGS2Td0bhbso/g1HnUvKGDQ8ocL4UCfJ/Ro0q3gw=",
+        "rev": "ee9f5dc8f691c69f9bd84194fdbf63d41efb6649",
+        "revCount": 3018,
+        "type": "tarball",
+        "url": "https://api.flakehub.com/f/pinned/nix-community/home-manager/0.1.3018%2Brev-ee9f5dc8f691c69f9bd84194fdbf63d41efb6649/018aae80-f80b-7a5c-b62b-a080da774090/source.tar.gz"
       },
       "original": {
-        "owner": "nix-community",
-        "repo": "home-manager",
-        "type": "github"
+        "type": "tarball",
+        "url": "https://flakehub.com/f/nix-community/home-manager/0.1.3013.tar.gz"
       }
     },
     "nixos-hardware": {
       "locked": {
-        "lastModified": 1691871742,
-        "narHash": "sha256-6yDNjfbAMpwzWL4y75fxs6beXHRANfYX8BNSPjYehck=",
-        "owner": "NixOS",
-        "repo": "nixos-hardware",
-        "rev": "430a56dd16fe583a812b2df44dca002acab2f4f6",
-        "type": "github"
+        "narHash": "sha256-4rpyoVzmunIG6xWA/EonnSSqC69bDBzciFi6SjBze/0=",
+        "rev": "cb4dc98f776ddb6af165e6f06b2902efe31ca67a",
+        "revCount": 1380,
+        "type": "tarball",
+        "url": "https://api.flakehub.com/f/pinned/NixOS/nixos-hardware/0.1.1380%2Brev-cb4dc98f776ddb6af165e6f06b2902efe31ca67a/018aae80-9041-76c7-9317-c275a5c481a6/source.tar.gz"
       },
       "original": {
-        "owner": "NixOS",
-        "ref": "master",
-        "repo": "nixos-hardware",
-        "type": "github"
+        "type": "tarball",
+        "url": "https://flakehub.com/f/NixOS/nixos-hardware/0.1.1377.tar.gz"
       }
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1692128808,
-        "narHash": "sha256-Di1Zm/P042NuwThMiZNrtmaAjd4Tm2qBOKHX7xUOfMk=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "4ed9856be002a730234a1a1ed9dcd9dd10cbdb40",
-        "type": "github"
+        "narHash": "sha256-CXQ2MuledDVlVM5dLC4pB41cFlBWxRw4tCBsFrq3cRk=",
+        "rev": "970a59bd19eff3752ce552935687100c46e820a5",
+        "revCount": 526521,
+        "type": "tarball",
+        "url": "https://api.flakehub.com/f/pinned/NixOS/nixpkgs/0.1.526521%2Brev-970a59bd19eff3752ce552935687100c46e820a5/018aabed-d05c-7478-b3db-bed61902efec/source.tar.gz"
       },
       "original": {
-        "id": "nixpkgs",
-        "ref": "nixpkgs-unstable",
-        "type": "indirect"
+        "type": "tarball",
+        "url": "https://flakehub.com/f/NixOS/nixpkgs/0.1.525972.tar.gz"
       }
     },
     "nixpkgs-stable": {
@@ -259,17 +250,15 @@
         "pre-commit-hooks": "pre-commit-hooks"
       },
       "locked": {
-        "lastModified": 1692189925,
-        "narHash": "sha256-Yt6jKh8YIu4WLnKDfdo9yNU+vS2NPGeAWk+7VfLUsxk=",
-        "owner": "nix-community",
-        "repo": "nixvim",
-        "rev": "9f8ce75653d0c0a6d0175166e6dd0286a58fe5ef",
-        "type": "github"
+        "narHash": "sha256-Xesa3LfhWqRxXu+5K72EXSlQhmV4irPPIPC0nvAbu3w=",
+        "rev": "288e46e2d8facc56585381ba1b822507b34d5b30",
+        "revCount": 648,
+        "type": "tarball",
+        "url": "https://api.flakehub.com/f/pinned/nix-community/nixvim/0.1.648%2Brev-288e46e2d8facc56585381ba1b822507b34d5b30/018aad6b-8c33-73ff-9116-2d761c285d15/source.tar.gz"
       },
       "original": {
-        "owner": "nix-community",
-        "repo": "nixvim",
-        "type": "github"
+        "type": "tarball",
+        "url": "https://flakehub.com/f/nix-community/nixvim/0.1.648.tar.gz"
       }
     },
     "poetry2nix": {
