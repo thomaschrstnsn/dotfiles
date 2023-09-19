@@ -13,8 +13,6 @@
       enable = true;
       githubs = [ ];
     };
-    haskell.stack.enable = true;
-    haskell.ihp.enable = true;
     ssh = {
       enable = true;
       use1PasswordAgentOnMac = true;
