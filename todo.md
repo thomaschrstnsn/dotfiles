@@ -5,6 +5,7 @@
 - karabiner https://github.com/kpritam/nixpkgs/blob/15206cc36ba70d7f750073b816af23d8a7fa68b5/configs/karabiner.json
 - code sign (yabai, skhd, sketchybar) to retain rights between versions.
   Example from yabai: https://github.com/koekeishiya/yabai/wiki/Installing-yabai-(from-HEAD)
+- touchid for sudo from tmux: https://github.com/fabianishere/pam_reattach
 
 ## Raspberry Pi 4
 - bluetooth: https://github.com/NixOS/nixpkgs/issues/123725
