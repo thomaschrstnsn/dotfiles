@@ -1,13 +1,10 @@
 {
   description = "User Config";
   inputs = {
-    nixpkgs.url = "nixpkgs/nixpkgs-unstable";
-
-    # nixos-stable.url = "nixpkgs/nixos-stable";
-    # nixos-unstable.url = "nixpkgs/nixos-unstable";
+    nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1.525972.tar.gz";
 
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "https://flakehub.com/f/nix-community/home-manager/0.1.*.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -17,16 +14,16 @@
     };
 
     agenix = {
-      url = "github:ryantm/agenix";
+      url = "https://flakehub.com/f/ryantm/agenix/0.14.*.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nixos-hardware = {
-      url = github:NixOS/nixos-hardware/master;
+      url = "https://flakehub.com/f/NixOS/nixos-hardware/0.1.*.tar.gz";
     };
 
     nixvim = {
-      url = github:nix-community/nixvim;
+      url = "https://flakehub.com/f/nix-community/nixvim/0.1.*.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
