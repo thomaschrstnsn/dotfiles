@@ -4,7 +4,7 @@
     nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1.525972.tar.gz";
 
     home-manager = {
-      url = "https://flakehub.com/f/nix-community/home-manager/0.1.3013.tar.gz";
+      url = "https://flakehub.com/f/nix-community/home-manager/0.1.*.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -14,16 +14,16 @@
     };
 
     agenix = {
-      url = "https://flakehub.com/f/ryantm/agenix/0.14.0.tar.gz";
+      url = "https://flakehub.com/f/ryantm/agenix/0.14.*.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nixos-hardware = {
-      url = "https://flakehub.com/f/NixOS/nixos-hardware/0.1.1377.tar.gz";
+      url = "https://flakehub.com/f/NixOS/nixos-hardware/0.1.*.tar.gz";
     };
 
     nixvim = {
-      url = "https://flakehub.com/f/nix-community/nixvim/0.1.648.tar.gz";
+      url = "https://flakehub.com/f/nix-community/nixvim/0.1.*.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
