@@ -7,7 +7,7 @@
     };
     dotnet = {
       enable = true;
-      sdks = [ "7.0" ];
+      sdks = [ "6.0" "7.0" ];
     };
     git = {
       enable = true;
@@ -22,6 +22,7 @@
     smd_launcher.enable = true;
     vim = {
       enable = true;
+      lsp.servers.omnisharp = true;
     };
     tmux.enable = true;
     wezterm = { enable = true; };

@@ -77,6 +77,11 @@ in
         description = "all or slim (intended for servers)";
       };
     };
+    lsp.servers.omnisharp = mkOption {
+      type = types.bool;
+      default = false;
+      description = "omnisharp lsp enabled";
+    };
     lsp.servers.csharp = mkOption {
       type = types.bool;
       default = false;
@@ -174,6 +179,13 @@ in
             eslint.enable = cfg.lsp.servers.javascript;
             jsonls.enable = cfg.lsp.servers.javascript;
             lua-ls.enable = true;
+            omnisharp = {
+              enable = cfg.lsp.servers.omnisharp;
+              settings = {
+                enableImportCompletion = true;
+                enableRoslynAnalyzers = true;
+              };
+            };
             rnix-lsp.enable = true;
             tsserver.enable = cfg.lsp.servers.javascript;
           };
