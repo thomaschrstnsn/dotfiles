@@ -30,6 +30,7 @@
 ## Neovim
 - rust setup (dap): https://www.youtube.com/watch?v=mh_EJhH49M
 - https://github.com/KostkaBrukowa/definition-or-references.nvim/wiki/Simple-reference-response-handler
+- treesitter textobject motions: https://www.youtube.com/watch?v=CEMPq_r8UYQ
 
 
 ## Rust (tools)
