@@ -24,8 +24,7 @@ set which-key
 let g:WhichKey_FontSize = 15
 set timeoutlen=3500
 
-"set easymotion 
-" needs AceJump plugin
+set easymotion " needs AceJump plugin and IdeaVim-EasyMotion
 
 " nmap <leader><leader>f <Plug>(easymotion-f)
 "Plug 'easymotion/vim-easymotion'
@@ -34,7 +33,7 @@ set timeoutlen=3500
 nmap <Esc> :noh<CR><Esc>
 nmap <leader>ff <Action>(GotoFile)
 nmap <leader>fs <Action>(FindInPath)
-"nmap <leader>fs <Action>(TextSearchAction)
+nmap <leader>ft <Action>(TextSearchAction)
 nmap <leader>fd <Action>(GotoSymbol)
 nmap <leader>w :w<CR>
 nmap <leader>q :q<CR>
