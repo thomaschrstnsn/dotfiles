@@ -32,7 +32,8 @@ in
     };
     vim = {
       enable = true;
-      lsp.servers.csharp = true;
+      # lsp.servers.csharp = true;
+      lsp.servers.omnisharp = true;
     };
     direnv.enable = true;
   };
