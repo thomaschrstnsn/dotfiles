@@ -1,3 +1,4 @@
+"  inspirations: https://github.com/JetBrains/ideavim/discussions/303
 set relativenumber
 set number 
 set ignorecase
@@ -7,6 +8,7 @@ set incsearch
 set startofline
 
 set scrolloff=50
+let mapleader=" "
 
 set ideajoin
 set idearefactormode=keep
@@ -19,19 +21,26 @@ set argtextobj
 set highlightedyank
 set surround
 set which-key
+let g:WhichKey_FontSize = 15
 set timeoutlen=3500
 
-let mapleader=" "
+"set easymotion 
+" needs AceJump plugin
+
+" nmap <leader><leader>f <Plug>(easymotion-f)
+"Plug 'easymotion/vim-easymotion'
+"map ,f <Plug>(easymotion-bd-f)
 
 nmap <Esc> :noh<CR><Esc>
 nmap <leader>ff <Action>(GotoFile)
 nmap <leader>fs <Action>(FindInPath)
+"nmap <leader>fs <Action>(TextSearchAction)
 nmap <leader>fd <Action>(GotoSymbol)
 nmap <leader>w :w<CR>
 nmap <leader>q :q<CR>
-nmap <leader>r :source ~/.ideavimrc<CR>
+nmap <leader><leader>r :source ~/.ideavimrc<CR>
 nmap <leader>e :NERDTreeFind<CR>
-nmap - /
+" nmap - /
 nmap gcc <Action>(CommentByLineComment)
 vmap gc <Action>(CommentByLineComment)
 
@@ -77,7 +86,7 @@ nmap <leader>sx :action Unsplit<cr>
 nmap <leader>bX :action CloseAllUnpinnedEditors<cr>
 nmap <leader>bx :action CloseEditor<cr>
 
-" nmap <leader>m :action ProjectView.ShowMembers
+nmap <leader>m :action ProjectView.ShowMembers<cr>
 
 nmap <C-l> <C-w>l
 nmap <C-h> <C-w>h
@@ -93,6 +102,20 @@ vmap <C-Space> <Action>(EditorSelectWord)
 nnoremap ,r :action ContextRun<CR>
 nnoremap ,b :action ToggleLineBreakpoint<CR>
 nnoremap ,d :action ContextDebug<CR>
+
+nmap <leader>rr <Action>(Refactorings.QuickListPopupAction)
+vmap <leader>rm <action>(ExtractMethod)
+nmap <leader>rm <action>(ExtractMethod)
+" extract constant
+vmap <leader>rc <action>(IntroduceConstant)
+nmap <leader>rc <action>(IntroduceConstant)
+" extract field
+vmap <leader>rf <action>(IntroduceField)
+nmap <leader>rf <action>(IntroduceField)
+" extract variable
+vmap <leader>rv <action>(IntroduceVariable)
+nmap <leader>rv <action>(IntroduceVariable)
+nmap <leader>rg <Action>(Generate)
 
 " for trying out new settings without doing the nix dance
 source ~/.ideavimrc.notnix
