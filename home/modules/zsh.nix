@@ -47,6 +47,7 @@ in
     };
 
     home.packages = with pkgs; [
+      bottom
       du-dust
       fd
       file
