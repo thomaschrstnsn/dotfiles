@@ -5,7 +5,7 @@ let
   cfg = config.tc.vim;
   wslCfg = config.tc.wsl;
 
-  fromGitHub = repo: version: rev: pkgs.vimUtils.buildVimPluginFrom2Nix {
+  fromGitHub = repo: version: rev: pkgs.vimUtils.buildVimPlugin {
     pname = "${lib.strings.sanitizeDerivationName repo}";
     version = version;
     src = builtins.fetchGit {
@@ -166,9 +166,11 @@ in
         };
         indent-blankline = {
           enable = true;
-          showCurrentContext = true;
-          showCurrentContextStart = true;
-          showTrailingBlanklineIndent = false;
+          scope = {
+            enabled = true;
+            showStart = true;
+          };
+          whitespace.removeBlanklineTrail = false;
         };
         lualine = { enable = true; };
         lsp = {
@@ -203,7 +205,7 @@ in
         };
         nix.enable = true;
         notify.enable = true;
-        null-ls = {
+        none-ls = {
           enable = true;
           sources = {
             diagnostics.shellcheck.enable = true;
@@ -295,7 +297,6 @@ in
         };
       };
       maps = {
-        normal."-" = "/";
         normal."<leader>e" = {
           silent = true;
           action = "<cmd>NvimTreeFindFileToggle<CR>";
