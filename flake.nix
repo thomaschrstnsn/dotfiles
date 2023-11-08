@@ -1,7 +1,7 @@
 {
   description = "User Config";
   inputs = {
-    nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1.525972.tar.gz";
+    nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1.*.tar.gz";
 
     home-manager = {
       url = "https://flakehub.com/f/nix-community/home-manager/0.1.*.tar.gz";
