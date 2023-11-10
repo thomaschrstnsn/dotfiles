@@ -296,212 +296,265 @@ in
           window.border = "single";
         };
       };
-      maps = {
-        normal."<leader>e" = {
-          silent = true;
+      keymaps = [
+        {
+          key = "<leader>e";
           action = "<cmd>NvimTreeFindFileToggle<CR>";
-        };
-        normal."<esc>" = {
+          options = {
+            silent = true;
+            desc = "nvimtree toggle";
+          };
+        }
+        {
+          key = "<esc>";
           action = "<cmd>noh<cr><esc>";
-          desc = "Escape and clear hlsearch";
-        };
+          options = {
+            desc = "Escape and clear hlsearch";
+          };
+        }
 
-        normal."<leader>w" = { action = "<cmd>w<cr>"; desc = "Save"; };
-        normal."<leader>q" = { action = "<cmd>q<cr>"; desc = "Quit"; };
+        {
+          key = "<leader>w";
+          action = "<cmd>w<cr>";
+          mode = "n";
+          options.desc = "Save";
+        }
+        {
+          key = "<leader>q";
+          action = "<cmd>q<cr>";
+          mode = "n";
+          options.desc = "Quit";
+        }
 
-        normal."gd" = {
+        {
+          key = "gd";
           action = ''<cmd>lua require("definition-or-references").definition_or_references();<cr>'';
-          desc = "Go to definition or references";
-        };
+          mode = "n";
+          options.desc = "Go to definition or references";
+        }
 
         # buffers 
-        normal."<leader>x" = { action = "<cmd>BufferClose<cr>"; desc = "Close buffer"; };
-        normal."<leader>X" = {
+        {
+          key = "<leader>x";
+          action = "<cmd>BufferClose<cr>";
+          mode = "n";
+          options.desc = "Close buffer";
+        }
+        {
+          key = "<leader>X";
           action = "<cmd>BufferCloseAllButCurrentOrPinned<cr>";
-          desc = "Close buffers (except current and pinned)";
-        };
-        normal."<leader>bx" = { action = "<cmd>BufferClose<cr>"; desc = "Close buffer"; };
-        normal."<leader>bX" = {
+          mode = "n";
+          options.desc = "Close buffers (except current and pinned)";
+        }
+        {
+          key = "<leader>bx";
+          action = "<cmd>BufferClose<cr>";
+          mode = "n";
+          options.desc = "Close buffer";
+        }
+        {
+          key = "<leader>bX";
           action = "<cmd>BufferCloseAllButCurrentOrPinned<cr>";
-          desc = "Close buffers (except current and pinned)";
-        };
-        normal."<leader>bj" = { action = "<cmd>BufferPick<cr>"; desc = "Pick buffer"; };
-        normal."<leader>bp" = { action = "<cmd>BufferPin<cr>"; desc = "Pin buffer"; };
-        normal."<Tab>" = "<cmd>bn<CR>";
-        normal."<S-Tab>" = "<cmd>bp<CR>";
+          mode = "n";
+          options.desc = "Close buffers (except current and pinned)";
+        }
+        { key = "<leader>bj"; action = "<cmd>BufferPick<cr>"; options.desc = "Pick buffer"; }
+        { key = "<leader>bp"; action = "<cmd>BufferPin<cr>"; mode = "n"; options.desc = "Pin buffer"; }
+        { key = "<Tab>"; action = "<cmd>bn<CR>"; mode = "n"; }
+        { key = "<S-Tab>"; action = "<cmd>bp<CR>"; mode = "n"; }
 
         # lsp
-        normal."<leader>la" = { action = "<cmd>Lspsaga code_action<cr>"; desc = "Code Actions"; };
-        normal."<leader>ld" = { action = "<cmd>Telescope lsp_definitions<cr>"; desc = "Definitions"; };
-        normal."K" = { action = "<cmd>Lspsaga hover_doc<cr>"; desc = "Hover Docs"; };
-        normal."<leader>lr" = { action = "<cmd>Lspsaga rename<cr>"; desc = "Rename"; };
-        normal."<leader>lo" = { action = "<cmd>Lspsaga outline<cr>"; desc = "Outline"; };
-        normal."[e" = { action = "<cmd>Lspsaga diagnostic_jump_next<cr>"; };
-        normal."]e" = { action = "<cmd>Lspsaga diagnostic_jump_prev<cr>"; };
-        normal."[E" = { action = "<cmd>lua NextError()<cr>"; };
-        normal."]E" = { action = "<cmd>lua PrevError()<cr>"; };
+        { key = "<leader>la"; action = "<cmd>Lspsaga code_action<cr>"; mode = "n"; options.desc = "Code Actions"; }
+        { key = "<leader>ld"; action = "<cmd>Telescope lsp_definitions<cr>"; mode = "n"; options.desc = "Definitions"; }
+        { key = "K"; action = "<cmd>Lspsaga hover_doc<cr>"; mode = "n"; options.desc = "Hover Docs"; }
+        { key = "<leader>lr"; action = "<cmd>Lspsaga rename<cr>"; mode = "n"; options.desc = "Rename"; }
+        { key = "<leader>lo"; action = "<cmd>Lspsaga outline<cr>"; mode = "n"; options.desc = "Outline"; }
+        { key = "[e"; mode = "n"; action = "<cmd>Lspsaga diagnostic_jump_next<cr>"; }
+        { key = "]e"; mode = "n"; action = "<cmd>Lspsaga diagnostic_jump_prev<cr>"; }
+        { key = "[E"; mode = "n"; action = "<cmd>lua NextError()<cr>"; }
+        { key = "]E"; mode = "n"; action = "<cmd>lua PrevError()<cr>"; }
 
         ## trouble
-        normal."<leader>lt" = { action = "<cmd>TroubleToggle<cr>"; desc = "Toggle Trouble"; };
-        normal."<leader>n" = {
+        { key = "<leader>lt"; action = "<cmd>TroubleToggle<cr>"; options.desc = "Toggle Trouble"; }
+        {
+          key = "<leader>n";
           action = ''<cmd>lua require("trouble").next({skip_groups = true, jump = true});<cr>'';
-          desc = "Next trouble";
-        };
-        normal."<leader>N" = {
+          options.desc = "Next trouble";
+          mode = "n";
+        }
+        {
+          key = "<leader>N";
           action = ''<cmd>lua require("trouble").previous({skip_groups = true, jump = true});<cr>'';
-          desc = "Previous trouble";
-        };
-        normal."gR" = {
+          options.desc = "Previous trouble";
+          mode = "n";
+        }
+        {
+          key = "gR";
           action = "<cmd>TroubleToggle lsp_references<cr>";
-          desc = "references";
-        };
+          options.desc = "references";
+          mode = "n";
+        }
 
         # toggleterm
-        normal."<leader>g" = { action = "<cmd>lua Gitui_toggle()<CR>"; };
-        normal."<leader>th" = { action = ":ToggleTerm direction=horizontal<CR>"; };
-        normal."<leader>tv" = { action = ":ToggleTerm direction=vertical<CR>"; };
-        normal."<leader>tf" = { action = ":ToggleTerm direction=float<CR>"; };
+        { key = "<leader>g"; action = "<cmd>lua Gitui_toggle()<CR>"; }
+        { key = "<leader>th"; mode = "n"; action = ":ToggleTerm direction=horizontal<CR>"; }
+        { key = "<leader>tv"; mode = "n"; action = ":ToggleTerm direction=vertical<CR>"; }
+        { key = "<leader>tf"; mode = "n"; action = ":ToggleTerm direction=float<CR>"; }
         # toggle is \\
 
         # Move inside wrapped line
-        normal."j" = { action = "v:count == 0 ? 'gj' : 'j'"; silent = true; expr = true; };
-        normal."k" = { action = "v:count == 0 ? 'gk' : 'k'"; silent = true; expr = true; };
+        { key = "j"; mode = "n"; action = "v:count == 0 ? 'gj' : 'j'"; options = { silent = true; expr = true; }; }
+        { key = "k"; mode = "n"; action = "v:count == 0 ? 'gk' : 'k'"; options = { silent = true; expr = true; }; }
 
-        normal."<C-S-j>" = { action = "<cmd>m .+1<cr>=="; desc = "Move down"; };
-        normal."<C-S-k>" = { action = "<cmd>m .-2<cr>=="; desc = "Move up"; };
-        insert."<C-S-j>" = { action = "<esc><cmd>m .+1<cr>==gi"; desc = "Move down"; };
-        insert."<C-S-k>" = { action = "<esc><cmd>m .-2<cr>==gi"; desc = "Move up"; };
-        visual."<C-S-j>" = { action = ":m '>+1<cr>gv=gv"; desc = "Move down"; };
-        visual."<C-S-k>" = { action = ":m '<-2<cr>gv=gv"; desc = "Move up"; };
+        { key = "<C-S-j>"; mode = "n"; action = "<cmd>m .+1<cr>=="; options.desc = "Move down"; }
+        { key = "<C-S-k>"; mode = "n"; action = "<cmd>m .-2<cr>=="; options.desc = "Move up"; }
+        { key = "<C-S-j>"; mode = "i"; action = "<esc><cmd>m .+1<cr>==gi"; options.desc = "Move down"; }
+        { key = "<C-S-k>"; mode = "i"; action = "<esc><cmd>m .-2<cr>==gi"; options.desc = "Move up"; }
+        { key = "<C-S-j>"; mode = "v"; action = ":m '>+1<cr>gv=gv"; options.desc = "Move down"; }
+        { key = "<C-S-k>"; mode = "v"; action = ":m '<-2<cr>gv=gv"; options.desc = "Move up"; }
 
         # Telescope
-        normal."<leader>-" = {
+        {
+          key = "<leader>-";
           action = ''<cmd>Telescope current_buffer_fuzzy_find<CR>'';
-          desc = "find in current buffer";
-        };
-        normal."<leader>ff" = {
+          options.desc = "find in current buffer";
+          mode = "n";
+        }
+        {
+          key = "<leader>ff";
+          mode = "n";
           action = ''<cmd>Telescope find_files<CR>'';
-          desc = "find file";
-        };
-        normal."<leader>fs" = {
+          options.desc = "find file";
+        }
+        {
+          key = "<leader>fs";
+          mode = "n";
           action = ''<cmd>Telescope live_grep<CR>'';
-          desc = "find word";
-        };
-        normal."<leader>fb" = {
+          options.desc = "find word";
+        }
+
+        {
+          key = "<leader>fb";
+          mode = "n";
           action = ''<cmd>Telescope buffers<CR>'';
-          desc = "find buffer";
-        };
-        normal."<leader>fh" = {
+          options.desc = "find buffer";
+        }
+        {
+          key = "<leader>fh";
+          mode = "n";
           action = ''<cmd>Telescope help_tags<CR>'';
-          desc = "find help";
-        };
-        normal."<leader>:" = {
+          options.desc = "find help";
+        }
+        {
+          key = "<leader>:";
+          mode = "n";
           action = "<cmd>Telescope command_history<cr>";
-          desc = "Command History";
-        };
-        normal."<leader>sk" = {
+          options.desc = "Command History";
+        }
+        {
+          key = "<leader>sk";
+          mode = "n";
           action = "<cmd>Telescope keymaps<cr>";
-          desc = "Key Maps";
-        };
-        normal."<leader>," = {
+          options.desc = "Key Maps";
+        }
+        {
+          key = "<leader>,";
+          mode = "n";
           action = "<cmd>Telescope buffers<cr>";
-          desc = "recent buffers";
-        };
+          options.desc = "recent buffers";
+        }
 
-        normal."<leader>." = {
+        {
+          key = "<leader>.";
+          mode = "n";
           action = "<cmd>@:<CR>";
-          desc = "Repeat last command";
-        };
-
-        #nvim-rest
-        # normal."<leader>rr" = {
-        #   action = "<cmd>lua require('rest-nvim').run()<CR>";
-        # };
-        # normal."<leader>rl" = {
-        #   action = "<cmd>lua require('rest-nvim').last()<CR>";
-        #   desc = "Replay last request";
-        # };
-        # normal."<leader>rp" = {
-        #   action = "<cmd>lua require('rest-nvim').run(true)<CR>";
-        #   desc = "Preview request";
-        # };
+          options.desc = "Repeat last command";
+        }
 
         # rust-tools-nvim
-        normal."<leader>r" = {
+        {
+          key = "<leader>r";
+          mode = "n";
           action = "<cmd>lua require('rust-tools').runnables.runnables()<CR>";
-          desc = "Rust Runnables";
-        };
+          options.desc = "Rust Runnables";
+        }
 
         # keep selection when indenting
-        visual.">" = {
-          noremap = true;
-          action = ">gv";
-        };
-        visual."<" = {
-          noremap = true;
-          action = "<gv";
-        };
+        { key = ">"; mode = "v"; action = ">gv"; }
+        { key = "<"; mode = "v"; action = "<gv"; }
 
-        normal."<leader><CR>" = {
+        {
+          key = "<leader><CR>";
+          mode = "n";
           action = "<cmd>lua vim.lsp.buf.format {async = true;}<CR>";
-          desc = "Format buffer (via LSP)";
-        };
-        visual."<leader><CR>" = {
+          options.desc = "Format buffer (via LSP)";
+        }
+        {
+          key = "<leader><CR>";
+          mode = "v";
           action = ''<cmd>lua FormatSelection()<CR>'';
-          desc = "Format selection (via LSP)";
-        };
+          options.desc = "Format selection (via LSP)";
+        }
 
         # splits
-        normal."<leader>sv" = {
+        {
+          key = "<leader>sv";
+          mode = "n";
           action = "<C-w>v";
-          desc = "split vertically";
-        };
-        normal."<leader>sh" = {
+          options.desc = "split vertically";
+        }
+        {
+          key = "<leader>sh";
+          mode = "n";
           action = "<C-w>s";
-          desc = "split horizontally";
-        };
-        normal."<leader>se" = {
+          options.desc = "split horizontally";
+        }
+        {
+          key = "<leader>se";
+          mode = "n";
           action = "<C-w>=";
-          desc = "even splits";
-        };
-        normal."<leader>sx" = {
+          options.desc = "even splits";
+        }
+        {
+          key = "<leader>sx";
+          mode = "n";
           action = "<cmd>:close<CR>";
-          desc = "close current window split";
-        };
-        normal."<C-h>" = "<cmd>wincmd h<CR>";
-        normal."<C-j>" = "<cmd>wincmd j<CR>";
-        normal."<C-k>" = "<cmd>wincmd k<CR>";
-        normal."<C-l>" = "<cmd>wincmd l<CR>";
+          options.desc = "close current window split";
+        }
+
+        { key = "<C-h>"; mode = "n"; action = "<cmd>wincmd h<CR>"; }
+        { key = "<C-j>"; mode = "n"; action = "<cmd>wincmd j<CR>"; }
+        { key = "<C-k>"; mode = "n"; action = "<cmd>wincmd k<CR>"; }
+        { key = "<C-l>"; mode = "n"; action = "<cmd>wincmd l<CR>"; }
 
         # crates-nvim
-        normal."<leader>ct" = ":lua require('crates').toggle()<cr>";
-        normal."<leader>cr" = ":lua require('crates').reload()<cr>";
+        { key = "<leader>ct"; mode = "n"; action = ":lua require('crates').toggle()<cr>"; }
+        { key = "<leader>cr"; mode = "n"; action = ":lua require('crates').reload()<cr>"; }
 
-        normal."<leader>cv" = ":lua require('crates').show_versions_popup()<cr>";
-        normal."<leader>cf" = ":lua require('crates').show_features_popup()<cr>";
-        normal."<leader>cd" = ":lua require('crates').show_dependencies_popup()<cr>";
+        { key = "<leader>cv"; mode = "n"; action = ":lua require('crates').show_versions_popup()<cr>"; }
+        { key = "<leader>cf"; mode = "n"; action = ":lua require('crates').show_features_popup()<cr>"; }
+        { key = "<leader>cd"; mode = "n"; action = ":lua require('crates').show_dependencies_popup()<cr>"; }
 
-        normal."<leader>cu" = ":lua require('crates').update_crate()<cr>";
-        visual."<leader>cu" = ":lua require('crates').update_crates()<cr>";
-        normal."<leader>ca" = ":lua require('crates').update_all_crates()<cr>";
-        normal."<leader>cU" = ":lua require('crates').upgrade_crate()<cr>";
-        visual."<leader>cU" = ":lua require('crates').upgrade_crates()<cr>";
-        normal."<leader>cA" = ":lua require('crates').upgrade_all_crates()<cr>";
+        { key = "<leader>cu"; mode = "n"; action = ":lua require('crates').update_crate()<cr>"; }
+        { key = "<leader>cu"; mode = "v"; action = ":lua require('crates').update_crates()<cr>"; }
+        { key = "<leader>ca"; mode = "n"; action = ":lua require('crates').update_all_crates()<cr>"; }
+        { key = "<leader>cU"; mode = "n"; action = ":lua require('crates').upgrade_crate()<cr>"; }
+        { key = "<leader>cU"; mode = "v"; action = ":lua require('crates').upgrade_crates()<cr>"; }
+        { key = "<leader>cA"; mode = "n"; action = ":lua require('crates').upgrade_all_crates()<cr>"; }
 
-        normal."<leader>cH" = ":lua require('crates').open_homepage()<cr>";
-        normal."<leader>cR" = ":lua require('crates').open_repository()<cr>";
-        normal."<leader>cD" = ":lua require('crates').open_documentation()<cr>";
-        normal."<leader>cC" = ":lua require('crates').open_crates_io()<cr>";
-
+        { key = "<leader>cH"; mode = "n"; action = ":lua require('crates').open_homepage()<cr>"; }
+        { key = "<leader>cR"; mode = "n"; action = ":lua require('crates').open_repository()<cr>"; }
+        { key = "<leader>cD"; mode = "n"; action = ":lua require('crates').open_documentation()<cr>"; }
+        { key = "<leader>cC"; mode = "n"; action = ":lua require('crates').open_crates_io()<cr>"; }
 
         # nvim-test
-        normal."<leader>uu" = "<cmd>TestLast<CR>";
-        normal."<leader>uf" = "<cmd>TestFile<CR>";
-        normal."<leader>ur" = "<cmd>TestNearest<CR>";
-        normal."<leader>ua" = "<cmd>TestSuite<CR>";
+        { key = "<leader>uu"; mode = "n"; action = "<cmd>TestLast<CR>"; }
+        { key = "<leader>uf"; mode = "n"; action = "<cmd>TestFile<CR>"; }
+        { key = "<leader>ur"; mode = "n"; action = "<cmd>TestNearest<CR>"; }
+        { key = "<leader>ua"; mode = "n"; action = "<cmd>TestSuite<CR>"; }
 
         # LSP (todo, inspiration: https://youtu.be/vdn_pKJUda8?t=3129)
-      };
+      ];
       extraPlugins = with pkgs.vimPlugins; [
         {
           plugin = auto-session;
