@@ -415,7 +415,7 @@ in
 
         # Telescope
         {
-          key = "<leader>-";
+          key = "<leader>/";
           action = ''<cmd>Telescope current_buffer_fuzzy_find<CR>'';
           options.desc = "find in current buffer";
           mode = "n";
@@ -452,7 +452,7 @@ in
           options.desc = "Command History";
         }
         {
-          key = "<leader>sk";
+          key = "<leader>fk";
           mode = "n";
           action = "<cmd>Telescope keymaps<cr>";
           options.desc = "Key Maps";
