@@ -5,6 +5,7 @@
       username = "thomas";
       homedir = "/Users/${username}";
     };
+    direnv.enable = true;
     dotnet = {
       enable = true;
       sdks = [ "6.0" "7.0" ];
