@@ -42,7 +42,7 @@
           inherit (pkgsAndOverlaysForSystem system) pkgs overlays;
         in
         darwin.lib.darwinSystem {
-          inherit system inputs;
+          inherit system;
           modules = [
             { config.tc = config; }
             {
@@ -52,6 +52,16 @@
 
             home-manager.darwinModule
 
+            {
+              nix = {
+
+                registry.nixpkgs.flake = inputs.nixpkgs;
+
+                nixPath = [
+                  "nixpkgs=${inputs.nixpkgs.outPath}"
+                ];
+              };
+            }
             ./base/nix.nix
             ./darwin/modules/bootstrap.nix
 
@@ -89,13 +99,24 @@
           inherit (pkgsAndOverlaysForSystem system) pkgs overlays;
         in
         lib.nixosSystem {
-          inherit system inputs;
+          inherit system;
           modules = [
             { config.tc = config; }
             { nixpkgs.overlays = overlays; }
 
             inputs.home-manager.nixosModules.home-manager
             inputs.agenix.nixosModules.default
+
+            {
+              nix = {
+
+                registry.nixpkgs.flake = inputs.nixpkgs;
+
+                nixPath = [
+                  "nixpkgs=${inputs.nixpkgs.outPath}"
+                ];
+              };
+            }
 
             ./base/nix.nix
             ./nixos/modules/bootstrap.nix

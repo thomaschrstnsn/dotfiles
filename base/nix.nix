@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ pkgs, ... }:
 
 {
   time.timeZone = "Europe/Copenhagen";
@@ -8,12 +8,6 @@
   nix = {
     package = pkgs.nixVersions.stable;
     extraOptions = "experimental-features = nix-command flakes";
-
-    registry.nixpkgs.flake = inputs.nixpkgs;
-
-    nixPath = [
-      "nixpkgs=${inputs.nixpkgs.outPath}"
-    ];
 
     settings = {
       substituters = [
