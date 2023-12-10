@@ -42,7 +42,7 @@
           inherit (pkgsAndOverlaysForSystem system) pkgs overlays;
         in
         darwin.lib.darwinSystem {
-          inherit system;
+          inherit system inputs;
           modules = [
             { config.tc = config; }
             {
@@ -89,7 +89,7 @@
           inherit (pkgsAndOverlaysForSystem system) pkgs overlays;
         in
         lib.nixosSystem {
-          inherit system;
+          inherit system inputs;
           modules = [
             { config.tc = config; }
             { nixpkgs.overlays = overlays; }
