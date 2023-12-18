@@ -7,6 +7,7 @@ let
   lookup = with pkgs; (with dotnetCorePackages; {
     "6.0" = myPkgs.dotnet.sdk_6_0;
     "7.0" = myPkgs.dotnet.sdk_7_0;
+    "8.0" = myPkgs.dotnet.sdk_8_0;
   });
 
   # https://github.com/NixOS/nixpkgs/blob/master/pkgs/development/compilers/dotnet/default.nix
