@@ -427,12 +427,17 @@ in
           options.desc = "find file";
         }
         {
+          key = "<leader>fr";
+          mode = "n";
+          action = ''<cmd>Telescope resume<CR>'';
+          options.desc = "resume previous";
+        }
+        {
           key = "<leader>fs";
           mode = "n";
           action = ''<cmd>Telescope live_grep<CR>'';
           options.desc = "find word";
         }
-
         {
           key = "<leader>fb";
           mode = "n";
