@@ -439,6 +439,18 @@ in
           options.desc = "find word";
         }
         {
+          key = "<leader>fd";
+          mode = "n";
+          action = ''<cmd>Telescope lsp_workspace_symbols<CR>'';
+          options.desc = "find word";
+        }
+        {
+          key = "<leader>fD";
+          mode = "n";
+          action = ''<cmd>Telescope lsp_document_symbols<CR>'';
+          options.desc = "find word";
+        }
+        {
           key = "<leader>fb";
           mode = "n";
           action = ''<cmd>Telescope buffers<CR>'';
