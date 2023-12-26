@@ -1,6 +1,5 @@
 -- mini.nvim https://github.com/echasnovski/mini.nvim
 require('mini.indentscope').setup()
-require('mini.surround').setup()
 require('mini.jump').setup()
 local ai = require('mini.ai')
 ai.setup({
@@ -15,5 +14,3 @@ ai.setup({
 	}
 })
 -- not yet in the nix pkg: require('mini.splitjoin').setup()
-
-

@@ -172,7 +172,9 @@ in
           };
           whitespace.removeBlanklineTrail = false;
         };
-        lualine = { enable = true; };
+        leap = {
+          enable = true;
+        };
         lsp = {
           enable = true;
           servers = {
@@ -203,6 +205,7 @@ in
           enable = true;
           lightbulb.virtualText = false;
         };
+        lualine = { enable = true; };
         nix.enable = true;
         notify.enable = true;
         none-ls = {
