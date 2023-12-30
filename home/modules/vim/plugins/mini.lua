@@ -11,6 +11,7 @@ ai.setup({
 		}, {}),
 		f = ai.gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" }, {}),
 		c = ai.gen_spec.treesitter({ a = "@class.outer", i = "@class.inner" }, {}),
+		a = ai.gen_spec.treesitter({ a = "@parameter.outer", i = "@parameter.inner" }, {})
 	}
 })
 -- not yet in the nix pkg: require('mini.splitjoin').setup()
