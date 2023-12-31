@@ -285,8 +285,8 @@ in
           incrementalSelection = {
             enable = true;
             keymaps = {
-              initSelection = "<C-space>";
-              nodeIncremental = "<C-space>";
+              initSelection = "<leader>v";
+              nodeIncremental = "<leader>v";
               scopeIncremental = "<nop>";
               nodeDecremental = "<bs>";
             };
