@@ -146,8 +146,14 @@ in
         };
       luaLoader.enable = true;
       plugins = {
+        auto-session = {
+          enable = true;
+          logLevel = "error";
+        };
         barbar = { enable = true; };
         comment-nvim = { enable = true; };
+        crates-nvim = { enable = true; };
+        gitblame.enable = true;
         gitgutter.enable = true;
         harpoon = {
           enable = true;
@@ -602,23 +608,10 @@ in
       ];
       extraPlugins = with pkgs.vimPlugins; [
         {
-          plugin = auto-session;
-          config = mkLua ''
-            require("auto-session").setup {
-              log_level = "error"
-            }
-          '';
-        }
-        {
-          plugin = crates-nvim;
-          config = mkLua ''require('crates').setup()'';
-        }
-        {
           plugin = (fromGitHub "KostkaBrukowa/definition-or-references.nvim" "0.0" "6e9f3b5a7e460094c7e0916b7f1fa69f4043061f");
           config = mkLua ''require("definition-or-references").setup()'';
         }
         friendly-snippets
-        git-blame-nvim
         {
           plugin = (fromGitHub "chrishrb/gx.nvim" "0.2.0" "a7cb094499907b3561aa6e135240dccbd89ed8a8");
           config = mkLua ''require("gx").setup()'';
