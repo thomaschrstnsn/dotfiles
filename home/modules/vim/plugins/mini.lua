@@ -1,6 +1,5 @@
 -- mini.nvim https://github.com/echasnovski/mini.nvim
 require('mini.indentscope').setup()
-require('mini.jump').setup()
 local ai = require('mini.ai')
 ai.setup({
 	n_lines = 500,
