@@ -207,6 +207,13 @@ in
           lightbulb.virtualText = false;
         };
         lualine = { enable = true; };
+        mini = {
+          enable = true;
+          modules = {
+            indentscope = { };
+            trailspace = { };
+          };
+        };
         nix.enable = true;
         notify.enable = true;
         none-ls = {
@@ -630,11 +637,6 @@ in
         {
           plugin = noice-nvim;
           config = mkLuaFile ./vim/plugins/noice.lua;
-        }
-        {
-          plugin =
-            (fromGitHub "echasnovski/mini.nvim" "0.9.0" "296ebbbd3e5ba5e43f5125efe18ad76fe3b632cc");
-          config = mkLuaFile ./vim/plugins/mini.lua;
         }
         plenary-nvim
         {
