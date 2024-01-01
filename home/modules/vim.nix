@@ -306,7 +306,8 @@ in
           };
         };
         tmux-navigator.enable = true;
-        treesitter-context = { enable = true; };
+        treesitter-context.enable = true;
+        treesitter-textobjects.enable = true;
         trouble = { enable = true; };
         which-key = {
           enable = true;
@@ -621,8 +622,6 @@ in
           plugin = luasnip;
           config = mkLua ''require("luasnip/loaders/from_vscode").lazy_load()'';
         }
-        nvim-treesitter-context
-        nvim-treesitter-textobjects # for queries in mini-ai
         {
           plugin = (fromGitHub "klen/nvim-test" "1.3.0" "4e30d0772a43bd67ff299cfe201964c5bd799d73");
           config = mkLuaFile ./vim/plugins/nvim-test.lua;
