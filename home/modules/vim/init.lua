@@ -10,12 +10,10 @@ telescope.setup {
 	},
 }
 
-function PrevError()
-	require("lspsaga.diagnostic"):goto_prev({ severity = vim.diagnostic.severity.ERROR })
-end
-
-function NextError()
-	require("lspsaga.diagnostic"):goto_next({ severity = vim.diagnostic.severity.ERROR })
+function diagnostic_goto(next, severity)
+	local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
+	severity = severity and vim.diagnostic.severity[severity] or nil
+	go({ severity = severity })
 end
 
 function FormatSelection()

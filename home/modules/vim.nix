@@ -416,13 +416,19 @@ in
         { key = "K"; action = "<cmd>Lspsaga hover_doc<cr>"; mode = "n"; options.desc = "Hover Docs"; }
         { key = "<leader>lr"; action = "<cmd>Lspsaga rename<cr>"; mode = "n"; options.desc = "Rename"; }
         { key = "<leader>lo"; action = "<cmd>Lspsaga outline<cr>"; mode = "n"; options.desc = "Outline"; }
-        { key = "[e"; mode = "n"; action = "<cmd>Lspsaga diagnostic_jump_next<cr>"; }
-        { key = "]e"; mode = "n"; action = "<cmd>Lspsaga diagnostic_jump_prev<cr>"; }
-        { key = "[E"; mode = "n"; action = "<cmd>lua NextError()<cr>"; }
-        { key = "]E"; mode = "n"; action = "<cmd>lua PrevError()<cr>"; }
+
+        # square bracket motions
+        { key = "]d"; mode = "n"; action = ''<cmd>lua diagnostic_goto(true)<cr>''; options.desc = "Next Diagnostic"; }
+        { key = "[d"; mode = "n"; action = ''<cmd>lua diagnostic_goto(false)<cr>''; options.desc = "Prev Diagnostic"; }
+
+        { key = "]e"; mode = "n"; action = ''<cmd>lua diagnostic_goto(true, "ERROR")<cr>''; options.desc = "Next Error"; }
+        { key = "[e"; mode = "n"; action = ''<cmd>lua diagnostic_goto(false, "ERROR")<cr>''; options.desc = "Prev Error"; }
+
+        { key = "]w"; mode = "n"; action = ''<cmd>lua diagnostic_goto(true, "WARNING")<cr>''; options.desc = "Next Warning"; }
+        { key = "[w"; mode = "n"; action = ''<cmd>lua diagnostic_goto(false, "WARNING")<cr>''; options.desc = "Prev Warning"; }
+
         { key = "]]"; mode = "n"; action = ''<cmd>lua illuminate_goto_reference("next")<cr>''; options.desc = "Goto next reference"; }
         { key = "[["; mode = "n"; action = ''<cmd>lua illuminate_goto_reference("prev")<cr>''; options.desc = "Goto prev reference"; }
-
 
         ## trouble
         { key = "<leader>lt"; action = "<cmd>TroubleToggle<cr>"; options.desc = "Toggle Trouble"; }
