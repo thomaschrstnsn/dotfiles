@@ -51,6 +51,9 @@ nmap <C-d> :action GotoHarpoon2<CR>
 nmap <C-s> :action GotoHarpoon3<CR>
 nmap <C-a> :action GotoHarpoon4<CR>
 
+vmap <leader><CR> :action ReformatCode<CR>
+nmap <leader><CR> :action ReformatCode<CR>
+
 "https://youtrack.jetbrains.com/issue/IDEA-306871/Question-What-is-the-action-when-the-mouse-hovers
 nmap K <Action>(ShowErrorDescription)<Action>(QuickJavaDoc) 
 noremap gi :action GotoImplementation<CR>
@@ -64,12 +67,16 @@ nnoremap <leader>u :action FindUsages<CR>
 vnoremap < <gv
 vnoremap > >gv
 
-nnoremap [[ :action MethodUp<CR>
-nnoremap ]] :action MethodDown<CR>
+nnoremap [f :action MethodUp<CR>
+nnoremap ]f :action MethodDown<CR>
+nnoremap [[ #
+nnoremap ]] *
 
 nnoremap <leader>, :action RecentFiles<CR>
 nnoremap <leader>gg :action ActivateCommitToolWindow<CR>
+nnoremap <leader>gu :action Vcs.UpdateProject<CR>
 nnoremap <leader>gm :action Git.Menu<CR>
+nnoremap <leader>gc :action Vcs.VcsClone<CR>
 
 nnoremap [e :action NextOccurence<CR>
 nnoremap ]e :action PreviousOccurence<CR>
