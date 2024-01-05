@@ -66,14 +66,15 @@ nvim_tree_events.subscribe('TreeClose', function()
 	bufferline_api.set_offset(0)
 end)
 
-function illuminate_map(key, dir, buffer)
-	vim.keymap.set("n", key, function()
-		require("illuminate")["goto_" .. dir .. "_reference"](false)
-	end, { desc = dir:sub(1, 1):upper() .. dir:sub(2) .. " Reference", buffer = buffer })
+function illuminate_goto_reference(dir)
+	require("illuminate")["goto_" .. dir .. "_reference"](false)
 end
 
-illuminate_map("]]", "next")
-illuminate_map("[[", "prev")
+function illuminate_map(key, dir, buffer)
+	vim.keymap.set("n", key, function()
+		illuminate_goto_reference(dir)
+	end, { desc = dir:sub(1, 1):upper() .. dir:sub(2) .. " Reference", buffer = buffer })
+end
 
 vim.api.nvim_create_autocmd("FileType", {
 	callback = function()

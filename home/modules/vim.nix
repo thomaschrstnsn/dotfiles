@@ -409,6 +409,9 @@ in
         { key = "]e"; mode = "n"; action = "<cmd>Lspsaga diagnostic_jump_prev<cr>"; }
         { key = "[E"; mode = "n"; action = "<cmd>lua NextError()<cr>"; }
         { key = "]E"; mode = "n"; action = "<cmd>lua PrevError()<cr>"; }
+        { key = "]]"; mode = "n"; action = ''<cmd>lua illuminate_goto_reference("next")<cr>''; options.desc = "Goto next reference"; }
+        { key = "[["; mode = "n"; action = ''<cmd>lua illuminate_goto_reference("prev")<cr>''; options.desc = "Goto prev reference"; }
+
 
         ## trouble
         { key = "<leader>lt"; action = "<cmd>TroubleToggle<cr>"; options.desc = "Toggle Trouble"; }
