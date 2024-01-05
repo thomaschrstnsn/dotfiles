@@ -178,6 +178,7 @@ in
           };
           whitespace.removeBlanklineTrail = false;
         };
+        illuminate = { enable = true; };
         leap = {
           enable = true;
           addDefaultMappings = false;
