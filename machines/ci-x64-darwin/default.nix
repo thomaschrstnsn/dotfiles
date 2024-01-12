@@ -34,7 +34,7 @@
       enable = true;
       ideavim = true;
     };
-    wezterm.enable = true;
+    wezterm.enable = false; # does not build on gha
     zsh = {
       editor = "nvim";
       enable = true;
