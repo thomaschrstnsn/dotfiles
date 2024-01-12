@@ -30,6 +30,7 @@ in
         set-option -ga terminal-overrides ",xterm-256color:Tc,screen-256color:Tc,tmux-256color:Tc"
         set-option -g status-position top
         set-option -g set-clipboard on
+        set-option -g detach-on-destroy off
 
         # https://github.com/samoshkin/tmux-config/blob/af2efd9561f41f30c51c9deeeab9451308c4086b/tmux/yank.sh
         yank="${tmux/yank.sh}"
