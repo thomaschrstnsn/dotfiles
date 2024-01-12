@@ -152,11 +152,12 @@
           modules = [
             {
               tc = homeConfig;
-              home = {
-                stateVersion = version;
-                username = username;
-                packages = extraPackages pkgs;
-              };
+              home =
+                {
+                  stateVersion = version;
+                  username = username;
+                  packages = extraPackages pkgs;
+                };
             }
             nixvim.homeManagerModules.nixvim
             {
@@ -233,7 +234,7 @@
               user.name = home.user.username;
               user.homedir = home.user.homedir;
             };
-            home-manager-config = { imports = hm-config.modules; };
+            home-manager-config = { imports = hm-config.modules; manual.manpages.enable = false; };
           }
         );
 
@@ -258,7 +259,7 @@
             system = system;
             config = nixos.config // { inherit user; };
             base = nixos.base;
-            home-manager-config = { imports = homeCfg.modules; };
+            home-manager-config = { imports = homeCfg.modules; manual.manpages.enable = false; };
           }
         );
 
