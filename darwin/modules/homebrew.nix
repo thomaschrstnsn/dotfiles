@@ -45,7 +45,6 @@ in
 
 
     homebrew.taps = [
-      "homebrew/cask"
       "homebrew/cask-versions"
     ] ++ cfg.extraTaps;
 
