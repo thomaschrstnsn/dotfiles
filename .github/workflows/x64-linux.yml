@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        configuration: [PC04236, Atlas, aero-nix]
+        configuration: [PC04236, Atlas] # disabled: aero-nix
     steps:
     - uses: actions/checkout@v3
     - name: Install Nix
