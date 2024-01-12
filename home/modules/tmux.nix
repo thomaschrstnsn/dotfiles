@@ -60,6 +60,13 @@ in
         bind C-o display-popup -E "tms"
         bind C-j display-popup -E "tms switch"
 
+        bind m select-pane -m
+        bind M select-pane -M
+        bind < join-pane
+
+        bind C-v select-layout main-vertical
+        bind C-h select-layout main-horizontal
+
         bind '"' split-window -v -c "#{pane_current_path}"
         bind % split-window -h -c "#{pane_current_path}"
 
