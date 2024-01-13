@@ -64,6 +64,15 @@ in
         bind M select-pane -M
         bind < join-pane
 
+        bind-key -r -T prefix       S-Up              resize-pane -U 5
+        bind-key -r -T prefix       S-Down            resize-pane -D 5
+        bind-key -r -T prefix       S-Left            resize-pane -L 5
+        bind-key -r -T prefix       S-Right           resize-pane -R 5
+        bind-key -r -T prefix       Up                resize-pane -U
+        bind-key -r -T prefix       Down              resize-pane -D
+        bind-key -r -T prefix       Left              resize-pane -L
+        bind-key -r -T prefix       Right             resize-pane -R
+
         bind C-v select-layout main-vertical
         bind C-h select-layout main-horizontal
 
