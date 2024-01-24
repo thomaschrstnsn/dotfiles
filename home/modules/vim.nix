@@ -65,6 +65,7 @@ in
   options.tc.vim = with types; {
     enable = mkEnableOption "vim";
     ideavim = mkEnableOption "ideavimrc";
+    codelldb.enable = mkEnableOption "lldb";
     treesitter = {
       package = mkOption {
         type = types.package;
@@ -153,6 +154,13 @@ in
         barbar = { enable = true; };
         comment-nvim = { enable = true; };
         crates-nvim = { enable = true; };
+        dap = {
+          enable = true;
+          extensions = {
+            dap-ui.enable = true;
+            dap-virtual-text.enable = true;
+          };
+        };
         gitblame.enable = true;
         gitsigns = {
           enable = true;
@@ -286,9 +294,26 @@ in
           actions.openFile.quitOnOpen = true;
         };
         project-nvim.enable = true;
-        rust-tools = {
-          enable = true;
-        };
+        rustaceanvim = mkMerge [
+          { enable = true; }
+          (if cfg.codelldb.enable then {
+            dap.adapter = {
+              executable.command = "${pkgs.code-lldb}/share/vscode/extensions/vadimcn.vscode-lldb/adapter/codelldb";
+              executable.args = [
+                "--liblldb"
+                "${pkgs.code-lldb}/share/vscode/extensions/vadimcn.vscode-lldb/lldb/lib/liblldb.dylib"
+                "--port"
+                "1337"
+              ];
+              type = "server";
+              port = "1337";
+              host = "127.0.0.1";
+            };
+          } else {
+            dap.adapter.command = "lldb";
+            dap.adapter.type = "executable";
+          })
+        ];
         spider = {
           enable = true;
           keymaps.motions = {
@@ -544,12 +569,18 @@ in
           options.desc = "Repeat last command";
         }
 
-        # rust-tools-nvim
+        # rustaceanvim
         {
-          key = "<leader>r";
+          key = "<leader>rr";
           mode = "n";
-          action = "<cmd>lua require('rust-tools').runnables.runnables()<CR>";
+          action = "<cmd>RustLsp runnables<CR>";
           options.desc = "Rust Runnables";
+        }
+        {
+          key = "<leader>rd";
+          mode = "n";
+          action = "<cmd>RustLsp debuggables<CR>";
+          options.desc = "Rust Debuggables";
         }
 
         # keep selection when indenting
@@ -691,4 +722,5 @@ in
     };
   };
 }
+
 

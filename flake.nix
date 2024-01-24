@@ -23,12 +23,16 @@
     };
 
     nixvim = {
-      url = "https://flakehub.com/f/nix-community/nixvim/0.1.*.tar.gz";
+      url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    lldb-nix-fix = {
+      url = "github:mstone/nixpkgs?rev=fa70e7499b08524a4a02e7ce9e39847b9d3c95df";
     };
   };
 
-  outputs = { nixpkgs, home-manager, darwin, nixvim, ... }@inputs:
+  outputs = { nixpkgs, home-manager, darwin, nixvim, lldb-nix-fix, ... }@inputs:
     let
       inherit (nixpkgs) lib;
 
@@ -183,7 +187,7 @@
             inherit pkgs nixpkgs;
           }) myPkgs;
           inherit (import ./overlays {
-            inherit system pkgs lib myPkgs;
+            inherit system pkgs lib myPkgs lldb-nix-fix;
           }) overlays;
 
           pkgs = import nixpkgs {

@@ -24,6 +24,7 @@
     vim = {
       enable = true;
       lsp.servers.omnisharp = true;
+      codelldb.enable = false;
     };
     tmux.enable = true;
     wezterm = { enable = true; };

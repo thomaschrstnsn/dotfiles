@@ -217,6 +217,27 @@
         "type": "github"
       }
     },
+    "nix-darwin": {
+      "inputs": {
+        "nixpkgs": [
+          "nixvim",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1705915768,
+        "narHash": "sha256-+Jlz8OAqkOwJlioac9wtpsCnjgGYUhvLpgJR/5tP9po=",
+        "owner": "lnl7",
+        "repo": "nix-darwin",
+        "rev": "1e706ef323de76236eb183d7784f3bd57255ec0b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "lnl7",
+        "repo": "nix-darwin",
+        "type": "github"
+      }
+    },
     "nixos-hardware": {
       "locked": {
         "lastModified": 1705312285,
@@ -249,22 +270,24 @@
       "inputs": {
         "flake-parts": "flake-parts",
         "home-manager": "home-manager_3",
+        "nix-darwin": "nix-darwin",
         "nixpkgs": [
           "nixpkgs"
         ],
         "pre-commit-hooks": "pre-commit-hooks"
       },
       "locked": {
-        "lastModified": 1704559377,
-        "narHash": "sha256-qCOkUaRtzQ/RC7Mvwh6nJMD+1re50E5EUXdDuBLPL28=",
-        "rev": "7582a6e41317366980a60963025fe5dfb12613de",
-        "revCount": 918,
-        "type": "tarball",
-        "url": "https://api.flakehub.com/f/pinned/nix-community/nixvim/0.1.918%2Brev-7582a6e41317366980a60963025fe5dfb12613de/018cdfa8-b9e4-700e-981d-3cd098fc54b9/source.tar.gz"
+        "lastModified": 1706111147,
+        "narHash": "sha256-4VtYk79oJExuHxwN/5NIzLBzq4VVcfbnXawJMUIXrrc=",
+        "owner": "nix-community",
+        "repo": "nixvim",
+        "rev": "ddce82d0d1fb88c957ecb7debed2ae6c63b60750",
+        "type": "github"
       },
       "original": {
-        "type": "tarball",
-        "url": "https://flakehub.com/f/nix-community/nixvim/0.1.%2A.tar.gz"
+        "owner": "nix-community",
+        "repo": "nixvim",
+        "type": "github"
       }
     },
     "pre-commit-hooks": {
