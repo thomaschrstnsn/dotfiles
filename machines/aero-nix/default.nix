@@ -37,8 +37,8 @@ in
     _1password-gui
     brave
     dmenu
-    obsidian
-    sonic-pi
+    # obsidian
+    # sonic-pi
     qt5.qtwayland
 
     # todoist-electron
