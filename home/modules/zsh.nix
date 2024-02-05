@@ -76,6 +76,7 @@ in
 
     programs.bat = {
       enable = true;
+      extraPackages = with pkgs.bat-extras; [ batman ];
       config.theme = "enki-tokyo-night";
       themes = {
         # enki: https://github.com/enkia/enki-theme
@@ -116,7 +117,6 @@ in
         source ${pkgs.zsh-forgit}/share/zsh/zsh-forgit/forgit.plugin.zsh
 
         export EDITOR="${cfg.editor}"
-        export MANPAGER="sh -c 'col -bx | bat -l man -p'" # batman
 
         # term title
         export ZSH_THEME_TERM_TITLE_IDLE="%~"
@@ -146,6 +146,7 @@ in
       shellAliases = mkMerge [
         (mkIf true {
           cat = "${pkgs.bat}/bin/bat";
+          man = "batman";
           reload_zshrc = "source ~/.zshrc";
         })
         {
