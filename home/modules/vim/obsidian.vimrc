@@ -17,10 +17,17 @@ nmap - /
 
 unmap <Space>
 
+" https://github.com/esm7/obsidian-vimrc-support
+
 exmap wq obcommand workspace:close
 exmap q obcommand workspace:close
 nmap <Space>w :w
 nmap <Space>q :q
+nmap <Space>x :q
+
+" keep visual does not work, but tab + shift-tab does
+" vmap < <gv
+" vmap > >gv
 
 exmap only obcommand workspace:close-others
 nmap <Space>bX :only
@@ -65,9 +72,18 @@ exmap followNextLinkTab obcommand editor:open-link-in-new-leaf
 nmap gD :followNextLinkTab
 
 exmap toggleChecklist obcommand editor:toggle-checklist-status
-nmap <Space>x :toggleChecklist :normal A 
-vmap <Space>x :toggleChecklist
+nmap <Space>c :toggleChecklist
+"vmap <Space>t :toggleChecklist
+
+exmap taskEdit obcommand obsidian-tasks-plugin:edit-task
+exmap taskToggle obcommand obsidian-tasks-plugin:toggle-done
+nmap <Space>tt :taskEdit
+nmap <Space>td :taskToggle
 
 
 exmap toggleCode surround ` `
 vmap ` :toggleCode
+
+
+exmap daily obcommand daily-notes
+nmap <Space>fd :daily
