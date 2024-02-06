@@ -69,10 +69,9 @@
     '';
   };
 
-  # Assuming this is installed on top of the disk image.
   fileSystems = {
     "/" = {
-      device = "/dev/disk/by-label/NIXOS_SD";
+      device = "/dev/disk/by-label/nixos";
       fsType = "ext4";
       options = [ "noatime" ];
     };
