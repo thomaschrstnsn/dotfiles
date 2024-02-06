@@ -81,5 +81,5 @@
     allowUnfree = true;
   };
   system.stateVersion = "20.09";
-  swapDevices = [{ device = "/dev/disk/by-label/swap"; size = 4096; }];
+  swapDevices = [{ device = "/dev/disk/by-label/swap"; }];
 }
