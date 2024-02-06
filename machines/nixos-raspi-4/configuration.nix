@@ -19,13 +19,30 @@
 
   systemd = {
     # systemctl list-timers
-    timers = { };
+    timers = {
+      tmbackup = {
+        wantedBy = [ "multi-user.target" ];
+        timerConfig = {
+          Unit = "tmbackup.service";
+          OnCalendar = "*-*-* 3:00:00";
+        };
+      };
+      habackup = {
+        wantedBy = [ "multi-user.target" ];
+        timerConfig = {
+          Unit = "habackup.service";
+          OnCalendar = "*-*-* 4:00:00";
+        };
+      };
+    };
     # manually start: systemctl start tmbackup
     # status: systemctl status tmbackup
     services = {
       # inspiration https://www.teslaev.co.uk/how-to-perform-an-automatic-teslamate-backup-to-google-drive/
       # docker-compose exec -T database pg_dump -U teslamate teslamate | gzip -c > /home/pi/teslamate/tmbackup/teslamate.bck_$\{now\}.gz
       tmbackup = {
+        after = [ "network-online.target" ];
+        wants = [ "network-online.target" ]; # systemd-networkd-wait-online.service
         script = ''
           set -eux
           now=$(date +"%A")
@@ -38,6 +55,8 @@
         };
       };
       habackup = {
+        after = [ "network-online.target" ];
+        wants = [ "network-online.target" ]; # systemd-networkd-wait-online.service
         script = ''
           now=$(date +"%A")
           cd /home/pi/homeass || exit
