@@ -17,15 +17,39 @@
     };
   };
 
-  systemd.services = {
-    # btattach = {
-    #   before = [ "bluetooth.service" ];
-    #   after = [ "dev-ttyAMA0.device" ];
-    #   wantedBy = [ "multi-user.target" ];
-    #   serviceConfig = {
-    #     ExecStart = "${pkgs.bluez}/bin/btattach -B /dev/ttyAMA0 -P bcm -S 3000000";
-    #   };
-    # };
+  systemd = {
+    # systemctl list-timers
+    timers = { };
+    # manually start: systemctl start tmbackup
+    # status: systemctl status tmbackup
+    services = {
+      # inspiration https://www.teslaev.co.uk/how-to-perform-an-automatic-teslamate-backup-to-google-drive/
+      # docker-compose exec -T database pg_dump -U teslamate teslamate | gzip -c > /home/pi/teslamate/tmbackup/teslamate.bck_$\{now\}.gz
+      tmbackup = {
+        script = ''
+          set -eux
+          now=$(date +"%A")
+          cd /home/pi/teslamate || exit
+          ${pkgs.docker}/bin/docker compose exec -T database pg_dump -U teslamate teslamate | ${pkgs.gzip}/bin/gzip -c > /home/pi/teslamate/tmbackup/teslamate.bck_$\{now\}.gz
+          ${pkgs.rclone}/bin/rclone copy --max-age 24h /home/pi/teslamate/tmbackup --include 'teslamate.*' gdrive-service:TeslaMate '';
+        serviceConfig = {
+          Type = "oneshot";
+          User = "root";
+        };
+      };
+      habackup = {
+        script = ''
+          now=$(date +"%A")
+          cd /home/pi/homeass || exit
+          ${pkgs.gnutar}/bin/tar c config/ | ${pkgs.gzip}/bin/gzip -c > habackup/homeass.bck_$\{now\}.tar.gz
+          ${pkgs.rclone}/bin/rclone copy --max-age 24h /home/pi/homeass/habackup --include 'homeass.*' gdrive-service:HomeAssistant
+        '';
+        serviceConfig = {
+          Type = "oneshot";
+          User = "root";
+        };
+      };
+    };
   };
 
   powerManagement.cpuFreqGovernor = "ondemand";
@@ -34,7 +58,7 @@
 
   services.sshd.enable = true;
 
-  services.cron.enable = true;
+  services.cron.enable = false;
 
   virtualisation.docker = {
     enable = true;
@@ -81,5 +105,5 @@
     allowUnfree = true;
   };
   system.stateVersion = "20.09";
-  swapDevices = [{ device = "/dev/disk/by-label/swap"; }];
+  swapDevices = [{ label = "swap"; }];
 }
