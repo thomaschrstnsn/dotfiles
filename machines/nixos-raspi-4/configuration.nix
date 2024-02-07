@@ -47,7 +47,7 @@
           set -eux
           now=$(date +"%A")
           cd /home/pi/teslamate || exit
-          ${pkgs.docker}/bin/docker compose exec -T database pg_dump -U teslamate teslamate | ${pkgs.gzip}/bin/gzip -c > /home/pi/teslamate/tmbackup/teslamate.bck_$\{now\}.gz
+          ${pkgs.docker}/bin/docker compose exec -T database pg_dump -U teslamate teslamate | ${pkgs.gzip}/bin/gzip -c > /home/pi/teslamate/tmbackup/teslamate.bck_$now.gz
           ${pkgs.rclone}/bin/rclone copy --max-age 24h /home/pi/teslamate/tmbackup --include 'teslamate.*' gdrive-service:TeslaMate '';
         serviceConfig = {
           Type = "oneshot";
@@ -60,7 +60,7 @@
         script = ''
           now=$(date +"%A")
           cd /home/pi/homeass || exit
-          ${pkgs.gnutar}/bin/tar c config/ | ${pkgs.gzip}/bin/gzip -c > habackup/homeass.bck_$\{now\}.tar.gz
+          ${pkgs.gnutar}/bin/tar c config/ | ${pkgs.gzip}/bin/gzip -c > habackup/homeass.bck_$now.tar.gz
           ${pkgs.rclone}/bin/rclone copy --max-age 24h /home/pi/homeass/habackup --include 'homeass.*' gdrive-service:HomeAssistant
         '';
         serviceConfig = {
