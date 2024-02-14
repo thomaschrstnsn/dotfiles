@@ -39,7 +39,6 @@
     # status: systemctl status tmbackup
     services = {
       # inspiration https://www.teslaev.co.uk/how-to-perform-an-automatic-teslamate-backup-to-google-drive/
-      # docker-compose exec -T database pg_dump -U teslamate teslamate | gzip -c > /home/pi/teslamate/tmbackup/teslamate.bck_$\{now\}.gz
       tmbackup = {
         after = [ "network-online.target" ];
         wants = [ "network-online.target" ]; # systemd-networkd-wait-online.service
@@ -58,6 +57,7 @@
         after = [ "network-online.target" ];
         wants = [ "network-online.target" ]; # systemd-networkd-wait-online.service
         script = ''
+          set -eux
           now=$(date +"%A")
           cd /home/pi/homeass || exit
           ${pkgs.gnutar}/bin/tar c config/ | ${pkgs.gzip}/bin/gzip -c > habackup/homeass.bck_$now.tar.gz
