@@ -189,6 +189,8 @@ in
             navPrev = "<C-[>";
           };
         };
+        illuminate = { enable = true; };
+        inc-rename = { enable = true; };
         indent-blankline = {
           enable = true;
           scope = {
@@ -197,7 +199,6 @@ in
           };
           whitespace.removeBlanklineTrail = false;
         };
-        illuminate = { enable = true; };
         leap = {
           enable = true;
           addDefaultMappings = false;
@@ -439,7 +440,7 @@ in
         { key = "<leader>la"; action = "<cmd>Lspsaga code_action<cr>"; mode = "n"; options.desc = "Code Actions"; }
         { key = "<leader>ld"; action = "<cmd>Telescope lsp_definitions<cr>"; mode = "n"; options.desc = "Definitions"; }
         { key = "K"; action = "<cmd>Lspsaga hover_doc<cr>"; mode = "n"; options.desc = "Hover Docs"; }
-        { key = "<leader>lr"; action = "<cmd>Lspsaga rename<cr>"; mode = "n"; options.desc = "Rename"; }
+        { key = "<leader>lr"; action = ":IncRename "; mode = "n"; options.desc = "Rename"; }
         { key = "<leader>lo"; action = "<cmd>Lspsaga outline<cr>"; mode = "n"; options.desc = "Outline"; }
 
         # square bracket motions
