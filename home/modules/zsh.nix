@@ -51,8 +51,8 @@ in
       du-dust
       fd
       file
+      jd-diff-patch
       jq
-      # jid
       tree
       wget
       zsh-fzf-tab
