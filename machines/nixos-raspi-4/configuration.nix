@@ -73,7 +73,10 @@
 
   powerManagement.cpuFreqGovernor = "ondemand";
 
-  networking.firewall.allowedTCPPorts = [ 8123 ];
+  networking.firewall.allowedTCPPorts = [
+    8123
+    1883 # mqtt Mosquitto from teslamate docker-compose
+  ];
 
   services.sshd.enable = true;
 
