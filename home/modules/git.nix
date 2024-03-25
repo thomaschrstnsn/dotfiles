@@ -62,6 +62,8 @@ in
         push.default = "current";
         branch.autosetuprebase = "always";
         fetch.prune = "true";
+        log.date = "iso";
+        branch.sort = "committerdate";
         # TODO when using difftastic: diff.external = "difft --color always";
         url = builtins.listToAttrs (
           map
