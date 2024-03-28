@@ -211,6 +211,7 @@ in
             eslint.enable = cfg.lsp.servers.javascript;
             jsonls.enable = cfg.lsp.servers.javascript;
             lua-ls.enable = true;
+            marksman.enable = true;
             omnisharp = {
               enable = cfg.lsp.servers.omnisharp;
               settings = {
@@ -234,6 +235,7 @@ in
           lightbulb.virtualText = false;
         };
         lualine = { enable = true; };
+        markdown-preview.enable = true;
         mini = {
           enable = true;
           modules = {
