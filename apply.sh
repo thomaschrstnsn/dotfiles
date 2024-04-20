@@ -1,4 +1,5 @@
-#! /usr/bin/env bash
+#!/usr/bin/env nix-shell
+#!nix-shell -i bash -p nix-output-monitor
 set -e
 
 script=$(basename "$0")
@@ -68,6 +69,9 @@ case "$target" in
     ;;
 esac
 
+COMMAND=$([ -z ${CI+x} ] && echo "nom" || echo "nix")
+# COMMAND=nix
+
 case "$mode" in
 	"nixtree")
 		set -x
@@ -81,7 +85,7 @@ case "$mode" in
 	;;
 	*)
 		set -x
-		nix build "$flakeuri" "$@"
+		$COMMAND build "$flakeuri" "$@"
 		set +x
 	;;
 esac
