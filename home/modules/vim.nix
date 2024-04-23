@@ -174,6 +174,12 @@ in
             dap-virtual-text.enable = true;
           };
         };
+        efmls-configs = {
+          enable = true;
+          setup = { 
+                bash.linter = "shellcheck";
+          };
+        };
         gitblame.enable = true;
         gitsigns = {
           enable = true;
