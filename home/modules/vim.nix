@@ -153,6 +153,19 @@ in
         };
         barbar = { enable = true; };
         comment-nvim = { enable = true; };
+        cmp = {
+          settings.snippet.expand = "function(args) require('luasnip').lsp_expand(args.body) end";
+          settings.sources = [
+            { name = "luasnip"; }
+            { name = "nvim_lsp"; }
+            { name = "nvim_lsp_document_symbol"; }
+            { name = "nvim_lsp_signature_help"; }
+            { name = "treesitter"; }
+            { name = "buffer"; }
+            { name = "path"; }
+            { name = "crates"; }
+          ];
+        };
         crates-nvim = { enable = true; };
         dap = {
           enable = true;
@@ -245,14 +258,6 @@ in
         };
         nix.enable = true;
         notify.enable = true;
-        none-ls = {
-          enable = true;
-          sources = {
-            diagnostics.shellcheck.enable = true;
-            # formatting.nixfmt.enable = true; # disabled since rnix also offers this - decide how to avoid the conflict
-          };
-          # todo: format on save, see https://youtu.be/vdn_pKJUda8?t=3912)
-        };
         nvim-autopairs.enable = true;
         nvim-cmp = {
           enable = true;
@@ -260,7 +265,6 @@ in
             completeopt = "menu,menuone,noselect";
             keywordLength = 2;
           };
-          snippet.expand = "luasnip";
           mapping = {
             "<CR>" = "cmp.mapping.confirm({ select = true })";
             "<Tab>" = ''cmp.mapping(function(fallback)
@@ -280,16 +284,6 @@ in
             "<Down>" = "cmp.mapping.select_next_item()";
             "<C-Space>" = "cmp.mapping.complete()";
           };
-          sources = [
-            { name = "luasnip"; }
-            { name = "nvim_lsp"; }
-            { name = "nvim_lsp_document_symbol"; }
-            { name = "nvim_lsp_signature_help"; }
-            { name = "treesitter"; }
-            { name = "buffer"; }
-            { name = "path"; }
-            { name = "crates"; }
-          ];
         };
         nvim-tree = {
           enable = true;
