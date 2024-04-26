@@ -177,7 +177,7 @@ in
         efmls-configs = {
           enable = true;
           setup = { 
-                bash.linter = "shellcheck";
+            bash.linter = "shellcheck";
           };
         };
         gitblame.enable = true;
@@ -238,7 +238,7 @@ in
                 enableRoslynAnalyzers = true;
               };
             };
-            rnix-lsp.enable = true;
+            nil_ls.enable = true;
             tsserver.enable = cfg.lsp.servers.javascript;
           };
         };
