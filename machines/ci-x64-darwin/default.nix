@@ -102,8 +102,6 @@
 
   extraPackages = pkgs: with pkgs; [
     gh
-    shellcheck
-    rnix-lsp
     nixpkgs-fmt
     ripgrep
 
