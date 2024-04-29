@@ -70,9 +70,7 @@
   };
 
   extraPackages = pkgs: with pkgs; [
-    shellcheck
     nixpkgs-fmt
-    rnix-lsp
 
     glow
     visidata

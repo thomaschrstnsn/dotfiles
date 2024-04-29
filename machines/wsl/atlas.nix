@@ -26,7 +26,10 @@ in
     tmux = {
       enable = true;
     };
-    vim.enable = true;
+    vim = { 
+      enable = true;
+      codelldb.enable = true;
+    };
     wsl.enable = true;
     zsh = {
       enable = true;
