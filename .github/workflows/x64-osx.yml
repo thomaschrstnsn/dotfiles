@@ -10,7 +10,7 @@ jobs:
     - name: Install Nix
       uses: DeterminateSystems/nix-installer-action@v4
     - name: Install Cachix
-      uses: cachix/cachix-action@v17
+      uses: cachix/cachix-action@v14
       with:
         name: thomaschrstnsn
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
