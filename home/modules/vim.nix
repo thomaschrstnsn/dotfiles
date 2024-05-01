@@ -664,7 +664,7 @@ in
       ];
       extraPlugins = with pkgs.vimPlugins; [
         {
-          plugin = (fromGitHub "KostkaBrukowa/definition-or-references.nvim" "0.0" "6e9f3b5a7e460094c7e0916b7f1fa69f4043061f");
+          plugin = (fromGitHub "KostkaBrukowa/definition-or-references.nvim" "0.0" "13570f995be8993f4c55e988f89e5a7b8df37a17");
           config = mkLua ''require("definition-or-references").setup()'';
         }
         friendly-snippets
