@@ -699,6 +699,10 @@ in
           plugin = toggleterm-nvim;
           config = mkLuaFile ./vim/plugins/toggleterm.lua;
         }
+        {
+          plugin = vim-rsi;
+          config = mkLua '''';
+        }
       ];
       extraConfigLua = builtins.readFile ./vim/init.lua;
       extraConfigVim =
