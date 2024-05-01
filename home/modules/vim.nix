@@ -690,7 +690,7 @@ in
           plugin = rest-nvim;
           config = mkLuaFile ./vim/plugins/nvim-rest.lua;
         }
-        (fromGitHub "ibhagwan/smartyank.nvim" "feb25" "7e3905578f646503525b2f7018b8afd17861018c")
+        (fromGitHub "ibhagwan/smartyank.nvim" "2024mar26" "d9e078fe08d6466e37ea45ac446a9f60e6866789")
         {
           plugin = tint-nvim;
           config = mkLua ''require("tint").setup()'';
