@@ -5,7 +5,7 @@ let
   cfg = config.tc.tmux;
   usercfg = config.tc.user;
   remoteConfigFile = "tmux.remote.conf";
-  mochaBg = "#1e1e2e";
+  enabledBg = "#44475a";
   disabledBg = "#d20f39";
 in
 {
@@ -95,7 +95,7 @@ in
           set -u prefix \;\
           set -u key-table \;\
           set -u status-style \;\
-          set status-bg '${mochaBg}' \;\
+          set status-bg '${enabledBg}' \;\
           refresh-client -S
       '';
       plugins = with pkgs.tmuxPlugins; [
@@ -104,21 +104,13 @@ in
         tmux-thumbs # https://github.com/fcsonline/tmux-thumbs
         sensible
         {
-          plugin = mkTmuxPlugin {
-            pluginName = "catppuccin-tmux";
-            version = "e7b50832f9bc59b0b5ef5316ba2cd6f61e4e22fc";
-            rtpFilePath = "catppuccin.tmux";
-            src = pkgs.fetchFromGitHub {
-              owner = "dreamsofcode-io";
-              repo = "catppuccin-tmux";
-              rev = "e7b50832f9bc59b0b5ef5316ba2cd6f61e4e22fc";
-              sha256 = "sha256-9ZfUqEKEexSh06QyR5C+tYd4tNfBi3PsA+STzUv4+/s";
-            };
-          };
+          plugin = dracula;
           extraConfig = ''
-            set -g @catppuccin_date_time "%Y-%m-%d %H:%M"
-            set -g @catppuccin_host "on"
-            set -g @catppuccin_datetime_icon "󰔠"
+            set -g @dracula-plugins "ssh-session time"
+            set -g @dracula-show-powerline true
+            set -g @dracula-show-battery false
+            set -g @dracula-show-left-icon session
+            set -g @dracula-time-format "%Y-%m-%d %H:%M"
           '';
         }
       ];
