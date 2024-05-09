@@ -39,14 +39,14 @@
       enable = true;
       extraBrews = [ "exiv2" ];
       extraCasks = [
-        "brave-browser"
+        "arc"
         "google-drive"
         "obsidian"
       ];
     };
     skhd = {
       enable = true;
-      browser = "Brave Browser";
+      browser = "Arc";
       terminal = "WezTerm";
       useOpenForAppShortcuts = false;
       extraAppShortcuts = {
