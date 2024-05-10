@@ -15,7 +15,10 @@ in
       enable = true;
       editor = "nvim";
     };
-    tmux.enable = true;
+    tmux = {
+      enable = true;
+      theme = "dracula";
+    };
     vim = {
       enable = true;
       treesitter.grammarPackageSet = "slim";

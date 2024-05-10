@@ -5,12 +5,20 @@ let
   cfg = config.tc.tmux;
   usercfg = config.tc.user;
   remoteConfigFile = "tmux.remote.conf";
-  enabledBg = "#44475a";
+  enabledBg = {
+    dracula = "#44475a";
+    catpuccin = "#1e1e2e";
+  }."${cfg.theme}";
   disabledBg = "#d20f39";
 in
 {
   options.tc.tmux = {
     enable = mkEnableOption "tmux";
+    theme = mkOption {
+      type = with types; enum ["catpuccin" "dracula"];
+      default = "catpuccin";
+      description = "theme for tmux";
+    };
   };
 
   config = mkIf cfg.enable {
@@ -103,7 +111,7 @@ in
         extrakto # https://github.com/laktak/extrakto
         tmux-thumbs # https://github.com/fcsonline/tmux-thumbs
         sensible
-        {
+        (mkIf (cfg.theme == "dracula") {
           plugin = dracula;
           extraConfig = ''
             set -g @dracula-plugins "ssh-session time"
@@ -111,8 +119,25 @@ in
             set -g @dracula-show-battery false
             set -g @dracula-show-left-icon session
             set -g @dracula-time-format "%Y-%m-%d %H:%M"
+            '';
+        })
+        (mkIf (cfg.theme == "catpuccin") {
+          plugin = mkTmuxPlugin {
+            pluginName = "catppuccin-tmux";
+            version = "26617ca";
+            rtpFilePath = "catppuccin.tmux";
+            src = pkgs.fetchFromGitHub {
+              owner = "dreamsofcode-io";
+              repo = "catppuccin-tmux";
+              rev = "b4e0715356f820fc72ea8e8baf34f0f60e891718";
+              sha256 = "sha256-FJHM6LJkiAwxaLd5pnAoF3a7AE1ZqHWoCpUJE0ncCA8=";
+            };
+          };
+          extraConfig = ''
+            set -g @catppuccin_date_time "%Y-%m-%d %H:%M"
+            set -g @catppuccin_host "on"
           '';
-        }
+        })
       ];
     };
 
