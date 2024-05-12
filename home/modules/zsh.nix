@@ -107,6 +107,10 @@ in
 
     programs.home-manager.enable = true;
 
+    programs.atuin = {
+      enable = true;
+    };
+
     programs.zsh = {
       enable = true;
       enableAutosuggestions = true;
