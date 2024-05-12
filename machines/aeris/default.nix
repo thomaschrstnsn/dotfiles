@@ -26,7 +26,10 @@
       lsp.servers.omnisharp = true;
       codelldb.enable = false;
     };
-    tmux.enable = true;
+    tmux = {
+      enable = true;
+      session-tool = "sesh";
+    };
     wezterm = { enable = true; };
     zsh = {
       enable = true;

@@ -9,8 +9,9 @@
     ./home.nix
     ./nodejs.nix
     ./rancher.nix
-    ./ssh.nix
+    ./sesh.nix
     ./smd_launcher.nix
+    ./ssh.nix
     ./sway.nix
     ./tmux.nix
     ./vim.nix

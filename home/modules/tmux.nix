@@ -12,12 +12,17 @@ let
   disabledBg = "#d20f39";
 in
 {
-  options.tc.tmux = {
+  options.tc.tmux = with types; {
     enable = mkEnableOption "tmux";
     theme = mkOption {
-      type = with types; enum ["catpuccin" "dracula"];
+      type = enum ["catpuccin" "dracula"];
       default = "catpuccin";
       description = "theme for tmux";
+    };
+    session-tool = mkOption {
+      type = nullOr (enum ["tmux-sessionizer" "sesh"]);
+      default = "sesh";
+      description = "session tool inside tmux";
     };
   };
 
@@ -39,6 +44,8 @@ in
         set-option -g status-position top
         set-option -g set-clipboard on
         set-option -g detach-on-destroy off
+
+        bind-key x kill-pane # skip "kill-pane 1? (y/n)" prompt
 
         # https://github.com/samoshkin/tmux-config/blob/af2efd9561f41f30c51c9deeeab9451308c4086b/tmux/yank.sh
         yank="${tmux/yank.sh}"
@@ -64,9 +71,6 @@ in
         bind j select-pane -D 
         bind k select-pane -U
         bind l select-pane -R
-
-        bind C-o display-popup -E "tms"
-        bind C-j display-popup -E "tms switch"
 
         bind m select-pane -m
         bind M select-pane -M
@@ -105,7 +109,32 @@ in
           set -u status-style \;\
           set status-bg '${enabledBg}' \;\
           refresh-client -S
-      '';
+
+          '' + concatStringsSep "\n" 
+            ((if (cfg.session-tool == "tmux-sessionizer") then 
+              [
+                ''bind C-o display-popup -E "tms"''
+                ''bind C-j display-popup -E "tms switch"''
+              ]
+              else []) ++
+              (if (cfg.session-tool == "sesh") then [
+                ''
+                  bind-key "C-j" run-shell "sesh connect \"$(
+                      sesh list | fzf-tmux -p 55%,60% \
+                        --no-sort --border-label ' sesh ' --prompt '⚡  ' \
+                          --header '  ^a all ^t tmux ^s src/ ^g configs ^x zoxide ^d tmux kill ^f find' \
+                        --bind 'tab:down,btab:up' \
+                        --bind 'ctrl-a:change-prompt(⚡  )+reload(sesh list)' \
+                        --bind 'ctrl-s:change-prompt(👩‍💻  )+reload(fd -H -d 2 -t d . ~/src)' \
+                        --bind 'ctrl-t:change-prompt(🪟  )+reload(sesh list -t)' \
+                        --bind 'ctrl-g:change-prompt(⚙️  )+reload(sesh list -c)' \
+                        --bind 'ctrl-x:change-prompt(📁  )+reload(sesh list -z)' \
+                        --bind 'ctrl-f:change-prompt(🔎  )+reload(fd -H -d 2 -t d -E .Trash . ~)' \
+                        --bind 'ctrl-d:execute(tmux kill-session -t {})+change-prompt(⚡  )+reload(sesh list)'
+                  )\""
+                ''
+              ] else [])
+            );
       plugins = with pkgs.tmuxPlugins; [
         vim-tmux-navigator
         extrakto # https://github.com/laktak/extrakto
@@ -142,7 +171,8 @@ in
     };
 
     home.packages = with pkgs; [
-      tmux-sessionizer
+      (mkIf (cfg.session-tool == "tmux-sessionizer") tmux-sessionizer)
+      (mkIf (cfg.session-tool == "sesh") sesh)
     ];
 
     programs.zsh.initExtraBeforeCompInit = ''
