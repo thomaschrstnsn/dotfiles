@@ -47,6 +47,12 @@ in
             hostname = "192.168.64.6";
           };
         };
+        "enix" = {
+          "enix" = {
+            user = "thomas";
+            hostname = "192.168.1.163";
+          };
+        };
       };
 
       hostsToMatchblocks =
