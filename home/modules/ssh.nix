@@ -8,7 +8,7 @@ in
   options.tc.ssh = with types; {
     enable = mkEnableOption "ssh";
     hosts = mkOption {
-      type = listOf (enum [ "rpi4" "vmnix" "aero-nix" ]);
+      type = listOf (enum [ "rpi4" "vmnix" "aero-nix" "enix" ]);
       default = [ ];
       description = "known hosts to add to ssh config";
     };

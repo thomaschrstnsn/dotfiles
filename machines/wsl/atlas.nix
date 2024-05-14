@@ -20,7 +20,7 @@ in
     };
     ssh = {
       enable = true;
-      hosts = [ "rpi4" ];
+      hosts = [ "rpi4" "enix" ];
       agent.enable = true;
     };
     tmux = {

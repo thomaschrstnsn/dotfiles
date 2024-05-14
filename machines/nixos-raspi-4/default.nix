@@ -15,6 +15,10 @@ in
       enable = true;
       editor = "nvim";
     };
+    ssh = {
+      enable = true;
+      hosts = [ "rpi4" "vmnix" "enix" ];
+    };
     tmux = {
       enable = true;
       theme = "dracula";

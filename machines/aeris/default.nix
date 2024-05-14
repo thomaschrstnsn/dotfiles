@@ -17,7 +17,7 @@
     ssh = {
       enable = true;
       use1PasswordAgentOnMac = true;
-      hosts = [ "rpi4" "vmnix" "aero-nix" ];
+      hosts = [ "rpi4" "vmnix" "aero-nix" "enix" ];
       includes = [ "personal_config" ];
     };
     smd_launcher.enable = true;
