@@ -75,8 +75,8 @@
   extraPackages = pkgs: with pkgs; [
     nixpkgs-fmt
 
-    glow
-    visidata
+    # glow
+    # visidata
   ];
 
   system = systems.m1-darwin;

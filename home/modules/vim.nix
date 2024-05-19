@@ -686,10 +686,10 @@ in
           config = mkLuaFile ./vim/plugins/noice.lua;
         }
         plenary-nvim
-        {
-          plugin = rest-nvim;
-          config = mkLuaFile ./vim/plugins/nvim-rest.lua;
-        }
+        # {
+        #   plugin = rest-nvim;
+        #   config = mkLuaFile ./vim/plugins/nvim-rest.lua;
+        # }
         (fromGitHub "ibhagwan/smartyank.nvim" "2024mar26" "d9e078fe08d6466e37ea45ac446a9f60e6866789")
         {
           plugin = tint-nvim;
