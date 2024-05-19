@@ -109,6 +109,14 @@ in
 
     programs.atuin = {
       enable = true;
+      # https://docs.atuin.sh/configuration/config/
+      settings = {
+        filter_mode_shell_up_key_binding = "directory";
+        filter_mode = "global";
+        search_mode_shell_up_key_binding = "fuzzy";
+        search_mode = "fuzzy";
+        style = "compact";
+      };
     };
 
     programs.zsh = {
@@ -138,7 +146,8 @@ in
         zstyle ':fzf-tab:*' switch-group ',' '.'
       '' + (if cfg.vi-mode.enable
       then ''
-        source ${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+      source ${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+      bindkey '^r' atuin-search
       ''
       else "")
       + (if ssh-cfg.agent.enable
