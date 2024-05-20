@@ -51,9 +51,7 @@ in
     homebrew.brews = cfg.extraBrews;
 
     homebrew.casks = [
-      # "1password-beta"
       "1password-cli"
-      "iterm2"
       "karabiner-elements"
       "numi"
       "maccy"
