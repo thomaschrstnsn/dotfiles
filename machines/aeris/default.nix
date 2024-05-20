@@ -44,6 +44,7 @@
       extraCasks = [
         "arc"
         "google-drive"
+        "logseq"
         "obsidian"
       ];
     };
@@ -54,7 +55,7 @@
       useOpenForAppShortcuts = false;
       extraAppShortcuts = {
         "hyper - r" = "Rider";
-        "hyper - u" = "Obsidian";
+        "hyper - u" = "Logseq";
       };
       extraShortcuts = { };
       prefixShortcuts = {
