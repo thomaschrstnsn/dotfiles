@@ -23,6 +23,7 @@
     smd_launcher.enable = true;
     vim = {
       enable = true;
+      ideavim = true;
       lsp.servers.omnisharp = true;
       codelldb.enable = false;
     };
@@ -45,7 +46,7 @@
         "arc"
         "google-drive"
         "logseq"
-        "obsidian"
+        "rustrover"
       ];
     };
     skhd = {
