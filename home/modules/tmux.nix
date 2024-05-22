@@ -60,8 +60,7 @@ in
         bind-key -T copy-mode-vi A send-keys -X append-selection-and-cancel \;\
             run "tmux save-buffer - | $yank"
 
-        set -g @thumbs-command 'echo {} | $yank && tmux display-message \"Copied {}\"'
-        set -g @extrakto_clip_tool '$yank'
+        set -g @extrakto_clip_tool_run tmux_osc52
 
         unbind r
         bind r 'source ~/.config/tmux/tmux.conf; display "reloaded config"'
@@ -138,7 +137,6 @@ in
       plugins = with pkgs.tmuxPlugins; [
         vim-tmux-navigator
         extrakto # https://github.com/laktak/extrakto
-        tmux-thumbs # https://github.com/fcsonline/tmux-thumbs
         sensible
         (mkIf (cfg.theme == "dracula") {
           plugin = dracula;
