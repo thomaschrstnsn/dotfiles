@@ -561,7 +561,7 @@ in
         {
           key = "<leader>,";
           mode = "n";
-          action = "<cmd>Telescope buffers<cr>";
+          action = "<cmd>lua require('telescope.builtin').buffers({sort_mru=true, ignore_current_buffer=true})<cr>";
           options.desc = "recent buffers";
         }
 
