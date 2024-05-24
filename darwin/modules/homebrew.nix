@@ -39,18 +39,15 @@ in
     homebrew.global.lockfiles = true;
 
     homebrew.masApps = {
-      # Xcode = 497799835;
-      # Todoist = 572688855;
     };
 
-
     homebrew.taps = [
-      "homebrew/cask-versions"
     ] ++ cfg.extraTaps;
 
     homebrew.brews = cfg.extraBrews;
 
     homebrew.casks = [
+      "1password"
       "1password-cli"
       "karabiner-elements"
       "numi"
@@ -59,7 +56,6 @@ in
       "rocket"
       "spotify"
       "visual-studio-code"
-      "vlc"
     ] ++ cfg.extraCasks;
   };
 }
