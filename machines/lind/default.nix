@@ -5,6 +5,7 @@
       username = "tfc";
       homedir = "/Users/${username}";
     };
+    aws.enable = true;
     direnv.enable = true;
     dotnet = {
       enable = true;
@@ -13,6 +14,7 @@
     git = {
       enable = true;
       githubs = [ ];
+      userEmail = "tfc@lindcapital.com";
     };
     ssh = {
       enable = true;
@@ -40,10 +42,13 @@
   darwin = {
     homebrew = {
       enable = true;
+      extraBrews = [
+        "docker-compose"
+      ];
       extraCasks = [
         "arc"
+        "jetbrains-toolbox"
         "logseq"
-        "rustrover"
       ];
     };
     skhd = {
@@ -52,6 +57,7 @@
       terminal = "WezTerm";
       useOpenForAppShortcuts = false;
       extraAppShortcuts = {
+        "hyper - d" = "Azure Data Studio";
         "hyper - r" = "Rider";
         "hyper - u" = "Logseq";
       };
