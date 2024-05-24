@@ -14,7 +14,7 @@ in
   machines = {
     aero-nix = import ./aero-nix { inherit systems inputs; };
     aeris = import ./aeris { inherit systems; };
-    tfc-lind = import ./lind { inherit systems; };
+    tilia = import ./lind { inherit systems; };
     ci-x64-darwin = import ./ci-x64-darwin { inherit systems skhd-scripts; };
     enix = import ./enix/default.nix { inherit systems inputs; };
     Atlas = import ./wsl/atlas.nix { inherit systems; };

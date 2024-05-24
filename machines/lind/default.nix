@@ -40,7 +40,6 @@
   darwin = {
     homebrew = {
       enable = true;
-      extraBrews = [ "exiv2" ];
       extraCasks = [
         "arc"
         "logseq"
@@ -66,17 +65,13 @@
     };
     sketchybar = {
       enable = true;
-      scale = "laptop";
+      scale = "desktop";
       position = "top";
     };
     yabai.enable = true;
   };
 
   extraPackages = pkgs: with pkgs; [
-    nixpkgs-fmt
-
-    # glow
-    # visidata
   ];
 
   system = systems.m1-darwin;
