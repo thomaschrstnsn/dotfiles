@@ -57,7 +57,9 @@
       terminal = "WezTerm";
       useOpenForAppShortcuts = false;
       extraAppShortcuts = {
+        "hyper - c" = "Microsoft Teams";
         "hyper - d" = "Azure Data Studio";
+        "hyper - i" = "Microsoft Outlook";
         "hyper - r" = "Rider";
         "hyper - u" = "Logseq";
       };
