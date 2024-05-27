@@ -76,7 +76,10 @@
       scale = "desktop";
       position = "top";
     };
-    yabai.enable = true;
+    yabai = { 
+      enable = true; 
+      jankyborders.enable = true;
+    };
   };
 
   extraPackages = pkgs: with pkgs; [

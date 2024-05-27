@@ -17,6 +17,7 @@ in
 {
   options.tc.yabai = with types; {
     enable = mkEnableOption "yabai window manager";
+    jankyborders.enable = mkEnableOption "Use jankyborders";
   };
 
   config = mkIf cfg.enable {
@@ -75,7 +76,11 @@ in
         yabai -m space 2 --layout stack
 
         # defaults write NSGlobalDomain NSAutomaticWindowAnimationsEnabled -bool false
-      '' + sketchySignals;
+        '' + sketchySignals + 
+        (if cfg.jankyborders.enable 
+        then ''
+        ${pkgs.jankyborders}/bin/borders active_color=0xffe1e3e4 inactive_color=0xff494d64 width=5.0 &
+        '' else "");
     };
   };
 }
