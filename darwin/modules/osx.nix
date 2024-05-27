@@ -37,6 +37,16 @@
   };
 
   security.pam.enableSudoTouchIdAuth = true;
+
+  # https://write.rog.gr/writing/using-touchid-with-tmux/
+  environment = {
+    etc."pam.d/sudo_local".text = ''
+      # Managed by Nix Darwin
+      auth       optional       ${pkgs.pam-reattach}/lib/pam/pam_reattach.so ignore_ssh
+      auth       sufficient     pam_tid.so
+    '';
+  };
+
   # todo: enable Accessibility > Display > Reduce Motion 
   # system.defaults.universalaccess.reduceMotion = 1;
 }
