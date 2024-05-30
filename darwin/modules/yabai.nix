@@ -65,7 +65,7 @@ in
       };
 
       extraConfig = ''
-        yabai -m rule --add app='System Preferences' manage=off
+        yabai -m rule --add app='System Settings' manage=off
         yabai -m rule --add title='Preferences$' manage=off
         yabai -m rule --add app='Calculator' manage=off
         yabai -m rule --add app='Appgate SDP' manage=off
