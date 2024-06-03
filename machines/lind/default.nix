@@ -49,6 +49,7 @@
         "arc"
         "jetbrains-toolbox"
         "logseq"
+        "todoist"
       ];
     };
     skhd = {
