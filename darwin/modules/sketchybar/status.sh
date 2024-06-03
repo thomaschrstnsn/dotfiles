@@ -28,7 +28,10 @@ get_wifi() {
     "Kroghsvej 22")
     WIFI_LABEL=""
     ;;
-    "Schibsted Global")
+    "lc thomaschrstnsn")
+    WIFI_LABEL=""
+    ;;
+    "LC Guest")
     WIFI_LABEL=""
     ;;
     *)
