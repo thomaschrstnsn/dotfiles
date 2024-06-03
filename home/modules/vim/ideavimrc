@@ -81,8 +81,8 @@ nnoremap <leader>gc :action Vcs.VcsClone<CR>
 nnoremap [e :action NextOccurence<CR>
 nnoremap ]e :action PreviousOccurence<CR>
 
-nnoremap C-o :action Back<CR>
-nnoremap C-i :action Forward<CR>
+nmap <C-o> <Action>(Back)
+nmap <C-i> <Action>(Forward)
 
 nnoremap <S-Tab> :action PreviousTab<cr>
 nnoremap <Tab> :action NextTab<cr>
