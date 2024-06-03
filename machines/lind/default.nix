@@ -62,6 +62,7 @@
         "hyper - d" = "Azure Data Studio";
         "hyper - i" = "Microsoft Outlook";
         "hyper - r" = "Rider";
+        "hyper - s" = "Self-Service";
         "hyper - u" = "Logseq";
       };
       extraShortcuts = { };
