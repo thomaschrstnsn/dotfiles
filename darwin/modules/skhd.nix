@@ -164,8 +164,8 @@ in
         ''
           hyper - q : ${scripts}/moveWindowToDisplayAndFollowFocus.sh left
           hyper - w : ${scripts}/moveWindowToDisplayAndFollowFocus.sh right
-          hyper - a : yabai -m display --focus prev || yabai -m display --focus last
-          hyper - s : yabai -m display --focus next || yabai -m display --focus first
+          # hyper - a : yabai -m display --focus prev || yabai -m display --focus last
+          # hyper - s : yabai -m display --focus next || yabai -m display --focus first
 
           hyper - o : ${scripts}/moveWindowToSpaceOnSameDisplay.sh prev
           hyper - p : ${scripts}/moveWindowToSpaceOnSameDisplay.sh next
