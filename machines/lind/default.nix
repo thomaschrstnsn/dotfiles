@@ -9,7 +9,7 @@
     direnv.enable = true;
     dotnet = {
       enable = true;
-      sdks = [ "7.0" "8.0" ];
+      sdks = [ "6.0" "7.0" "8.0" ];
     };
     git = {
       enable = true;
@@ -64,6 +64,7 @@
         "hyper - r" = "Rider";
         "hyper - s" = "Self-Service";
         "hyper - u" = "Logseq";
+        "hyper - z" = "Spotify";
       };
       extraShortcuts = { };
       prefixShortcuts = {
