@@ -124,7 +124,7 @@ in
                           --header '  ^a all ^t tmux ^s src/ ^g configs ^x zoxide ^d tmux kill ^f find' \
                         --bind 'tab:down,btab:up' \
                         --bind 'ctrl-a:change-prompt(⚡  )+reload(sesh list)' \
-                        --bind 'ctrl-s:change-prompt(👩‍💻  )+reload(fd -H -d 2 -t d . ~/src)' \
+                        --bind 'ctrl-s:change-prompt(👩‍💻  )+reload(fd -d 1 -t d . ~/src)' \
                         --bind 'ctrl-t:change-prompt(🪟  )+reload(sesh list -t)' \
                         --bind 'ctrl-g:change-prompt(⚙️  )+reload(sesh list -c)' \
                         --bind 'ctrl-x:change-prompt(📁  )+reload(sesh list -z)' \
