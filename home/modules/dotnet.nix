@@ -52,6 +52,8 @@ in
       export ASPNETCORE_ENVIRONMENT="Development"
       export DOTNET_ROOT="${combinedDotnet}"
       export DOTNET_HOST_PATH="${combinedDotnet}/dotnet"
+
+      export APP_CONFIG="staging"
     '';
   };
 }
