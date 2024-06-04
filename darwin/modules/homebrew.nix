@@ -51,9 +51,7 @@ in
       "1password-cli"
       "karabiner-elements"
       "numi"
-      "maccy"
       "raycast"
-      "rocket"
       "spotify"
       "visual-studio-code"
     ] ++ cfg.extraCasks;
