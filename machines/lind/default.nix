@@ -47,6 +47,7 @@
       ];
       extraCasks = [
         "arc"
+        "bitwarden"
         "jetbrains-toolbox"
         "logseq"
         "todoist"
