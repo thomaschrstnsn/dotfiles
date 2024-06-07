@@ -66,6 +66,7 @@ in
     enable = mkEnableOption "vim";
     ideavim = mkEnableOption "ideavimrc";
     codelldb.enable = mkEnableOption "lldb";
+    copilot.enable = mkOption { type = bool; default = true; description = "copilot";};
     treesitter = {
       package = mkOption {
         type = types.package;
@@ -166,6 +167,8 @@ in
             { name = "crates"; }
           ];
         };
+        copilot-vim.enable = cfg.copilot.enable;
+        copilot-chat.enable = cfg.copilot.enable;
         crates-nvim = { enable = true; };
         dap = {
           enable = true;
@@ -635,24 +638,32 @@ in
         { key = "<C-l>"; mode = "n"; action = "<cmd>wincmd l<CR>"; }
 
         # crates-nvim
-        { key = "<leader>ct"; mode = "n"; action = ":lua require('crates').toggle()<cr>"; }
-        { key = "<leader>cr"; mode = "n"; action = ":lua require('crates').reload()<cr>"; }
+        { key = "<leader>rct"; mode = "n"; action = ":lua require('crates').toggle()<cr>"; }
+        { key = "<leader>rcr"; mode = "n"; action = ":lua require('crates').reload()<cr>"; }
 
-        { key = "<leader>cv"; mode = "n"; action = ":lua require('crates').show_versions_popup()<cr>"; }
-        { key = "<leader>cf"; mode = "n"; action = ":lua require('crates').show_features_popup()<cr>"; }
-        { key = "<leader>cd"; mode = "n"; action = ":lua require('crates').show_dependencies_popup()<cr>"; }
+        { key = "<leader>rcv"; mode = "n"; action = ":lua require('crates').show_versions_popup()<cr>"; }
+        { key = "<leader>rcf"; mode = "n"; action = ":lua require('crates').show_features_popup()<cr>"; }
+        { key = "<leader>rcd"; mode = "n"; action = ":lua require('crates').show_dependencies_popup()<cr>"; }
 
-        { key = "<leader>cu"; mode = "n"; action = ":lua require('crates').update_crate()<cr>"; }
-        { key = "<leader>cu"; mode = "v"; action = ":lua require('crates').update_crates()<cr>"; }
-        { key = "<leader>ca"; mode = "n"; action = ":lua require('crates').update_all_crates()<cr>"; }
-        { key = "<leader>cU"; mode = "n"; action = ":lua require('crates').upgrade_crate()<cr>"; }
-        { key = "<leader>cU"; mode = "v"; action = ":lua require('crates').upgrade_crates()<cr>"; }
-        { key = "<leader>cA"; mode = "n"; action = ":lua require('crates').upgrade_all_crates()<cr>"; }
+        { key = "<leader>rcu"; mode = "n"; action = ":lua require('crates').update_crate()<cr>"; }
+        { key = "<leader>rcu"; mode = "v"; action = ":lua require('crates').update_crates()<cr>"; }
+        { key = "<leader>rca"; mode = "n"; action = ":lua require('crates').update_all_crates()<cr>"; }
+        { key = "<leader>rcU"; mode = "n"; action = ":lua require('crates').upgrade_crate()<cr>"; }
+        { key = "<leader>rcU"; mode = "v"; action = ":lua require('crates').upgrade_crates()<cr>"; }
+        { key = "<leader>rcA"; mode = "n"; action = ":lua require('crates').upgrade_all_crates()<cr>"; }
 
-        { key = "<leader>cH"; mode = "n"; action = ":lua require('crates').open_homepage()<cr>"; }
-        { key = "<leader>cR"; mode = "n"; action = ":lua require('crates').open_repository()<cr>"; }
-        { key = "<leader>cD"; mode = "n"; action = ":lua require('crates').open_documentation()<cr>"; }
-        { key = "<leader>cC"; mode = "n"; action = ":lua require('crates').open_crates_io()<cr>"; }
+        { key = "<leader>rcH"; mode = "n"; action = ":lua require('crates').open_homepage()<cr>"; }
+        { key = "<leader>rcR"; mode = "n"; action = ":lua require('crates').open_repository()<cr>"; }
+        { key = "<leader>rcD"; mode = "n"; action = ":lua require('crates').open_documentation()<cr>"; }
+        { key = "<leader>rcC"; mode = "n"; action = ":lua require('crates').open_crates_io()<cr>"; }
+
+        # copilot-chat
+        { key = "<leader>cc"; mode = "n"; action = ":CopilotChatToggle<cr>"; options.desc = "Copilot chat toggle"; }
+        { key = "<leader>ce"; mode = "n"; action = ":CopilotChatExplain<cr>"; options.desc = "Copilot explain selection"; }
+        { key = "<leader>cr"; mode = "v"; action = ":CopilotChatReview<cr>"; options.desc = "Copilot review"; }
+        { key = "<leader>cd"; mode = "v"; action = ":CopilotChatDocs<cr>"; options.desc = "Copilot generate docs"; }
+        { key = "<leader>ct"; mode = "n"; action = ":CopilotChatTests<cr>"; options.desc = "Copilot generate tests"; }
+        { key = "<leader>cfd"; mode = "n"; action = ":CopilotChatFixDiagnostic<cr>"; options.desc = "Copilot fix diagnostic"; }
 
         # nvim-test
         { key = "<leader>uu"; mode = "n"; action = "<cmd>TestLast<CR>"; }
