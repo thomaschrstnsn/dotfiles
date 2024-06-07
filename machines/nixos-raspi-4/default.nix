@@ -26,6 +26,7 @@ in
     vim = {
       enable = true;
       treesitter.grammarPackageSet = "slim";
+      copilot.enable = false;
     };
   };
   system = systems.arm-linux;
