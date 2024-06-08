@@ -118,7 +118,7 @@ in
               else []) ++
               (if (cfg.session-tool == "sesh") then [
                 ''
-                  bind-key "C-j" run-shell "sesh connect \"$(
+                  bind-key "C-k" run-shell "sesh connect \"$(
                       sesh list | fzf-tmux -p 55%,60% \
                         --no-sort --border-label ' sesh ' --prompt '⚡  ' \
                           --header '  ^a all ^t tmux ^s src/ ^g configs ^x zoxide ^d tmux kill ^f find' \
@@ -130,6 +130,10 @@ in
                         --bind 'ctrl-x:change-prompt(📁  )+reload(sesh list -z)' \
                         --bind 'ctrl-f:change-prompt(🔎  )+reload(fd -H -d 2 -t d -E .Trash . ~)' \
                         --bind 'ctrl-d:execute(tmux kill-session -t {})+change-prompt(⚡  )+reload(sesh list)'
+                  )\""
+
+                  bind-key "C-j" display-popup -E -w 40% "sesh connect \"$(
+	                sesh list -i | gum filter --limit 1 --placeholder 'Pick a sesh' --height 50 --prompt='⚡'
                   )\""
                 ''
               ] else [])
@@ -168,9 +172,9 @@ in
       ];
     };
 
-    home.packages = with pkgs; [
-      (mkIf (cfg.session-tool == "tmux-sessionizer") tmux-sessionizer)
-      (mkIf (cfg.session-tool == "sesh") sesh)
+    home.packages = with pkgs; builtins.concatLists [
+      (if (cfg.session-tool == "tmux-sessionizer") then [tmux-sessionizer] else [])
+      (if (cfg.session-tool == "sesh") then [sesh gum] else [])
     ];
 
     programs.zsh.initExtraBeforeCompInit = ''
