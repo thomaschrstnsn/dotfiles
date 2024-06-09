@@ -155,19 +155,46 @@ in
         barbar = { enable = true; };
         comment-nvim = { enable = true; };
         cmp = {
+          enable = true;
+          settings.mapping = {
+            "<CR>" = "cmp.mapping.confirm({ select = true })";
+            "<Tab>" = ''cmp.mapping(function(fallback)
+                -- This little snippet will confirm with tab, and if no entry is selected, will confirm the first item
+                if (cmp.visible()) then
+                  local entry = cmp.get_selected_entry()
+                  if not entry then
+                    cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+                  else
+                    cmp.confirm()
+                  end
+                else
+                  fallback()
+                end
+              end, {"i","s",}) '';
+            "<Up>" = "cmp.mapping.select_prev_item()";
+            "<Down>" = "cmp.mapping.select_next_item()";
+            "<C-Space>" = "cmp.mapping.complete()";
+          };
+
           settings.snippet.expand = "function(args) require('luasnip').lsp_expand(args.body) end";
           settings.sources = [
-            { name = "luasnip"; }
+            { name = "copilot"; }
             { name = "nvim_lsp"; }
             { name = "nvim_lsp_document_symbol"; }
             { name = "nvim_lsp_signature_help"; }
+            { name = "luasnip"; }
             { name = "treesitter"; }
             { name = "buffer"; }
             { name = "path"; }
             { name = "crates"; }
           ];
         };
-        copilot-vim.enable = cfg.copilot.enable;
+        copilot-lua = {
+          enable = cfg.copilot.enable;
+          suggestion.enabled = false;
+          panel.enabled = false;
+        };
+        copilot-cmp.enable = cfg.copilot.enable;
         copilot-chat.enable = cfg.copilot.enable;
         crates-nvim = { enable = true; };
         dap = {
@@ -268,32 +295,6 @@ in
         nix.enable = true;
         notify.enable = true;
         nvim-autopairs.enable = true;
-        nvim-cmp = {
-          enable = true;
-          completion = {
-            completeopt = "menu,menuone,noselect";
-            keywordLength = 2;
-          };
-          mapping = {
-            "<CR>" = "cmp.mapping.confirm({ select = true })";
-            "<Tab>" = ''cmp.mapping(function(fallback)
-                -- This little snippet will confirm with tab, and if no entry is selected, will confirm the first item
-                if (cmp.visible()) then
-                  local entry = cmp.get_selected_entry()
-                  if not entry then
-                    cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
-                  else
-                    cmp.confirm()
-                  end
-                else
-                  fallback()
-                end
-              end, {"i","s",}) '';
-            "<Up>" = "cmp.mapping.select_prev_item()";
-            "<Down>" = "cmp.mapping.select_next_item()";
-            "<C-Space>" = "cmp.mapping.complete()";
-          };
-        };
         nvim-tree = {
           enable = true;
           disableNetrw = true;
