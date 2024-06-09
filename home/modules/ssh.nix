@@ -8,7 +8,7 @@ in
   options.tc.ssh = with types; {
     enable = mkEnableOption "ssh";
     hosts = mkOption {
-      type = listOf (enum [ "rpi4" "vmnix" "aero-nix" "enix" ]);
+      type = listOf (enum [ "rpi4" "vmnix" "aero-nix" "enix" "rsync.net"]);
       default = [ ];
       description = "known hosts to add to ssh config";
     };
@@ -53,6 +53,13 @@ in
             hostname = "192.168.1.163";
           };
         };
+        "rsync.net" = {
+          "rsync.net" = {
+            user = "zh4414";
+            hostname = "zh4414.rsync.net";
+          };
+        };
+           
       };
 
       hostsToMatchblocks =

@@ -17,7 +17,7 @@ in
     };
     ssh = {
       enable = true;
-      hosts = [ "rpi4" "vmnix" "enix" ];
+      hosts = [ "rpi4" "vmnix" "enix" "rsync.net"];
     };
     tmux = {
       enable = true;
