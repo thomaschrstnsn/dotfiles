@@ -30,6 +30,10 @@
     };
   };
 
+  networking.firewall.allowedTCPPorts = [
+    4534 # bonobo (sonos to navidrome integration)
+  ];
+
   environment.systemPackages = with pkgs; [
     docker-compose
     rclone
