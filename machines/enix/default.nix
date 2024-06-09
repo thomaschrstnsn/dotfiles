@@ -29,7 +29,7 @@ in
       networking.hostname = "enix";
       user = {
         name = username;
-        groups = [ "wheel" "docker" ];
+        groups = [ "wheel" "docker" "navidrome"];
       };
     };
     base = {

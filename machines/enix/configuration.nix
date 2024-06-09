@@ -19,6 +19,17 @@
     };
   };
 
+  services.navidrome = {
+    enable = true;
+
+    openFirewall = true;
+
+    settings = {
+      MusicFolder = "/music";
+      Address = "0.0.0.0";
+    };
+  };
+
   environment.systemPackages = with pkgs; [
     docker-compose
     rclone
