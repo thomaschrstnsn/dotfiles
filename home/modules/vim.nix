@@ -3,7 +3,6 @@ with lib;
 
 let
   cfg = config.tc.vim;
-  wslCfg = config.tc.wsl;
 
   fromGitHub = repo: version: rev: pkgs.vimUtils.buildVimPlugin {
     pname = "${lib.strings.sanitizeDerivationName repo}";
@@ -180,7 +179,6 @@ in
 
           settings.snippet.expand = "function(args) require('luasnip').lsp_expand(args.body) end";
           settings.sources = [
-            { name = "copilot"; }
             { name = "nvim_lsp"; }
             { name = "nvim_lsp_document_symbol"; }
             { name = "nvim_lsp_signature_help"; }
@@ -189,7 +187,7 @@ in
             { name = "buffer"; }
             { name = "path"; }
             { name = "crates"; }
-          ];
+          ] ++ (if cfg.copilot.enable then [ { name = "copilot"; } ] else []);
         };
         copilot-lua = {
           enable = cfg.copilot.enable;
