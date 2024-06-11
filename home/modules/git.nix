@@ -81,6 +81,7 @@ in
       delta = {
         enable = cfg.differ == "delta";
         options = {
+          core-autocrlf = "input";
           features = "line-numbers decorations";
           whitespace-error-style = "22 reverse";
           decorations = {
