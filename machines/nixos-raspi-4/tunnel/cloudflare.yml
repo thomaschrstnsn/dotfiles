@@ -22,5 +22,8 @@ ingress:
 
   - hostname: ssh.chrstnsn.dk
     service: ssh://localhost:22
+
+  - hostname: enix.chrstnsn.dk
+    service: ssh://192.168.1.163:22
     
   - service: http_status:404
