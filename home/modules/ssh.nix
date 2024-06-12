@@ -52,6 +52,10 @@ in
             user = "thomas";
             hostname = "192.168.1.163";
           };
+          "enix.chrstnsn.dk" = {
+            user = "thomas";
+            proxyCommand = "${pkgs.cloudflared}/bin/cloudflared access ssh --hostname %h";
+          };
         };
         "rsync.net" = {
           "rsync.net" = {
