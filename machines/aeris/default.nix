@@ -69,8 +69,6 @@
     };
     sketchybar = {
       enable = true;
-      scale = "laptop";
-      position = "top";
     };
     yabai = {
       enable = true;

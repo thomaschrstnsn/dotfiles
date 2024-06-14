@@ -80,8 +80,6 @@
     };
     sketchybar = {
       enable = true;
-      scale = "desktop";
-      position = "top";
     };
     yabai = { 
       enable = true; 

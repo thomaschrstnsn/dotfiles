@@ -92,10 +92,6 @@
     };
     sketchybar = {
       enable = true;
-      scale = "desktop";
-      position = "top";
-      aliases.appgate.enable = true;
-      aliases.meetingbar.enable = true;
     };
     yabai.enable = false; # does not build cleanly on gha
   };

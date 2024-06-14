@@ -3,16 +3,6 @@ with lib;
 
 let
   cfg = config.tc.yabai;
-  sketchyCfg = config.tc.sketchybar;
-  sketchySignals =
-    if sketchyCfg.enable
-    then
-      ''
-        # SKETCHYBAR EVENTS
-        yabai -m signal --add event=window_focused action="sketchybar -m --trigger ${sketchyCfg.yabai.event.window_focus} &> /dev/null"
-        yabai -m signal --add event=window_title_changed action="sketchybar -m --trigger ${sketchyCfg.yabai.event.title_change} &> /dev/null"
-      ''
-    else "";
 in
 {
   options.tc.yabai = with types; {
@@ -78,11 +68,10 @@ in
         yabai -m space 2 --layout stack
 
         # defaults write NSGlobalDomain NSAutomaticWindowAnimationsEnabled -bool false
-        '' + sketchySignals + 
-        (if cfg.jankyborders.enable 
-        then ''
-        ${pkgs.jankyborders}/bin/borders active_color=0xffe1e3e4 inactive_color=0xff494d64 width=5.0 &
-        '' else "");
+        '' + (if cfg.jankyborders.enable 
+              then ''
+              ${pkgs.jankyborders}/bin/borders active_color=0xffe1e3e4 inactive_color=0xff494d64 width=5.0 &
+              '' else "");
     };
   };
 }
