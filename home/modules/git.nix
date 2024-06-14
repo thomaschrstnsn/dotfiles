@@ -1,7 +1,9 @@
 { pkgs, config, lib, ... }:
 with lib;
 
-let cfg = config.tc.git;
+let 
+  cfg = config.tc.git;
+  sshConfig = config.tc.ssh;
 in
 {
   options.tc.git = with types; {
@@ -29,6 +31,8 @@ in
       type = enum [ "standard" "delta" "difftastic" ];
       default = "delta";
     };
+
+    gpgVia1Password = mkEnableOption "Use 1Password for GPG signing";
   };
 
   config = mkIf cfg.enable {
@@ -57,6 +61,11 @@ in
         ff = "merge --ff-only";
       };
 
+      # signing = mkif (sshConfig.use1PasswordAgentOnMac && cfg.gpgVia1Password) {
+      #     signingkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIErz7lXsjPyJcjzRKMWyZodRGzjkbCxWu/Lqk+NpjupZ";
+      #
+      # };
+
       extraConfig = {
         push.autoSetupRemote = "true"; # since 2.37.0
         push.default = "current";
@@ -74,6 +83,10 @@ in
             )
             cfg.githubs
         );
+        user.signingkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIErz7lXsjPyJcjzRKMWyZodRGzjkbCxWu/Lqk+NpjupZ";
+        gpg.format = "ssh";
+        gpg.ssh.program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
+        commit.gpgsign = (sshConfig.use1PasswordAgentOnMac && cfg.gpgVia1Password);
       };
 
       ignores = [ "*~" "*.swp" ".DS_Store" ];

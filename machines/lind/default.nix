@@ -15,6 +15,7 @@
       enable = true;
       githubs = [ ];
       userEmail = "tfc@lindcapital.com";
+      gpgVia1Password = true;
     };
     ssh = {
       enable = true;

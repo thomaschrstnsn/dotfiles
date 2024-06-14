@@ -19,6 +19,7 @@
       use1PasswordAgentOnMac = true;
       hosts = [ "rpi4" "vmnix" "aero-nix" "enix" "rsync.net"];
       includes = [ "personal_config" ];
+      gpgVia1Password = true;
     };
     smd_launcher.enable = true;
     vim = {

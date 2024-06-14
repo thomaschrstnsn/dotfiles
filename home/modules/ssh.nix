@@ -74,19 +74,34 @@ in
           foldl' (s1: s2: s1 // s2) { } hostAttrs
         );
     in
-    {
-      programs.ssh = {
-        enable = true;
-        forwardAgent = true;
-        extraConfig =
-          if cfg.use1PasswordAgentOnMac
-          then ''IdentityAgent = "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"''
-          else "";
+    mkMerge [
+      {
+        programs.ssh = {
+          enable = true;
+          forwardAgent = true;
+          extraConfig =
+            if cfg.use1PasswordAgentOnMac
+            then ''
+            IdentityAgent = "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+            ''
+            else "";
 
-        matchBlocks = hostsToMatchblocks cfg.hosts;
+          matchBlocks = hostsToMatchblocks cfg.hosts;
 
-        includes = cfg.includes;
-      };
-    }
-  );
+          includes = cfg.includes;
+        };
+      }
+      (mkIf cfg.use1PasswordAgentOnMac 
+      {
+          home.file = {
+            ".config/1Password/ssh/agent.toml".text = ''
+            [[ssh-keys]]
+            item = "abzfs445wgvufgybncdcjgptla"
+
+            [[ssh-keys]]
+            item = "6ddacbrzis56q7qmq5bkinjsum"
+            '';
+          };
+      })
+    ]);
 }
