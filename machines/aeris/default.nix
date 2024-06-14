@@ -13,13 +13,13 @@
     git = {
       enable = true;
       githubs = [ ];
+      gpgVia1Password = true;
     };
     ssh = {
       enable = true;
       use1PasswordAgentOnMac = true;
       hosts = [ "rpi4" "vmnix" "aero-nix" "enix" "rsync.net"];
       includes = [ "personal_config" ];
-      gpgVia1Password = true;
     };
     smd_launcher.enable = true;
     vim = {
