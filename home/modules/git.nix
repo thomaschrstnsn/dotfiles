@@ -61,11 +61,6 @@ in
         ff = "merge --ff-only";
       };
 
-      # signing = mkif (sshConfig.use1PasswordAgentOnMac && cfg.gpgVia1Password) {
-      #     signingkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIErz7lXsjPyJcjzRKMWyZodRGzjkbCxWu/Lqk+NpjupZ";
-      #
-      # };
-
       extraConfig = {
         push.autoSetupRemote = "true"; # since 2.37.0
         push.default = "current";
@@ -73,7 +68,6 @@ in
         fetch.prune = "true";
         log.date = "iso";
         branch.sort = "committerdate";
-        # TODO when using difftastic: diff.external = "difft --color always";
         url = builtins.listToAttrs (
           map
             (gh: {
