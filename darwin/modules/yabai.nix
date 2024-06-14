@@ -71,6 +71,7 @@ in
         yabai -m rule --add app='Appgate SDP' manage=off
         yabai -m rule --add label="About This Mac" app="System Information" title="About This Mac" manage=off
         yabai -m rule --add app="JetBrains Toolbox" manage=off
+        yabai -m rule --add app="Cisco Secure Client" manage=off
         yabai -m rule --add app="JetBrains Rider" title="^(.|\s)*\S(.|\s)*$" manage=off
         yabai -m rule --add app="JetBrains Rider" title!="^$" manage=off
         yabai -m rule --add title='launcher' manage=off
