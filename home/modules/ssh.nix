@@ -12,6 +12,7 @@ in
       default = [ ];
       description = "known hosts to add to ssh config";
     };
+    addLindHosts = mkEnableOption "add Lind hosts";
     use1PasswordAgentOnMac = mkEnableOption "1Password ssh-agent on mac";
     agent.enable = mkEnableOption "ssh-agent enabled";
     includes = mkOption
@@ -24,6 +25,18 @@ in
 
   config = mkIf cfg.enable (
     let
+      t1user = "t1tfc@local-lindcapital.dk";
+      lindHosts = [
+        "stlcevs01"
+        "stlcevs02"
+        "stlcevs03"
+        "stlcunixhost02"
+        "lcevs04"
+        "lcevs05"
+        "lcunixhost01"
+        "lcunixhost02"
+        "vmlcunixhost10"
+      ];
       knownHosts = {
         "rpi4" = {
           "rpi4" = {
@@ -63,7 +76,6 @@ in
             hostname = "zh4414.rsync.net";
           };
         };
-           
       };
 
       hostsToMatchblocks =
@@ -86,7 +98,18 @@ in
             ''
             else "";
 
-          matchBlocks = hostsToMatchblocks cfg.hosts;
+            matchBlocks = mkMerge [
+              (hostsToMatchblocks cfg.hosts) 
+              (mkIf cfg.addLindHosts 
+                (listToAttrs (map (h: {
+                  name = h;
+                  value = {
+                    user = t1user;
+                    hostname = h;
+                  };
+                }) lindHosts))
+              )
+            ];
 
           includes = cfg.includes;
         };
