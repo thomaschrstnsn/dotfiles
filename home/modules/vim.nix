@@ -292,14 +292,16 @@ in
             trailspace = { };
           };
         };
+        neo-tree = {
+          enable = true;
+          closeIfLastWindow = true;
+          openFilesInLastWindow = true;
+          filesystem.followCurrentFile.enabled = true;
+          sourceSelector.winbar = true;
+        };
         nix.enable = true;
         notify.enable = true;
         nvim-autopairs.enable = true;
-        nvim-tree = {
-          enable = true;
-          disableNetrw = true;
-          actions.openFile.quitOnOpen = true;
-        };
         project-nvim.enable = true;
         rustaceanvim = mkMerge [
           { enable = true; }
@@ -361,10 +363,10 @@ in
       keymaps = [
         {
           key = "<leader>e";
-          action = "<cmd>NvimTreeFindFileToggle<CR>";
+          action = "<cmd>Neotree toggle<CR>";
           options = {
             silent = true;
-            desc = "nvimtree toggle";
+            desc = "neotree toggle";
           };
         }
         {
