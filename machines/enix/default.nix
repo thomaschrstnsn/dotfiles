@@ -9,6 +9,10 @@ in
       username = username;
       homedir = "/home/thomas";
     };
+    ssh = {
+      enable = true;
+      hosts = [ "rpi4" "vmnix" "enix" "rsync.net"];
+    };
     git.enable = true;
     zsh = {
       enable = true;
