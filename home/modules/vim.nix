@@ -334,9 +334,17 @@ in
         neo-tree = {
           enable = true;
           closeIfLastWindow = true;
+          autoCleanAfterSessionRestore = true;
           openFilesInLastWindow = true;
           filesystem.followCurrentFile.enabled = true;
           sourceSelector.winbar = true;
+          eventHandlers = {
+            file_opened = ''
+            function(file_path)
+              require("neo-tree").close_all()
+            end
+            '';
+          };
         };
         nix.enable = true;
         notify.enable = true;
