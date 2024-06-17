@@ -195,7 +195,46 @@ in
           panel.enabled = false;
         };
         copilot-cmp.enable = cfg.copilot.enable;
-        copilot-chat.enable = cfg.copilot.enable;
+        copilot-chat = {
+          enable = cfg.copilot.enable;
+          settings = {
+            auto_insert_mode = true;
+            mappings = {
+              accept_diff = {
+                insert = "<C-y>";
+                normal = "<C-y>";
+              };
+              close = {
+                insert = "<C-c>";
+                normal = "q";
+              };
+              complete = {
+                detail = "Use @<Tab> or /<Tab> for options.";
+                insert = "<Tab>";
+              };
+              reset = {
+                insert = "<C-R>";
+                normal = "<C-R>";
+              };
+              show_diff = {
+                normal = "gd";
+              };
+              show_system_prompt = {
+                normal = "gp";
+              };
+              show_user_selection = {
+                normal = "gs";
+              };
+              submit_prompt = {
+                insert = "<C-m>";
+                normal = "<CR>";
+              };
+              yank_diff = {
+                normal = "gy";
+              };
+            };
+          };
+        };
         crates-nvim = { enable = true; };
         dap = {
           enable = true;
