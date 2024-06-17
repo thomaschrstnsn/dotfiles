@@ -67,6 +67,7 @@
         "hyper - r" = "Rider";
         "hyper - s" = "Self-Service";
         "hyper - u" = "Logseq";
+        "hyper - y" = "Microsoft Remote Desktop";
         "hyper - z" = "Spotify";
       };
       extraShortcuts = { };
