@@ -198,7 +198,6 @@ in
         copilot-chat = {
           enable = cfg.copilot.enable;
           settings = {
-            auto_insert_mode = true;
             mappings = {
               accept_diff = {
                 insert = "<C-y>";
