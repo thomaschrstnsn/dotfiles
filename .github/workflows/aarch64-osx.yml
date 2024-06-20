@@ -6,11 +6,11 @@ jobs:
   build-configuration:
     runs-on: macos-14
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Install Nix
-      uses: DeterminateSystems/nix-installer-action@v4
+      uses: DeterminateSystems/nix-installer-action@v12
     - name: Install Cachix
-      uses: cachix/cachix-action@v14
+      uses: cachix/cachix-action@v15
       with:
         name: thomaschrstnsn
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
