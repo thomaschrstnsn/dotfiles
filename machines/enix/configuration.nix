@@ -30,6 +30,8 @@
     };
   };
 
+  powerManagement.powertop.enable = true;
+
   networking.firewall.allowedTCPPorts = [
     4534 # bonobo (sonos to navidrome integration)
   ];
