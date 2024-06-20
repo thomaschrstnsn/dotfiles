@@ -65,7 +65,7 @@ in
     enable = mkEnableOption "vim";
     ideavim = mkEnableOption "ideavimrc";
     codelldb.enable = mkEnableOption "lldb";
-    copilot.enable = mkOption { type = bool; default = true; description = "copilot";};
+    copilot.enable = mkOption { type = bool; default = true; description = "copilot"; };
     treesitter = {
       package = mkOption {
         type = types.package;
@@ -99,6 +99,7 @@ in
 
     home.packages = with pkgs; [
       lazygit
+      nixpkgs-fmt
       ripgrep
     ];
 
@@ -187,7 +188,7 @@ in
             { name = "buffer"; }
             { name = "path"; }
             { name = "crates"; }
-          ] ++ (if cfg.copilot.enable then [ { name = "copilot"; } ] else []);
+          ] ++ (if cfg.copilot.enable then [{ name = "copilot"; }] else [ ]);
         };
         copilot-lua = {
           enable = cfg.copilot.enable;
@@ -244,7 +245,7 @@ in
         };
         efmls-configs = {
           enable = true;
-          setup = { 
+          setup = {
             bash.linter = "shellcheck";
           };
         };
@@ -306,7 +307,10 @@ in
                 enableRoslynAnalyzers = true;
               };
             };
-            nil_ls.enable = true;
+            nil_ls = {
+              enable = true;
+              settings.formatting.command = [ "nixpkgs-fmt" ];
+            };
             tsserver.enable = cfg.lsp.servers.javascript;
           };
         };
@@ -339,9 +343,9 @@ in
           sourceSelector.winbar = true;
           eventHandlers = {
             file_opened = ''
-            function(file_path)
-              require("neo-tree").close_all()
-            end
+              function(file_path)
+                require("neo-tree").close_all()
+              end
             '';
           };
         };
