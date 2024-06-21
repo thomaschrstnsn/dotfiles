@@ -58,6 +58,7 @@
       extraAppShortcuts = {
         "hyper - r" = "Rider";
         "hyper - u" = "Logseq";
+        "hyper - z" = "Spotify";
       };
       extraShortcuts = { };
       prefixShortcuts = {
