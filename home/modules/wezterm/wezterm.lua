@@ -1,9 +1,6 @@
 local wezterm = require 'wezterm'
 
 return {
-	window_background_opacity = 0.90,
-	text_background_opacity = 1,
-
 	-- https://github.com/rebelot/kanagawa.nvim/blob/master/extras/wezterm.lua
 	force_reverse_video_cursor = true,
 	colors = {
