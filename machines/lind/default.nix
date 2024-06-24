@@ -20,7 +20,7 @@
     ssh = {
       enable = true;
       use1PasswordAgentOnMac = true;
-      hosts = [ "rpi4" "vmnix" "aero-nix" "enix" "rsync.net"];
+      hosts = [ "rpi4" "vmnix" "aero-nix" "enix" "rsync.net" ];
       includes = [ "personal_config" ];
       addLindHosts = true;
     };
@@ -69,6 +69,7 @@
         "hyper - u" = "Logseq";
         "hyper - y" = "Microsoft Remote Desktop";
         "hyper - z" = "Spotify";
+        "hyper - x" = "Finder";
       };
       extraShortcuts = { };
       prefixShortcuts = {
@@ -81,8 +82,8 @@
     sketchybar = {
       enable = true;
     };
-    yabai = { 
-      enable = true; 
+    yabai = {
+      enable = true;
       jankyborders.enable = true;
     };
   };
