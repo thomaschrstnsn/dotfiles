@@ -69,7 +69,6 @@
         "hyper - u" = "Logseq";
         "hyper - y" = "Microsoft Remote Desktop";
         "hyper - z" = "Spotify";
-        "hyper - x" = "Finder";
       };
       extraShortcuts = { };
       prefixShortcuts = {
