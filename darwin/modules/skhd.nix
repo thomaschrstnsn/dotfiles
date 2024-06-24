@@ -206,7 +206,6 @@ in
           # app shortcuts
           hyper - b : ${(switchToApp false) cfg.browser}
           hyper - t : ${(switchToApp false) cfg.terminal}
-          hyper - x : ${(switchToApp false) cfg.code}
         ''
         + (toWmPrefixConfig "hyper - space" {
           f = "yabai -m window --toggle float; yabai -m window --grid 4:4:1:1:2:2"; # float/unfloat
