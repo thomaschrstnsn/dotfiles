@@ -28,6 +28,7 @@
       enable = true;
       ideavim = true;
       lsp.servers.omnisharp = true;
+      lsp.servers.javascript = true;
       codelldb.enable = false;
     };
     tmux = {
