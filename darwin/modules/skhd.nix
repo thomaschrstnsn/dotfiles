@@ -189,8 +189,8 @@ in
 
           hyper - h : yabai -m window --focus west
           hyper - l : yabai -m window --focus east
-          hyper - j : yabai -m window --focus north
-          hyper - k : yabai -m window --focus south
+          hyper - j : yabai -m window --focus south
+          hyper - k : yabai -m window --focus north
 
           hyper - m : yabai -m window --toggle native-fullscreen
           hyper - f : yabai -m window --toggle zoom-fullscreen
