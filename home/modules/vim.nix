@@ -127,6 +127,7 @@ in
 
         ignorecase = true;
         smartcase = true;
+        inccommand = "split";
 
         cursorline = true;
 
@@ -511,8 +512,11 @@ in
         { key = "]w"; mode = "n"; action = ''<cmd>lua diagnostic_goto(true, "WARNING")<cr>''; options.desc = "Next Warning"; }
         { key = "[w"; mode = "n"; action = ''<cmd>lua diagnostic_goto(false, "WARNING")<cr>''; options.desc = "Prev Warning"; }
 
-        { key = "]]"; mode = "n"; action = ''<cmd>lua illuminate_goto_reference("next")<cr>''; options.desc = "Goto next reference"; }
-        { key = "[["; mode = "n"; action = ''<cmd>lua illuminate_goto_reference("prev")<cr>''; options.desc = "Goto prev reference"; }
+        { key = "]]"; mode = "n"; action = ''<cmd>lua illuminate_goto_reference("next")<cr>''; options.desc = "Next reference"; }
+        { key = "[["; mode = "n"; action = ''<cmd>lua illuminate_goto_reference("prev")<cr>''; options.desc = "Prev reference"; }
+
+        { key = "]q"; mode = "n"; action = ''<cmd>cnext<cr>''; options.desc = "Next quickfix"; }
+        { key = "[q"; mode = "n"; action = ''<cmd>cprev<cr>''; options.desc = "Prev quickfix"; }
 
         ## trouble
         { key = "<leader>lt"; action = "<cmd>TroubleToggle<cr>"; options.desc = "Toggle Trouble"; }
