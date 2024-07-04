@@ -8,7 +8,7 @@ in
   options.tc.ssh = with types; {
     enable = mkEnableOption "ssh";
     hosts = mkOption {
-      type = listOf (enum [ "rpi4" "vmnix" "aero-nix" "enix" "rsync.net"]);
+      type = listOf (enum [ "rpi4" "vmnix" "aero-nix" "enix" "rsync.net" ]);
       default = [ ];
       description = "known hosts to add to ssh config";
     };
@@ -33,6 +33,7 @@ in
         "stlcunixhost02"
         "lcevs04"
         "lcevs05"
+        "lcunixbld01"
         "lcunixhost01"
         "lcunixhost02"
         "vmlcunixhost10"
@@ -94,37 +95,40 @@ in
           extraConfig =
             if cfg.use1PasswordAgentOnMac
             then ''
-            IdentityAgent = "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+              IdentityAgent = "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
             ''
             else "";
 
-            matchBlocks = mkMerge [
-              (hostsToMatchblocks cfg.hosts) 
-              (mkIf cfg.addLindHosts 
-                (listToAttrs (map (h: {
+          matchBlocks = mkMerge [
+            (hostsToMatchblocks cfg.hosts)
+            (mkIf cfg.addLindHosts
+              (listToAttrs (map
+                (h: {
                   name = h;
                   value = {
                     user = t1user;
                     hostname = h;
                   };
-                }) lindHosts))
-              )
-            ];
+                })
+                lindHosts))
+            )
+          ];
 
           includes = cfg.includes;
         };
       }
-      (mkIf cfg.use1PasswordAgentOnMac 
-      {
+      (mkIf cfg.use1PasswordAgentOnMac
+        {
           home.file = {
             ".config/1Password/ssh/agent.toml".text = ''
-            [[ssh-keys]]
-            item = "abzfs445wgvufgybncdcjgptla"
+              [[ssh-keys]]
+              item = "abzfs445wgvufgybncdcjgptla"
 
-            [[ssh-keys]]
-            item = "6ddacbrzis56q7qmq5bkinjsum"
+              [[ssh-keys]]
+              item = "6ddacbrzis56q7qmq5bkinjsum"
             '';
           };
-      })
-    ]);
+        })
+    ]
+  );
 }
