@@ -84,7 +84,8 @@ in
           "logseq-personal-deploy" = {
             user = "git";
             hostname = "github.com";
-            identityFile = "/home/thomas/.ssh/logseq-personal-deploy_ed25519";
+            identityFile = "~/.ssh/logseq-personal-deploy_ed25519";
+            identitiesOnly = true;
           };
         };
       };
