@@ -92,6 +92,7 @@ nmap <leader>sv :action SplitVertically<cr>
 nmap <leader>sx :action Unsplit<cr>
 nmap <leader>bX :action CloseAllUnpinnedEditors<cr>
 nmap <leader>bx :action CloseEditor<cr>
+nmap <leader>bm :action MoveEditorToOppositeTabGroup<CR>
 
 nmap <leader>m :action ProjectView.ShowMembers<cr>
 
