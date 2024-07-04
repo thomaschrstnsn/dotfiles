@@ -8,7 +8,7 @@ in
   options.tc.ssh = with types; {
     enable = mkEnableOption "ssh";
     hosts = mkOption {
-      type = listOf (enum [ "rpi4" "vmnix" "aero-nix" "enix" "rsync.net" ]);
+      type = listOf (enum [ "rpi4" "vmnix" "aero-nix" "enix" "rsync.net" "logseq-personal-deploy" ]);
       default = [ ];
       description = "known hosts to add to ssh config";
     };
@@ -78,6 +78,13 @@ in
           "rsync.net" = {
             user = "zh4414";
             hostname = "zh4414.rsync.net";
+          };
+        };
+        "logseq-personal-deploy" = {
+          "logseq-personal-deploy" = {
+            user = "git";
+            hostname = "github.com";
+            identityFile = "/home/thomas/.ssh/logseq-personal-deploy_ed25519";
           };
         };
       };

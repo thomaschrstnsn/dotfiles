@@ -18,7 +18,7 @@
     ssh = {
       enable = true;
       use1PasswordAgentOnMac = true;
-      hosts = [ "rpi4" "vmnix" "aero-nix" "enix" "rsync.net"];
+      hosts = [ "rpi4" "vmnix" "aero-nix" "enix" "rsync.net" "logseq-personal-deploy" ];
       includes = [ "personal_config" ];
     };
     smd_launcher.enable = true;
