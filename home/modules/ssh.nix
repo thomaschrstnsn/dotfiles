@@ -33,10 +33,13 @@ in
         "stlcunixhost02"
         "lcevs04"
         "lcevs05"
-        "lcunixbld01"
         "lcunixhost01"
         "lcunixhost02"
         "vmlcunixhost10"
+      ];
+      devUser = "dev";
+      lindDevHosts = [
+        "lcunixbld01"
       ];
       knownHosts = {
         "rpi4" = {
@@ -101,6 +104,17 @@ in
 
           matchBlocks = mkMerge [
             (hostsToMatchblocks cfg.hosts)
+            (mkIf cfg.addLindHosts
+              (listToAttrs (map
+                (h: {
+                  name = h;
+                  value = {
+                    user = devUser;
+                    hostname = h;
+                  };
+                })
+                lindDevHosts))
+            )
             (mkIf cfg.addLindHosts
               (listToAttrs (map
                 (h: {
