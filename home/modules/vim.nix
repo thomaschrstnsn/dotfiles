@@ -154,7 +154,6 @@ in
           logLevel = "error";
         };
         barbar = { enable = true; };
-        comment-nvim = { enable = true; };
         cmp = {
           enable = true;
           settings.mapping = {
@@ -191,6 +190,7 @@ in
             { name = "crates"; }
           ] ++ (if cfg.copilot.enable then [{ name = "copilot"; }] else [ ]);
         };
+        comment-nvim = { enable = true; };
         copilot-lua = {
           enable = cfg.copilot.enable;
           suggestion.enabled = false;
