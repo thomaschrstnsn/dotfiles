@@ -311,6 +311,7 @@ in
             nil_ls = {
               enable = true;
               settings.formatting.command = [ "nixpkgs-fmt" ];
+              settings.nix.flake.autoArchive = true;
             };
             tsserver.enable = cfg.lsp.servers.javascript;
           };
