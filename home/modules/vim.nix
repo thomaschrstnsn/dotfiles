@@ -112,32 +112,24 @@ in
       enable = true;
       globals.mapleader = " ";
       options = {
+        autoindent = true;
+        autowriteall = true;
+        backspace = "indent,eol,start";
+        breakindent = true;
+        clipboard = "unnamedplus";
+        cursorline = true;
+        ignorecase = true;
+        inccommand = "split";
         number = true;
         relativenumber = true;
-
-        shiftwidth = 4;
-        tabstop = 4;
         scrolloff = 49;
-
+        shiftwidth = 4;
         signcolumn = "yes";
-
-        clipboard = "unnamedplus";
-
-        autoindent = true;
-        backspace = "indent,eol,start";
-
-        ignorecase = true;
         smartcase = true;
-        inccommand = "split";
-
-        cursorline = true;
-
-        undofile = true;
         swapfile = false;
+        tabstop = 4;
+        undofile = true;
         writebackup = false;
-
-        breakindent = true;
-        autowriteall = true;
       };
       colorschemes.kanagawa =
         let variation = "wave"; # wave, dragon, lotus
