@@ -118,6 +118,7 @@ in
         breakindent = true;
         clipboard = "unnamedplus";
         cursorline = true;
+        foldmethod = "manual";
         ignorecase = true;
         inccommand = "split";
         number = true;
