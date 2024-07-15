@@ -71,7 +71,7 @@ in
 
     programs.eza = {
       enable = true;
-      enableAliases = true;
+      enableZshIntegration = true;
     };
 
     programs.bat = {
@@ -146,10 +146,10 @@ in
         zstyle ':fzf-tab:*' switch-group ',' '.'
       '' + (if cfg.vi-mode.enable
       then ''
-      # https://github.com/atuinsh/atuin/issues/977
-      zvm_after_init_commands+=(eval "$(atuin init zsh)")
-      bindkey '^r' atuin-search
-      source ${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+        # https://github.com/atuinsh/atuin/issues/977
+        zvm_after_init_commands+=(eval "$(atuin init zsh)")
+        bindkey '^r' atuin-search
+        source ${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
       ''
       else "")
       + (if ssh-cfg.agent.enable
