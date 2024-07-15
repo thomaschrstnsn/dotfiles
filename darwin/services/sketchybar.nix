@@ -21,10 +21,10 @@ in
   config = mkIf
     (cfg.enable)
     {
-      environment.systemPackages = with pkgs; [ 
-        cfg.package 
-        lua5_4 
-        nowplaying-cli 
+      environment.systemPackages = with pkgs; [
+        cfg.package
+        lua5_4
+        nowplaying-cli
       ];
 
       homebrew.casks = [
@@ -32,17 +32,17 @@ in
         "font-sf-mono"
         "font-sf-pro"
       ];
-        
+
       homebrew.brews = [
         "switchaudio-osx"
       ];
 
-      fonts.packages = [ 
+      fonts.packages = [
         pkgs.myPkgs.sketchybar.sketchybar-app-font
       ];
 
       launchd.user.agents.sketchybar = {
-        serviceConfig.ProgramArguments = [ "${cfg.package}/bin/sketchybar" "-c" "${configHome}"];
+        serviceConfig.ProgramArguments = [ "${cfg.package}/bin/sketchybar" "-c" "${configHome}" ];
 
         serviceConfig.KeepAlive = true;
         serviceConfig.RunAtLoad = true;
