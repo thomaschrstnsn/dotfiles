@@ -404,7 +404,7 @@ in
           nixGrammars = true;
           package = cfg.treesitter.package;
           grammarPackages = treesitterGrammars cfg.treesitter.grammarPackageSet cfg.treesitter.package;
-          incrementalSelection = {
+          settings.incrementalSelection = {
             enable = true;
             keymaps = {
               initSelection = "<leader>v";
