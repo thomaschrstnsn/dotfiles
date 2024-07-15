@@ -16,14 +16,35 @@ function diagnostic_goto(next, severity)
 	go({ severity = severity })
 end
 
+local conform = require("conform")
+function FormatBuffer()
+	FormatWithOpts({ async = true, })
+end
+
 function FormatSelection()
-	vim.lsp.buf.format({
+	local opts = {
 		async = true,
 		range = {
 			["start"] = vim.api.nvim_buf_get_mark(0, "<"),
 			["end"] = vim.api.nvim_buf_get_mark(0, ">"),
-		}
-	})
+		},
+	}
+	FormatWithOpts(opts)
+end
+
+function FormatWithOpts(opts)
+	local lsp_formatting = false
+	for _, c in pairs(vim.lsp.get_active_clients()) do
+		if c.supports_method("textDocument/formatting") then
+			lsp_formatting = true
+			break
+		end
+	end
+	if lsp_formatting then
+		vim.lsp.buf.format(opts)
+	else
+		conform.format(opts)
+	end
 end
 
 -- [[ Highlight on yank ]]

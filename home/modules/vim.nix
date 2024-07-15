@@ -101,6 +101,7 @@ in
       lazygit
       nixpkgs-fmt
       ripgrep
+      taplo # toml formatter
     ];
 
     home.file = mkIf cfg.ideavim {
@@ -189,6 +190,16 @@ in
             { name = "path"; }
             { name = "crates"; }
           ] ++ (if cfg.copilot.enable then [{ name = "copilot"; }] else [ ]);
+        };
+        conform-nvim = {
+          enable = true;
+          formatOnSave = {
+            lspFallback = true;
+            timeoutMs = 500;
+          };
+          formattersByFt = {
+            "toml" = [ "taplo" ];
+          };
         };
         comment-nvim = { enable = true; };
         copilot-lua = {
@@ -655,14 +666,14 @@ in
         {
           key = "<leader><CR>";
           mode = "n";
-          action = "<cmd>lua vim.lsp.buf.format {async = true;}<CR>";
-          options.desc = "Format buffer (via LSP)";
+          action = ''<cmd>lua FormatBuffer()<CR>'';
+          options.desc = "Format buffer (via conform/LSP)";
         }
         {
           key = "<leader><CR>";
           mode = "v";
           action = ''<cmd>lua FormatSelection()<CR>'';
-          options.desc = "Format selection (via LSP)";
+          options.desc = "Format selection (via conform/LSP)";
         }
 
         # splits
