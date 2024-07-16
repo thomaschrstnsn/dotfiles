@@ -39,25 +39,9 @@ The nix-darwin (Nix on macOS) can be configured to use [Yabai](https://github.co
 (tiling window manager with a hotkey daemon). For more information on this type of setup, 
 see this [video](https://www.youtube.com/watch?v=k94qImbFKWE).
 
-### Initial bootstrap
+### Install Nix
 
-Before doing this:
-- ensure cleanup after any previous nix-darwin setup
-- backup `/etc/{zsh,bash}rc` - nix-darwin will append nix stuff there
-```
-$ sudo cp /etc/bashrc /etc/bashrc.backup-before-darwin
-$ sudo cp /etc/zshrc /etc/zshrc.backup-before-darwin
-```
-
-Bootstrap using: 
-- for x64: `./apply.sh darwin darwin-bootstrap-x64`
-- for m1:  `./apply.sh darwin darwin-bootstrap-aarch64`
-
-If this fails, you may need to:
-- `rm ~/.nix-defexpr/channels`
-- `sudo rm /etc/nix/nix.conf` (between `./build-darwin.sh bootstrap` and `./result/sw/bin/darwin-rebuild switch --flake .#bootstrap`)
-
-When successful, open a new terminal session and continue below
+Use [The Determinate Nix Installer](https://zero-to-nix.com/concepts/nix-installer) to install nix with flakes on your macOS machine.
 
 ### Applying changes
 
