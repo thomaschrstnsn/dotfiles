@@ -408,7 +408,12 @@ in
           };
         };
         tmux-navigator.enable = true;
-        treesitter-context.enable = true;
+        treesitter-context = {
+          enable = true;
+          settings = {
+            max_lines = 4;
+          };
+        };
         treesitter-textobjects.enable = true;
         trouble = { enable = true; };
         which-key = {
@@ -470,7 +475,7 @@ in
           action = "<Plug>(leap-backward-to)";
         }
 
-        # buffers 
+        # buffers
         {
           key = "<leader>x";
           action = "<cmd>BufferClose<cr>";
