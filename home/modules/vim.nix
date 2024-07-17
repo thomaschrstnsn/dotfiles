@@ -292,10 +292,6 @@ in
           };
           whitespace.removeBlanklineTrail = false;
         };
-        leap = {
-          enable = true;
-          addDefaultMappings = false;
-        };
         lsp = {
           enable = true;
           servers = {
@@ -336,7 +332,10 @@ in
         mini = {
           enable = true;
           modules = {
+            cursorword = { };
             indentscope = { };
+            jump2d = { };
+            surround = { };
             trailspace = { };
           };
         };
@@ -456,23 +455,6 @@ in
           action = ''<cmd>lua require("definition-or-references").definition_or_references();<cr>'';
           mode = "n";
           options.desc = "Go to definition or references";
-        }
-
-        # leap (without hijacking visual-mode x)
-        # {{"n", "x", "o"}, "s", "<Plug>(leap-forward-to)", "Leap forward to"},
-        {
-          key = "s";
-          mode = [ "n" "x" "o" ];
-          options.desc = "Leap forward to";
-          action = "<Plug>(leap-forward-to)";
-        }
-
-        # {{"n", "x", "o"}, "S", "<Plug>(leap-backward-to)", "Leap backward to"},
-        {
-          key = "S";
-          mode = [ "n" "x" "o" ];
-          options.desc = "Leap backward to";
-          action = "<Plug>(leap-backward-to)";
         }
 
         # buffers
