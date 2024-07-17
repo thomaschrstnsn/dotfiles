@@ -530,7 +530,23 @@ in
         { key = "[q"; mode = "n"; action = ''<cmd>cprev<cr>''; options.desc = "Prev quickfix"; }
 
         ## trouble
-        { key = "<leader>lt"; action = "<cmd>TroubleToggle<cr>"; options.desc = "Toggle Trouble"; }
+        { key = "<leader>tq"; action = "<cmd>Trouble quickfix toggle focus=true<cr>"; options.desc = "Trouble Quickfix"; }
+        { key = "<leader>tt"; action = "<cmd>Trouble telescope toggle focus=true<cr>"; options.desc = "Trouble Telescope"; }
+        { key = "<leader>tf"; action = "<cmd>Trouble telescope_files toggle focus=true<cr>"; options.desc = "Trouble Telescope files"; }
+        { key = "<leader>td"; action = "<cmd>Trouble diagnostics toggle focus=true<cr>"; options.desc = "Trouble Diagnostics"; }
+        { key = "<leader>ts"; action = "<cmd>Trouble symbols toggle focus=true<cr>"; options.desc = "Trouble Symbols"; }
+        {
+          key = "<F7>";
+          action = ''<cmd>lua require("trouble").next({skip_groups = true, jump = true});<cr>'';
+          options.desc = "Next trouble";
+          mode = "n";
+        }
+        {
+          key = "<F8>";
+          action = ''<cmd>lua require("trouble").prev({skip_groups = true, jump = true});<cr>'';
+          options.desc = "Previous trouble";
+          mode = "n";
+        }
         {
           key = "<leader>n";
           action = ''<cmd>lua require("trouble").next({skip_groups = true, jump = true});<cr>'';
@@ -539,22 +555,22 @@ in
         }
         {
           key = "<leader>N";
-          action = ''<cmd>lua require("trouble").previous({skip_groups = true, jump = true});<cr>'';
+          action = ''<cmd>lua require("trouble").prev({skip_groups = true, jump = true});<cr>'';
           options.desc = "Previous trouble";
           mode = "n";
         }
         {
-          key = "gR";
-          action = "<cmd>TroubleToggle lsp_references<cr>";
-          options.desc = "references";
+          key = "gr";
+          action = "<cmd>Trouble lsp_references toggle focus=true<cr>";
+          options.desc = "Trouble references";
           mode = "n";
         }
 
         # toggleterm
         { key = "<leader>g"; action = "<cmd>lua Gitui_toggle()<CR>"; }
-        { key = "<leader>th"; mode = "n"; action = ":ToggleTerm direction=horizontal<CR>"; }
-        { key = "<leader>tv"; mode = "n"; action = ":ToggleTerm direction=vertical<CR>"; }
-        { key = "<leader>tf"; mode = "n"; action = ":ToggleTerm direction=float<CR>"; }
+        # { key = "<leader>th"; mode = "n"; action = ":ToggleTerm direction=horizontal<CR>"; }
+        # { key = "<leader>tv"; mode = "n"; action = ":ToggleTerm direction=vertical<CR>"; }
+        # { key = "<leader>tf"; mode = "n"; action = ":ToggleTerm direction=float<CR>"; }
         # toggle is \\
 
         # Move inside wrapped line
@@ -743,8 +759,8 @@ in
       ];
       extraPlugins = with pkgs.vimPlugins; [
         {
-          plugin = (fromGitHub "KostkaBrukowa/definition-or-references.nvim" "0.0" "13570f995be8993f4c55e988f89e5a7b8df37a17");
-          config = mkLua ''require("definition-or-references").setup()'';
+          plugin = (fromGitHub "KostkaBrukowa/definition-or-references.nvim" "2023.10.7" "13570f995be8993f4c55e988f89e5a7b8df37a17");
+          config = mkLuaFile ./vim/plugins/definition-or-references.lua;
         }
         friendly-snippets
         {
