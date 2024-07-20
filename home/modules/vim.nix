@@ -359,7 +359,45 @@ in
         nvim-autopairs.enable = true;
         project-nvim.enable = true;
         rustaceanvim = mkMerge [
-          { enable = true; }
+          {
+            enable = true;
+            settings =
+              {
+                # https://github.com/MysticalDevil/inlay-hints.nvim?tab=readme-ov-file#rust-analyzer
+                default_settings.rust-analyzer.inlayHints = {
+                  bindingModeHints = {
+                    enable = false;
+                  };
+                  chainingHints = {
+                    enable = true;
+                  };
+                  closingBraceHints = {
+                    enable = true;
+                    minLines = 25;
+                  };
+                  closureReturnTypeHints = {
+                    enable = "never";
+                  };
+                  lifetimeElisionHints = {
+                    enable = "never";
+                    useParameterNames = false;
+                  };
+                  maxLength = 25;
+                  parameterHints = {
+                    enable = true;
+                  };
+                  reborrowHints = {
+                    enable = "never";
+                  };
+                  renderColons = true;
+                  typeHints = {
+                    enable = true;
+                    hideClosureInitialization = false;
+                    hideNamedConstructor = false;
+                  };
+                };
+              };
+          }
           (if cfg.codelldb.enable then {
             dap.adapter = {
               executable.command = "${pkgs.code-lldb}/share/vscode/extensions/vadimcn.vscode-lldb/adapter/codelldb";
@@ -492,6 +530,7 @@ in
         { key = "<leader>a"; action = "<cmd>Lspsaga code_action<cr>"; mode = "n"; options.desc = "Code Actions"; }
         { key = "<leader>ld"; action = "<cmd>Telescope lsp_definitions<cr>"; mode = "n"; options.desc = "Definitions"; }
         { key = "K"; action = "<cmd>Lspsaga hover_doc<cr>"; mode = "n"; options.desc = "Hover Docs"; }
+        { key = "H"; action = "<cmd>lua vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())<CR>"; mode = "n"; options.desc = "Inlay Hints Toggle"; }
         { key = "<leader>lr"; action = ":IncRename "; mode = "n"; options.desc = "Rename"; }
         { key = "<leader>lo"; action = "<cmd>Lspsaga outline<cr>"; mode = "n"; options.desc = "Outline"; }
 
@@ -781,7 +820,8 @@ in
           config = mkLua '''';
         }
       ];
-      extraConfigLua = builtins.readFile ./vim/init.lua;
+      extraConfigLua = builtins.readFile
+        ./vim/init.lua;
     };
     programs.zsh.shellAliases = {
       vi = "nvim";
