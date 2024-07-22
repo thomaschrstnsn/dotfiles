@@ -648,6 +648,12 @@ in
           options.desc = "find word";
         }
         {
+          key = "<leader>fp";
+          mode = "n";
+          action = ''<cmd>Telescope session-lens<CR>'';
+          options.desc = "find session (project)";
+        }
+        {
           key = "<leader>fd";
           mode = "n";
           action = ''<cmd>Telescope lsp_workspace_symbols<CR>'';
