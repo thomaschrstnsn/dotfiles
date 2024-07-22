@@ -124,6 +124,7 @@ in
         number = true;
         relativenumber = true;
         scrolloff = 49;
+        sessionoptions = "buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions";
         shiftwidth = 4;
         signcolumn = "yes";
         smartcase = true;
@@ -335,6 +336,22 @@ in
             cursorword = { };
             indentscope = { };
             jump2d = { };
+            starter = {
+              header =
+                ''
+                                                                
+                        ███████████            █████      ██
+                       ███████████              █████ 
+                       ████████████████ ███ ████████ ███   ███████
+                      ████████████████ ████ ████████ █████ ██████████████
+                     ██████████████████████ ███████ █████ █████ ████ █████
+                   ████████████████████████████ ██████ █████ █████ ████ █████
+                  ██████  ███ █████████████████  ████ █████ █████ ████ ██████
+                  ██████   ██  ███████████████    ██ █████████████████
+                '';
+
+            };
+            # sessions = { autoread = false; autowrite = false; file = ""; directory.__raw = "vim.fn.stdpath('data')..'/sessions/'"; };
             surround = { };
             trailspace = { };
           };
