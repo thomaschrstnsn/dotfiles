@@ -1,21 +1,21 @@
-# dotfiles aka machine configuration 
+# dotfiles aka machine configuration
 
 This is the personal configuration for Thomas Christensen.
 
 Feel free to borrow parts and/or make your own based on this.
 
-A configuration setup based on Nix flakes for: 
+A configuration setup based on Nix flakes for:
 
 - [Home Manager](https://github.com/nix-community/home-manager)
 - [nix-darwin](https://github.com/LnL7/nix-darwin)
 - [NixOS](https://nixos.org/)
 
-As such it can be used to configure: 
+As such it can be used to configure:
 - my home directory (shell and utils, dev setup) on a UNIX system (using Nix the package manager with Home Manager)
 - my macOS user (defaults, apps and the above) (using Nix the package manager with nix-darwin)
 - a full machine running NixOS (apps, services, hardware and kernel config)
 
-A motivation/overview of Nix flakes for configuring machines: 
+A motivation/overview of Nix flakes for configuring machines:
 [NIX FLAKES, PART 3: MANAGING NIXOS SYSTEMS](https://www.tweag.io/blog/2020-07-31-nixos-flakes/).
 
 ## Prerequisites
@@ -35,8 +35,8 @@ to preview changes without applying:
 
 ## Using nix-darwin
 
-The nix-darwin (Nix on macOS) can be configured to use [Yabai](https://github.com/koekeishiya/yabai) + [SKHD](https://github.com/koekeishiya/skhd) 
-(tiling window manager with a hotkey daemon). For more information on this type of setup, 
+The nix-darwin (Nix on macOS) can be configured to use [Yabai](https://github.com/koekeishiya/yabai) + [SKHD](https://github.com/koekeishiya/skhd)
+(tiling window manager with a hotkey daemon). For more information on this type of setup,
 see this [video](https://www.youtube.com/watch?v=k94qImbFKWE).
 
 ### Install Nix
