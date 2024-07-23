@@ -824,6 +824,10 @@ in
           plugin = noice-nvim;
           config = mkLuaFile ./vim/plugins/noice.lua;
         }
+        {
+          plugin = (fromGitHub "MeanderingProgrammer/markdown.nvim" "4.1.0" "3578523f497a8ad3b4a356d1e54e609838ce0922");
+          config = mkLua ''require("render-markdown").setup()'';
+        }
         plenary-nvim
         # {
         #   plugin = rest-nvim;
