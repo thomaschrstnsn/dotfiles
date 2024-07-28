@@ -54,6 +54,7 @@
         "bitwarden"
         "jetbrains-toolbox"
         "logseq"
+        "spaceman"
         "todoist"
       ];
     };
