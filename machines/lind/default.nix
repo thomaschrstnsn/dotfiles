@@ -43,6 +43,7 @@
   };
 
   darwin = {
+    ice.enable = true;
     homebrew = {
       enable = true;
       extraBrews = [
@@ -78,9 +79,6 @@
           c = "Calendar";
         };
       };
-    };
-    sketchybar = {
-      enable = true;
     };
     yabai = {
       enable = true;
