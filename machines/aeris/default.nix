@@ -50,6 +50,7 @@
         "rustrover"
       ];
     };
+    ice.enable = true;
     skhd = {
       enable = true;
       browser = "Arc";
@@ -69,7 +70,7 @@
       };
     };
     sketchybar = {
-      enable = true;
+      enable = false;
     };
     yabai = {
       enable = true;
