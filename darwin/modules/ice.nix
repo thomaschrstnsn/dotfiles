@@ -15,6 +15,6 @@ in
     services.yabai.config = {
       external_bar = "main:${toString 0}:0";
     };
-    homebrew.casks = [ "jordanbaird-ice" "istat-menus" ];
+    homebrew.casks = [ "jordanbaird-ice" "istat-menus" "spaceman" ];
   };
 }
