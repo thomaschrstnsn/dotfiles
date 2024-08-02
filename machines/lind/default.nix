@@ -36,7 +36,7 @@
       enable = true;
       session-tool = "sesh";
     };
-    wezterm = { enable = true; };
+    wezterm = { enable = true; fontsize = 14; };
     zsh = {
       enable = true;
       editor = "nvim";
