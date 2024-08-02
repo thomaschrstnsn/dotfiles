@@ -30,6 +30,7 @@ in
 
     xdg.configFile."tmux/${remoteConfigFile}".text = ''
       # set-option -g status-position bottom
+      set -g @catppuccin_host "on"
     '';
     programs.tmux = {
       enable = true;
@@ -64,10 +65,10 @@ in
 
         unbind r
         bind r 'source ~/.config/tmux/tmux.conf; display "reloaded config"'
-        
+
         # Vim style pane selection
         bind h select-pane -L
-        bind j select-pane -D 
+        bind j select-pane -D
         bind k select-pane -U
         bind l select-pane -R
 
@@ -90,7 +91,7 @@ in
         bind '"' split-window -v -c "#{pane_current_path}"
         bind % split-window -h -c "#{pane_current_path}"
 
-        # remote / nested session support. 
+        # remote / nested session support.
         # inspired by: https://github.com/samoshkin/tmux-config/blob/95efd543846a27cd2127496b74fd4f4da94f4a31/tmux/tmux.conf
 
         if-shell 'test -n "$SSH_CLIENT"' 'source-file ~/.config/tmux/${remoteConfigFile}'
@@ -165,9 +166,7 @@ in
             };
           };
           extraConfig = ''
-            set -g @catppuccin_date_time "%Y-%m-%d %H:%M"
-            set -g @catppuccin_date_time_icon ""
-            set -g @catppuccin_host "on"
+            set -g @catppuccin_date_time "W%W %Y-%m-%d %H:%M"
           '';
         })
       ];
