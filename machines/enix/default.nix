@@ -11,7 +11,7 @@ in
     };
     ssh = {
       enable = true;
-      hosts = [ "rpi4" "vmnix" "enix" "rsync.net"];
+      hosts = [ "rpi4" "vmnix" "enix" "rsync.net" ];
     };
     git.enable = true;
     zsh = {
@@ -19,6 +19,7 @@ in
       editor = "vim";
     };
     tmux.enable = true;
+    tmux.remote = true;
     vim = {
       enable = true;
     };
@@ -33,7 +34,7 @@ in
       networking.hostname = "enix";
       user = {
         name = username;
-        groups = [ "wheel" "docker" "navidrome"];
+        groups = [ "wheel" "docker" "navidrome" ];
       };
     };
     base = {

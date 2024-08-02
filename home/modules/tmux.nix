@@ -19,6 +19,7 @@ in
       default = "catppuccin";
       description = "theme for tmux";
     };
+    remote = mkEnableOption "is remote machine";
     session-tool = mkOption {
       type = nullOr (enum [ "tmux-sessionizer" "sesh" ]);
       default = "sesh";
@@ -30,7 +31,6 @@ in
 
     xdg.configFile."tmux/${remoteConfigFile}".text = ''
       # set-option -g status-position bottom
-      set -g @catppuccin_status_modules_right "application session directory user host date_time"
     '';
     programs.tmux = {
       enable = true;
@@ -153,13 +153,22 @@ in
             set -g @dracula-time-format "%Y-%m-%d %H:%M"
           '';
         })
-        (mkIf (cfg.theme == "catppuccin") {
-          plugin = catppuccin;
-          extraConfig = ''
-            set -g @catppuccin_status_modules_right "application session directory date_time"
-            set -g @catppuccin_date_time "W%W %Y-%m-%d %H:%M"
-          '';
-        })
+        (mkIf (cfg.theme == "catppuccin")
+          (
+            let
+              modules_right = if cfg.remote then "application session directory user host date_time" else "application session directory date_time";
+            in
+            {
+              plugin = catppuccin;
+              extraConfig = ''
+                set -g @catppuccin_window_default_text "#W"
+                set -g @catppuccin_window_status_enable "yes"
+                set -g @catppuccin_window_status_icon_enable "yes"
+                set -g @catppuccin_status_modules_right "${modules_right}"
+                set -g @catppuccin_date_time "W%W %Y-%m-%d %H:%M"
+              '';
+            }
+          ))
       ];
     };
 

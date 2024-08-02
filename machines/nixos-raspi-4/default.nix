@@ -17,11 +17,11 @@ in
     };
     ssh = {
       enable = true;
-      hosts = [ "rpi4" "vmnix" "enix" "rsync.net"];
+      hosts = [ "rpi4" "vmnix" "enix" "rsync.net" ];
     };
     tmux = {
       enable = true;
-      theme = "dracula";
+      remote = true;
     };
     vim = {
       enable = true;
