@@ -7,7 +7,7 @@ let
   remoteConfigFile = "tmux.remote.conf";
   enabledBg = {
     dracula = "#44475a";
-    catpuccin = "#1e1e2e";
+    catppuccin = "#1e1e2e";
   }."${cfg.theme}";
   disabledBg = "#d20f39";
 in
@@ -15,8 +15,8 @@ in
   options.tc.tmux = with types; {
     enable = mkEnableOption "tmux";
     theme = mkOption {
-      type = enum [ "catpuccin" "dracula" ];
-      default = "catpuccin";
+      type = enum [ "catppuccin" "dracula" ];
+      default = "catppuccin";
       description = "theme for tmux";
     };
     session-tool = mkOption {
@@ -30,7 +30,7 @@ in
 
     xdg.configFile."tmux/${remoteConfigFile}".text = ''
       # set-option -g status-position bottom
-      set -g @catppuccin_host "on"
+      set -g @catppuccin_status_modules_right "application session directory user host date_time"
     '';
     programs.tmux = {
       enable = true;
@@ -153,19 +153,10 @@ in
             set -g @dracula-time-format "%Y-%m-%d %H:%M"
           '';
         })
-        (mkIf (cfg.theme == "catpuccin") {
-          plugin = mkTmuxPlugin {
-            pluginName = "catppuccin-tmux";
-            version = "26617ca";
-            rtpFilePath = "catppuccin.tmux";
-            src = pkgs.fetchFromGitHub {
-              owner = "dreamsofcode-io";
-              repo = "catppuccin-tmux";
-              rev = "b4e0715356f820fc72ea8e8baf34f0f60e891718";
-              sha256 = "sha256-FJHM6LJkiAwxaLd5pnAoF3a7AE1ZqHWoCpUJE0ncCA8=";
-            };
-          };
+        (mkIf (cfg.theme == "catppuccin") {
+          plugin = catppuccin;
           extraConfig = ''
+            set -g @catppuccin_status_modules_right "application session directory date_time"
             set -g @catppuccin_date_time "W%W %Y-%m-%d %H:%M"
           '';
         })
