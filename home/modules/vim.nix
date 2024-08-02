@@ -93,6 +93,11 @@ in
       default = false;
       description = "javascript lsp enabled";
     };
+    lsp.servers.python = mkOption {
+      type = types.bool;
+      default = false;
+      description = "python lsp enabled";
+    };
   };
 
   config = mkIf cfg.enable {
@@ -314,6 +319,7 @@ in
               settings.formatting.command = [ "nixpkgs-fmt" ];
               settings.nix.flake.autoArchive = true;
             };
+            pyright.enable = cfg.lsp.servers.python;
             tsserver.enable = cfg.lsp.servers.javascript;
           };
         };
