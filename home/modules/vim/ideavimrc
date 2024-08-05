@@ -46,10 +46,10 @@ vmap gc <Action>(CommentByLineComment)
 " harpoon: https://github.com/AlexGirardDev/HarpoonIJ
 nmap <leader>jj :action ShowHarpoon<CR>
 nmap <leader>ja :action AddToHarpoon<CR>
-nmap <M-f> :action GotoHarpoon1<CR>
-nmap <M-d> :action GotoHarpoon2<CR>
-nmap <M-s> :action GotoHarpoon3<CR>
-nmap <M-a> :action GotoHarpoon4<CR>
+nmap <M-h> :action GotoHarpoon1<CR>
+nmap <M-j> :action GotoHarpoon2<CR>
+nmap <M-k> :action GotoHarpoon3<CR>
+nmap <M-l> :action GotoHarpoon4<CR>
 
 vmap <leader><CR> :action ReformatCode<CR>
 nmap <leader><CR> :action ReformatCode<CR>
