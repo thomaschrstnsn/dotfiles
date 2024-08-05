@@ -110,6 +110,9 @@ in
           set status-bg '${enabledBg}' \;\
           refresh-client -S
 
+        # toggle between two sessions
+        bind -T prefix \\ switch-client -l
+
       '' + concatStringsSep "\n"
         ((if (cfg.session-tool == "tmux-sessionizer") then
           [
