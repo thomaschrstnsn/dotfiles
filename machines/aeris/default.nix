@@ -32,7 +32,7 @@
       enable = true;
       session-tool = "sesh";
     };
-    wezterm = { enable = true; };
+    wezterm = { enable = true; fontsize = 13; };
     zsh = {
       enable = true;
       editor = "nvim";
@@ -79,10 +79,7 @@
   };
 
   extraPackages = pkgs: with pkgs; [
-    nixpkgs-fmt
-
-    # glow
-    # visidata
+    devenv
   ];
 
   system = systems.m1-darwin;
