@@ -21,7 +21,6 @@
       hosts = [ "rpi4" "vmnix" "aero-nix" "enix" "rsync.net" "logseq-personal-deploy" ];
       includes = [ "personal_config" ];
     };
-    smd_launcher.enable = true;
     vim = {
       enable = true;
       ideavim = true;

@@ -11,7 +11,6 @@
     ./rancher.nix
     ./realise_symlink.nix
     ./sesh.nix
-    ./smd_launcher.nix
     ./ssh.nix
     ./sway.nix
     ./tmux.nix
