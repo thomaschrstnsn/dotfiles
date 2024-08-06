@@ -5,9 +5,10 @@ let
   cfg = config.tc.dotnet;
 
   lookup = with pkgs; (with dotnetCorePackages; {
-    "6.0" = myPkgs.dotnet.sdk_6_0;
-    "7.0" = myPkgs.dotnet.sdk_7_0;
-    "8.0" = myPkgs.dotnet.sdk_8_0;
+    "6.0" = sdk_6_0;
+    "7.0" = sdk_7_0;
+    "8.0" = sdk_8_0;
+    "9.0" = sdk_9_0;
   });
 
   # https://github.com/NixOS/nixpkgs/blob/master/pkgs/development/compilers/dotnet/default.nix
@@ -21,7 +22,7 @@ in
     sdks = mkOption {
       description = "Which dotnet sdks to install";
       type = types.listOf types.str;
-      default = [ "6.0" ];
+      default = [ "8.0" ];
     };
   };
 
@@ -32,8 +33,6 @@ in
     ];
 
     programs.zsh.oh-my-zsh.plugins = [ "dotnet" ];
-
-    programs.git.ignores = [ "consul-settings-backup.json" ];
 
     programs.zsh.shellAliases = {
       # rider = "open -a Rider"; # there should be script in in /usr/local/bin/rider from the toolbox: https://www.jetbrains.com/help/rider/Working_with_the_IDE_Features_from_Command_Line.html#10c968a9
@@ -52,8 +51,6 @@ in
       export ASPNETCORE_ENVIRONMENT="Development"
       export DOTNET_ROOT="${combinedDotnet}"
       export DOTNET_HOST_PATH="${combinedDotnet}/dotnet"
-
-      export APP_CONFIG="staging"
     '';
   };
 }
