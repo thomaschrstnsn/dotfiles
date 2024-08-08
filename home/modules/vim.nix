@@ -149,10 +149,6 @@ in
         };
       luaLoader.enable = true;
       plugins = {
-        auto-session = {
-          enable = true;
-          logLevel = "error";
-        };
         barbar = { enable = true; };
         cmp = {
           enable = true;
@@ -357,7 +353,7 @@ in
                 '';
 
             };
-            # sessions = { autoread = false; autowrite = false; file = ""; directory.__raw = "vim.fn.stdpath('data')..'/sessions/'"; };
+            sessions = { autoread = false; autowrite = false; file = ""; directory.__raw = "vim.fn.stdpath('state')..'/sessions/'"; };
             surround = { };
             trailspace = { };
           };
@@ -380,6 +376,9 @@ in
         nix.enable = true;
         notify.enable = true;
         nvim-autopairs.enable = true;
+        persistence = {
+          enable = true;
+        };
         project-nvim.enable = true;
         rustaceanvim = mkMerge [
           {
@@ -857,8 +856,9 @@ in
           config = mkLua '''';
         }
       ];
-      extraConfigLua = builtins.readFile
-        ./vim/init.lua;
+      extraConfigLua =
+        (builtins.readFile ./vim/init.lua) +
+        (builtins.readFile ./vim/plugins/persitence.lua);
     };
     programs.zsh.shellAliases = {
       vi = "nvim";
