@@ -138,7 +138,11 @@ in
 
         # zsh-fzf-tab
         source ${pkgs.zsh-fzf-tab}/share/fzf-tab/fzf-tab.plugin.zsh
-        
+
+        if [[ -e ~/.env ]]; then
+          source ~/.env
+        fi
+
         # https://github.com/Aloxaf/fzf-tab/tree/7e0eee64df6c7c81a57792674646b5feaf89f263#configure
         zstyle ':completion:*:git-checkout:*' sort false
         zstyle ':completion:*:descriptions' format '[%d]'
