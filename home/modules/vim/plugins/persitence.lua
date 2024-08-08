@@ -17,7 +17,7 @@ vim.api.nvim_create_autocmd({ "VimEnter" }, {
 				return
 			end
 		end
-		if (vim.fn.argc() == 0 or (vim.fn.argc() == 1 and vim.v.argv[2] == ".")) and not vim.g.started_with_stdin then
+		if vim.fn.argc() == 0 and not vim.g.started_with_stdin then
 			require("persistence").load()
 		else
 			require("persistence").stop()
