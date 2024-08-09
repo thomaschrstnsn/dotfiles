@@ -202,7 +202,10 @@ in
           suggestion.enabled = false;
           panel.enabled = false;
         };
-        copilot-cmp.enable = cfg.copilot.enable;
+        copilot-cmp = {
+          enable = cfg.copilot.enable;
+          fixPairs = false;
+        };
         copilot-chat = {
           enable = cfg.copilot.enable;
           settings = {
