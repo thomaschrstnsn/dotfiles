@@ -137,7 +137,7 @@ in
                               )\""
 
                               bind-key "C-j" display-popup -E -w 40% "sesh connect \"$(
-            	                sesh list -i | gum filter --limit 1 --placeholder 'Pick a sesh' --height 50 --prompt='⚡'
+            	                sesh list -i | gum filter --limit 1 --no-sort --placeholder 'Pick a sesh' --height 50 --prompt='⚡'
                               )\""
           ''
         ] else [ ])
