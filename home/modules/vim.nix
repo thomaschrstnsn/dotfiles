@@ -116,7 +116,7 @@ in
     programs.nixvim = {
       enable = true;
       globals.mapleader = " ";
-      options = {
+      opts = {
         autoindent = true;
         autowriteall = true;
         backspace = "indent,eol,start";
@@ -143,10 +143,13 @@ in
         in
         {
           enable = true;
-          theme = variation;
-          background.dark = variation;
-          transparent = true;
+          settings = {
+            theme = variation;
+            background.dark = variation;
+            transparent = true;
+          };
         };
+      diagnostics.virtual_lines.only_current_line = true;
       luaLoader.enable = true;
       plugins = {
         barbar = { enable = true; };
@@ -196,7 +199,7 @@ in
             "toml" = [ "taplo" ];
           };
         };
-        comment-nvim = { enable = true; };
+        comment = { enable = true; };
         copilot-lua = {
           enable = cfg.copilot.enable;
           suggestion.enabled = false;
@@ -262,7 +265,7 @@ in
         gitblame.enable = true;
         gitsigns = {
           enable = true;
-          onAttach.function = ''
+          settings.on_attach = ''
             function(buffer)
               local gs = package.loaded.gitsigns
               local function map(mode, l, r, desc)
@@ -291,11 +294,11 @@ in
         inc-rename = { enable = true; };
         indent-blankline = {
           enable = true;
-          scope = {
+          settings.scope = {
             enabled = true;
-            showStart = true;
+            show_start = true;
+            whitespace.remove_blankline_trail = false;
           };
-          whitespace.removeBlanklineTrail = false;
         };
         lsp = {
           enable = true;
@@ -313,7 +316,7 @@ in
                 enableRoslynAnalyzers = true;
               };
             };
-            nil_ls = {
+            nil-ls = {
               enable = true;
               settings.formatting.command = [ "nixpkgs-fmt" ];
               settings.nix.flake.autoArchive = true;
@@ -324,7 +327,6 @@ in
         };
         lsp-lines = {
           enable = true;
-          currentLine = true;
         };
         lsp-format = {
           enable = true;
@@ -382,7 +384,10 @@ in
         persistence = {
           enable = true;
         };
-        project-nvim.enable = true;
+        project-nvim = {
+          enable = true;
+          enableTelescope = true;
+        };
         rustaceanvim = mkMerge [
           {
             enable = true;
@@ -424,7 +429,7 @@ in
               };
           }
           (if cfg.codelldb.enable then {
-            dap.adapter = {
+            settings.dap.adapter = {
               executable.command = "${pkgs.code-lldb}/share/vscode/extensions/vadimcn.vscode-lldb/adapter/codelldb";
               executable.args = [
                 "--liblldb"
@@ -437,8 +442,8 @@ in
               host = "127.0.0.1";
             };
           } else {
-            dap.adapter.command = "lldb";
-            dap.adapter.type = "executable";
+            settings.dap.adapter.command = "lldb";
+            settings.dap.adapter.type = "executable";
           })
         ];
         spider = {
@@ -452,7 +457,6 @@ in
         };
         telescope = {
           enable = true;
-          extensions.project-nvim.enable = true;
         };
         treesitter = {
           enable = true;
