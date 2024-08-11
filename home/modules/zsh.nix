@@ -49,6 +49,7 @@ in
     home.packages = with pkgs; [
       bottom
       du-dust
+      lazydocker
       fd
       file
       jd-diff-patch
