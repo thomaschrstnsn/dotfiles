@@ -297,8 +297,8 @@ in
           settings.scope = {
             enabled = true;
             show_start = true;
-            whitespace.remove_blankline_trail = false;
           };
+          # settings.whitespace.remove_blankline_trail = false;
         };
         lsp = {
           enable = true;
