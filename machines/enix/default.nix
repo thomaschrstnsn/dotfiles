@@ -9,6 +9,7 @@ in
       username = username;
       homedir = "/home/thomas";
     };
+    direnv.enable = true;
     ssh = {
       enable = true;
       hosts = [ "rpi4" "vmnix" "enix" "rsync.net" ];
@@ -25,6 +26,7 @@ in
     };
   };
   extraPackages = pkgs: with pkgs; [
+    devenv
   ];
 
   system = systems.x64-linux;
