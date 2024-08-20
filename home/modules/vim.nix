@@ -122,6 +122,7 @@ in
         backspace = "indent,eol,start";
         breakindent = true;
         clipboard = "unnamedplus";
+        colorcolumn = "100";
         cursorline = true;
         foldmethod = "manual";
         ignorecase = true;
