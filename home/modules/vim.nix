@@ -836,6 +836,10 @@ in
           plugin = (fromGitHub "KostkaBrukowa/definition-or-references.nvim" "2023.10.7" "13570f995be8993f4c55e988f89e5a7b8df37a17");
           config = mkLuaFile ./vim/plugins/definition-or-references.lua;
         }
+        {
+          plugin = nvim-FeMaco-lua;
+          config = mkLua ''require("femaco").setup()'';
+        }
         friendly-snippets
         {
           plugin = (fromGitHub "chrishrb/gx.nvim" "0.2.0" "a7cb094499907b3561aa6e135240dccbd89ed8a8");
