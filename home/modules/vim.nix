@@ -192,11 +192,11 @@ in
         };
         conform-nvim = {
           enable = true;
-          formatOnSave = {
+          settings.format_on_save = {
             lspFallback = true;
             timeoutMs = 500;
           };
-          formattersByFt = {
+          settings.formatters_by_ft = {
             "toml" = [ "taplo" ];
           };
         };
@@ -489,7 +489,7 @@ in
         trouble = { enable = true; };
         which-key = {
           enable = true;
-          window.border = "single";
+          settings.win.border = "single";
         };
       };
       keymaps = [
