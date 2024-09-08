@@ -1,7 +1,7 @@
 { pkgs, config, lib, ... }:
 with lib;
 
-let 
+let
   cfg = config.tc.git;
   sshConfig = config.tc.ssh;
 in
@@ -83,7 +83,7 @@ in
         commit.gpgsign = (sshConfig.use1PasswordAgentOnMac && cfg.gpgVia1Password);
       };
 
-      ignores = [ "*~" "*.swp" ".DS_Store" ];
+      ignores = [ "*~" "*.swp" ".DS_Store" ".bacon-locations" ];
 
       delta = {
         enable = cfg.differ == "delta";
