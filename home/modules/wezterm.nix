@@ -18,7 +18,7 @@ in
     home.packages = with pkgs; [ wezterm ];
     home.file = {
       ".config/wezterm/wezterm.lua".text = replaceStrings
-        [ ''"FONTSIZE"'' ]
+        [ ''"FONT_SIZE"'' ]
         [ (toString cfg.fontsize) ]
         (readFile ./wezterm/wezterm.lua);
     };
