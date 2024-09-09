@@ -263,10 +263,6 @@ in
             bash.linter = "shellcheck";
           };
         };
-        flash = {
-          enable = true;
-          settings.modes.search.enabled = true;
-        };
         gitblame.enable = true;
         gitsigns = {
           enable = true;
@@ -775,19 +771,6 @@ in
           mode = "n";
           action = "<cmd>:close<CR>";
           options.desc = "close current window split";
-        }
-        # flash
-        {
-          key = "<leader>ss";
-          mode = [ "n" "x" "o" ];
-          action = ''<cmd>lua require("flash").jump()<CR>'';
-          options.desc = "flash search";
-        }
-        {
-          key = "<leader>sS";
-          mode = [ "n" "x" "o" ];
-          action = ''<cmd>lua require("flash").treesitter()<CR>'';
-          options.desc = "flash treesitter";
         }
 
         { key = "<C-h>"; mode = "n"; action = "<cmd>wincmd h<CR>"; }
