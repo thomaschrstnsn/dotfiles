@@ -464,13 +464,13 @@ in
           nixGrammars = true;
           package = cfg.treesitter.package;
           grammarPackages = treesitterGrammars cfg.treesitter.grammarPackageSet cfg.treesitter.package;
-          settings.incrementalSelection = {
+          settings.incremental_selection = {
             enable = true;
             keymaps = {
-              initSelection = "<leader>v";
-              nodeIncremental = "<leader>v";
-              scopeIncremental = "<nop>";
-              nodeDecremental = "<bs>";
+              init_selection = "<Leader>v";
+              node_incremental = "<Leader>v";
+              scope_incremental = false;
+              node_decremental = "<BS>";
             };
           };
         };
