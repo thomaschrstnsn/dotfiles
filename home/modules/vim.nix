@@ -481,7 +481,29 @@ in
             max_lines = 4;
           };
         };
-        treesitter-textobjects.enable = true;
+        treesitter-textobjects = {
+          enable = true;
+          move = {
+            enable = true;
+            setJumps = true;
+            gotoNextStart = {
+              "]f" = { query = "@function.outer"; desc = "Next function start"; };
+              "]c" = { query = "@class.outer"; desc = "Next class/struct start"; };
+            };
+            gotoNextEnd = {
+              "]F" = { query = "@function.outer"; desc = "Next function end"; };
+              "]C" = { query = "@class.outer"; desc = "Next class/struct end"; };
+            };
+            gotoPreviousStart = {
+              "[f" = { query = "@function.outer"; desc = "Previous function start"; };
+              "[c" = { query = "@class.outer"; desc = "Previous class/struct start"; };
+            };
+            gotoPreviousEnd = {
+              "[F" = { query = "@function.outer"; desc = "Previous function end"; };
+              "[C" = { query = "@class.outer"; desc = "Previous class/struct end"; };
+            };
+          };
+        };
         trouble = { enable = true; };
         which-key = {
           enable = true;
