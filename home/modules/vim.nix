@@ -701,6 +701,18 @@ in
           options.desc = "find symbol in document";
         }
         {
+          key = "<leader>fe";
+          mode = "n";
+          action = ''<cmd>Telescope diagnostics<CR>'';
+          options.desc = "diagnostics in project";
+        }
+        {
+          key = "<leader>fE";
+          mode = "n";
+          action = ''<cmd>Telescope diagnostics bufnr=0<CR>'';
+          options.desc = "diagnostics in current buffer";
+        }
+        {
           key = "<leader>fb";
           mode = "n";
           action = ''<cmd>Telescope buffers<CR>'';
