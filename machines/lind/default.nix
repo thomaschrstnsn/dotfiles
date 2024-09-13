@@ -35,6 +35,7 @@
     tmux = {
       enable = true;
       session-tool = "sesh";
+      theme = "rose-pine";
     };
     wezterm = { enable = true; fontsize = 14.5; };
     zsh = {

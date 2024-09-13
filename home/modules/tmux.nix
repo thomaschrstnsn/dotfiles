@@ -8,6 +8,7 @@ let
   enabledBg = {
     dracula = "#44475a";
     catppuccin = "#1e1e2e";
+    rose-pine = "#191724";
   }."${cfg.theme}";
   disabledBg = "#d20f39";
 in
@@ -15,7 +16,7 @@ in
   options.tc.tmux = with types; {
     enable = mkEnableOption "tmux";
     theme = mkOption {
-      type = enum [ "catppuccin" "dracula" ];
+      type = enum [ "catppuccin" "dracula" "rose-pine" ];
       default = "catppuccin";
       description = "theme for tmux";
     };
@@ -169,6 +170,32 @@ in
                 set -g @catppuccin_window_status_icon_enable "yes"
                 set -g @catppuccin_status_modules_right "${modules_right}"
                 set -g @catppuccin_date_time "W%W %Y-%m-%d %H:%M"
+              '';
+            }
+          ))
+        (mkIf (cfg.theme == "rose-pine")
+          (
+            let
+              remote_lines =
+                if cfg.remote then ''
+                  set -g @rose_pine_host 'on'
+                  set -g @rose_pine_user 'on'
+                ''
+                else "";
+            in
+            {
+              plugin = rose-pine;
+              extraConfig = ''
+                set -g @rose_pine_variant 'main'
+                set -g @rose_pine_date_time 'W%W %Y-%m-%d %H:%M'
+                set -g @rose_pine_date 'on'
+                set -g @rose_pine_directory 'on' # Turn on the current folder component in the status bar
+                set -g @rose_pine_disable_active_window_menu 'on' # Disables the menu that shows the active window on the left
+                set -g @rose_pine_default_window_behavior 'on' # Forces tmux default window list behaviour
+                set -g @rose_pine_show_current_program 'on' # Forces tmux to show the current running program as window name
+                set -g @rose_pine_show_pane_directory 'on' # Forces tmux to show the current directory as window name
+
+                ${remote_lines}
               '';
             }
           ))
