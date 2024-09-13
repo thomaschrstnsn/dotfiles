@@ -10,7 +10,7 @@ in
     enable = mkEnableOption "ice (bar) from jordanbaird";
   };
   config = mkIf cfg.enable {
-    system.defaults.NSGlobalDomain._HIHideMenuBar = false;
+    system.defaults.NSGlobalDomain._HIHideMenuBar = true;
 
     services.yabai.config = {
       external_bar = "main:${toString 0}:0";
