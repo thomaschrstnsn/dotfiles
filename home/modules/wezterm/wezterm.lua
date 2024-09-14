@@ -43,7 +43,7 @@ end
 
 function scheme_for_appearance(appearance)
 	if appearance:find 'Dark' then
-		return 'Kanagawa (Gogh)'
+		return 'rose-pine'
 	else
 		return 'rose-pine-dawn'
 	end
