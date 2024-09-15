@@ -66,6 +66,11 @@ in
     ideavim = mkEnableOption "ideavimrc";
     codelldb.enable = mkEnableOption "lldb";
     copilot.enable = mkOption { type = bool; default = true; description = "copilot"; };
+    theme = mkOption {
+      type = enum [ "ayu" "everforest" "catppuccin" "rose-pine" "tokyonight" "vscode" ];
+      default = "rose-pine";
+      description = "theme for tmux";
+    };
     treesitter = {
       package = mkOption {
         type = types.package;
@@ -139,17 +144,7 @@ in
         undofile = true;
         writebackup = false;
       };
-      colorschemes.kanagawa =
-        let variation = "wave"; # wave, dragon, lotus
-        in
-        {
-          enable = true;
-          settings = {
-            theme = variation;
-            background.dark = variation;
-            transparent = true;
-          };
-        };
+      colorschemes."${cfg.theme}" = { enable = true; };
       diagnostics.virtual_lines.only_current_line = true;
       luaLoader.enable = true;
       plugins = {
@@ -849,6 +844,10 @@ in
         # LSP (todo, inspiration: https://youtu.be/vdn_pKJUda8?t=3129)
       ];
       extraPlugins = with pkgs.vimPlugins; [
+        {
+          plugin = (fromGitHub "eliseshaffer/darklight.nvim" "0.6" "d6ab8f3b2921dcdc4591961f89c34b467387f2eb");
+          config = mkLua ''require('darklight').setup()'';
+        }
         {
           plugin = (fromGitHub "KostkaBrukowa/definition-or-references.nvim" "2023.10.7" "13570f995be8993f4c55e988f89e5a7b8df37a17");
           config = mkLuaFile ./vim/plugins/definition-or-references.lua;
