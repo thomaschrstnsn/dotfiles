@@ -287,7 +287,7 @@ in
           };
         };
         illuminate = { enable = true; };
-        inc-rename = { enable = true; };
+        inc-rename = { enable = true; showMessage = true; };
         indent-blankline = {
           enable = true;
           settings.scope = {
@@ -578,7 +578,7 @@ in
         { key = "<leader>ld"; action = "<cmd>Telescope lsp_definitions<cr>"; mode = "n"; options.desc = "Definitions"; }
         { key = "K"; action = "<cmd>Lspsaga hover_doc<cr>"; mode = "n"; options.desc = "Hover Docs"; }
         { key = "H"; action = "<cmd>lua vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())<CR>"; mode = "n"; options.desc = "Inlay Hints Toggle"; }
-        { key = "<leader>lr"; action = ":IncRename "; mode = "n"; options.desc = "Rename"; }
+        { key = "<leader>lR"; action = ":IncRename "; mode = "n"; options.desc = "Rename"; } # another in init.lua
         { key = "<leader>lo"; action = "<cmd>Lspsaga outline<cr>"; mode = "n"; options.desc = "Outline"; }
 
         # square bracket motions

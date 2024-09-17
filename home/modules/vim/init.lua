@@ -97,3 +97,7 @@ ai.setup({
 		a = ai.gen_spec.treesitter({ a = "@parameter.outer", i = "@parameter.inner" }, {})
 	}
 })
+
+vim.keymap.set("n", "<leader>lr", function()
+	return ":IncRename " .. vim.fn.expand("<cword>")
+end, { expr = true })
