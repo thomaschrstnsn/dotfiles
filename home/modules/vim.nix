@@ -71,6 +71,11 @@ in
       default = "rose-pine";
       description = "theme for tmux";
     };
+    auto-dark-mode = mkOption {
+      type = bool;
+      default = pkgs.stdenv.isDarwin;
+      description = "auto darkmode";
+    };
     treesitter = {
       package = mkOption {
         type = types.package;
@@ -844,10 +849,16 @@ in
         # LSP (todo, inspiration: https://youtu.be/vdn_pKJUda8?t=3129)
       ];
       extraPlugins = with pkgs.vimPlugins; [
-        {
-          plugin = (fromGitHub "eliseshaffer/darklight.nvim" "0.6" "d6ab8f3b2921dcdc4591961f89c34b467387f2eb");
-          config = mkLua ''require('darklight').setup()'';
-        }
+        (if cfg.auto-dark-mode then
+          {
+            plugin = (fromGitHub "f-person/auto-dark-mode.nvim" "2024-07-29" "14cad96b80a07e9e92a0dcbe235092ed14113fb2");
+            config = mkLuaFile ./vim/plugins/auto-dark-mode.lua;
+          }
+        else
+          {
+            plugin = (fromGitHub "eliseshaffer/darklight.nvim" "0.6" "d6ab8f3b2921dcdc4591961f89c34b467387f2eb");
+            config = mkLua ''require('darklight').setup()'';
+          })
         {
           plugin = (fromGitHub "KostkaBrukowa/definition-or-references.nvim" "2023.10.7" "13570f995be8993f4c55e988f89e5a7b8df37a17");
           config = mkLuaFile ./vim/plugins/definition-or-references.lua;
