@@ -323,7 +323,7 @@ in
               settings.nix.flake.autoArchive = true;
             };
             pyright.enable = cfg.lsp.servers.python;
-            tsserver.enable = cfg.lsp.servers.javascript;
+            ts-ls.enable = cfg.lsp.servers.javascript;
           };
         };
         lsp-lines = {
@@ -505,6 +505,7 @@ in
           };
         };
         trouble = { enable = true; };
+        web-devicons.enable = true;
         which-key = {
           enable = true;
           settings.win.border = "single";
