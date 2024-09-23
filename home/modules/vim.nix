@@ -678,6 +678,18 @@ in
           options.desc = "find file (including ignored, hidden)";
         }
         {
+          key = "<leader>fg";
+          mode = "n";
+          action = ''<cmd>Telescope git_bcommits<CR>'';
+          options.desc = "git commits for current buffer";
+        }
+        {
+          key = "<leader>fg";
+          mode = "v";
+          action = ''<cmd>Telescope git_bcommits_range<CR>'';
+          options.desc = "git commits for current buffer with selected range";
+        }
+        {
           key = "<leader>fr";
           mode = "n";
           action = ''<cmd>Telescope resume<CR>'';
