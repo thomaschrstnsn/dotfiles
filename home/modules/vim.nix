@@ -672,6 +672,12 @@ in
           options.desc = "find file";
         }
         {
+          key = "<leader>fF";
+          mode = "n";
+          action = "<cmd>lua require('telescope.builtin').find_files({no_ignore = true, hidden = true})<cr>";
+          options.desc = "find file (including ignored, hidden)";
+        }
+        {
           key = "<leader>fr";
           mode = "n";
           action = ''<cmd>Telescope resume<CR>'';
