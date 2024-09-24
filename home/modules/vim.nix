@@ -182,7 +182,6 @@ in
           settings.sources = [
             { name = "nvim_lsp"; }
             { name = "nvim_lsp_document_symbol"; }
-            { name = "nvim_lsp_signature_help"; }
             { name = "luasnip"; }
             { name = "treesitter"; }
             { name = "buffer"; }
@@ -331,6 +330,38 @@ in
         };
         lsp-format = {
           enable = true;
+        };
+        lspkind = {
+          enable = true;
+          cmp.enable = true;
+          symbolMap = {
+            Class = "ﴯ";
+            Color = "";
+            Constant = "";
+            Constructor = "";
+            Copilot = "";
+            Enum = "";
+            EnumMember = "";
+            Event = "";
+            Field = "ﰠ";
+            File = "";
+            Folder = "";
+            Function = "";
+            Interface = "";
+            Keyword = "";
+            Method = "";
+            Module = "";
+            Operator = "";
+            Property = "ﰠ";
+            Reference = "";
+            Snippet = "﬌";
+            Struct = "פּ";
+            Text = "";
+            TypeParameter = "";
+            Unit = "塞";
+            Value = "";
+            Variable = "";
+          };
         };
         lspsaga = {
           enable = true;
