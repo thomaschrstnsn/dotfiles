@@ -14,6 +14,7 @@ let
     else app;
 
   cfg = config.tc.skhd;
+  yabaiCfg = config.tc.yabai;
   switchToApp = onlySwitchIfOpen: app:
     if cfg.useOpenForAppShortcuts
     then ''open -a "${app}"''
@@ -161,7 +162,7 @@ in
       enable = true;
       # https://github.com/koekeishiya/skhd/issues/1
       skhdConfig =
-        ''
+        if yabaiCfg.enable then ''
           hyper - q : ${scripts}/moveWindowToDisplayAndFollowFocus.sh left
           hyper - w : ${scripts}/moveWindowToDisplayAndFollowFocus.sh right
           # hyper - a : yabai -m display --focus prev || yabai -m display --focus last
@@ -200,13 +201,6 @@ in
           hyper - down  : ${resize.down}
           hyper - up    : ${resize.up}
 
-          lctrl - up   : skhd -k "pageup"
-          lctrl - down : skhd -k "pagedown"
-
-          # app shortcuts
-          hyper - b : ${(switchToApp false) cfg.browser}
-          hyper - t : ${(switchToApp false) cfg.terminal}
-          hyper - x : ${(switchToApp false) "Finder"}
         ''
         + (toWmPrefixConfig "hyper - space" {
           f = "yabai -m window --toggle float; yabai -m window --grid 4:4:1:1:2:2"; # float/unfloat
@@ -237,13 +231,25 @@ in
           "shift - down" = resize.down;
           "shift - up" = resize.up;
         })
-        + concatStringsSep "\n" (attrValues (mapAttrs mkShortcut cfg.extraShortcuts))
-        + "\n"
-        + concatStringsSep "\n" (attrValues (mapAttrs (mkAppShortcut false) cfg.extraAppShortcuts))
-        + "\n"
-        + concatStringsSep "\n" (attrValues (mapAttrs (mkAppShortcut true) cfg.extraAppShortcutsOnlySwitch))
-        + "\n"
-        + toCfgPrefixConfig cfg.prefixShortcuts
+
+        else ""
+          + ''
+          lctrl - up   : skhd -k "pageup"
+          lctrl - down : skhd -k "pagedown"
+
+          # app shortcuts
+          hyper - b : ${(switchToApp false) cfg.browser}
+          hyper - t : ${(switchToApp false) cfg.terminal}
+          hyper - x : ${(switchToApp false) "Finder"}
+
+        ''
+          + concatStringsSep "\n" (attrValues (mapAttrs mkShortcut cfg.extraShortcuts))
+          + "\n"
+          + concatStringsSep "\n" (attrValues (mapAttrs (mkAppShortcut false) cfg.extraAppShortcuts))
+          + "\n"
+          + concatStringsSep "\n" (attrValues (mapAttrs (mkAppShortcut true) cfg.extraAppShortcutsOnlySwitch))
+          + "\n"
+          + toCfgPrefixConfig cfg.prefixShortcuts
       ;
     };
   };
