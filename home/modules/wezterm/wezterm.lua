@@ -49,6 +49,10 @@ function scheme_for_appearance(appearance)
 	end
 end
 
+local function toggle_fullscreen(window, pane)
+	window:toggle_fullscreen()
+end
+
 local config        = {
 	warn_about_missing_glyphs    = false,
 	window_decorations           = 'RESIZE',
@@ -72,9 +76,17 @@ config.font         = wezterm.font_with_fallback({
 config.font_size    = "FONT_SIZE"
 
 config.keys         = {
-	{ key = "t", mods = "CMD",       action = wezterm.action_callback(themePicker) },
-	{ key = "t", mods = "CMD|SHIFT", action = wezterm.action.ShowDebugOverlay },
+	{ key = "t", mods = "CMD", action = wezterm.action_callback(themePicker) },
+	{ key = "f", mods = "CMD", action = wezterm.action_callback(toggle_fullscreen) },
+	{ key = "d", mods = "CMD", action = wezterm.action.ShowDebugOverlay },
 }
+
+wezterm.on('gui-startup', function(window)
+	local mux               = wezterm.mux
+	local tab, pane, window = mux.spawn_window(cmd or {})
+	local gui_window        = window:gui_window();
+	gui_window:perform_action(wezterm.action.ToggleFullScreen, pane)
+end)
 
 wezterm.plugin.require("https://gitlab.com/xarvex/presentation.wez").apply_to_config(config, {
 	font_size_multiplier = 1.8,               -- sets for both "presentation" and "presentation_full"
