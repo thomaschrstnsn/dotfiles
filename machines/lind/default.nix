@@ -45,7 +45,8 @@
   };
 
   darwin = {
-    ice.enable = true;
+    aerospace.enable = true;
+    ice.enable = false;
     homebrew = {
       enable = true;
       extraBrews = [
@@ -56,7 +57,7 @@
         "bitwarden"
         "jetbrains-toolbox"
         "logseq"
-        "spaceman"
+        # "spaceman"
         "todoist"
       ];
     };
@@ -84,7 +85,7 @@
       };
     };
     yabai = {
-      enable = true;
+      enable = false;
       jankyborders.enable = true;
     };
   };

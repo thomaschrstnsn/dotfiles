@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ./aerospace.nix
     ./fonts.nix
     ./homebrew.nix
     ./ice.nix
