@@ -17,5 +17,6 @@ in
     };
     homebrew.taps = [ "nikitabobko/tap" ];
     homebrew.casks = [ "aerospace" ];
+
   };
 }

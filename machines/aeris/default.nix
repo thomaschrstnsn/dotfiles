@@ -5,6 +5,7 @@
       username = "thomas";
       homedir = "/Users/${username}";
     };
+    aerospace.enable = true;
     direnv.enable = true;
     dotnet = {
       enable = true;
@@ -39,6 +40,7 @@
   };
 
   darwin = {
+    aerospace.enable = true;
     homebrew = {
       enable = true;
       extraBrews = [ "exiv2" ];
@@ -46,15 +48,12 @@
         "arc"
         "google-drive"
         "logseq"
-        "rustrover"
       ];
     };
-    ice.enable = true;
     skhd = {
       enable = true;
       browser = "Arc";
       terminal = "WezTerm";
-      useOpenForAppShortcuts = false;
       extraAppShortcuts = {
         "hyper - r" = "Rider";
         "hyper - u" = "Logseq";
@@ -67,13 +66,6 @@
           c = "Calendar";
         };
       };
-    };
-    sketchybar = {
-      enable = false;
-    };
-    yabai = {
-      enable = true;
-      jankyborders.enable = true;
     };
   };
 

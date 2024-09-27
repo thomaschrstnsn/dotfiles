@@ -5,6 +5,7 @@
       username = "tfc";
       homedir = "/Users/${username}";
     };
+    aerospace.enable = true;
     aws.enable = true;
     direnv.enable = true;
     dotnet = {
@@ -46,7 +47,6 @@
 
   darwin = {
     aerospace.enable = true;
-    ice.enable = false;
     homebrew = {
       enable = true;
       extraBrews = [
@@ -57,7 +57,6 @@
         "bitwarden"
         "jetbrains-toolbox"
         "logseq"
-        # "spaceman"
         "todoist"
       ];
     };
@@ -65,7 +64,6 @@
       enable = true;
       browser = "Arc";
       terminal = "WezTerm";
-      useOpenForAppShortcuts = false;
       extraAppShortcuts = {
         "hyper - c" = "Microsoft Teams";
         "hyper - d" = "Azure Data Studio";
@@ -83,10 +81,6 @@
           c = "Calendar";
         };
       };
-    };
-    yabai = {
-      enable = false;
-      jankyborders.enable = true;
     };
   };
 

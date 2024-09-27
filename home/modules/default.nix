@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ./aerospace.nix
     ./aws.nix
     ./direnv.nix
     ./dotnet.nix
