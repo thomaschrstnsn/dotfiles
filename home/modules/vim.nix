@@ -193,7 +193,7 @@ in
           enable = true;
           settings.format_on_save = {
             lspFallback = true;
-            timeoutMs = 500;
+            timeoutMs = 1000;
           };
           settings.formatters_by_ft = {
             "toml" = [ "taplo" ];
