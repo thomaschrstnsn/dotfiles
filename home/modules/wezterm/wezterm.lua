@@ -49,21 +49,8 @@ function scheme_for_appearance(appearance)
 	end
 end
 
-return {
-	color_scheme                 = scheme_for_appearance(get_appearance()), -- auto refresh on system change
-
-	font                         = wezterm.font_with_fallback({
-		"JetBrains Mono",
-		{ family = "Symbols Nerd Font Mono", scale = 0.95 },
-	}),
-	font_size                    = "FONT_SIZE",
-
-	keys                         = {
-		{ key = "t", mods = "CMD",       action = wezterm.action_callback(themePicker) },
-		{ key = "t", mods = "CMD|SHIFT", action = wezterm.action.ShowDebugOverlay },
-	},
+local config        = {
 	warn_about_missing_glyphs    = false,
-
 	window_decorations           = 'RESIZE',
 	hide_tab_bar_if_only_one_tab = true,
 
@@ -75,3 +62,28 @@ return {
 	},
 	audible_bell                 = 'Disabled',
 }
+
+config.color_scheme = scheme_for_appearance(get_appearance()) -- auto refresh on system change
+
+config.font         = wezterm.font_with_fallback({
+	"JetBrains Mono",
+	{ family = "Symbols Nerd Font Mono", scale = 0.95 },
+})
+config.font_size    = "FONT_SIZE"
+
+config.keys         = {
+	{ key = "t", mods = "CMD",       action = wezterm.action_callback(themePicker) },
+	{ key = "t", mods = "CMD|SHIFT", action = wezterm.action.ShowDebugOverlay },
+}
+
+wezterm.plugin.require("https://gitlab.com/xarvex/presentation.wez").apply_to_config(config, {
+	font_size_multiplier = 1.8,               -- sets for both "presentation" and "presentation_full"
+	presentation = {
+		keybind = { key = "p", mods = "SHIFT|CMD" } -- setting a keybind
+	},
+	presentation_full = {
+		keybind = { key = "p", mods = "CMD" } -- setting a keybind
+	}
+})
+
+return config
