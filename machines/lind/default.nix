@@ -60,6 +60,7 @@
         "todoist"
       ];
     };
+    jankyborders.enable = true;
     skhd = {
       enable = true;
       browser = "Arc";
