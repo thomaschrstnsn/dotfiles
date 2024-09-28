@@ -47,6 +47,7 @@
       extraCasks = [
         "arc"
         "google-drive"
+        "istat-menus@6"
         "logseq"
       ];
     };

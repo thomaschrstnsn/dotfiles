@@ -55,6 +55,7 @@
       extraCasks = [
         "arc"
         "bitwarden"
+        "istat-menus@6"
         "jetbrains-toolbox"
         "logseq"
         "todoist"
