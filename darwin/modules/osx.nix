@@ -16,8 +16,6 @@
 
   system.defaults.LaunchServices.LSQuarantine = false;
 
-  system.defaults.spaces.spans-displays = false;
-
   system.defaults.screencapture.location = "~/Desktop/screenshots";
 
   system.defaults.NSGlobalDomain = {

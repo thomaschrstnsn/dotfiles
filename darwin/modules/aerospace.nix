@@ -12,11 +12,14 @@ in
   config = mkIf cfg.enable {
     system.defaults.NSGlobalDomain._HIHideMenuBar = true;
 
-    services.yabai.config = {
-      external_bar = "main:${toString 0}:0";
-    };
     homebrew.taps = [ "nikitabobko/tap" ];
     homebrew.casks = [ "aerospace" ];
 
+    # https://nikitabobko.github.io/AeroSpace/guide#a-note-on-displays-have-separate-spaces
+    system.defaults.spaces.spans-displays = true;
+    # https://nikitabobko.github.io/AeroSpace/guide#a-note-on-mission-control
+    system.defaults.dock.expose-group-by-app = true;
+
+    services.skhd.skhdConfig = '''';
   };
 }
