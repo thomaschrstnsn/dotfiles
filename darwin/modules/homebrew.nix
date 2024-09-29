@@ -28,7 +28,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.shellInit = ''
+    environment.interactiveShellInit = ''
       eval "$(${config.homebrew.brewPrefix}/brew shellenv)"
     '';
 
@@ -38,8 +38,7 @@ in
     homebrew.global.brewfile = true;
     homebrew.global.lockfiles = true;
 
-    homebrew.masApps = {
-    };
+    homebrew.masApps = { };
 
     homebrew.taps = [
     ] ++ cfg.extraTaps;
