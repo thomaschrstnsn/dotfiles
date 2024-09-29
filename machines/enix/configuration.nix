@@ -36,6 +36,7 @@
     4534 # bonobo (sonos to navidrome integration)
     3000 # poolmonitor for local testing
     3210 # grafana poolmonitor
+    5432 # postgres
   ];
 
   environment.systemPackages = with pkgs; [
