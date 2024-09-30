@@ -322,7 +322,7 @@ in
               settings.formatting.command = [ "nixpkgs-fmt" ];
               settings.nix.flake.autoArchive = true;
             };
-            pyright.enable = cfg.lsp.servers.python;
+            basedpyright.enable = cfg.lsp.servers.python;
             ts-ls.enable = cfg.lsp.servers.javascript;
           };
         };
