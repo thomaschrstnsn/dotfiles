@@ -231,7 +231,6 @@ in
           "shift - down" = resize.down;
           "shift - up" = resize.up;
         })
-
         else ""
           + ''
           lctrl - up   : skhd -k "pageup"
