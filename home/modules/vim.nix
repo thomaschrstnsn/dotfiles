@@ -196,7 +196,8 @@ in
             timeoutMs = 1000;
           };
           settings.formatters_by_ft = {
-            "toml" = [ "taplo" ];
+            toml = [ "taplo" ];
+            python = [ "isort" "black" ];
           };
         };
         comment = { enable = true; };
