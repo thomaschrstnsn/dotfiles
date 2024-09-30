@@ -81,12 +81,13 @@ config.keys         = {
 	{ key = "d", mods = "CMD", action = wezterm.action.ShowDebugOverlay },
 }
 
-wezterm.on('gui-startup', function(window)
-	local mux               = wezterm.mux
-	local tab, pane, window = mux.spawn_window(cmd or {})
-	local gui_window        = window:gui_window();
-	gui_window:perform_action(wezterm.action.ToggleFullScreen, pane)
-end)
+--  start in fullscreen mode, disabled for now
+-- wezterm.on('gui-startup', function(window)
+-- 	local mux               = wezterm.mux
+-- 	local tab, pane, window = mux.spawn_window(cmd or {})
+-- 	local gui_window        = window:gui_window();
+-- 	gui_window:perform_action(wezterm.action.ToggleFullScreen, pane)
+-- end)
 
 wezterm.plugin.require("https://gitlab.com/xarvex/presentation.wez").apply_to_config(config, {
 	font_size_multiplier = 1.8,               -- sets for both "presentation" and "presentation_full"
