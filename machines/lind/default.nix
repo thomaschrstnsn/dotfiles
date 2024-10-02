@@ -79,6 +79,7 @@
         "hyper - u" = "Logseq";
         "hyper - y" = "Microsoft Remote Desktop";
         "hyper - z" = "Spotify";
+        "hyper - p" = "todoist";
       };
       extraShortcuts = { };
       prefixShortcuts = {

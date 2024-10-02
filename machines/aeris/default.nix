@@ -60,6 +60,7 @@
         "hyper - r" = "Rider";
         "hyper - u" = "Logseq";
         "hyper - z" = "Spotify";
+        "hyper - p" = "todoist";
       };
       extraShortcuts = { };
       prefixShortcuts = {
