@@ -432,7 +432,13 @@ in
           };
           providerSelector = ''
             function(bufnr, filetype, buftype)
-                return {'lsp', 'indent'}
+              local ftMap = {
+                 vim = 'indent',
+                 python = {'indent'},
+                 nix = {'treesitter', 'indent'},
+                 git = ""
+              }
+              return ftMap[filetype] or {'lsp', 'indent'}
             end
           '';
         };
