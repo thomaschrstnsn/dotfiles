@@ -831,7 +831,7 @@ in
         { key = "<"; mode = "v"; action = "<gv"; }
 
         {
-          key = "<leader><CR>";
+          key = "<leader><CR>"; # todo: conflict with flash treesitter
           mode = "n";
           action = ''<cmd>lua FormatBuffer()<CR>'';
           options.desc = "Format buffer (via conform/LSP)";
@@ -960,19 +960,11 @@ in
           plugin = noice-nvim;
           config = mkLuaFile ./vim/plugins/noice.lua;
         }
-        # {
-        #   plugin = (fromGitHub "MeanderingProgrammer/markdown.nvim" "4.1.0" "3578523f497a8ad3b4a356d1e54e609838ce0922");
-        #   config = mkLua ''require("render-markdown").setup()'';
-        # }
         {
           plugin = markview-nvim;
           config = mkLuaFile ./vim/plugins/markview.lua;
         }
         plenary-nvim
-        # {
-        #   plugin = rest-nvim;
-        #   config = mkLuaFile ./vim/plugins/nvim-rest.lua;
-        # }
         (fromGitHub "ibhagwan/smartyank.nvim" "2024mar26" "d9e078fe08d6466e37ea45ac446a9f60e6866789")
         {
           plugin = tint-nvim;
@@ -989,7 +981,7 @@ in
       ];
       extraConfigLua =
         (builtins.readFile ./vim/init.lua) +
-        (builtins.readFile ./vim/plugins/persitence.lua);
+        (builtins.readFile ./vim/plugins/persistence.lua);
     };
     programs.zsh.shellAliases = {
       vi = "nvim";
