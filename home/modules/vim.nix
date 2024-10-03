@@ -134,7 +134,13 @@ in
         clipboard = "unnamedplus";
         colorcolumn = "100";
         cursorline = true;
+
+        foldcolumn = "1";
+        foldenable = true;
+        foldlevel = 99;
+        foldlevelstart = 99;
         foldmethod = "manual";
+
         ignorecase = true;
         inccommand = "split";
         number = true;
@@ -417,6 +423,19 @@ in
         nix.enable = true;
         notify.enable = true;
         nvim-autopairs.enable = true;
+        nvim-ufo = {
+          enable = true;
+          closeFoldKinds = {
+            default = [ "imports" "comment" ];
+            json = [ "array" ];
+            c = [ "comment" "region" ];
+          };
+          providerSelector = ''
+            function(bufnr, filetype, buftype)
+                return {'lsp', 'indent'}
+            end
+          '';
+        };
         oil = {
           enable = true;
           settings = {
@@ -922,6 +941,21 @@ in
         { key = "<leader>ua"; mode = "n"; action = "<cmd>TestSuite<CR>"; }
 
         # LSP (todo, inspiration: https://youtu.be/vdn_pKJUda8?t=3129)
+
+        # ufo / fold peek
+        {
+          key = "zK";
+          mode = "n";
+          action.__raw = ''
+            function()
+              local winid = require('ufo').peekFoldedLinesUnderCursor()
+              if not winid then
+                vim.lsp.buf.hover()
+              end
+            end
+          '';
+          options.desc = "peek fold";
+        }
       ];
       extraPlugins = with pkgs.vimPlugins; [
         (if cfg.auto-dark-mode then
