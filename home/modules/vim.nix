@@ -428,10 +428,6 @@ in
         persistence = {
           enable = true;
         };
-        project-nvim = {
-          enable = true;
-          enableTelescope = true;
-        };
         rustaceanvim = mkMerge [
           {
             enable = true;
