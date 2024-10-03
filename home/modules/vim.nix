@@ -414,6 +414,14 @@ in
         nix.enable = true;
         notify.enable = true;
         nvim-autopairs.enable = true;
+        oil = {
+          enable = true;
+          settings = {
+            keymaps = {
+              "C-h" = false;
+            };
+          };
+        };
         persistence = {
           enable = true;
         };
@@ -634,6 +642,9 @@ in
 
         { key = "]q"; mode = "n"; action = ''<cmd>cnext<cr>''; options.desc = "Next quickfix"; }
         { key = "[q"; mode = "n"; action = ''<cmd>cprev<cr>''; options.desc = "Prev quickfix"; }
+
+        # oil
+        { key = "-"; mode = "n"; action = ''<cmd>Oil --float<cr>''; options.desc = "Open parent dir (float)"; }
 
         ## trouble
         { key = "<leader>tq"; action = "<cmd>Trouble quickfix toggle focus=true<cr>"; options.desc = "Trouble Quickfix"; }
