@@ -497,6 +497,7 @@ in
         };
         telescope = {
           enable = true;
+          extensions.frecency.enable = true;
         };
         treesitter = {
           enable = true;
