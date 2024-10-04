@@ -292,10 +292,10 @@ in
             addFile = "<leader>ja";
             toggleQuickMenu = "<leader>jj";
             navFile = {
-              "1" = "<M-h>";
-              "2" = "<M-j>";
-              "3" = "<M-k>";
-              "4" = "<M-l>";
+              "1" = "<C-f>";
+              "2" = "<C-d>";
+              "3" = "<C-s>";
+              "4" = "<C-a>";
             };
             navNext = "<C-]>";
             navPrev = "<C-[>";
