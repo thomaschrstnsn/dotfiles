@@ -38,7 +38,7 @@
       session-tool = "sesh";
       theme = "rose-pine";
     };
-    wezterm = { enable = true; fontsize = 14.5; };
+    wezterm = { enable = true; fontsize = 15.2; };
     zsh = {
       enable = true;
       editor = "nvim";

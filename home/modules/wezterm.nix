@@ -10,7 +10,7 @@ in
     fontsize = mkOption {
       type = types.number;
       description = "fontsize in terminal";
-      default = 15;
+      default = 15.2;
     };
   };
 
