@@ -79,7 +79,15 @@ config.keys         = {
 	{ key = "t", mods = "CMD", action = wezterm.action_callback(themePicker) },
 	{ key = "f", mods = "CMD", action = wezterm.action_callback(toggle_fullscreen) },
 	{ key = "d", mods = "CMD", action = wezterm.action.ShowDebugOverlay },
+	-- Turn off the default CMD-x actions
+	{ key = 'h', mods = 'CMD', action = wezterm.action.DisableDefaultAssignment, },
+	{ key = 'm', mods = 'CMD', action = wezterm.action.DisableDefaultAssignment, },
 }
+
+config.enable_kitty_keyboard = true
+
+-- for debugging key events
+-- config.debug_key_events = true
 
 --  start in fullscreen mode, disabled for now
 -- wezterm.on('gui-startup', function(window)
