@@ -41,8 +41,10 @@ in
       mouse = true;
       shortcut = "Space";
       extraConfig = ''
-        # set-option -sa terminal-overrides ",xterm*:Tc"
-        set-option -ga terminal-overrides ",xterm-256color:Tc,screen-256color:Tc,tmux-256color:Tc"
+        # https://github.com/wez/wezterm/discussions/4680
+        set -g default-terminal "tmux-256color"
+        set -ag terminal-overrides ",xterm-256color:RGB"
+
         set-option -g status-position top
         set-option -g set-clipboard on
         set-option -g detach-on-destroy off
