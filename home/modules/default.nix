@@ -4,6 +4,7 @@
   imports = [
     ./aerospace.nix
     ./aws.nix
+    ./check-terminal-color-and-fonts.nix
     ./direnv.nix
     ./dotnet.nix
     ./git.nix
