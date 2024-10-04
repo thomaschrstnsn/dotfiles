@@ -320,10 +320,10 @@ in
             addFile = "<leader>ja";
             toggleQuickMenu = "<leader>jj";
             navFile = {
-              "1" = "<C-f>";
-              "2" = "<C-d>";
-              "3" = "<C-s>";
-              "4" = "<C-a>";
+              "1" = "<M-f>";
+              "2" = "<M-d>";
+              "3" = "<M-s>";
+              "4" = "<M-a>";
             };
             navNext = "<C-]>";
             navPrev = "<C-[>";
