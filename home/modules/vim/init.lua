@@ -86,7 +86,7 @@ vim.api.nvim_create_autocmd("FileType", {
 -- mini.nvim https://github.com/echasnovski/mini.nvim
 local ai = require('mini.ai')
 ai.setup({
-	n_lines = 500,
+	n_lines = 100,
 	custom_textobjects = {
 		o = ai.gen_spec.treesitter({
 			a = { "@block.outer", "@conditional.outer", "@loop.outer" },
@@ -94,7 +94,11 @@ ai.setup({
 		}, {}),
 		f = ai.gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" }, {}),
 		c = ai.gen_spec.treesitter({ a = "@class.outer", i = "@class.inner" }, {}),
-		a = ai.gen_spec.treesitter({ a = "@parameter.outer", i = "@parameter.inner" }, {})
+		a = ai.gen_spec.treesitter({
+			a = { "@parameter.outer", "@argument.outer" },
+			i = { "@parameter.inner", "@argument.inner" },
+			{}
+		})
 	}
 })
 
