@@ -53,7 +53,7 @@ local function toggle_fullscreen(window, pane)
 	window:toggle_fullscreen()
 end
 
-local config        = {
+local config                 = {
 	warn_about_missing_glyphs    = false,
 	window_decorations           = 'RESIZE',
 	hide_tab_bar_if_only_one_tab = true,
@@ -67,21 +67,27 @@ local config        = {
 	audible_bell                 = 'Disabled',
 }
 
-config.color_scheme = scheme_for_appearance(get_appearance()) -- auto refresh on system change
+config.color_scheme          = scheme_for_appearance(get_appearance()) -- auto refresh on system change
 
-config.font         = wezterm.font_with_fallback({
+config.font                  = wezterm.font_with_fallback({
 	"JetBrains Mono",
 	{ family = "Symbols Nerd Font Mono", scale = 0.95 },
 })
-config.font_size    = "FONT_SIZE"
+config.font_size             = "FONT_SIZE"
 
-config.keys         = {
+config.keys                  = {
 	{ key = "t", mods = "CMD", action = wezterm.action_callback(themePicker) },
 	{ key = "f", mods = "CMD", action = wezterm.action_callback(toggle_fullscreen) },
 	{ key = "d", mods = "CMD", action = wezterm.action.ShowDebugOverlay },
 	-- Turn off the default CMD-x actions
 	{ key = 'h', mods = 'CMD', action = wezterm.action.DisableDefaultAssignment, },
 	{ key = 'm', mods = 'CMD', action = wezterm.action.DisableDefaultAssignment, },
+
+	-- To send in opt-{asdf} to have harpoon binds work
+	{ key = 'f', mods = 'ALT', action = wezterm.action.SendKey { key = 'f', mods = 'ALT' }, },
+	{ key = 'd', mods = 'ALT', action = wezterm.action.SendKey { key = 'd', mods = 'ALT' }, },
+	{ key = 's', mods = 'ALT', action = wezterm.action.SendKey { key = 's', mods = 'ALT' }, },
+	{ key = 'a', mods = 'ALT', action = wezterm.action.SendKey { key = 'a', mods = 'ALT' }, },
 }
 
 config.enable_kitty_keyboard = true
