@@ -168,15 +168,6 @@ in
             "<C-p>" = "cmp.mapping.select_prev_item { behavior == cmp.SelectBehavior.Insert }";
             "<C-n>" = "cmp.mapping.select_next_item { behavior == cmp.SelectBehavior.Insert }";
 
-            "<esc>" = ''cmp.mapping(function(fallback)
-                if cmp.visible() then
-                  cmp.close()
-                else
-                  fallback()
-                end
-              end, {"i", "s", "c"})
-            '';
-
             "<CR>" = ''cmp.mapping({
                i = function(fallback)
                  if cmp.visible() and cmp.get_active_entry() then
