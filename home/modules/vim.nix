@@ -467,6 +467,16 @@ in
             keymaps = {
               "C-h" = false;
             };
+            skip_confirm_for_simple_edits = true;
+            delete_to_trash = true;
+            view_options = {
+              show_hidden = true;
+              is_always_hidden.__raw = ''
+                function(name, _)
+                  return name == '..' or name == '.git'
+                end
+              '';
+            };
           };
         };
         persistence = {
