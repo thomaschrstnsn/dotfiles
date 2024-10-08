@@ -616,7 +616,7 @@ in
         }
         {
           key = "<esc>";
-          action = "<cmd>noh<cr><esc>";
+          action = "<cmd>noh<cr><cmd>Noice dismiss<cr><esc>";
           options = {
             desc = "Escape and clear hlsearch";
           };
