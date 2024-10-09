@@ -96,7 +96,7 @@
 
       mkNixosSystem =
         { base ? { }
-	, extra-modules
+        , extra-modules
         , system
         , config ? { }
         , home-manager-config ? { }
@@ -265,7 +265,7 @@
             system = system;
             config = nixos.config // { inherit user; };
             base = nixos.base;
-	    extra-modules = if nixos.isWsl then [nixos-wsl.nixosModules.default] else [];
+            extra-modules = if (lib.attrsets.attrByPath [ "isWsl" ] false nixos) then [ nixos-wsl.nixosModules.default ] else [ ];
             home-manager-config = { imports = homeCfg.modules; manual.manpages.enable = false; };
           }
         );
