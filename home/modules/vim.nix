@@ -397,7 +397,13 @@ in
           enable = true;
           lightbulb.virtualText = false;
         };
-        lualine = { enable = true; };
+        lualine = {
+          enable = true;
+          settings.options = {
+            section_separators = { left = ""; right = ""; };
+            component_separators = { left = ""; right = ""; };
+          };
+        };
         markdown-preview.enable = true;
         mini = {
           enable = true;
