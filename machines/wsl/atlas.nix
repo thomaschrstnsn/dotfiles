@@ -46,6 +46,7 @@ in
       };
       networking.hostname = "Atlas";
     };
+    isWsl = true;
     base = {
       imports = [
         ./configuration.nix

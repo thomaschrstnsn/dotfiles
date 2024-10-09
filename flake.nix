@@ -2,6 +2,7 @@
   description = "User Config";
   inputs = {
     nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1.*.tar.gz";
+    nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
 
     home-manager = {
       url = "https://flakehub.com/f/nix-community/home-manager/0.1.*.tar.gz";
@@ -32,7 +33,7 @@
     };
   };
 
-  outputs = { nixpkgs, home-manager, darwin, nixvim, lldb-nix-fix, ... }@inputs:
+  outputs = { nixpkgs, home-manager, darwin, nixvim, lldb-nix-fix, nixos-wsl, ... }@inputs:
     let
       inherit (nixpkgs) lib;
 
@@ -95,6 +96,7 @@
 
       mkNixosSystem =
         { base ? { }
+	, extra-modules
         , system
         , config ? { }
         , home-manager-config ? { }
@@ -137,7 +139,7 @@
             ./nixos/modules
 
             base
-          ];
+          ] ++ extra-modules;
         };
 
       mkHMUser' =
@@ -263,6 +265,7 @@
             system = system;
             config = nixos.config // { inherit user; };
             base = nixos.base;
+	    extra-modules = if nixos.isWsl then [nixos-wsl.nixosModules.default] else [];
             home-manager-config = { imports = homeCfg.modules; manual.manpages.enable = false; };
           }
         );
