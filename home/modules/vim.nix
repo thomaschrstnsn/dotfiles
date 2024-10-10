@@ -155,6 +155,41 @@ in
         undofile = true;
         writebackup = false;
       };
+
+      autoCmd = [
+        # Open help in a vertical split
+        {
+          event = "FileType";
+          pattern = "help";
+          command = "wincmd L";
+        }
+
+        # Close Telescope prompt in insert mode by clicking escape
+        {
+          event = [ "FileType" ];
+          pattern = "TelescopePrompt";
+          command = "inoremap <buffer><silent> <ESC> <ESC>:close!<CR>";
+        }
+
+        # Enable spellcheck for some filetypes
+        {
+          event = "FileType";
+          pattern = [
+            "tex"
+            "latex"
+            "markdown"
+          ];
+          command = "setlocal spell spelllang=en";
+        }
+        # Hilight yank text
+        {
+          event = "TextYankPost";
+          pattern = "*";
+          command = "lua vim.highlight.on_yank{timeout=500}";
+        }
+
+      ];
+
       colorschemes."${cfg.theme}" = { enable = true; };
       diagnostics.virtual_lines.only_current_line = true;
       luaLoader.enable = true;
