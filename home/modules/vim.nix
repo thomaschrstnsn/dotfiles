@@ -327,7 +327,10 @@ in
           enable = true;
           settings.modes.search.enabled = true;
         };
-        gitblame.enable = true;
+        gitblame = {
+          enable = true;
+          settings.enabled = false; # toggle with H
+        };
         gitsigns = {
           enable = true;
           settings.on_attach = ''
@@ -718,7 +721,12 @@ in
         { key = "<leader>a"; action = "<cmd>Lspsaga code_action<cr>"; mode = "n"; options.desc = "Code Actions"; }
         { key = "<leader>ld"; action = "<cmd>Telescope lsp_definitions<cr>"; mode = "n"; options.desc = "Definitions"; }
         { key = "K"; action = "<cmd>Lspsaga hover_doc<cr>"; mode = "n"; options.desc = "Hover Docs"; }
-        { key = "H"; action = "<cmd>lua vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())<CR>"; mode = "n"; options.desc = "Inlay Hints Toggle"; }
+        {
+          key = "H";
+          action = "<cmd>lua vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())<CR><cmd>GitBlameToggle<CR>";
+          mode = "n";
+          options.desc = "Inlay Hints & gitblame Toggle";
+        }
         { key = "<leader>lR"; action = ":IncRename "; mode = "n"; options.desc = "Rename"; } # another in init.lua
         { key = "<leader>lo"; action = "<cmd>Lspsaga outline<cr>"; mode = "n"; options.desc = "Outline"; }
 
