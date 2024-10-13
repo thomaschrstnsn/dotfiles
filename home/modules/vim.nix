@@ -749,8 +749,46 @@ in
         # oil
         { key = "-"; mode = "n"; action = ''<cmd>Oil --float<cr>''; options.desc = "Open parent dir (float)"; }
 
+        # copying current files path
+        {
+          key = "<leader>yp";
+          action.__raw = ''
+            function()
+              vim.fn.setreg('+', vim.fn.expand('%:p:.'))
+            end'';
+          options.desc = "Copy file path (relative to project)";
+        }
+        {
+          key = "<leader>ya";
+          action.__raw = ''
+            function()
+              vim.fn.setreg('+', vim.fn.expand('%:p'))
+            end'';
+          options.desc = "Copy file path (absolute)";
+        }
+        {
+          key = "<leader>yd";
+          action.__raw = ''
+            function()
+              vim.fn.setreg('+', vim.fn.expand('%:h'))
+            end'';
+          options.desc = "Copy directory path";
+        }
+        {
+          key = "<leader>yf";
+          action.__raw = ''
+            function()
+              vim.fn.setreg('+', vim.fn.expand('%:p:t'))
+            end'';
+          options.desc = "Copy file name";
+        }
+
         ## trouble
-        { key = "<leader>tq"; action = "<cmd>Trouble quickfix toggle focus=true<cr>"; options.desc = "Trouble Quickfix"; }
+        {
+          key = "<leader>tq";
+          action = "<cmd>Trouble quickfix toggle focus=true<cr>";
+          options.desc = "Trouble Quickfix";
+        }
         { key = "<leader>tt"; action = "<cmd>Trouble telescope toggle focus=true<cr>"; options.desc = "Trouble Telescope"; }
         { key = "<leader>tf"; action = "<cmd>Trouble telescope_files toggle focus=true<cr>"; options.desc = "Trouble Telescope files"; }
         { key = "<leader>td"; action = "<cmd>Trouble diagnostics toggle focus=true<cr>"; options.desc = "Trouble Diagnostics"; }
