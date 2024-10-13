@@ -1096,7 +1096,7 @@ in
         }
         {
           plugin = nvim-FeMaco-lua;
-          config = mkLua ''require("femaco").setup()'';
+          config = mkLuaFile ./vim/plugins/femaco.lua;
         }
         friendly-snippets
         {
