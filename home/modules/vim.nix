@@ -725,7 +725,17 @@ in
           key = "H";
           action = "<cmd>lua vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())<CR><cmd>GitBlameToggle<CR>";
           mode = "n";
-          options.desc = "Inlay Hints & gitblame Toggle";
+          options.desc = "Toggle inlay Hints & gitblame Toggle";
+        }
+        {
+          key = "<leader>lh";
+          action.__raw = ''
+            function()
+              vim.diagnostic.enable(not vim.diagnostic.is_enabled())
+              vim.print("diagnostics " .. (vim.diagnostic.is_enabled() and "enabled" or "disabled"))
+            end'';
+          mode = "n";
+          options.desc = "Toggle vim diagnostics";
         }
         { key = "<leader>lR"; action = ":IncRename "; mode = "n"; options.desc = "Rename"; } # another in init.lua
         { key = "<leader>lo"; action = "<cmd>Lspsaga outline<cr>"; mode = "n"; options.desc = "Outline"; }
