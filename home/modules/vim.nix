@@ -194,7 +194,7 @@ in
       diagnostics.virtual_lines.only_current_line = true;
       luaLoader.enable = true;
       plugins = {
-        barbar = { enable = true; };
+        barbar = { enable = true; settings.animation = false; };
         cmp = {
           enable = true;
           settings.mapping = {
@@ -694,12 +694,6 @@ in
           options.desc = "Close buffer";
         }
         {
-          key = "<leader>X";
-          action = "<cmd>BufferCloseAllButCurrentOrPinned<cr>";
-          mode = "n";
-          options.desc = "Close buffers (except current and pinned)";
-        }
-        {
           key = "<leader>bx";
           action = "<cmd>BufferClose<cr>";
           mode = "n";
@@ -711,7 +705,6 @@ in
           mode = "n";
           options.desc = "Close buffers (except current and pinned)";
         }
-        { key = "<leader>bj"; action = "<cmd>BufferPick<cr>"; options.desc = "Pick buffer"; }
         { key = "<leader>bp"; action = "<cmd>BufferPin<cr>"; mode = "n"; options.desc = "Pin buffer"; }
         { key = "<Tab>"; action = "<cmd>bn<CR>"; mode = "n"; }
         { key = "<S-Tab>"; action = "<cmd>bp<CR>"; mode = "n"; }
