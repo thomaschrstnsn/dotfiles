@@ -594,7 +594,6 @@ in
         };
         telescope = {
           enable = true;
-          extensions.frecency.enable = true;
         };
         treesitter = {
           enable = true;
@@ -886,12 +885,6 @@ in
           mode = "n";
           action = ''<cmd>Telescope live_grep<CR>'';
           options.desc = "find word";
-        }
-        {
-          key = "<leader>fp";
-          mode = "n";
-          action = ''<cmd>Telescope session-lens<CR>'';
-          options.desc = "find session (project)";
         }
         {
           key = "<leader>fd";
