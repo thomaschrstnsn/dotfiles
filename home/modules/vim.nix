@@ -522,6 +522,9 @@ in
             };
           };
         };
+        otter = {
+          enable = true;
+        };
         persistence = {
           enable = true;
         };
@@ -600,6 +603,7 @@ in
           nixGrammars = true;
           package = cfg.treesitter.package;
           grammarPackages = treesitterGrammars cfg.treesitter.grammarPackageSet cfg.treesitter.package;
+          settings.highlight.enable = true;
           settings.incremental_selection = {
             enable = true;
             keymaps = {
