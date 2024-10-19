@@ -199,9 +199,10 @@ in
           enable = true;
           settings.mapping = {
             "<C-y>" = "cmp.mapping.confirm({ select = true })";
-            "<C-CR>" = "cmp.mapping.confirm({ select = true })";
             "<C-p>" = "cmp.mapping.select_prev_item { behavior == cmp.SelectBehavior.Insert }";
+            "<Up>" = "cmp.mapping.select_prev_item { behavior == cmp.SelectBehavior.Insert }";
             "<C-n>" = "cmp.mapping.select_next_item { behavior == cmp.SelectBehavior.Insert }";
+            "<Down>" = "cmp.mapping.select_next_item { behavior == cmp.SelectBehavior.Insert }";
 
             "<CR>" = ''cmp.mapping({
                i = function(fallback)
@@ -218,7 +219,7 @@ in
             "<Tab>" = ''cmp.mapping(function(fallback)
                   local luasnip = require("luasnip")
                   if cmp.visible() then
-                    cmp.select_next_item()
+                    cmp.confirm({ select = true })
                   elseif luasnip.locally_jumpable(1) then
                     luasnip.jump(1)
                   else
@@ -227,14 +228,12 @@ in
                 end, { "i", "s" })'';
 
             "<S-Tab>" = ''cmp.mapping(function(fallback)
-                local luasnip = require("luasnip")
-                if cmp.visible() then
-                cmp.select_prev_item()
-                elseif luasnip.locally_jumpable(-1) then
-                luasnip.jump(-1)
-                else
-                fallback()
-                end
+                  local luasnip = require("luasnip")
+                  if luasnip.locally_jumpable(-1) then
+                    luasnip.jump(-1)
+                  else
+                    fallback()
+                  end
                 end, { "i", "s" })'';
           };
 
@@ -1149,5 +1148,3 @@ in
     };
   };
 }
-
-
