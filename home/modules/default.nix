@@ -9,6 +9,7 @@
     ./dotnet.nix
     ./git.nix
     ./home.nix
+    ./hyprland.nix
     ./jujutsu.nix
     ./nodejs.nix
     ./rancher.nix

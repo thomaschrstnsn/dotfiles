@@ -11,6 +11,7 @@ in
 {
   machines = {
     aero-nix = import ./aero-nix { inherit systems inputs; };
+    atlas = import ./atlas { inherit systems inputs; };
     aeris = import ./aeris { inherit systems; };
     tilia = import ./lind { inherit systems; };
     enix = import ./enix/default.nix { inherit systems inputs; };
