@@ -35,7 +35,7 @@ in
     programs.zsh.oh-my-zsh.plugins = [ "dotnet" ];
 
     programs.zsh.shellAliases = {
-      # rider = "open -a Rider"; # there should be script in in /usr/local/bin/rider from the toolbox: https://www.jetbrains.com/help/rider/Working_with_the_IDE_Features_from_Command_Line.html#10c968a9
+      rider = ''open -na "Rider.app" --args "$@"''; # https://www.jetbrains.com/help/rider/Working_with_the_IDE_Features_from_Command_Line.html#10c968a9
       r = "rider $(fd --type f --glob '*.{sln,??proj}' | fzf)";
     };
 
