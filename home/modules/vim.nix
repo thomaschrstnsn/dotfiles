@@ -475,7 +475,7 @@ in
           filesystem.followCurrentFile.enabled = true;
           sourceSelector.winbar = true;
           eventHandlers = {
-            file_opened.__raw = ''
+            file_opened = ''
               function(file_path)
                 require("neo-tree").close_all()
               end
