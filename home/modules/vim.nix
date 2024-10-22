@@ -371,10 +371,10 @@ in
           enable = true;
           servers = {
             bashls.enable = true;
-            csharp-ls.enable = cfg.lsp.servers.csharp;
+            csharp_ls.enable = cfg.lsp.servers.csharp;
             eslint.enable = cfg.lsp.servers.javascript;
             jsonls.enable = cfg.lsp.servers.javascript;
-            lua-ls.enable = true;
+            lua_ls.enable = true;
             marksman.enable = true;
             omnisharp = {
               enable = cfg.lsp.servers.omnisharp;
@@ -383,13 +383,13 @@ in
                 enableRoslynAnalyzers = true;
               };
             };
-            nil-ls = {
+            nil_ls = {
               enable = true;
               settings.formatting.command = [ "nixpkgs-fmt" ];
               settings.nix.flake.autoArchive = true;
             };
             basedpyright.enable = cfg.lsp.servers.python;
-            ts-ls.enable = cfg.lsp.servers.javascript;
+            ts_ls.enable = cfg.lsp.servers.javascript;
           };
         };
         lsp-lines = {
@@ -487,22 +487,24 @@ in
         nvim-autopairs.enable = true;
         nvim-ufo = {
           enable = true;
-          closeFoldKinds = {
-            default = [ "imports" "comment" ];
-            json = [ "array" ];
-            c = [ "comment" "region" ];
+          settings = {
+            close_fold_kinds = {
+              default = [ "imports" "comment" ];
+              json = [ "array" ];
+              c = [ "comment" "region" ];
+            };
+            provider_selector = ''
+              function(bufnr, filetype, buftype)
+                local ftMap = {
+                   vim = 'indent',
+                   python = {'indent'},
+                   nix = {'treesitter', 'indent'},
+                   git = ""
+                }
+                return ftMap[filetype] or {'lsp', 'indent'}
+              end
+            '';
           };
-          providerSelector = ''
-            function(bufnr, filetype, buftype)
-              local ftMap = {
-                 vim = 'indent',
-                 python = {'indent'},
-                 nix = {'treesitter', 'indent'},
-                 git = ""
-              }
-              return ftMap[filetype] or {'lsp', 'indent'}
-            end
-          '';
         };
         oil = {
           enable = true;
