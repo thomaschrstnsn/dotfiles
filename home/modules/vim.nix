@@ -204,7 +204,7 @@ in
             "<C-n>" = "cmp.mapping.select_next_item { behavior == cmp.SelectBehavior.Insert }";
             "<Down>" = "cmp.mapping.select_next_item { behavior == cmp.SelectBehavior.Insert }";
 
-            "<CR>" = ''cmp.mapping({
+            "<CR>".__raw = ''cmp.mapping({
                i = function(fallback)
                  if cmp.visible() and cmp.get_active_entry() then
                    cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
@@ -216,7 +216,7 @@ in
                c = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }),
              })'';
 
-            "<Tab>" = ''cmp.mapping(function(fallback)
+            "<Tab>".__raw = ''cmp.mapping(function(fallback)
                   local luasnip = require("luasnip")
                   if cmp.visible() then
                     cmp.confirm({ select = true })
@@ -227,7 +227,7 @@ in
                   end
                 end, { "i", "s" })'';
 
-            "<S-Tab>" = ''cmp.mapping(function(fallback)
+            "<S-Tab>".__raw = ''cmp.mapping(function(fallback)
                   local luasnip = require("luasnip")
                   if luasnip.locally_jumpable(-1) then
                     luasnip.jump(-1)
@@ -332,7 +332,7 @@ in
         };
         gitsigns = {
           enable = true;
-          settings.on_attach = ''
+          settings.on_attach.__raw = ''
             function(buffer)
               local gs = package.loaded.gitsigns
               local function map(mode, l, r, desc)
@@ -475,7 +475,7 @@ in
           filesystem.followCurrentFile.enabled = true;
           sourceSelector.winbar = true;
           eventHandlers = {
-            file_opened = ''
+            file_opened.__raw = ''
               function(file_path)
                 require("neo-tree").close_all()
               end
@@ -493,7 +493,7 @@ in
               json = [ "array" ];
               c = [ "comment" "region" ];
             };
-            provider_selector = ''
+            provider_selector.__raw = ''
               function(bufnr, filetype, buftype)
                 local ftMap = {
                    vim = 'indent',
