@@ -40,17 +40,20 @@ in
     programs.jujutsu = {
       enable = true;
       settings = {
-        name = cfg.userName;
-        email = cfg.userEmail;
+        user = {
+          name = cfg.userName;
+          email = cfg.userEmail;
+        };
         signing = {
           key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIErz7lXsjPyJcjzRKMWyZodRGzjkbCxWu/Lqk+NpjupZ";
           backend = "ssh";
           backends.ssh.program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
-          commit.gpgsign = (sshConfig.use1PasswordAgentOnMac && cfg.gpgVia1Password);
+          sign-all = (sshConfig.use1PasswordAgentOnMac && cfg.gpgVia1Password);
         };
         ui = {
           pager = "delta";
           diff.format = "git";
+          default-command = "log";
         };
       };
     };
