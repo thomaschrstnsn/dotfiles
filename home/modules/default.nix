@@ -9,6 +9,7 @@
     ./dotnet.nix
     ./git.nix
     ./home.nix
+    ./jujutsu.nix
     ./nodejs.nix
     ./rancher.nix
     ./realise_symlink.nix

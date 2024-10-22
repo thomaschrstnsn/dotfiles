@@ -16,6 +16,10 @@
       githubs = [ ];
       gpgVia1Password = true;
     };
+    jj = {
+      enable = true;
+      gpgVia1Password = true;
+    };
     ssh = {
       enable = true;
       use1PasswordAgentOnMac = true;
