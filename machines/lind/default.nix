@@ -25,6 +25,7 @@
       includes = [ "personal_config" ];
       addLindHosts = true;
     };
+    rancher.enable = true;
     vim = {
       enable = true;
       ideavim = true;
