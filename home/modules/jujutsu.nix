@@ -60,6 +60,8 @@ in
 
     programs.zsh.shellAliases = {
       js = "jj st";
+      jc = "jj git clone";
+      jgc = "jj git clone --colocate";
     };
   };
 }
