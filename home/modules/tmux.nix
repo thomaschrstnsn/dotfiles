@@ -15,6 +15,7 @@ in
 {
   options.tc.tmux = with types; {
     enable = mkEnableOption "tmux";
+    disableAutoStarting = mkEnableOption "no autostart";
     theme = mkOption {
       type = enum [ "catppuccin" "dracula" "rose-pine" ];
       default = "catppuccin";
@@ -221,7 +222,7 @@ in
       (if (cfg.session-tool == "sesh") then [ sesh gum ] else [ ])
     ];
 
-    programs.zsh.initExtraBeforeCompInit = ''
+    programs.zsh.initExtraBeforeCompInit = if cfg.disableAutoStarting then "" else ''
       export ZSH_TMUX_AUTOQUIT=false
       export ZSH_TMUX_AUTOSTART=true
       export ZSH_TMUX_UNICODE=true

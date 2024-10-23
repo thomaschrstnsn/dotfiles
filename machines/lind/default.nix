@@ -38,13 +38,19 @@
       lsp.servers.javascript = true;
       lsp.servers.python = true;
       codelldb.enable = false;
+      # splitNavigator = "smart-splits";
     };
     tmux = {
       enable = true;
+      disableAutoStarting = true;
       session-tool = "sesh";
       theme = "rose-pine";
     };
-    wezterm = { enable = true; fontsize = 15.2; };
+    wezterm = {
+      enable = true;
+      fontsize = 15.2;
+      mux = false;
+    };
     zsh = {
       enable = true;
       vi-mode.enable = false;

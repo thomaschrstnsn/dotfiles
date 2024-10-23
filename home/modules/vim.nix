@@ -76,6 +76,12 @@ in
       default = pkgs.stdenv.isDarwin;
       description = "auto darkmode";
     };
+    splitNavigator = mkOption
+      {
+        type = enum [ "tmux-navigator" "smart-splits" ];
+        default = "tmux-navigator";
+        description = "split navigator plugin";
+      };
     treesitter = {
       package = mkOption {
         type = types.package;
@@ -617,7 +623,8 @@ in
             };
           };
         };
-        tmux-navigator.enable = true;
+        tmux-navigator.enable = cfg.splitNavigator == "tmux-navigator";
+        smart-splits.enable = cfg.splitNavigator == "smart-splits";
         treesitter-context = {
           enable = true;
           settings = {

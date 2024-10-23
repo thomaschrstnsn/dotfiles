@@ -50,6 +50,7 @@ in
         description = "The Wezterm package to install.";
       };
       autoDarkMode = mkEnableOption "Use theme that matches appearance (auto light/dark mode)" // { default = pkgs.stdenv.isDarwin; };
+      mux = mkEnableOption "use wezterm as multiplexer (ala tmux)";
     };
 
   config = mkIf cfg.enable {
@@ -61,12 +62,14 @@ in
           "WINDOW_DECORATIONS"
           "-- CONFIG_OVERRIDES_HERE"
           ''"AUTO_DARK_MODE"''
+          ''"USE_MUX"''
         ]
         [
           (toString cfg.fontsize)
           (if cfg.window_decorations.resize then "RESIZE" else "NONE")
           config_overrides
           (if cfg.autoDarkMode then "true" else "false")
+          (if cfg.mux then "true" else "false")
         ]
         (readFile ./wezterm/wezterm.lua);
     };
