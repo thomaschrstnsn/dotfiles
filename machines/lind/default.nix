@@ -18,6 +18,11 @@
       userEmail = "tfc@lindcapital.com";
       gpgVia1Password = true;
     };
+    jj = {
+      enable = true;
+      userEmail = "tfc@lindcapital.com";
+      gpgVia1Password = true;
+    };
     ssh = {
       enable = true;
       use1PasswordAgentOnMac = true;
