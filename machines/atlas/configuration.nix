@@ -93,6 +93,8 @@
 
   security.rtkit.enable = true;
   security.polkit.enable = true; # needed for sway-wm
+  security.pam.services.hyprlock = { };
+
   services.pipewire = {
     enable = true;
     alsa.enable = true;
@@ -100,6 +102,7 @@
     pulse.enable = true;
     jack.enable = true;
   };
+
   services.openssh.enable = true;
 
   services.kanata = {
