@@ -21,6 +21,12 @@ in
         pavucontrol
         pulseaudio
       ];
+
+      dconf = {
+        enable = true;
+        settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
+      };
+
       wayland.windowManager.hyprland = {
         enable = true;
 
