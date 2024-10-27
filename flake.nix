@@ -201,6 +201,11 @@
           pkgs = import nixpkgs {
             inherit system overlays;
             config.allowUnfree = true;
+
+            # https://github.com/NixOS/nixpkgs/issues/341683
+            config.permittedInsecurePackages = [
+              "electron-27.3.11"
+            ];
           };
         in
         { inherit pkgs overlays; };

@@ -38,10 +38,10 @@ in
     };
   };
   extraPackages = pkgs: with pkgs; [
-    devenv
     _1password-gui
     brave
-    dmenu
+    devenv
+    (logseq.override { electron = pkgs.electron_27; }) # https://github.com/NixOS/nixpkgs/issues/341683
     qt5.qtwayland
   ];
 
