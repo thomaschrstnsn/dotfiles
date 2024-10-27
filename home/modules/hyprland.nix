@@ -54,7 +54,7 @@ in
 
           "$mod" = "MOD4";
           bind = [
-            "$mod, Enter, exec, wezterm"
+            "$mod, Return, exec, wezterm"
             "$mod, Space, exec, wofi --show run"
 
             "shift + $mod, 1, movetoworkspace, 1"
