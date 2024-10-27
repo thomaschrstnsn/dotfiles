@@ -1,5 +1,5 @@
 { pkgs, config, lib, ... }:
-with lib;
+with lib; with builtins;
 
 let
   cfg = config.tc.hyprland;
@@ -52,38 +52,40 @@ in
             default_monitor = "DP-2";
           };
 
-          "$mod" = "MOD4";
-          bind = [
-            "$mod, Return, exec, wezterm"
-            "$mod, Space, exec, wofi --show run"
+          "$hyper" = "SUPER+SHIFT+CTRL+ALT";
+          bind =
+            let
+              workspaceChars = stringToCharacters ("123456789" + "qwertyuiop" + "zxcvbnm");
+              repeatBind = bind: keys: (map (k: (replaceStrings [ "$KEY" ] [ "${k}" ] bind)) keys);
+              appShortcuts = mod: keyToWindow: mapAttrsToList (key: window: "${mod}, ${key}, focuswindow, ${window}") keyToWindow;
+            in
+            concatLists [
+              [
+                "SUPER, Return, exec, wezterm"
+                "SUPER, Space, exec, wofi --show run"
+              ]
+              (repeatBind "ALT, $KEY, workspace, name:$KEY" workspaceChars)
+              (repeatBind "SHIFT + ALT, $KEY, movetoworkspacesilent, name:$KEY" workspaceChars)
+              [
+                "$hyper, h, movefocus, l"
+                "$hyper, j, movefocus, d"
+                "$hyper, k, movefocus, u"
+                "$hyper, l, movefocus, r"
 
-            "shift + $mod, 1, movetoworkspace, 1"
-            "shift + $mod, 2, movetoworkspace, 2"
-            "shift + $mod, 3, movetoworkspace, 3"
-            "shift + $mod, 4, movetoworkspace, 4"
-            "shift + $mod, 5, movetoworkspace, 5"
-            "shift + $mod, 6, movetoworkspace, 6"
-            "shift + $mod, 7, movetoworkspace, 7"
-
-            "$mod, 1, workspace, 1"
-            "$mod, 2, workspace, 2"
-            "$mod, 3, workspace, 3"
-            "$mod, 4, workspace, 4"
-            "$mod, 5, workspace, 5"
-            "$mod, 6, workspace, 6"
-            "$mod, 7, workspace, 7"
-
-            "$mod, h, movefocus, l"
-            "$mod, j, movefocus, d"
-            "$mod, k, movefocus, u"
-            "$mod, l, movefocus, r"
-
-            "$mod, q, movecurrentworkspacetomonitor, l"
-            "$mod, w, movecurrentworkspacetomonitor, r"
-
-            "$mod, t, focuswindow,org.wezfurlong.wezterm"
-            "$mod, b, focuswindow,Brave-browser"
-          ];
+                "$hyper, q, movecurrentworkspacetomonitor, l"
+                "$hyper, w, movecurrentworkspacetomonitor, r"
+              ]
+              (appShortcuts "$hyper" {
+                t = "org.wezfurlong.wezterm";
+                b = "Brave-browser";
+                u = "Logseq";
+              })
+              [
+                # copy/paste using super? (wip)
+                "SUPER, C, sendshortcut, CTRL, C"
+                "SUPER, V, sendshortcut, CTRL, V"
+              ]
+            ];
 
           # https://wiki.hyprland.org/Configuring/Monitors/#rotating
           monitor = [
