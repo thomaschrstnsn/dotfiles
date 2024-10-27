@@ -22,7 +22,7 @@ in
     };
     remote = mkEnableOption "is remote machine";
     cliptool = mkOption {
-      type = string;
+      type = str;
       default = "auto";
       description = "override the extrakto_clip_tool";
     };
