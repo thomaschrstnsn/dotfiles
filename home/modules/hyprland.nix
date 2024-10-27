@@ -79,6 +79,7 @@ in
                 t = "org.wezfurlong.wezterm";
                 b = "Brave-browser";
                 u = "Logseq";
+                p = "Todoist";
               })
               [
                 # copy/paste using super? (wip)
