@@ -5,9 +5,6 @@ let
   cfg = config.tc.hyprland;
   startupScript = pkgs.pkgs.writeShellScriptBin "start" ''
     ${pkgs.waybar}/bin/waybar &
-
-    # wezterm &
-    kitty &
   '';
 in
 {
@@ -23,7 +20,6 @@ in
         font-awesome
         pavucontrol
         pulseaudio
-        kitty
       ];
       wayland.windowManager.hyprland = {
         enable = true;
@@ -34,11 +30,31 @@ in
           # https://wiki.hyprland.org/Configuring/Uncommon-tips--tricks/
           input = {
             kb_layout = "gb";
+            repeat_rate = 35;
+            repeat_delay = 200;
+          };
+
+          decoration.rounding = 5;
+          general = {
+            border_size = 3;
+            resize_on_border = true;
+            gaps_in = 5;
+            gaps_out = 5;
+          };
+          misc = {
+            key_press_enables_dpms = true;
+            vrr = 2;
+          };
+          binds = {
+            workspace_center_on = true;
+          };
+          cursor = {
+            default_monitor = "DP-2";
           };
 
           "$mod" = "MOD4";
           bind = [
-            "$mod, Enter, exec, kitty"
+            "$mod, Enter, exec, wezterm"
             "$mod, Space, exec, wofi --show run"
 
             "shift + $mod, 1, movetoworkspace, 1"
@@ -61,6 +77,12 @@ in
             "$mod, j, movefocus, d"
             "$mod, k, movefocus, u"
             "$mod, l, movefocus, r"
+
+            "$mod, q, movecurrentworkspacetomonitor, l"
+            "$mod, w, movecurrentworkspacetomonitor, r"
+
+            "$mod, t, focuswindow,org.wezfurlong.wezterm"
+            "$mod, b, focuswindow,Brave-browser"
           ];
 
           # https://wiki.hyprland.org/Configuring/Monitors/#rotating
