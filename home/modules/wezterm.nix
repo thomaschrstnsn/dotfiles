@@ -3,6 +3,9 @@ with lib; with builtins;
 
 let
   cfg = config.tc.wezterm;
+  shellIntegrationStr = ''
+    source "${cfg.package}/etc/profile.d/wezterm.sh"
+  '';
 in
 {
   options.tc.wezterm = with types; {
@@ -12,15 +15,22 @@ in
       description = "fontsize in terminal";
       default = 15.2;
     };
+    package = mkOption {
+      type = types.package;
+      default = pkgs.wezterm;
+      defaultText = literalExpression "pkgs.wezterm";
+      description = "The Wezterm package to install.";
+    };
   };
 
   config = mkIf cfg.enable {
-    home.packages = with pkgs; [ wezterm ];
+    home.packages = [ cfg.package ];
     home.file = {
       ".config/wezterm/wezterm.lua".text = replaceStrings
         [ ''"FONT_SIZE"'' ]
         [ (toString cfg.fontsize) ]
         (readFile ./wezterm/wezterm.lua);
     };
+    programs.zsh.initExtra = shellIntegrationStr;
   };
 }

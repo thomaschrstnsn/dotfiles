@@ -31,9 +31,13 @@
     lldb-nix-fix = {
       url = "github:mstone/nixpkgs?rev=fa70e7499b08524a4a02e7ce9e39847b9d3c95df";
     };
+
+    wezterm = {
+      url = "github:wez/wezterm?dir=nix";
+    };
   };
 
-  outputs = { nixpkgs, home-manager, darwin, nixvim, lldb-nix-fix, nixos-wsl, ... }@inputs:
+  outputs = { nixpkgs, home-manager, darwin, nixvim, lldb-nix-fix, nixos-wsl, wezterm, ... }@inputs:
     let
       inherit (nixpkgs) lib;
 
@@ -110,6 +114,7 @@
             { config.tc = config; }
             { nixpkgs.overlays = overlays; }
 
+
             inputs.home-manager.nixosModules.home-manager
             inputs.agenix.nixosModules.default
 
@@ -132,6 +137,7 @@
                 users."${config.user.name}" = home-manager-config;
                 useGlobalPkgs = true;
                 useUserPackages = true;
+
               };
             }
 

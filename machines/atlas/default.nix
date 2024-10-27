@@ -2,6 +2,7 @@
 
 let
   username = "thomas";
+  system = systems.x64-linux;
 in
 {
   home = {
@@ -23,6 +24,7 @@ in
     tmux.remote = false;
     hyprland.enable = true;
     wezterm = {
+      package = inputs.wezterm.packages.${system}.default;
       enable = true;
       fontsize = 11.5;
     };
@@ -36,11 +38,9 @@ in
     brave
     dmenu
     qt5.qtwayland
-
-    wezterm
   ];
 
-  system = systems.x64-linux;
+  system = system;
 
   nixos = {
     config = {
