@@ -66,6 +66,7 @@ in
               [
                 "SUPER, Return, exec, wezterm"
                 "SUPER, Space, exec, wofi --show run"
+                "SUPER, q, killactive"
               ]
               (repeatBind "ALT, $KEY, workspace, name:$KEY" workspaceChars)
               (repeatBind "SHIFT + ALT, $KEY, movetoworkspacesilent, name:$KEY" workspaceChars)
