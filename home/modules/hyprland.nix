@@ -58,6 +58,8 @@ in
               workspaceChars = stringToCharacters ("123456789" + "qwertyuiop" + "zxcvbnm");
               repeatBind = bind: keys: (map (k: (replaceStrings [ "$KEY" ] [ "${k}" ] bind)) keys);
               appShortcuts = mod: keyToWindow: mapAttrsToList (key: window: "${mod}, ${key}, focuswindow, ${window}") keyToWindow;
+              hyprpaster = ./hypr/paste_unless_wezterm.sh;
+              hyprcopy = ./hypr/copy_unless_wezterm.sh;
             in
             concatLists [
               [
@@ -83,8 +85,8 @@ in
               })
               [
                 # copy/paste using super
-                "SUPER, C, sendshortcut, CTRL, C, activewindow"
-                "SUPER, V, sendshortcut, CTRL, V, activewindow"
+                "SUPER, C, exec, ${hyprcopy}"
+                "SUPER, V, exec, ${hyprpaster}"
               ]
             ];
 
