@@ -60,6 +60,7 @@ in
               appShortcuts = mod: keyToWindow: mapAttrsToList (key: window: "${mod}, ${key}, focuswindow, ${window}") keyToWindow;
               hyprpaster = ./hypr/paste_unless_wezterm.sh;
               hyprcopy = ./hypr/copy_unless_wezterm.sh;
+              hyprundo = ./hypr/undo_unless_wezterm.sh;
             in
             concatLists [
               [
@@ -87,6 +88,7 @@ in
                 # copy/paste using super
                 "SUPER, C, exec, ${hyprcopy}"
                 "SUPER, V, exec, ${hyprpaster}"
+                "SUPER, Z, exec, ${hyprundo}"
               ]
             ];
 
