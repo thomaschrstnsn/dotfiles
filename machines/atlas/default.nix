@@ -20,14 +20,18 @@ in
       enable = true;
       editor = "vim";
     };
-    tmux.enable = true;
-    tmux.remote = false;
+    tmux = {
+      enable = true;
+      remote = false;
+      theme = "rose-pine";
+    };
     hyprland.enable = true;
     wezterm = {
       package = inputs.wezterm.packages.${system}.default;
       enable = true;
       fontsize = 11.5;
       window_decorations.resize = false;
+      window_padding.override = true;
     };
     vim = {
       enable = true;

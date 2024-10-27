@@ -90,6 +90,8 @@ config.keys                  = {
 	{ key = 'a', mods = 'ALT', action = wezterm.action.SendKey { key = 'a', mods = 'ALT' }, },
 }
 
+-- CONFIG_OVERRIDES_HERE
+
 config.enable_kitty_keyboard = true
 
 -- for debugging key events

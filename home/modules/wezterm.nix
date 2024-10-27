@@ -6,27 +6,50 @@ let
   shellIntegrationStr = ''
     source "${cfg.package}/etc/profile.d/wezterm.sh"
   '';
+  padding_override.__raw = ''
+    config.window_frame = {
+    	border_left_width = '0',
+    	border_right_width = '0',
+    	border_bottom_height = '0',
+    	border_top_height = '0',
+    	border_left_color = 'purple',
+    	border_right_color = 'purple',
+    	border_bottom_color = 'purple',
+    	border_top_color = 'purple',
+    }
+
+    config.window_padding = {
+    	left = 0,
+    	right = 0,
+    	top = 0,
+    	bottom = 0,
+    }
+  '';
+
+  config_overrides = if cfg.window_padding.override then padding_override.__raw else "";
 in
 {
-  options.tc.wezterm = with types; {
-    enable = mkEnableOption "use wezterm";
-    fontsize = mkOption {
-      type = types.number;
-      description = "fontsize in terminal";
-      default = 15.2;
+  options.tc.wezterm = with types;
+    {
+      enable = mkEnableOption "use wezterm";
+      fontsize = mkOption {
+        type = types.number;
+        description = "fontsize in terminal";
+        default = 15.2;
+      };
+      window_decorations.resize = mkOption {
+        type = types.bool;
+        description = "enable resize window_decorations";
+        default = true;
+      };
+      window_padding.override = mkEnableOption "Override padding and frame for window config (applicable for hyprland)";
+      package = mkOption {
+        type = types.package;
+        default = pkgs.wezterm;
+        defaultText = literalExpression "pkgs.wezterm";
+        description = "The Wezterm package to install.";
+      };
     };
-    window_decorations.resize = mkOption {
-      type = types.bool;
-      description = "enable resize window_decorations";
-      default = true;
-    };
-    package = mkOption {
-      type = types.package;
-      default = pkgs.wezterm;
-      defaultText = literalExpression "pkgs.wezterm";
-      description = "The Wezterm package to install.";
-    };
-  };
 
   config = mkIf cfg.enable {
     home.packages = [ cfg.package ];
@@ -35,10 +58,12 @@ in
         [
           ''"FONT_SIZE"''
           "WINDOW_DECORATIONS"
+          "-- CONFIG_OVERRIDES_HERE"
         ]
         [
           (toString cfg.fontsize)
           (if cfg.window_decorations.resize then "RESIZE" else "NONE")
+          config_overrides
         ]
         (readFile ./wezterm/wezterm.lua);
     };
