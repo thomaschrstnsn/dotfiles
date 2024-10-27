@@ -21,6 +21,11 @@ in
       description = "theme for tmux";
     };
     remote = mkEnableOption "is remote machine";
+    cliptool = mkOption {
+      type = string;
+      default = "auto";
+      description = "override the extrakto_clip_tool";
+    };
     session-tool = mkOption {
       type = nullOr (enum [ "tmux-sessionizer" "sesh" ]);
       default = "sesh";
@@ -69,6 +74,7 @@ in
             run "tmux save-buffer - | $yank"
 
         set -g @extrakto_clip_tool_run tmux_osc52
+        set -g @extrakto_clip_tool ${cfg.cliptool}
 
         unbind r
         bind r 'source ~/.config/tmux/tmux.conf; display "reloaded config"'

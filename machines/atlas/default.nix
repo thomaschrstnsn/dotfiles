@@ -24,6 +24,7 @@ in
       enable = true;
       remote = false;
       theme = "rose-pine";
+      cliptool = "wl-copy";
     };
     hyprland.enable = true;
     wezterm = {
