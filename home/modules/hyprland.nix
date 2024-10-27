@@ -82,9 +82,9 @@ in
                 p = "Todoist";
               })
               [
-                # copy/paste using super? (wip)
-                "SUPER, C, sendshortcut, CTRL, C"
-                "SUPER, V, sendshortcut, CTRL, V"
+                # copy/paste using super
+                "SUPER, C, sendshortcut, CTRL, C, activewindow"
+                "SUPER, V, sendshortcut, CTRL, V, activewindow"
               ]
             ];
 
