@@ -1,4 +1,7 @@
 (defsrc caps)
 (deflayer default @cap)
-(defalias cap (tap-hold-press 200 200 esc lctrl))
+
+(defalias hyper (multi lalt lshift lmeta lctl))
+(defalias cap (tap-hold-press 200 200 esc @hyper))
+
 
