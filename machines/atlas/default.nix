@@ -27,6 +27,7 @@ in
       package = inputs.wezterm.packages.${system}.default;
       enable = true;
       fontsize = 11.5;
+      window_decorations.resize = false;
     };
     vim = {
       enable = true;

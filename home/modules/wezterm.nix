@@ -15,6 +15,11 @@ in
       description = "fontsize in terminal";
       default = 15.2;
     };
+    window_decorations.resize = mkOption {
+      type = types.bool;
+      description = "enable resize window_decorations";
+      default = true;
+    };
     package = mkOption {
       type = types.package;
       default = pkgs.wezterm;
@@ -27,8 +32,14 @@ in
     home.packages = [ cfg.package ];
     home.file = {
       ".config/wezterm/wezterm.lua".text = replaceStrings
-        [ ''"FONT_SIZE"'' ]
-        [ (toString cfg.fontsize) ]
+        [
+          ''"FONT_SIZE"''
+          "WINDOW_DECORATIONS"
+        ]
+        [
+          (toString cfg.fontsize)
+          (if cfg.window_decorations.resize then "RESIZE" else "NONE")
+        ]
         (readFile ./wezterm/wezterm.lua);
     };
     programs.zsh.initExtra = shellIntegrationStr;

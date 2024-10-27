@@ -55,7 +55,7 @@ end
 
 local config                 = {
 	warn_about_missing_glyphs    = false,
-	window_decorations           = 'RESIZE',
+	window_decorations           = 'WINDOW_DECORATIONS',
 	hide_tab_bar_if_only_one_tab = true,
 
 	visual_bell                  = {
