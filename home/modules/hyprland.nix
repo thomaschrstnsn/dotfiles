@@ -126,9 +126,6 @@ in
               workspaceChars = stringToCharacters ("123456789" + "qwertyuiop" + "zxcvbnm");
               repeatBind = bind: keys: (map (k: (replaceStrings [ "$KEY" ] [ "${k}" ] bind)) keys);
               appShortcuts = mod: keyToWindow: mapAttrsToList (key: window: "${mod}, ${key}, focuswindow, ${window}") keyToWindow;
-              hyprpaster = ./hypr/paste_unless_wezterm.sh;
-              hyprcopy = ./hypr/copy_unless_wezterm.sh;
-              hyprundo = ./hypr/undo_unless_wezterm.sh;
             in
             concatLists [
               [
@@ -155,9 +152,9 @@ in
               })
               [
                 # copy/paste using super
-                "SUPER, C, exec, ${hyprcopy}"
-                "SUPER, V, exec, ${hyprpaster}"
-                "SUPER, Z, exec, ${hyprundo}"
+                "SUPER, C, exec, ${./hypr/copy_unless_wezterm.sh}"
+                "SUPER, V, exec, ${./hypr/paste_unless_wezterm.sh}"
+                "SUPER, Z, exec, ${./hypr/undo_unless_wezterm.sh}"
 
                 # toggle kb_layout
                 "ALT, Space, exec, ${./hypr/toggle_kb_layout.sh} kanata"
