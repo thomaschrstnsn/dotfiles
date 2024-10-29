@@ -55,12 +55,16 @@ in
           diff.format = "git";
           default-command = "log";
         };
+        aliases = {
+          e = [ "edit" ];
+        };
       };
     };
 
     programs.zsh.shellAliases = {
       js = "jj st";
       jc = "jj git clone";
+      je = "jj edit";
       jgc = "jj git clone --colocate";
     };
   };
