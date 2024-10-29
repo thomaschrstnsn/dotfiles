@@ -44,6 +44,7 @@ in
     brave
     devenv
     (logseq.override { electron = pkgs.electron_27; }) # https://github.com/NixOS/nixpkgs/issues/341683
+    spotify
     todoist-electron
     qt5.qtwayland
   ];
