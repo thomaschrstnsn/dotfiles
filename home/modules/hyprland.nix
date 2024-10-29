@@ -15,12 +15,13 @@ in
     {
       fonts.fontconfig.enable = true;
       home.packages = with pkgs; [
-        wl-clipboard
-        wofi
         font-awesome
+        jq # for scripts
+        libnotify
         pavucontrol
         pulseaudio
-        libnotify
+        wl-clipboard
+        wofi
       ];
 
       dconf = {
@@ -96,7 +97,7 @@ in
 
           # https://wiki.hyprland.org/Configuring/Uncommon-tips--tricks/
           input = {
-            kb_layout = "gb";
+            kb_layout = "gb,dk";
             repeat_rate = 35;
             repeat_delay = 200;
           };
@@ -157,6 +158,9 @@ in
                 "SUPER, C, exec, ${hyprcopy}"
                 "SUPER, V, exec, ${hyprpaster}"
                 "SUPER, Z, exec, ${hyprundo}"
+
+                # toggle kb_layout
+                "ALT, Space, exec, ${./hypr/toggle_kb_layout.sh} kanata"
               ]
             ];
 
