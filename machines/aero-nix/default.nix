@@ -21,6 +21,7 @@ in
       agent.enable = true;
     };
     sway.enable = true;
+    waybar.enable = true;
     tmux.enable = true;
     vim.enable = true;
     wezterm = {
