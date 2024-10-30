@@ -21,12 +21,16 @@ in
         pavucontrol
         pulseaudio
         wl-clipboard
-        wofi
       ];
 
       dconf = {
         enable = true;
         settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
+      };
+
+      programs.wofi = {
+        enable = true;
+        style = readFile ./wofi/style.css;
       };
 
       services.swaync.enable = true;
@@ -141,7 +145,7 @@ in
             concatLists [
               [
                 "SUPER, Return, exec, wezterm"
-                "SUPER, Space, exec, wofi --show run"
+                "SUPER, Space, exec, pgrep wofi || wofi --show run"
                 "SUPER, q, killactive"
               ]
               (repeatBind "ALT, $KEY, workspace, name:$KEY" workspaceChars)
