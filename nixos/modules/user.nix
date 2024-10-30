@@ -24,6 +24,11 @@ in
   };
 
   config = mkIf cfg.enable {
+    nix.settings = {
+      trusted-users = [
+        "${cfg.name}"
+      ];
+    };
     users = {
       defaultUserShell = pkgs.zsh;
       mutableUsers = false;
