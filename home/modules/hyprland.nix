@@ -123,6 +123,7 @@ in
             "[workspace name:b silent] brave"
             "[workspace name:u silent] logseq"
             "[workspace name:p silent] todoist-electron"
+            "[workspace name:c silent] morgen"
           ];
 
           workspace = [
@@ -130,6 +131,7 @@ in
             "name:u, monitor:HDMI-A-1, default:true, persistent:true"
             "name:b, monitor:DP-2, persistent:true"
             "name:p, monitor:DP-2, persistent:true"
+            "name:c, monitor:DP-2, persistent:true"
           ];
 
           # https://wiki.hyprland.org/Configuring/Uncommon-tips--tricks/
