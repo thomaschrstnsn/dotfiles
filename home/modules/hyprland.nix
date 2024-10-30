@@ -150,6 +150,14 @@ in
                 "SUPER, Space, exec, pgrep wofi || wofi --show run"
                 "SUPER, q, killactive"
               ]
+              # mediakeys
+              [
+
+                ", XF86AudioRaiseVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ +10%"
+                ", XF86AudioLowerVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ -10%"
+                ", XF86AudioMute, exec, pactl set-sink-mute @DEFAULT_SINK@ toggle"
+                ", XF86AudioMicMute, exec, pactl set-source-mute @DEFAULT_SOURCE@ toggle"
+              ]
               (repeatBind "ALT, $KEY, workspace, name:$KEY" workspaceChars)
               (repeatBind "SHIFT + ALT, $KEY, movetoworkspace, name:$KEY" workspaceChars)
               (repeatBind "CTRL + ALT, $KEY, movetoworkspacesilent, name:$KEY" workspaceChars)
