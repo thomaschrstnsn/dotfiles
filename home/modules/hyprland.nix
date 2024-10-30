@@ -93,7 +93,18 @@ in
         enable = true;
 
         settings = {
-          exec-once = ''${startupScript}/bin/start'';
+          exec-once = [
+            ''${startupScript}/bin/start''
+            "[workspace name:t silent] wezterm"
+            "[workspace name:b silent] brave"
+            "[workspace name:u silent] logseq"
+          ];
+
+          workspace = [
+            "name:t, monitor:DP-2, default:true, persistent:true"
+            "name:u, monitor:HDMI-A-1, default:true, persistent:true"
+            "name:b, monitor:DP-2, persistent:true"
+          ];
 
           # https://wiki.hyprland.org/Configuring/Uncommon-tips--tricks/
           input = {
@@ -134,7 +145,8 @@ in
                 "SUPER, q, killactive"
               ]
               (repeatBind "ALT, $KEY, workspace, name:$KEY" workspaceChars)
-              (repeatBind "SHIFT + ALT, $KEY, movetoworkspacesilent, name:$KEY" workspaceChars)
+              (repeatBind "SHIFT + ALT, $KEY, movetoworkspace, name:$KEY" workspaceChars)
+              (repeatBind "CTRL + ALT, $KEY, movetoworkspacesilent, name:$KEY" workspaceChars)
               [
                 "$hyper, h, movefocus, l"
                 "$hyper, j, movefocus, d"
@@ -158,6 +170,8 @@ in
 
                 # toggle kb_layout
                 "ALT, Space, exec, ${./hypr/toggle_kb_layout.sh} kanata"
+
+                "SUPER, Tab, focuscurrentorlast"
               ]
             ];
 
