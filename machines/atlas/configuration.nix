@@ -92,7 +92,7 @@
   hardware.pulseaudio.enable = false;
 
   security.rtkit.enable = true;
-  security.polkit.enable = true; # needed for sway-wm
+  security.polkit.enable = true;
   security.pam.services.hyprlock = { };
 
   services.pipewire = {
