@@ -148,6 +148,8 @@ in
             gaps_in = 5;
             gaps_out = 5;
           };
+          cursor.inactive_timeout = 3;
+
           misc = {
             key_press_enables_dpms = true;
             vrr = 2;
@@ -171,6 +173,7 @@ in
                 "SUPER, Return, exec, wezterm"
                 "SUPER, Space, exec, pgrep wofi || wofi --show run"
                 "SUPER, q, killactive"
+                "$hyper, f, fullscreen, 0"
               ]
               # mediakeys
               [
