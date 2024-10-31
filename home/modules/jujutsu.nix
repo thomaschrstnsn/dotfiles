@@ -57,6 +57,8 @@ in
         };
         aliases = {
           e = [ "edit" ];
+          stash = [ "new" "@-" ];
+          des = [ "describe" "-m" ];
         };
       };
     };
