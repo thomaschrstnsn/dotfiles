@@ -34,7 +34,7 @@ in
       (if (cfg.differ == "difftastic")
       then [ difftastic ]
       else [ ]) ++ [
-        # lazyjj
+        lazyjj
       ];
 
     programs.jujutsu = {

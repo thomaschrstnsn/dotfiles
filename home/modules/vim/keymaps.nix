@@ -177,7 +177,8 @@
   }
 
   # toggleterm
-  { key = "<leader>g"; action = "<cmd>lua Gitui_toggle()<CR>"; }
+  { key = "<leader>g"; action = "<cmd>lua Lazygit_toggle()<CR>"; }
+  { key = "<leader>J"; action = "<cmd>lua Lazyjj_toggle()<CR>"; }
   # { key = "<leader>th"; mode = "n"; action = ":ToggleTerm direction=horizontal<CR>"; }
   # { key = "<leader>tv"; mode = "n"; action = ":ToggleTerm direction=vertical<CR>"; }
   # { key = "<leader>tf"; mode = "n"; action = ":ToggleTerm direction=float<CR>"; }

@@ -11,10 +11,15 @@ require("toggleterm").setup({
 	end,
 })
 local Terminal = require('toggleterm.terminal').Terminal
-local gitui    = Terminal:new({ cmd = "lazygit", hidden = true, direction = "float" })
+local lazygit  = Terminal:new({ cmd = "lazygit", hidden = true, direction = "float" })
 
-function Gitui_toggle()
-	gitui:toggle()
+function Lazygit_toggle()
+	lazygit:toggle()
+end
+
+local lazyjj = Terminal:new({ cmd = "lazyjj", hidden = true, direction = "float" })
+function Lazyjj_toggle()
+	lazyjj:toggle()
 end
 
 function _G.set_terminal_keymaps()
