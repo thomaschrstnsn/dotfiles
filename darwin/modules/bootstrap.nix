@@ -15,7 +15,7 @@ in
 
   nix.settings = {
     trusted-users = [
-      "@admin"
+      "@admin" "${userCfg.name}"
     ];
   };
 
