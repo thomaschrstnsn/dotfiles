@@ -45,7 +45,7 @@ in
     _1password-gui
     brave
     devenv
-    (logseq.override { electron = pkgs.electron_27; }) # https://github.com/NixOS/nixpkgs/issues/341683
+    logseq
     morgen
     spotify
     todoist-electron
