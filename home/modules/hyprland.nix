@@ -3,9 +3,6 @@ with lib; with builtins;
 
 let
   cfg = config.tc.hyprland;
-  startupScript = pkgs.pkgs.writeShellScriptBin "start" ''
-    ${pkgs.waybar}/bin/waybar &
-  '';
 in
 {
   options.tc.hyprland = with types; {
@@ -16,6 +13,9 @@ in
       fonts.fontconfig.enable = true;
       home.packages = with pkgs; [
         font-awesome
+        (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+        hyprpanel
+        python312Packages.gpustat # hyprpanel
         jq # for scripts
         libnotify
         pavucontrol
@@ -33,7 +33,6 @@ in
         style = readFile ./wofi/style.css;
       };
 
-      services.swaync.enable = true;
       programs.hyprlock = {
         enable = true;
         settings = {
@@ -118,7 +117,7 @@ in
 
         settings = {
           exec-once = [
-            ''${startupScript}/bin/start''
+            "${pkgs.hyprpanel}/bin/hyprpanel"
             "[workspace name:t silent] wezterm"
             "[workspace name:b silent] brave"
             "[workspace name:u silent] logseq"

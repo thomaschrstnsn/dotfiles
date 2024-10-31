@@ -35,9 +35,11 @@
     wezterm = {
       url = "github:wez/wezterm?dir=nix";
     };
+
+    hyprpanel.url = "github:Jas-SinghFSU/HyprPanel";
   };
 
-  outputs = { nixpkgs, home-manager, darwin, nixvim, lldb-nix-fix, nixos-wsl, wezterm, ... }@inputs:
+  outputs = { nixpkgs, home-manager, darwin, nixvim, lldb-nix-fix, nixos-wsl, wezterm, hyprpanel, ... }@inputs:
     let
       inherit (nixpkgs) lib;
 
@@ -195,7 +197,7 @@
             inherit pkgs nixpkgs;
           }) myPkgs;
           inherit (import ./overlays {
-            inherit system pkgs lib myPkgs lldb-nix-fix;
+            inherit system pkgs lib myPkgs lldb-nix-fix hyprpanel;
           }) overlays;
 
           pkgs = import nixpkgs {

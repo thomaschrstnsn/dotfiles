@@ -28,7 +28,6 @@ in
       cliptool = "wl-copy";
     };
     hyprland.enable = true;
-    waybar.enable = true;
     wezterm = {
       package = inputs.wezterm.packages.${system}.default;
       enable = true;
