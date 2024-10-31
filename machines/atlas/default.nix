@@ -16,6 +16,7 @@ in
       hosts = [ "rpi4" "vmnix" "enix" "rsync.net" ];
     };
     git.enable = true;
+    jj.enable = true;
     zsh = {
       enable = true;
       editor = "vim";
