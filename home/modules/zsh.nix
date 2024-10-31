@@ -52,7 +52,6 @@ in
       lazydocker
       fd
       file
-      jd-diff-patch
       jq
       tree
       wget

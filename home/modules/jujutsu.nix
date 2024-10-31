@@ -65,7 +65,10 @@ in
 
     programs.zsh.shellAliases = {
       js = "jj st";
+      jd = "jj diff";
       jc = "jj git clone";
+      jp = "jj git push";
+      jf = "jj git fetch";
       je = "jj edit";
       jgc = "jj git clone --colocate";
     };
