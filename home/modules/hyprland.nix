@@ -96,17 +96,18 @@ in
         enable = true;
         settings = {
           # https://wallhaven.cc/
-          # .
           # ├── portrait
-          # │   └── wallhaven-m3k8jk_1311x1900.png
+          # │   ├── wallhaven-9dp961_2160x3840.png
+          # │   ├── wallhaven-m3k8jk_1311x1900.png
+          # │   └── wallhaven-yxrgjx_1440x2560.png
           # └── wide
           #     ├── wallhaven-m3kggk_3840x2160.png
           #     ├── wallhaven-rrl8rw_3840x2160.png
           #     └── wallhaven-yxp6zl_3840x2160.png
-          preload = [ "~/.wallpaper/wide/wallhaven-yxp6zl_3840x2160.png" "~/.wallpaper/portrait/wallhaven-m3k8jk_1311x1900.png" ];
+          preload = [ "~/.wallpaper/wide/wallhaven-m3kggk_3840x2160.png" "~/.wallpaper/portrait/wallhaven-9dp961_2160x3840.png" ];
           wallpaper = [
-            "DP-2,~/.wallpaper/wide/wallhaven-yxp6zl_3840x2160.png"
-            "HDMI-A-1,~/.wallpaper/portrait/wallhaven-m3k8jk_1311x1900.png"
+            "DP-2,~/.wallpaper/wide/wallhaven-m3kggk_3840x2160.png"
+            "HDMI-A-1,~/.wallpaper/portrait/wallhaven-9dp961_2160x3840.png"
           ];
 
         };
