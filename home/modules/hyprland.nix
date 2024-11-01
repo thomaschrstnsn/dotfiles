@@ -141,7 +141,9 @@ in
             "[workspace name:b silent] brave"
             "[workspace name:u silent] logseq"
             "[workspace name:p silent] todoist-electron"
+            "[workspace name:p silent] 1password"
             "[workspace name:c silent] morgen"
+            "[workspace name:m silent] spotify"
           ];
 
           workspace = [
@@ -150,6 +152,7 @@ in
             "name:b, monitor:DP-2, persistent:true"
             "name:p, monitor:DP-2, persistent:true"
             "name:c, monitor:DP-2, persistent:true"
+            "name:m, monitor:DP-2, persistent:true"
           ];
 
           # https://wiki.hyprland.org/Configuring/Uncommon-tips--tricks/
