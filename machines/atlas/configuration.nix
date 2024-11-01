@@ -22,10 +22,17 @@
   services.greetd = {
     enable = true;
     settings.default_session = {
-      command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd hyprland";
+      command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd Hyprland";
       user = "greeter";
     };
   };
+
+  services.xserver.displayManager.lightdm = {
+    enable = false;
+    greeters.slick.enable = true;
+  };
+
+  services.seatd.enable = true;
 
   console = {
     keyMap = "uk";

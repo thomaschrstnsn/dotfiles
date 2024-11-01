@@ -38,31 +38,48 @@ in
         settings = {
           general = {
             disable_loading_bar = true;
-            grace = 300;
             hide_cursor = true;
             no_fade_in = false;
+            grace = 3;
           };
 
           background = [
             {
-              path = "screenshot";
-              blur_passes = 3;
-              blur_size = 8;
+              path = "~/.wallpaper/wide/wallhaven-m3kggk_3840x2160.png";
+              blur_passes = 2;
+              contrast = 1;
+              brightness = 0.5;
+              vibrancy = 0.2;
+              vibrancy_darkness = 0.2;
             }
           ];
 
+          label = {
+            text = "cmd[update:1000] echo $(date '+%-I:%M')";
+            font_size = 95;
+            font_family = "JetBrains Mono";
+            position = "0, 200";
+            halign = "center";
+            valign = "center";
+          };
+
           input-field = [
             {
-              size = "200, 50";
-              position = "0, -80";
+              size = "250, 60";
+              position = "0, -200";
+              halign = "center";
+              valign = "center";
               monitor = "";
               dots_center = true;
+              dots_size = 0.2;
+              dots_space = 0.35;
               fade_on_empty = false;
+              rounding = -1;
               font_color = "rgb(202, 211, 245)";
               inner_color = "rgb(91, 96, 120)";
               outer_color = "rgb(24, 25, 38)";
-              outline_thickness = 5;
-              placeholder_text = ''<span foreground="##cad3f5">Password...</span>'';
+              outline_thickness = 2;
+              placeholder_text = ''<i><span foreground="##cdd6f4">Input Password...</span></i>'';
               shadow_passes = 2;
             }
           ];
@@ -73,9 +90,10 @@ in
         enable = true;
         settings = {
           general = {
+            lock_cmd = "pidof hyprlock || hyprlock";
+            before_sleep_cmd = "loginctl lock-session";
             after_sleep_cmd = "hyprctl dispatch dpms on";
             ignore_dbus_inhibit = false;
-            lock_cmd = "hyprlock";
           };
 
           listener = [
@@ -174,6 +192,7 @@ in
                 "SUPER, Space, exec, pgrep wofi || wofi --show run"
                 "SUPER, q, killactive"
                 "$hyper, f, fullscreen, 0"
+                "CTRL+SUPER, q, exec, pidof hyprlock || hyprlock"
               ]
               # mediakeys
               [
