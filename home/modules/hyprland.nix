@@ -12,14 +12,15 @@ in
     {
       fonts.fontconfig.enable = true;
       home.packages = with pkgs; [
-        font-awesome
         (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+        font-awesome
         hyprpanel
-        python312Packages.gpustat # hyprpanel
+        hyprshot
         jq # for scripts
         libnotify
         pavucontrol
         pulseaudio
+        python312Packages.gpustat # hyprpanel
         wl-clipboard
       ];
 
@@ -134,7 +135,11 @@ in
       wayland.windowManager.hyprland = {
         enable = true;
 
+
         settings = {
+          env = [
+            "HYPRSHOT_DIR,~/Screenshots"
+          ];
           exec-once = [
             "${pkgs.hyprpanel}/bin/hyprpanel"
             "[workspace name:t silent] wezterm"
@@ -196,6 +201,8 @@ in
                 "SUPER, q, killactive"
                 "$hyper, f, fullscreen, 0"
                 "CTRL+SUPER, q, exec, pidof hyprlock || hyprlock"
+                "SHIFT+SUPER, 4, exec, hyprshot -m region"
+                "SHIFT+SUPER, 3, exec, hyprshot -m window"
               ]
               # mediakeys
               [
