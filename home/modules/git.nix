@@ -79,8 +79,12 @@ in
         );
         user.signingkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIErz7lXsjPyJcjzRKMWyZodRGzjkbCxWu/Lqk+NpjupZ";
         gpg.format = "ssh";
-        gpg.ssh.program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
-        commit.gpgsign = (sshConfig.use1PasswordAgentOnMac && cfg.gpgVia1Password);
+        gpg.ssh.program =
+          if pkgs.stdenv.isDarwin then
+            "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
+          else
+            "${lib.getExe' pkgs._1password-gui "op-ssh-sign"}";
+        commit.gpgsign = (sshConfig.use1PasswordAgent && cfg.gpgVia1Password);
       };
 
       ignores = [ "*~" "*.swp" ".DS_Store" ".bacon-locations" ];

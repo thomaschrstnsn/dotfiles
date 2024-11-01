@@ -47,8 +47,8 @@ in
         signing = {
           key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIErz7lXsjPyJcjzRKMWyZodRGzjkbCxWu/Lqk+NpjupZ";
           backend = "ssh";
-          backends.ssh.program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
-          sign-all = (sshConfig.use1PasswordAgentOnMac && cfg.gpgVia1Password);
+          backends.ssh.program = config.programs.git.extraConfig.gpg.ssh.program;
+          sign-all = (sshConfig.use1PasswordAgent && cfg.gpgVia1Password);
         };
         ui = {
           pager = "delta";

@@ -14,9 +14,16 @@ in
     ssh = {
       enable = true;
       hosts = [ "rpi4" "vmnix" "enix" "rsync.net" ];
+      use1PasswordAgent = true;
     };
-    git.enable = true;
-    jj.enable = true;
+    git = {
+      enable = true;
+      gpgVia1Password = true;
+    };
+    jj = {
+      enable = true;
+      gpgVia1Password = true;
+    };
     zsh = {
       enable = true;
       editor = "vim";

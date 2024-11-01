@@ -3,6 +3,11 @@ with lib;
 
 let
   cfg = config.tc.ssh;
+  agentPath = homePart:
+    if pkgs.stdenv.isDarwin then
+      "${homePart}/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+    else
+      "${homePart}/.1password/agent.sock";
 in
 {
   options.tc.ssh = with types; {
@@ -13,7 +18,7 @@ in
       description = "known hosts to add to ssh config";
     };
     addLindHosts = mkEnableOption "add Lind hosts";
-    use1PasswordAgentOnMac = mkEnableOption "1Password ssh-agent on mac";
+    use1PasswordAgent = mkEnableOption "1Password ssh-agent on mac";
     agent.enable = mkEnableOption "ssh-agent enabled";
     includes = mkOption
       {
@@ -104,9 +109,9 @@ in
           enable = true;
           forwardAgent = true;
           extraConfig =
-            if cfg.use1PasswordAgentOnMac
+            if cfg.use1PasswordAgent
             then ''
-              IdentityAgent = "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+              IdentityAgent = "${agentPath "~"}"
             ''
             else "";
 
@@ -139,10 +144,10 @@ in
           includes = cfg.includes;
         };
       }
-      (mkIf cfg.use1PasswordAgentOnMac
+      (mkIf cfg.use1PasswordAgent
         {
           programs.zsh.initExtraBeforeCompInit = ''
-            export SSH_AUTH_SOCK="/Users/$USER/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock";
+            export SSH_AUTH_SOCK="${agentPath (if pkgs.stdenv.isDarwin then "/Users/$USER" else "/home/$USER")}";
           '';
           home.file = {
             ".config/1Password/ssh/agent.toml".text = ''
