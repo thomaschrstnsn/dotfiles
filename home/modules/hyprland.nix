@@ -3,6 +3,11 @@ with lib; with builtins;
 
 let
   cfg = config.tc.hyprland;
+
+  gentle-down = pkgs.writeShellApplication {
+    name = "gentle-down";
+    text = readFile ./hypr/gentle_down.sh;
+  };
 in
 {
   options.tc.hyprland = with types; {
@@ -14,6 +19,7 @@ in
       home.packages = with pkgs; [
         (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
         font-awesome
+        gentle-down
         hyprpanel
         hyprshot
         jq # for scripts
