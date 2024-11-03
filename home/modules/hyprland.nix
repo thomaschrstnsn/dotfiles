@@ -194,6 +194,8 @@ in
           };
 
           "$hyper" = "SUPER+SHIFT+CTRL+ALT";
+          bindm = [ "ALT, mouse:272, movewindow" ];
+
           bind =
             let
               workspaceChars = stringToCharacters ("123456789" + "qwertyuiop" + "zxcvbnm");
