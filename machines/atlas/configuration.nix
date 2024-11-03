@@ -1,5 +1,10 @@
 { config, lib, pkgs, ... }:
 
+let
+  tuigreet = "${pkgs.greetd.tuigreet}/bin/tuigreet";
+  session = "${pkgs.hyprland}/bin/Hyprland";
+  user = "thomas";
+in
 {
   # Use the systemd-boot EFI boot loader.
   # boot.loader.systemd-boot.enable = true;
@@ -21,15 +26,16 @@
 
   services.greetd = {
     enable = true;
-    settings.default_session = {
-      command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd Hyprland";
-      user = "greeter";
+    settings = {
+      initial_session = {
+        command = session;
+        user = user;
+      };
+      default_session = {
+        command = "${tuigreet} --greeting 'Welcome' --asterisks --remember --remember-user-session --time --cmd ${session}";
+        user = "greeter";
+      };
     };
-  };
-
-  services.xserver.displayManager.lightdm = {
-    enable = false;
-    greeters.slick.enable = true;
   };
 
   services.seatd.enable = true;
@@ -68,7 +74,7 @@
     enable32Bit = true;
   };
 
-  boot.kernelParams = ["nvidia.NVreg_PreserveVideoMemoryAllocations=1"];
+  boot.kernelParams = [ "nvidia.NVreg_PreserveVideoMemoryAllocations=1" ];
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia = {
     modesetting.enable = true;

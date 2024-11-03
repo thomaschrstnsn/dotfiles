@@ -43,53 +43,94 @@ in
       programs.hyprlock = {
         enable = true;
         settings = {
+          # based on https://github.com/MrVivekRajan/Hyprlock-Styles/blob/main/Style-3/hyprlock.conf
           general = {
-            disable_loading_bar = true;
-            hide_cursor = true;
+            disable_loading_bar = false;
             no_fade_in = false;
-            grace = 3;
           };
 
           background = [
             {
               path = "~/.wallpaper/wide/wallhaven-m3kggk_3840x2160.png";
-              blur_passes = 2;
-              contrast = 1;
-              brightness = 0.5;
+              blur_passes = 3;
+              contrast = 0.9;
+              brightness = 0.8;
               vibrancy = 0.2;
-              vibrancy_darkness = 0.2;
+              vibrancy_darkness = 0.0;
             }
           ];
 
-          label = {
-            text = "cmd[update:1000] echo $(date '+%-I:%M')";
-            font_size = 95;
+          label = [
+            # day month date
+            {
+              text = "cmd[update:1000] echo $(date +'%A, %B %d')";
+              font_size = 25;
+              color = "rgba(216, 222, 233, 0.70)";
+              font_family = "JetBrains Mono";
+              position = "0, 350";
+              halign = "center";
+              valign = "center";
+            }
+            # time
+            {
+              text = ''cmd[update:1000] echo "<span>$(date +"%H:%M")</span>"'';
+              font_size = 120;
+              color = "rgba(216, 222, 233, 0.70)";
+              font_family = "JetBrains Mono";
+              position = "0, 250";
+              halign = "center";
+              valign = "center";
+            }
+            # user
+            {
+              text = "    $USER";
+              color = "rgba(216, 222, 233, 0.80)";
+              outline_thickness = 2;
+              dots_size = 0.2;
+              dots_spacing = 0.2;
+              dots_center = true;
+              font_size = 18;
+              # font_family = "SF Pro Display Bold";
+              font_family = "JetBrains Mono";
+              position = "0, -130";
+              halign = "center";
+              valign = "center";
+            }
+          ];
+
+          shape =
+            {
+              # USER-BOX
+              size = "300, 60";
+              color = "rgba(255, 255, 255, .1)";
+              rounding = -1;
+              border_size = 0;
+              border_color = "rgba(253, 198, 135, 0)";
+              rotate = 0;
+              xray = false; # if true, make a "hole" in the background (rectangle of specified size, no rotation)
+              position = "0, -130";
+              halign = "center";
+              valign = "center";
+            };
+
+          input-field = {
+            size = "300, 60";
+            outline_thickness = 2;
+            dots_size = 0.2;
+            dots_spacing = 0.2;
+            dots_center = true;
+            outer_color = "rgba(0, 0, 0, 0)";
+            inner_color = "rgba(255, 255, 255, 0.1)";
+            font_color = "rgb(200, 200, 200)";
+            fade_on_empty = false;
+            # font_family = "SF Pro Display Bold";
             font_family = "JetBrains Mono";
-            position = "0, 200";
+            placeholder_text = ''<i><span foreground="##ffffff99">🔒 Enter Pass</span></i>'';
+            hide_input = false;
+            position = "0, -210";
             halign = "center";
             valign = "center";
           };
-
-          input-field = [
-            {
-              size = "250, 60";
-              position = "0, -200";
-              halign = "center";
-              valign = "center";
-              monitor = "";
-              dots_center = true;
-              dots_size = 0.2;
-              dots_space = 0.35;
-              fade_on_empty = false;
-              rounding = -1;
-              font_color = "rgb(202, 211, 245)";
-              inner_color = "rgb(91, 96, 120)";
-              outer_color = "rgb(24, 25, 38)";
-              outline_thickness = 2;
-              placeholder_text = ''<i><span foreground="##cdd6f4">Input Password...</span></i>'';
-              shadow_passes = 2;
-            }
-          ];
         };
       };
 
@@ -146,7 +187,9 @@ in
           env = [
             "HYPRSHOT_DIR,~/Screenshots"
           ];
+          # debug.disable_logs = false;
           exec-once = [
+            "hyprlock"
             "${pkgs.hyprpanel}/bin/hyprpanel"
             "[workspace name:t silent] wezterm"
             "[workspace name:b silent] brave"
@@ -185,6 +228,7 @@ in
           misc = {
             key_press_enables_dpms = true;
             vrr = 2;
+            disable_hyprland_logo = true;
           };
           binds = {
             workspace_center_on = true;
