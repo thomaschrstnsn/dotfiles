@@ -13,7 +13,6 @@ in
     git.enable = true;
     zsh = {
       enable = true;
-      editor = "nvim";
     };
     ssh = {
       enable = true;

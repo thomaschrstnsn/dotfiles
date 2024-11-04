@@ -20,20 +20,19 @@ in
     };
     ssh = {
       enable = true;
-      hosts = [ "rpi4" "enix" "rsync.net"];
+      hosts = [ "rpi4" "enix" "rsync.net" ];
       agent.enable = true;
     };
     tmux = {
       enable = true;
     };
-    vim = { 
+    vim = {
       enable = true;
       codelldb.enable = true;
     };
     wsl.enable = true;
     zsh = {
       enable = true;
-      editor = "nvim";
     };
   };
   system = systems.x64-linux;

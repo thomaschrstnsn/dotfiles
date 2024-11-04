@@ -14,10 +14,6 @@
   networking.useDHCP = false;
   networking.interfaces.enp0s6.useDHCP = true;
 
-  environment.variables = {
-    EDITOR = "vim";
-  };
-
   services.openssh.enable = true;
 
   nix = {

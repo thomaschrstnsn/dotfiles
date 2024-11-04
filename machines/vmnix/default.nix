@@ -12,7 +12,6 @@ in
     git.enable = true;
     zsh = {
       enable = true;
-      editor = "vim";
     };
     tmux.enable = true;
     tmux.remote = true;

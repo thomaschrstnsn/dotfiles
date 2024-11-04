@@ -90,14 +90,9 @@
   };
 
   environment.systemPackages = with pkgs; [
-    vim
     docker-compose
     rclone
   ];
-
-  environment.variables = {
-    EDITOR = "vim";
-  };
 
   nix = {
     settings.auto-optimise-store = true;

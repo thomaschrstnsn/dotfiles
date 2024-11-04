@@ -39,7 +39,6 @@
     wezterm = { enable = true; fontsize = 13; };
     zsh = {
       enable = true;
-      editor = "nvim";
     };
   };
 

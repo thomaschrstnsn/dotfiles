@@ -12,7 +12,7 @@ in
     editor = mkOption {
       description = "Set $EDITOR (for cmdline git etc)";
       type = str;
-      default = "code --wait";
+      default = "nvim";
     };
     extraAliases = mkOption {
       description = "Extra aliases for zsh";

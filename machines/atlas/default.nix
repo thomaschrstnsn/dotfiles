@@ -26,7 +26,6 @@ in
     };
     zsh = {
       enable = true;
-      editor = "vim";
     };
     tmux = {
       enable = true;
