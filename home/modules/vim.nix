@@ -389,6 +389,7 @@ in
               settings.nix.flake.autoArchive = true;
             };
             basedpyright.enable = cfg.lsp.servers.python;
+            ruff.enable = cfg.lsp.servers.python;
             ts_ls.enable = cfg.lsp.servers.javascript;
           };
         };
