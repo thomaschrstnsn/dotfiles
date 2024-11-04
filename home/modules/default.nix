@@ -24,7 +24,5 @@
     ./wezterm.nix
     ./wsl.nix
     ./zsh.nix
-
-    ./haskell
   ];
 }
