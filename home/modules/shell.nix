@@ -72,6 +72,11 @@ in
     };
 
     programs.home-manager.enable = true;
+    xdg.enable = true;
+
+    home.sessionVariables = {
+      # XDG_CONFIG_HOME = "${config.home}/.config";
+    };
 
     programs.atuin = {
       enable = true;

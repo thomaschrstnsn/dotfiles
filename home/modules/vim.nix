@@ -715,7 +715,7 @@ in
         (builtins.readFile ./vim/init.lua) +
         (builtins.readFile ./vim/plugins/persistence.lua);
     };
-    programs.zsh.shellAliases = {
+    home.shellAliases = {
       vi = "nvim";
       vim = "nvim";
       nv = "nvim";

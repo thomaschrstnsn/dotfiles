@@ -63,7 +63,7 @@ in
       };
     };
 
-    programs.zsh.shellAliases = {
+    home.shellAliases = {
       js = "jj st";
       jd = "jj diff";
       jc = "jj git clone";

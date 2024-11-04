@@ -12,6 +12,7 @@
     ./hyprland.nix
     ./jujutsu.nix
     ./nodejs.nix
+    ./nushell.nix
     ./rancher.nix
     ./realise_symlink.nix
     ./sesh.nix

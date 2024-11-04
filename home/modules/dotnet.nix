@@ -38,6 +38,10 @@ in
       rider = ''open -na "Rider.app" --args "$@"''; # https://www.jetbrains.com/help/rider/Working_with_the_IDE_Features_from_Command_Line.html#10c968a9
       r = "rider $(fd --type f --glob '*.{sln,??proj}' | fzf)";
     };
+    programs.nushell.shellAliases = {
+      rider = ''open -na "Rider.app" --args'';
+      r = "rider (fd --type f --glob '*.{sln,??proj} | fzf)";
+    };
 
     programs.zsh.initExtra = ''
       export PATH=$PATH:~/.dotnet/tools

@@ -20,6 +20,7 @@
       enable = true;
       gpgVia1Password = true;
     };
+    nushell.enable = true;
     ssh = {
       enable = true;
       use1PasswordAgent = true;
