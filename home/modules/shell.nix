@@ -3,7 +3,6 @@ with lib;
 
 let
   cfg = config.tc.shell;
-  zshCfg = config.tc.zsh;
 in
 {
   options.tc.shell = with types; {
@@ -13,7 +12,7 @@ in
   config = mkIf cfg.enable {
 
     programs.starship = {
-      enable = zshCfg.prompt == "starship";
+      enable = true;
       settings = {
         aws = {
           format = "on $symbol ($profile) ($style)";

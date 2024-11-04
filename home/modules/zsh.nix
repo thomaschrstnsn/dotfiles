@@ -19,11 +19,6 @@ in
       type = attrs;
       default = { };
     };
-    prompt = mkOption {
-      type = enum [ "p10k" "starship" ];
-      description = "Which prompt to use";
-      default = "starship";
-    };
     vi-mode.enable = mkOption {
       description = ''use vi-mode: https://github.com/jeffreytse/zsh-vi-mode'';
       type = bool;
@@ -35,18 +30,7 @@ in
 
     home.packages = with pkgs; [
       zsh-fzf-tab
-    ] ++ optional (cfg.prompt == "p10k") zsh-powerlevel10k;
-
-    home.file = mkIf (cfg.prompt == "p10k") {
-      ".p10k.zsh".source = ./zsh/p10k.zsh;
-    };
-    programs.zsh.initExtraBeforeCompInit =
-      if cfg.prompt == "p10k"
-      then ''
-        source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
-        source ~/.p10k.zsh
-      ''
-      else "";
+    ];
 
     programs.zsh = {
       enable = true;
