@@ -15,6 +15,7 @@
     ./rancher.nix
     ./realise_symlink.nix
     ./sesh.nix
+    ./shell.nix
     ./ssh.nix
     ./sway.nix
     ./tmux.nix
