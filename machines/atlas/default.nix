@@ -54,6 +54,7 @@ in
     spotify
     todoist-electron
     qt5.qtwayland
+    webcord-vencord
   ];
 
   system = system;
