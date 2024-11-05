@@ -17,6 +17,7 @@ in
     {
       fonts.fontconfig.enable = true;
       home.packages = with pkgs; [
+        clipse
         (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
         font-awesome
         gentle-down
@@ -190,6 +191,7 @@ in
           # debug.disable_logs = false;
           exec-once = [
             "hyprlock"
+            "clipse -listen"
             "${pkgs.hyprpanel}/bin/hyprpanel"
             "[workspace name:t silent] wezterm"
             "[workspace name:b silent] brave"
@@ -207,6 +209,11 @@ in
             "name:p, monitor:DP-2, persistent:true"
             "name:c, monitor:DP-2, persistent:true"
             "name:m, monitor:DP-2, persistent:true"
+          ];
+
+          windowrulev2 = [
+            "float,class:(clipse)" # ensure you have a floating window class set if you want this behavior
+            "size 622 652,class:(clipse)" # set the size of the window as necessary
           ];
 
           # https://wiki.hyprland.org/Configuring/Uncommon-tips--tricks/
@@ -299,6 +306,7 @@ in
                 "SUPER, C, exec, ${./hypr/copy_unless_wezterm.sh}"
                 "SUPER, V, exec, ${./hypr/paste_unless_wezterm.sh}"
                 "SUPER, Z, exec, ${./hypr/undo_unless_wezterm.sh}"
+                "SUPER+SHIFT, C, exec, wezterm start --class clipse -e 'clipse'"
 
                 # toggle kb_layout
                 "ALT, Space, exec, ${./hypr/toggle_kb_layout.sh} kanata"
