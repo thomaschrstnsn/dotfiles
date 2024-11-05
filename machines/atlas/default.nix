@@ -43,7 +43,6 @@ in
     };
     vim = {
       enable = true;
-      auto-dark-mode = true;
     };
   };
   extraPackages = pkgs: with pkgs; [

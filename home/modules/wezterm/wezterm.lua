@@ -41,11 +41,14 @@ function get_appearance()
 	return 'Dark'
 end
 
+local light_theme = 'rose-pine-dawn'
+local dark_theme = 'rose-pine'
+
 function scheme_for_appearance(appearance)
 	if appearance:find 'Dark' then
-		return 'rose-pine'
+		return dark_theme
 	else
-		return 'rose-pine-dawn'
+		return light_theme
 	end
 end
 
@@ -53,7 +56,7 @@ local function toggle_fullscreen(window, pane)
 	window:toggle_fullscreen()
 end
 
-local config                 = {
+local config         = {
 	warn_about_missing_glyphs    = false,
 	window_decorations           = 'WINDOW_DECORATIONS',
 	hide_tab_bar_if_only_one_tab = true,
@@ -67,7 +70,12 @@ local config                 = {
 	audible_bell                 = 'Disabled',
 }
 
-config.color_scheme          = scheme_for_appearance(get_appearance()) -- auto refresh on system change
+local auto_dark_mode = "AUTO_DARK_MODE"
+if auto_dark_mode then
+	config.color_scheme = scheme_for_appearance(get_appearance()) -- auto refresh on system change
+else
+	config.color_scheme = dark_theme;
+end
 
 config.font                  = wezterm.font_with_fallback({
 	"JetBrains Mono",

@@ -49,6 +49,7 @@ in
         defaultText = literalExpression "pkgs.wezterm";
         description = "The Wezterm package to install.";
       };
+      autoDarkMode = mkEnableOption "Use theme that matches appearance (auto light/dark mode)" // { default = pkgs.stdenv.isDarwin; };
     };
 
   config = mkIf cfg.enable {
@@ -59,11 +60,13 @@ in
           ''"FONT_SIZE"''
           "WINDOW_DECORATIONS"
           "-- CONFIG_OVERRIDES_HERE"
+          ''"AUTO_DARK_MODE"''
         ]
         [
           (toString cfg.fontsize)
           (if cfg.window_decorations.resize then "RESIZE" else "NONE")
           config_overrides
+          (if cfg.autoDarkMode then "true" else "false")
         ]
         (readFile ./wezterm/wezterm.lua);
     };
