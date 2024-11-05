@@ -18,7 +18,8 @@ in
       fonts.fontconfig.enable = true;
       home.packages = with pkgs; [
         myPkgs.appleFonts.sf-pro
-        clipse
+        bemoji # emoji picker
+        clipse # clipboard history
         (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
         font-awesome
         gentle-down
@@ -26,10 +27,12 @@ in
         hyprshot
         jq # for scripts
         libnotify
+        overskride # bluetooth
         pavucontrol
         pulseaudio
         python312Packages.gpustat # hyprpanel
         wl-clipboard
+        wtype # dep for bemoji
       ];
 
       dconf = {
@@ -310,6 +313,8 @@ in
                 "SUPER, V, exec, ${./hypr/paste_unless_wezterm.sh}"
                 "SUPER, Z, exec, ${./hypr/undo_unless_wezterm.sh}"
                 "SUPER+SHIFT, C, exec, wezterm start --class clipse -e 'clipse'"
+                # "ALT, comma, exec, <reserved for giphy picker>"
+                "ALT, period, exec, bemoji -t"
 
                 # toggle kb_layout
                 "ALT, Space, exec, ${./hypr/toggle_kb_layout.sh} kanata"
