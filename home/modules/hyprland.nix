@@ -214,7 +214,19 @@ in
             kb_layout = "gb,dk";
             repeat_rate = 35;
             repeat_delay = 200;
+            touchpad = {
+              scroll_factor = 0.5;
+              drag_lock = true;
+            };
           };
+
+          device = [
+            {
+              name = "thomas'-pegefelt";
+              sensitivity = 0.4;
+              natural_scroll = true;
+            }
+          ];
 
           decoration.rounding = 5;
           general = {
