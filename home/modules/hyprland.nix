@@ -17,6 +17,7 @@ in
     {
       fonts.fontconfig.enable = true;
       home.packages = with pkgs; [
+        myPkgs.appleFonts.sf-pro
         clipse
         (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
         font-awesome
@@ -67,7 +68,7 @@ in
               text = "cmd[update:1000] echo $(date +'%A, %B %d')";
               font_size = 25;
               color = "rgba(216, 222, 233, 0.70)";
-              font_family = "JetBrains Mono";
+              font_family = "SF Pro Display Bold";
               position = "0, 350";
               halign = "center";
               valign = "center";
@@ -77,7 +78,7 @@ in
               text = ''cmd[update:1000] echo "<span>$(date +"%H:%M")</span>"'';
               font_size = 120;
               color = "rgba(216, 222, 233, 0.70)";
-              font_family = "JetBrains Mono";
+              font_family = "SF Pro Display Bold";
               position = "0, 250";
               halign = "center";
               valign = "center";
@@ -91,8 +92,7 @@ in
               dots_spacing = 0.2;
               dots_center = true;
               font_size = 18;
-              # font_family = "SF Pro Display Bold";
-              font_family = "JetBrains Mono";
+              font_family = "SF Pro Display Bold";
               position = "0, -130";
               halign = "center";
               valign = "center";
@@ -124,8 +124,7 @@ in
             inner_color = "rgba(255, 255, 255, 0.1)";
             font_color = "rgb(200, 200, 200)";
             fade_on_empty = false;
-            # font_family = "SF Pro Display Bold";
-            font_family = "JetBrains Mono";
+            font_family = "SF Pro Display Bold";
             placeholder_text = ''<i><span foreground="##ffffff99">🔒 Enter Pass</span></i>'';
             hide_input = false;
             position = "0, -210";
