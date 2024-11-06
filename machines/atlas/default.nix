@@ -13,7 +13,7 @@ in
     direnv.enable = true;
     ssh = {
       enable = true;
-      hosts = [ "rpi4" "vmnix" "enix" "rsync.net" ];
+      hosts = [ "rpi4" "vmnix" "enix" "rsync.net" "logseq-personal-deploy" ];
       use1PasswordAgent = true;
     };
     git = {
