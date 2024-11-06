@@ -327,6 +327,11 @@ in
 
                 "SUPER, Tab, focuscurrentorlast"
               ]
+              [
+                ''$hyper, grave, exec, hyprctl reload'' # reload config, bring back monitors
+                ''$hyper, 1, exec, hyprctl keyword monitor "DP-2, disable"'' # disable first monitor
+                ''$hyper, 2, exec, hyprctl keyword monitor "HDMI-A-1, disable"'' # disable second monitor
+              ]
             ];
 
           # https://wiki.hyprland.org/Configuring/Monitors/#rotating
