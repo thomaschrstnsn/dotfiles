@@ -189,6 +189,13 @@ in
       wayland.windowManager.hyprland = {
         enable = true;
 
+        extraConfig = ''
+          bind = SUPER, q, exec, sleep 0.3 && hyprctl dispatch submap reset
+          bind = SUPER, q, submap, kill
+          submap = kill
+          bind = SUPER, q, killactive
+          submap = reset
+        '';
 
         settings = {
           env = [
@@ -275,7 +282,6 @@ in
               [
                 "SUPER, Return, exec, wezterm"
                 "SUPER, Space, exec, pgrep wofi || wofi --show run"
-                "SUPER, q, killactive"
                 "$hyper, f, fullscreen, 0"
                 "CTRL+SUPER, q, exec, pidof hyprlock || hyprlock"
                 "SHIFT+SUPER, 4, exec, hyprshot -m region"
