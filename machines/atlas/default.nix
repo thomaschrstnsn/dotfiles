@@ -26,6 +26,7 @@ in
     };
     zsh = {
       enable = true;
+      vi-mode.enable = false;
     };
     tmux = {
       enable = true;
@@ -64,7 +65,7 @@ in
       networking.hostname = "atlas";
       user = {
         name = username;
-        groups = [ "wheel" "docker" ];
+        groups = [ "wheel" "docker" "gamemode"];
       };
     };
     base = {
