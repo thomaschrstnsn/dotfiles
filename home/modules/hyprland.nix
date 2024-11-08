@@ -128,7 +128,7 @@ in
             font_color = "rgb(200, 200, 200)";
             fade_on_empty = false;
             font_family = "SF Pro Display Bold";
-            placeholder_text = ''<i><span foreground="##ffffff99">🔒 Enter Pass</span></i>'';
+            placeholder_text = ''🔒 <i><span foreground="##ffffff99">Enter Pass</span></i>'';
             hide_input = false;
             position = "0, -210";
             halign = "center";
@@ -153,13 +153,13 @@ in
               on-timeout = "hyprlock";
             }
             {
-              timeout = 300;
+              timeout = 120;
               on-timeout = "hyprctl dispatch dpms off";
               on-resume = "hyprctl dispatch dpms on";
             }
             {
-              timeout = 600;
-              on-resume = "systemctl suspend";
+              timeout = 240;
+              on-timeout = "systemctl suspend";
             }
           ];
         };
