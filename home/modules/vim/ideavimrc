@@ -16,19 +16,24 @@ set clipboard=ideaput,unnamedplus
 set ideawrite=all
 
 " plugins
+" vim-flash https://plugins.jetbrains.com/plugin/25101-vim-flash
+nmap <CR> <Action>(flash.search)
+
 set NERDTree
 set argtextobj
+let g:argtextobj_pairs="(:),{:},[:],<:>"
 set highlightedyank
+let g:highlightedyank_highlight_duration = "2000"
 set surround
 set which-key
 let g:WhichKey_FontSize = 15
-set timeoutlen=3500
+"
+" Columns of context
+set sidescrolloff=8
+" which-key says to set this high, or set notimeout
+set timeoutlen=5000
 
-set easymotion " needs AceJump plugin and IdeaVim-EasyMotion
-
-" nmap <leader><leader>f <Plug>(easymotion-f)
-"Plug 'easymotion/vim-easymotion'
-"map ,f <Plug>(easymotion-bd-f)
+set matchit
 
 nmap <Esc> :noh<CR><Esc>
 nmap <leader>ff <Action>(GotoFile)
@@ -44,6 +49,7 @@ nmap gcc <Action>(CommentByLineComment)
 vmap gc <Action>(CommentByLineComment)
 
 " harpoon: https://github.com/AlexGirardDev/HarpoonIJ
+" https://plugins.jetbrains.com/plugin/20782-harpoonij
 nmap <leader>jj :action ShowHarpoon<CR>
 nmap <leader>ja :action AddToHarpoon<CR>
 nmap <M-f> :action GotoHarpoon1<CR>
@@ -72,11 +78,13 @@ nnoremap ]f :action MethodDown<CR>
 nnoremap [[ #
 nnoremap ]] *
 
-nnoremap <leader>, :action RecentFiles<CR>
+" nnoremap <leader>, :action RecentFiles<CR>
+nnoremap <leader>, :action Switcher<CR>
 nnoremap <leader>gg :action ActivateCommitToolWindow<CR>
 nnoremap <leader>gu :action Vcs.UpdateProject<CR>
 nnoremap <leader>gm :action Git.Menu<CR>
 nnoremap <leader>gc :action Vcs.VcsClone<CR>
+nmap <leader>gb <Action>(Annotate)
 
 nnoremap [e :action NextOccurence<CR>
 nnoremap ]e :action PreviousOccurence<CR>
@@ -93,9 +101,21 @@ nmap <leader>sx :action Unsplit<cr>
 nmap <leader>bX :action CloseAllUnpinnedEditors<cr>
 nmap <leader>bx :action CloseEditor<cr>
 nmap <leader>bm :action MoveEditorToOppositeTabGroup<CR>
+nmap <leader>x <Action>(CloseContent)
+
+" Signature Help in Insert Mode
+imap <C-k> <C-o>:action ParameterInfo<CR>i
+
+" Code Action
+nmap <leader>a <Action>(RefactoringMenu)
+vmap <leader>a <Action>(RefactoringMenu)
+
+nmap <leader>/ <Action>(FindInPath)
 
 nmap <leader>m :action ProjectView.ShowMembers<cr>
 
+" switch between windows
+" unfortunately not between tool windows: https://youtrack.jetbrains.com/issue/VIM-3152/Move-between-open-editor-tabs-and-tool-windows-by-direction-using-the-same-shortcut-like-Vim-ctrl-w-h-j-k-l
 nmap <C-l> <C-w>l
 nmap <C-h> <C-w>h
 nmap <C-j> <C-w>j
