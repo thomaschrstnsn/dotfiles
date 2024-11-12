@@ -47,6 +47,7 @@
     wezterm = { enable = true; fontsize = 15.2; };
     zsh = {
       enable = true;
+      vi-mode.enable = false;
     };
   };
 
