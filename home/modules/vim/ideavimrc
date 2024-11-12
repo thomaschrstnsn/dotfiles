@@ -78,8 +78,8 @@ nnoremap ]f :action MethodDown<CR>
 nnoremap [[ #
 nnoremap ]] *
 
-" nnoremap <leader>, :action RecentFiles<CR>
-nnoremap <leader>, :action Switcher<CR>
+nnoremap <leader>, :action RecentFiles<CR>
+" nnoremap <leader>, :action Switcher<CR>
 nnoremap <leader>gg :action ActivateCommitToolWindow<CR>
 nnoremap <leader>gu :action Vcs.UpdateProject<CR>
 nnoremap <leader>gm :action Git.Menu<CR>
