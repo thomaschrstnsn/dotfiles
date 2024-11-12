@@ -8,6 +8,7 @@ let
     name = "gentle-down";
     text = readFile ./hypr/gentle_down.sh;
   };
+  cursor.size = 64;
 in
 {
   options.tc.hyprland = with types; {
@@ -200,6 +201,8 @@ in
         settings = {
           env = [
             "HYPRSHOT_DIR,~/Screenshots"
+            "HYPRCURSOR_SIZE,${builtins.toString cursor.size}"
+            "XCURSOR_SIZE,${builtins.toString cursor.size}"
           ];
           # debug.disable_logs = false;
           exec-once = [
@@ -248,7 +251,26 @@ in
             }
           ];
 
-          decoration.rounding = 5;
+          decoration = {
+            rounding = 16;
+
+            # Change transparency of focused and unfocused windows
+            active_opacity = 1.0;
+            inactive_opacity = 1.0;
+
+            drop_shadow = true;
+            shadow_range = 4;
+            shadow_render_power = 3;
+            "col.shadow" = "rgba(1a1a1aee)";
+
+            blur = {
+              enabled = true;
+              size = 3;
+              passes = 1;
+              vibrancy = 0.1696;
+            };
+          };
+
           general = {
             border_size = 3;
             resize_on_border = true;
@@ -268,6 +290,20 @@ in
           cursor = {
             default_monitor = "DP-2";
           };
+
+          bezier = [
+            "easeOutBack,0.34,1.56,0.64,1"
+            "easeInBack,0.36,0,0.66,-0.56"
+            "easeInCubic,0.32,0,0.67,0"
+            "easeInOutCubic,0.65,0,0.35,1"
+          ];
+          animation = [
+            "windowsIn,1,5,easeOutBack,popin"
+            "windowsOut,1,5,easeInBack,popin"
+            "fadeIn,0"
+            "fadeOut,1,10,easeInCubic"
+            "workspaces,1,4,easeInOutCubic,slide"
+          ];
 
           "$hyper" = "SUPER+SHIFT+CTRL+ALT";
           bindm = [ "ALT, mouse:272, movewindow" ];
