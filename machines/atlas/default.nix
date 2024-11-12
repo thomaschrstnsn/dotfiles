@@ -65,7 +65,7 @@ in
       networking.hostname = "atlas";
       user = {
         name = username;
-        groups = [ "wheel" "docker" "gamemode"];
+        groups = [ "wheel" "docker" "gamemode" ];
       };
     };
     base = {

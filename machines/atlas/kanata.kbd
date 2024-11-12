@@ -1,7 +1,35 @@
-(defsrc caps)
-(deflayer default @cap)
+(defsrc
+	caps
+	a s d f
+	j k l ;
+	)
+
+(defvar
+	tap-time 150
+	hold-time 200
+	)
+
+(deflayer default
+	@cap
+	@a @s @d @f
+	@j @k @l @;
+	)
+
 
 (defalias hyper (multi lalt lshift lmeta lctl))
 (defalias cap (tap-hold-press 200 200 esc @hyper))
+
+;; inspired by: https://github.com/dreamsofcode-io/home-row-mods/blob/main/kanata/linux/kanata.kbd
+(defalias
+	a (tap-hold-release $tap-time $hold-time a lctl)
+	s (tap-hold-release $tap-time $hold-time s lalt)
+	d (tap-hold-release $tap-time $hold-time d lmet)
+	f (tap-hold-release $tap-time $hold-time f lsft)
+
+	j (tap-hold-release $tap-time $hold-time j lsft)
+	k (tap-hold-release $tap-time $hold-time k lmet)
+	l (tap-hold-release $tap-time $hold-time l lalt)
+	; (tap-hold-release $tap-time $hold-time ; lctl)
+	)
 
 

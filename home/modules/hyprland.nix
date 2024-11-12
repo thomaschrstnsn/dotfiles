@@ -233,7 +233,7 @@ in
           input = {
             kb_layout = "gb,dk";
             repeat_rate = 35;
-            repeat_delay = 200;
+            repeat_delay = 350;
             touchpad = {
               scroll_factor = 0.5;
               drag_lock = true;
