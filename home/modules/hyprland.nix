@@ -8,7 +8,7 @@ let
     name = "gentle-down";
     text = readFile ./hypr/gentle_down.sh;
   };
-  cursor.size = 64;
+  cursor.size = 32;
 in
 {
   options.tc.hyprland = with types; {
@@ -19,6 +19,7 @@ in
       fonts.fontconfig.enable = true;
       home.packages = with pkgs; [
         myPkgs.appleFonts.sf-pro
+        bibata-cursors
         bemoji # emoji picker
         clipse # clipboard history
         (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
@@ -44,6 +45,15 @@ in
       programs.wofi = {
         enable = true;
         style = readFile ./wofi/style.css;
+      };
+
+      gtk = {
+        enable = true;
+
+        cursorTheme = {
+          name = "Bibata-Modern-Classic";
+          package = pkgs.bibata-cursors;
+        };
       };
 
       programs.hyprlock = {
@@ -206,6 +216,7 @@ in
           ];
           # debug.disable_logs = false;
           exec-once = [
+            "hyprctl setcursor Bibata-Modern-Classic 32"
             "hyprlock"
             "clipse -listen"
             "${pkgs.hyprpanel}/bin/hyprpanel"
