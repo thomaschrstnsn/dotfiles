@@ -699,16 +699,16 @@ in
         plenary-nvim
         (fromGitHub "ibhagwan/smartyank.nvim" "2024mar26" "d9e078fe08d6466e37ea45ac446a9f60e6866789")
         {
-          plugin = tint-nvim;
-          config = mkLua ''require("tint").setup()'';
-        }
-        {
           plugin = toggleterm-nvim;
           config = mkLuaFile ./vim/plugins/toggleterm.lua;
         }
         {
           plugin = vim-rsi;
           config = mkLua '''';
+        }
+        {
+          plugin = (fromGitHub "TaDaa/vimade" "2024-11-12" "57512f7eb4dfa0ef0e2f11a7b47c8c37600943f0");
+          config = mkLuaFile ./vim/plugins/vimade.lua;
         }
       ];
       extraConfigLua =
