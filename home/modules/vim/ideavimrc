@@ -107,8 +107,8 @@ nmap <leader>x <Action>(CloseContent)
 imap <C-k> <C-o>:action ParameterInfo<CR>i
 
 " Code Action
-nmap <leader>a <Action>(RefactoringMenu)
-vmap <leader>a <Action>(RefactoringMenu)
+nmap <leader>a <Action>(ShowIntentionActions)
+vmap <leader>a <Action>(ShowIntentionActions)
 
 nmap <leader>/ <Action>(FindInPath)
 
