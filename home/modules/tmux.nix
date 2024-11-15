@@ -126,6 +126,8 @@ in
         # toggle between two sessions
         bind -T prefix \\ switch-client -l
 
+        # default-command was set to 'reattach-to-user-namespace -l /bin/sh' for some unknown reason
+        set -g default-command ""
       '' + concatStringsSep "\n"
         ((if (cfg.session-tool == "tmux-sessionizer") then
           [
