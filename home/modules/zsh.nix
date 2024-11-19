@@ -61,6 +61,8 @@ in
         zstyle ':completion:*:descriptions' format '[%d]'
         zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1 --color=always $realpath'
         zstyle ':fzf-tab:*' switch-group ',' '.'
+
+        function killport() { lsof -i TCP:$1 | grep LISTEN | awk '{print $2}' | xargs kill -9 }
       '' + (if cfg.vi-mode.enable
       then ''
         # https://github.com/atuinsh/atuin/issues/977
