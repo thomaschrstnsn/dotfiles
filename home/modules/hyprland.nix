@@ -222,7 +222,7 @@ in
             "${pkgs.hyprpanel}/bin/hyprpanel"
             "[workspace name:t silent] wezterm"
             "[workspace name:b silent] brave"
-            "[workspace name:u silent] logseq"
+            # "[workspace name:u silent] logseq"
             "[workspace name:p silent] todoist-electron"
             "[workspace name:p silent] 1password"
             "[workspace name:c silent] morgen"
