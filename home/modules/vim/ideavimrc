@@ -40,6 +40,14 @@ nmap <leader>ff <Action>(GotoFile)
 nmap <leader>fs <Action>(FindInPath)
 nmap <leader>ft <Action>(TextSearchAction)
 nmap <leader>fd <Action>(GotoSymbol)
+
+nmap <leader>d <Action>(FileStructurePopup)
+nmap <leader>D <Action>(GotoSymbol)
+
+" this works best when bound in Riders settings, so it also works when tool
+" windows have focus
+" nmap <C-CR> <Action>(HideAllWindows)
+
 nmap <leader>w :w<CR>
 nmap <leader>q :q<CR>
 nmap <leader><leader>r :source ~/.ideavimrc<CR>

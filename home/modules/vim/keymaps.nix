@@ -239,13 +239,13 @@
     options.desc = "find word";
   }
   {
-    key = "<leader>fd";
+    key = "<leader>D";
     mode = "n";
     action = ''<cmd>Telescope lsp_workspace_symbols<CR>'';
     options.desc = "find symbol in workspace";
   }
   {
-    key = "<leader>fD";
+    key = "<leader>d";
     mode = "n";
     action = ''<cmd>Telescope lsp_document_symbols<CR>'';
     options.desc = "find symbol in document";
