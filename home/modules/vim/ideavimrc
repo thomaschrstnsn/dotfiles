@@ -118,7 +118,7 @@ imap <C-k> <C-o>:action ParameterInfo<CR>i
 nmap <leader>a <Action>(ShowIntentionActions)
 vmap <leader>a <Action>(ShowIntentionActions)
 
-nmap <leader>/ <Action>(FindInPath)
+nmap <leader>/ <Action>(Find)
 
 nmap <leader>m :action ProjectView.ShowMembers<cr>
 
