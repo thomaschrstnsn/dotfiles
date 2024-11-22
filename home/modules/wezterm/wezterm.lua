@@ -202,7 +202,7 @@ config.enable_kitty_keyboard = true
 -- end)
 
 wezterm.plugin.require("https://gitlab.com/xarvex/presentation.wez").apply_to_config(config, {
-	font_size_multiplier = 1.2,               -- sets for both "presentation" and "presentation_full"
+	font_size_multiplier = 1.0,               -- sets for both "presentation" and "presentation_full"
 	presentation = {
 		keybind = { key = "p", mods = "SHIFT|CMD" } -- setting a keybind
 	},
