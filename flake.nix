@@ -28,10 +28,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    lldb-nix-fix = {
-      url = "github:mstone/nixpkgs?rev=fa70e7499b08524a4a02e7ce9e39847b9d3c95df";
-    };
-
     wezterm = {
       url = "github:wez/wezterm?dir=nix";
     };
@@ -46,7 +42,6 @@
     , home-manager
     , darwin
     , nixvim
-    , lldb-nix-fix
     , nixos-wsl
     , wezterm
     , hyprpanel
@@ -210,7 +205,7 @@
             inherit pkgs nixpkgs;
           }) myPkgs;
           inherit (import ./overlays {
-            inherit system pkgs lib myPkgs lldb-nix-fix hyprpanel;
+            inherit system pkgs lib myPkgs hyprpanel;
           }) overlays;
 
           pkgs = import nixpkgs {
