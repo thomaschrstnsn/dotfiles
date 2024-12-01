@@ -1,26 +1,48 @@
 (defsrc
+	grv 1 2
 	caps
 	a s d f
 	j k l ;
 	)
+
+(deflayer default
+	@grl 1 2
+	@cap
+	@a @s @d @f
+	@j @k @l @;
+	)
+
+(deflayer gaming
+	@grl 1 2
+	@cap
+	a s d f
+	j k l ;)
+
+(deflayer layers
+	_ @lsd @lsg
+	_
+	_ _ _ _
+	_ _ _ _
+	)
+
+(defalias hyper (multi lalt lshift lmeta lctl))
+(defalias cap (tap-hold-press 200 200 esc @hyper))
 
 (defvar
 	tap-time 150
 	hold-time 200
 	)
 
-(deflayer default
-	@cap
-	@a @s @d @f
-	@j @k @l @;
-	)
-
-
-(defalias hyper (multi lalt lshift lmeta lctl))
-(defalias cap (tap-hold-press 200 200 esc @hyper))
-
-;; inspired by: https://github.com/dreamsofcode-io/home-row-mods/blob/main/kanata/linux/kanata.kbd
 (defalias
+	;; layerswitching from https://github.com/jtroo/kanata/blob/main/cfg_samples/simple.kbd
+    ;; tap: backtick (grave), hold: toggle layer-switching layer while held
+	grl (tap-hold 200 200 grv (layer-toggle layers))
+
+	;; layer-switch changes the base layer.
+	lsd (layer-switch default)
+	lsg (layer-switch gaming)
+
+	;; inspired by: https://github.com/dreamsofcode-io/home-row-mods/blob/main/kanata/linux/kanata.kbd
 	a (tap-hold-release $tap-time $hold-time a lctl)
 	s (tap-hold-release $tap-time $hold-time s lalt)
 	d (tap-hold-release $tap-time $hold-time d lmet)
