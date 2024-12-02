@@ -34,9 +34,9 @@
     vim = {
       enable = true;
       ideavim = true;
-      lsp.servers.omnisharp = true;
       lsp.servers.javascript = true;
       lsp.servers.python = true;
+      lsp.servers.roslyn = true;
       codelldb.enable = false;
       # splitNavigator = "smart-splits";
     };

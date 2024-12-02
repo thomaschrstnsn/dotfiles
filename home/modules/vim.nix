@@ -114,6 +114,7 @@ in
       default = false;
       description = "python lsp enabled";
     };
+    lsp.servers.roslyn = mkEnableOption "roslyn ls";
   };
 
   config = mkIf cfg.enable {
@@ -123,7 +124,7 @@ in
       nixpkgs-fmt
       ripgrep
       taplo # toml formatter
-    ];
+    ] ++ (if cfg.lsp.servers.roslyn then [ roslyn-ls ] else [ ]);
 
     home.file = mkIf cfg.ideavim {
       ".ideavimrc".source = ./vim/ideavimrc;
@@ -717,7 +718,10 @@ in
           plugin = (fromGitHub "TaDaa/vimade" "2024-11-12" "57512f7eb4dfa0ef0e2f11a7b47c8c37600943f0");
           config = mkLuaFile ./vim/plugins/vimade.lua;
         }
-      ];
+      ] ++ (if cfg.lsp.servers.roslyn then [{
+        plugin = roslyn-nvim;
+        config = mkLua ''require("roslyn").setup({})'';
+      }] else [ ]);
       extraConfigLua =
         (builtins.readFile ./vim/init.lua) +
         (builtins.readFile ./vim/plugins/persistence.lua);
