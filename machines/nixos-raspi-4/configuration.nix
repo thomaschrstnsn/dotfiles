@@ -6,7 +6,17 @@
     kernelParams = [ "console=ttyS0,115200n8" "console=tty0" ];
   };
 
-  boot.loader.raspberryPi.firmwareConfig = "dtparam=sd_poll_once=on";
+  # deprecated: https://github.com/NixOS/nixpkgs/pull/241534
+  # boot.loader.raspberryPi.firmwareConfig = "dtparam=sd_poll_once=on";
+  # replacement?:  https://github.com/nix-community/raspberry-pi-nix?tab=readme-ov-file#configtxt-generation
+  # hardware.raspberry-pi.config = {
+  #   base-dt-params = {
+  #     sd_poll_once = {
+  #       enable = true;
+  #       value = "on";
+  #     };
+  #   };
+  # };
 
   hardware = {
     enableRedistributableFirmware = true; # Required for the Wireless firmware
