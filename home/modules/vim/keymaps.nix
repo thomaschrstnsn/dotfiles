@@ -28,13 +28,6 @@
     options.desc = "Quit";
   }
 
-  {
-    key = "gd";
-    action = ''<cmd>lua require("definition-or-references").definition_or_references();<cr>'';
-    mode = "n";
-    options.desc = "Go to definition or references";
-  }
-
   # buffers
   {
     key = "<leader>x";
@@ -59,6 +52,18 @@
   { key = "<S-Tab>"; action = "<cmd>bp<CR>"; mode = "n"; }
 
   # lsp
+  {
+    key = "gd";
+    action = ''<cmd>lua require("definition-or-references").definition_or_references();<cr>'';
+    mode = "n";
+    options.desc = "Go to definition or references";
+  }
+  {
+    key = "gi";
+    action = ''<cmd>lua vim.lsp.buf.implementation();<cr>'';
+    mode = "n";
+    options.desc = "Go to implementation";
+  }
   { key = "<leader>la"; action = "<cmd>Lspsaga code_action<cr>"; mode = "n"; options.desc = "Code Actions"; }
   { key = "<leader>a"; action = "<cmd>Lspsaga code_action<cr>"; mode = "n"; options.desc = "Code Actions"; }
   { key = "<leader>ld"; action = "<cmd>Telescope lsp_definitions<cr>"; mode = "n"; options.desc = "Definitions"; }
