@@ -496,7 +496,7 @@ in
         nvim-ufo = {
           enable = true;
           settings = {
-            close_fold_kinds = {
+            close_fold_kinds_for_ft = {
               default = [ "imports" "comment" ];
               json = [ "array" ];
               c = [ "comment" "region" ];
