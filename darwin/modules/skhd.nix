@@ -236,11 +236,12 @@ in
           lctrl - up   : skhd -k "pageup"
           lctrl - down : skhd -k "pagedown"
 
+          f13 : osascript ${scripts}/toggle-mute-mic.applescript
+
           # app shortcuts
           hyper - b : ${(switchToApp false) cfg.browser}
           hyper - t : ${(switchToApp false) cfg.terminal}
           hyper - x : ${(switchToApp false) "Finder"}
-
         ''
           + concatStringsSep "\n" (attrValues (mapAttrs mkShortcut cfg.extraShortcuts))
           + "\n"
