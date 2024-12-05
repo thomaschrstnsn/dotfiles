@@ -63,9 +63,6 @@
       enable = true;
       extraBrews = [
         "docker-compose"
-        "unixodbc"
-        "msodbcsql17"
-        "mssql-tools"
       ];
       extraCasks = [
         "arc"
@@ -75,7 +72,7 @@
         "logseq"
         "todoist"
       ];
-      extraTaps = [ "microsoft/mssql-release" ];
+      extraTaps = [ ];
     };
     jankyborders.enable = true;
     skhd = {
