@@ -596,6 +596,12 @@ in
             settings.dap.adapter.type = "executable";
           })
         ];
+        snacks = {
+          enable = true;
+          settings = {
+            bigfile.enabled = true;
+          };
+        };
         spider = {
           enable = true;
           keymaps.motions = {
