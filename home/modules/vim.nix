@@ -672,7 +672,7 @@ in
       extraPlugins = with pkgs.vimPlugins; [
         (if cfg.auto-dark-mode then
           {
-            plugin = (fromGitHub "f-person/auto-dark-mode.nvim" "2024-07-29" "14cad96b80a07e9e92a0dcbe235092ed14113fb2");
+            plugin = (fromGitHub "f-person/auto-dark-mode.nvim" "2024-nov-19" "4531f8b2b09ed8f0b8875a706419f9cecda1d969");
             config = mkLuaFile ./vim/plugins/auto-dark-mode.lua;
           }
         else
@@ -690,7 +690,7 @@ in
         }
         friendly-snippets
         {
-          plugin = (fromGitHub "chrishrb/gx.nvim" "0.2.0" "a7cb094499907b3561aa6e135240dccbd89ed8a8");
+          plugin = (fromGitHub "chrishrb/gx.nvim" "0.7.0" "4136a82a48e8601fe8f2fde5d2ac2d706ac6d0b6");
           config = mkLua ''require("gx").setup()'';
         }
         kmonad-vim
@@ -699,7 +699,7 @@ in
           config = mkLua ''require("luasnip/loaders/from_vscode").lazy_load()'';
         }
         {
-          plugin = (fromGitHub "klen/nvim-test" "1.3.0" "4e30d0772a43bd67ff299cfe201964c5bd799d73");
+          plugin = (fromGitHub "klen/nvim-test" "1.4.1" "e06f3d029ee161f3ead6193cf27354d1eb8723c3");
           config = mkLuaFile ./vim/plugins/nvim-test.lua;
         }
         {
@@ -711,7 +711,7 @@ in
           config = mkLuaFile ./vim/plugins/markview.lua;
         }
         plenary-nvim
-        (fromGitHub "ibhagwan/smartyank.nvim" "2024mar26" "d9e078fe08d6466e37ea45ac446a9f60e6866789")
+        (fromGitHub "ibhagwan/smartyank.nvim" "2024nov10" "0a4554a4ea4cad73dab0a15e559f2128ca03c7b2")
         {
           plugin = toggleterm-nvim;
           config = mkLuaFile ./vim/plugins/toggleterm.lua;
