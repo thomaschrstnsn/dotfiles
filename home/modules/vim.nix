@@ -322,6 +322,9 @@ in
             dap-ui.enable = true;
             dap-virtual-text.enable = true;
           };
+          adapters = {
+            executables = { lldb = { command = "${pkgs.lldb_19}/bin/lldb-dap"; }; };
+          };
         };
         efmls-configs = {
           enable = true;
@@ -592,7 +595,7 @@ in
               host = "127.0.0.1";
             };
           } else {
-            settings.dap.adapter.command = "lldb";
+            settings.dap.adapter.command = "${pkgs.lldb_19}/bin/lldb-dap";
             settings.dap.adapter.type = "executable";
           })
         ];
