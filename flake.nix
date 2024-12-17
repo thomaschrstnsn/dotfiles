@@ -129,7 +129,11 @@
           specialArgs = inputs;
           modules = [
             { config.tc = config; }
-            { nixpkgs.overlays = overlays; }
+            {
+              nixpkgs.overlays = overlays;
+              nixpkgs.config.allowUnfree = true;
+              nixpkgs.config.permittedInsecurePackages = insecure;
+            }
 
 
             inputs.home-manager.nixosModules.home-manager
