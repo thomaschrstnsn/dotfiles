@@ -50,6 +50,12 @@
     let
       inherit (nixpkgs) lib;
 
+      insecure = [
+        "electron-27.3.11"
+        "dotnet-sdk-6.0.428"
+        "dotnet-sdk-7.0.410"
+      ];
+
       mkDarwinSystem =
         { extraModules ? [ ]
         , system
@@ -66,6 +72,7 @@
             {
               nixpkgs.overlays = overlays;
               nixpkgs.config.allowUnfree = true;
+              nixpkgs.config.permittedInsecurePackages = insecure;
             }
 
             home-manager.darwinModule
@@ -213,9 +220,7 @@
             config.allowUnfree = true;
 
             # https://github.com/NixOS/nixpkgs/issues/341683
-            config.permittedInsecurePackages = [
-              "electron-27.3.11"
-            ];
+            config.permittedInsecurePackages = insecure;
           };
         in
         { inherit pkgs overlays; };

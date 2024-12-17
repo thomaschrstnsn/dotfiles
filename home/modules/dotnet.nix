@@ -5,7 +5,6 @@ let
   cfg = config.tc.dotnet;
 
   lookup = with pkgs; (with dotnetCorePackages; {
-    "6.0" = sdk_6_0;
     "7.0" = sdk_7_0;
     "8.0" = sdk_8_0;
     "9.0" = sdk_9_0;

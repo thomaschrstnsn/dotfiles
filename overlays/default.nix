@@ -6,7 +6,6 @@
     (self: super: {
       inherit myPkgs;
 
-      myNerdfonts = self.nerdfonts.override { fonts = [ "JetBrainsMono" "Meslo" "NerdFontsSymbolsOnly" ]; };
     })
   ];
 }

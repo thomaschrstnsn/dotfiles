@@ -2,8 +2,10 @@
 
 {
   fonts = {
-    # JetBrainsMono Nerd Font
-    # MesloLGS Nerd Font
-    packages = [ pkgs.myNerdfonts ];
+    packages = with pkgs; [
+      nerd-fonts.jetbrains-mono
+      nerd-fonts.meslo-lg
+      nerd-fonts.symbols-only
+    ];
   };
 }

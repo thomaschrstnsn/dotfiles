@@ -21,7 +21,7 @@ in
     # https://nikitabobko.github.io/AeroSpace/guide#a-note-on-displays-have-separate-spaces
     system.defaults.spaces.spans-displays = true;
     # https://nikitabobko.github.io/AeroSpace/guide#a-note-on-mission-control
-    system.defaults.dock.expose-group-by-app = true;
+    system.defaults.dock.expose-group-apps = true;
 
     services.skhd.skhdConfig = toSkhdConfig {
       "hyper - q" = "move-workspace-to-monitor --wrap-around prev";
