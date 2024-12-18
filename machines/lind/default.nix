@@ -10,7 +10,7 @@
     direnv.enable = true;
     dotnet = {
       enable = true;
-      sdks = [ "7.0" "8.0" ];
+      sdks = [ "7.0" "8.0" "9.0"];
     };
     git = {
       enable = true;
