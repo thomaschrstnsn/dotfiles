@@ -322,9 +322,6 @@ in
             dap-ui.enable = true;
             dap-virtual-text.enable = true;
           };
-          adapters = {
-            executables = { lldb = { command = "${pkgs.lldb_19}/bin/lldb-dap"; }; };
-          };
         };
         efmls-configs = {
           enable = true;
@@ -494,7 +491,10 @@ in
           };
         };
         nix.enable = true;
-        notify.enable = true;
+        noice = {
+          enable = true;
+          settings.notify.enabled = false;
+        };
         nvim-autopairs.enable = true;
         nvim-ufo = {
           enable = true;
@@ -603,6 +603,7 @@ in
           enable = true;
           settings = {
             bigfile.enabled = true;
+            notifier.enabled = true;
           };
         };
         spider = {
@@ -704,10 +705,6 @@ in
         {
           plugin = (fromGitHub "klen/nvim-test" "1.4.1" "e06f3d029ee161f3ead6193cf27354d1eb8723c3");
           config = mkLuaFile ./vim/plugins/nvim-test.lua;
-        }
-        {
-          plugin = noice-nvim;
-          config = mkLuaFile ./vim/plugins/noice.lua;
         }
         {
           plugin = markview-nvim;
