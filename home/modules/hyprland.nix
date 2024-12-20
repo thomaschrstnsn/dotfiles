@@ -22,7 +22,7 @@ in
         bibata-cursors
         bemoji # emoji picker
         clipse # clipboard history
-        (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+        nerd-fonts.jetbrains-mono
         font-awesome
         gentle-down
         hyprpanel
