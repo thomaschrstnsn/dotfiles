@@ -91,6 +91,9 @@ in
 
     lutris
     heroic
+
+    gparted
+    ntfs3g
   ];
 
   environment.sessionVariables = {
