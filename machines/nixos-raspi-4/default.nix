@@ -26,6 +26,7 @@ in
       enable = true;
       treesitter.grammarPackageSet = "slim";
       copilot.enable = false;
+      markdown-preview.enable = false;
     };
   };
   system = systems.arm-linux;

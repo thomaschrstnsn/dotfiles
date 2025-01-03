@@ -94,6 +94,7 @@ in
         description = "all or slim (intended for servers)";
       };
     };
+    markdown-preview.enable = mkEnableOption "markdown preview" // { default = true; };
     lsp.servers.omnisharp = mkOption {
       type = types.bool;
       default = false;
@@ -449,7 +450,7 @@ in
             component_separators = { left = ""; right = ""; };
           };
         };
-        markdown-preview.enable = true;
+        markdown-preview.enable = cfg.markdown-preview.enable;
         mini = {
           enable = true;
           modules = {
