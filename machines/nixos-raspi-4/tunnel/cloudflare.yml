@@ -15,7 +15,7 @@ ingress:
     service: http://localhost:8123
 
   - hostname: pihole.chrstnsn.dk
-    service: http://localhost:80
+    service: http://192.168.1.163:1080
 
   - hostname: navidrome.chrstnsn.dk
     service: http://192.168.1.163:4533
