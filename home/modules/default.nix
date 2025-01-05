@@ -24,6 +24,7 @@
     ./waybar.nix
     ./wezterm.nix
     ./wsl.nix
+    ./yazi.nix
     ./zsh.nix
   ];
 }
