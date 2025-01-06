@@ -30,6 +30,7 @@
       includes = [ "personal_config" ];
       addLindHosts = true;
     };
+    python.enable = true;
     rancher.enable = true;
     vim = {
       enable = true;

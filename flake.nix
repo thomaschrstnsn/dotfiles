@@ -35,6 +35,9 @@
     hyprpanel = {
       url = "github:Jas-SinghFSU/HyprPanel";
     };
+
+    nixpkgs-python.url = "github:cachix/nixpkgs-python";
+    pyenv-nix-install.url = "github:sirno/pyenv-nix-install";
   };
 
   outputs =
@@ -45,6 +48,7 @@
     , nixos-wsl
     , wezterm
     , hyprpanel
+    , pyenv-nix-install
     , ...
     }@inputs:
     let
@@ -213,7 +217,7 @@
       pkgsAndOverlaysForSystem = system:
         let
           inherit (import ./pkgs {
-            inherit pkgs nixpkgs;
+            inherit pkgs nixpkgs system inputs;
           }) myPkgs;
           inherit (import ./overlays {
             inherit system pkgs lib myPkgs hyprpanel;

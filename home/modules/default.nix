@@ -1,4 +1,4 @@
-{ pkgs, config, lib, ... }:
+{ pkgs, config, lib, inputs, ... }:
 
 {
   imports = [
@@ -13,6 +13,7 @@
     ./jujutsu.nix
     ./nodejs.nix
     ./nushell.nix
+    ./python.nix
     ./rancher.nix
     ./realise_symlink.nix
     ./sesh.nix
