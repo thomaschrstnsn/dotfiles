@@ -36,7 +36,6 @@
     };
     tmux = {
       enable = true;
-      session-tool = "sesh";
     };
     wezterm = { enable = true; fontsize = 13; };
     zsh = {

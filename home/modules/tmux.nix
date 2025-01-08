@@ -27,11 +27,6 @@ in
       default = "auto";
       description = "override the extrakto_clip_tool";
     };
-    session-tool = mkOption {
-      type = nullOr (enum [ "tmux-sessionizer" "sesh" ]);
-      default = "sesh";
-      description = "session tool inside tmux";
-    };
   };
 
   config = mkIf cfg.enable {
@@ -129,35 +124,25 @@ in
 
         # default-command was set to 'reattach-to-user-namespace -l /bin/sh' for some unknown reason
         set -g default-command ""
-      '' + concatStringsSep "\n"
-        ((if (cfg.session-tool == "tmux-sessionizer") then
-          [
-            ''bind C-o display-popup -E "tms"''
-            ''bind C-j display-popup -E "tms switch"''
-          ]
-        else [ ]) ++
-        (if (cfg.session-tool == "sesh") then [
-          ''
-                              bind-key "C-k" run-shell "sesh connect \"$(
-                                  sesh list | fzf-tmux -p 55%,60% \
-                                    --no-sort --border-label ' sesh ' --prompt '⚡  ' \
-                                      --header '  ^a all ^t tmux ^s src/ ^g configs ^x zoxide ^d tmux kill ^f find' \
-                                    --bind 'tab:down,btab:up' \
-                                    --bind 'ctrl-a:change-prompt(⚡  )+reload(sesh list)' \
-                                    --bind 'ctrl-s:change-prompt(👩‍💻  )+reload(fd -d 1 -t d . ~/src)' \
-                                    --bind 'ctrl-t:change-prompt(🪟  )+reload(sesh list -t)' \
-                                    --bind 'ctrl-g:change-prompt(⚙️  )+reload(sesh list -c)' \
-                                    --bind 'ctrl-x:change-prompt(📁  )+reload(sesh list -z)' \
-                                    --bind 'ctrl-f:change-prompt(🔎  )+reload(fd -H -d 2 -t d -E .Trash . ~)' \
-                                    --bind 'ctrl-d:execute(tmux kill-session -t {})+change-prompt(⚡  )+reload(sesh list)'
-                              )\""
 
-                              bind-key "C-j" display-popup -E -w 40% "sesh connect \"$(
-            	                sesh list -i | gum filter --limit 1 --no-sort --placeholder 'Pick a sesh' --height 50 --prompt='⚡'
-                              )\""
-          ''
-        ] else [ ])
-        );
+        bind-key "C-k" run-shell "sesh connect \"$(
+            sesh list | fzf-tmux -p 55%,60% \
+              --no-sort --border-label ' sesh ' --prompt '⚡  ' \
+                --header '  ^a all ^t tmux ^s src/ ^g configs ^x zoxide ^d tmux kill ^f find' \
+              --bind 'tab:down,btab:up' \
+              --bind 'ctrl-a:change-prompt(⚡  )+reload(sesh list)' \
+              --bind 'ctrl-s:change-prompt(👩‍💻  )+reload(fd -d 1 -t d . ~/src)' \
+              --bind 'ctrl-t:change-prompt(🪟  )+reload(sesh list -t)' \
+              --bind 'ctrl-g:change-prompt(⚙️  )+reload(sesh list -c)' \
+              --bind 'ctrl-x:change-prompt(📁  )+reload(sesh list -z)' \
+              --bind 'ctrl-f:change-prompt(🔎  )+reload(fd -H -d 2 -t d -E .Trash . ~)' \
+              --bind 'ctrl-d:execute(tmux kill-session -t {})+change-prompt(⚡  )+reload(sesh list)'
+        )\""
+
+        bind-key "C-j" display-popup -E -w 40% "sesh connect \"$(
+          sesh list -i | gum filter --limit 1 --no-sort --placeholder 'Pick a sesh' --height 50 --prompt='⚡'
+          )\""
+      '';
       plugins = with pkgs.tmuxPlugins; [
         vim-tmux-navigator
         extrakto # https://github.com/laktak/extrakto
@@ -216,11 +201,6 @@ in
           ))
       ];
     };
-
-    home.packages = with pkgs; builtins.concatLists [
-      (if (cfg.session-tool == "tmux-sessionizer") then [ tmux-sessionizer ] else [ ])
-      (if (cfg.session-tool == "sesh") then [ sesh gum ] else [ ])
-    ];
 
     programs.zsh.initExtraBeforeCompInit = if cfg.disableAutoStarting then "" else ''
       export ZSH_TMUX_AUTOQUIT=false

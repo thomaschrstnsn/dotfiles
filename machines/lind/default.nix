@@ -23,6 +23,12 @@
       userEmail = "tfc@lindcapital.com";
       gpgVia1Password = true;
     };
+    sesh.extraSessionConfig = ''
+      [[session]]
+      name = "lcfs Kubernetes staging/production"
+      path = "/Volumes/Kubernetes"
+      startup_command = "${./sesh/lcfs.sh}"
+    '';
     ssh = {
       enable = true;
       use1PasswordAgent = true;
@@ -31,7 +37,6 @@
       addLindHosts = true;
     };
     python.enable = true;
-    rancher.enable = true;
     vim = {
       enable = true;
       ideavim = true;
@@ -44,7 +49,6 @@
     tmux = {
       enable = true;
       disableAutoStarting = true;
-      session-tool = "sesh";
       theme = "rose-pine";
     };
     wezterm = {
@@ -63,7 +67,6 @@
     homebrew = {
       enable = true;
       extraBrews = [
-        "docker-compose"
       ];
       extraCasks = [
         "arc"
