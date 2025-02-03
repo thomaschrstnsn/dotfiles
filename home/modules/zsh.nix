@@ -87,6 +87,7 @@ in
           format-for-sql = ''awk '{printf "|%s|,\n", $1}' | sed "s/|/'/g"'';
           ndjson-to-jsonarray = "sed '1 s/^/[/ ; 2,$ s/^/,/; $ s/$/]/'";
           agenix = ''nix run github:ryantm/agenix --'';
+          gtime = ''${pkgs.time}/bin/time'';
         }
         cfg.extraAliases
       ];
