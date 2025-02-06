@@ -21,20 +21,13 @@ in
       default = "thomas@chrstnsn.dk";
     };
 
-    differ = mkOption {
-      type = enum [ "standard" "delta" "difftastic" ];
-      default = "delta";
-    };
-
     gpgVia1Password = mkEnableOption "Use 1Password for GPG signing";
   };
 
   config = mkIf cfg.enable {
     home.packages = with pkgs;
-      (if (cfg.differ == "difftastic")
-      then [ difftastic ]
-      else [ ]) ++ [
-        lazyjj
+      [
+        # lazyjj # broken currently on nixpkgs
       ];
 
     programs.jujutsu = {

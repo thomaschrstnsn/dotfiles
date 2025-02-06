@@ -270,12 +270,16 @@ in
         comment = { enable = true; };
         copilot-lua = {
           enable = cfg.copilot.enable;
-          suggestion.enabled = false;
-          panel.enabled = false;
+          settings = {
+            suggestion.enabled = false;
+            panel.enabled = false;
+          };
         };
         copilot-cmp = {
           enable = cfg.copilot.enable;
-          fixPairs = false;
+          settings = {
+            fix_pairs = false;
+          };
         };
         copilot-chat = {
           enable = cfg.copilot.enable;
@@ -316,14 +320,13 @@ in
             };
           };
         };
-        crates-nvim = { enable = true; };
+        crates = { enable = true; };
         dap = {
           enable = true;
-          extensions = {
-            dap-ui.enable = true;
-            dap-virtual-text.enable = true;
-          };
+          extensions = { };
         };
+        dap-ui.enable = true;
+        dap-virtual-text.enable = true;
         efmls-configs = {
           enable = true;
           setup = {
@@ -366,7 +369,10 @@ in
           };
         };
         illuminate = { enable = true; };
-        inc-rename = { enable = true; showMessage = true; };
+        inc-rename = {
+          enable = true;
+          settings = { show_message = true; };
+        };
         indent-blankline = {
           enable = true;
           settings.scope = {
