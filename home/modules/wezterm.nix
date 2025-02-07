@@ -3,9 +3,10 @@ with lib; with builtins;
 
 let
   cfg = config.tc.wezterm;
-  shellIntegrationStr = ''
-    source "${cfg.package}/etc/profile.d/wezterm.sh"
-  '';
+  shellIntegrationStr =
+    if cfg.package != null then ''
+      source "${cfg.package}/etc/profile.d/wezterm.sh"
+    '' else "";
   padding_override.__raw = ''
     config.window_frame = {
     	border_left_width = '0',
@@ -44,7 +45,7 @@ in
       };
       window_padding.override = mkEnableOption "Override padding and frame for window config (applicable for hyprland)";
       package = mkOption {
-        type = types.package;
+        type = nullOr package;
         default = pkgs.wezterm;
         defaultText = literalExpression "pkgs.wezterm";
         description = "The Wezterm package to install.";
@@ -54,7 +55,7 @@ in
     };
 
   config = mkIf cfg.enable {
-    home.packages = [ cfg.package ];
+    home.packages = if cfg.package != null then [ cfg.package ] else [ ];
     home.file = {
       ".config/wezterm/wezterm.lua".text = replaceStrings
         [

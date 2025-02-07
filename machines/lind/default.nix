@@ -54,6 +54,7 @@
     wezterm = {
       enable = true;
       fontsize = 15.2;
+      package = null;
       mux = false;
     };
     zsh = {
@@ -75,6 +76,7 @@
         "jetbrains-toolbox"
         "logseq"
         "todoist"
+        "wezterm"
       ];
       extraTaps = [ ];
     };
