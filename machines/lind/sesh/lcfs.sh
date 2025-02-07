@@ -9,4 +9,4 @@ EOF
 
 mount_lcfs
 
-tmux send-keys "yazi" Enter
+tmux send-keys "y" Enter
