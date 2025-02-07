@@ -28,6 +28,7 @@ in
       bottom
       du-dust
       lazydocker
+      lnav
       fd
       file
       jq
