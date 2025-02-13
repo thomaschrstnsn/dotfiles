@@ -326,7 +326,7 @@ in
             let
               workspaceChars = stringToCharacters ("123456789" + "qwertyuiop" + "zxcvbnm");
               repeatBind = bind: keys: (map (k: (replaceStrings [ "$KEY" ] [ "${k}" ] bind)) keys);
-              appShortcuts = mod: keyToWindow: mapAttrsToList (key: window: "${mod}, ${key}, focuswindow, ${window}") keyToWindow;
+              appShortcuts = mod: keyToWindow: mapAttrsToList (key: window: "${mod}, ${key}, focuswindow, class:${window}") keyToWindow;
             in
             concatLists [
               [
