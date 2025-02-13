@@ -24,7 +24,7 @@
   "theme.bar.buttons.modules.kbLayout.enableBorder": false,
   "theme.bar.buttons.modules.netstat.enableBorder": true,
   "bar.layouts": {
-    "0": {
+    "1": {
       "left": [
         "windowtitle"
       ],
@@ -38,7 +38,7 @@
         "notifications"
       ]
     },
-    "1": {
+    "0": {
       "left": [
         "dashboard",
         "windowtitle"
@@ -81,5 +81,6 @@
   "bar.customModules.netstat.dynamicIcon": false,
   "bar.customModules.netstat.rateUnit": "MiB",
   "bar.customModules.netstat.labelType": "full",
-  "menus.dashboard.controls.enabled": true
+  "menus.dashboard.controls.enabled": true,
+  "theme.osd.monitor": 1
 }
