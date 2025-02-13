@@ -211,7 +211,7 @@ in
 
         settings = {
           env = [
-            "HYPRSHOT_DIR,~/Screenshots"
+            "HYPRSHOT_DIR,/home/thomas/Screenshots" # TODO: fix hardcoding
             "HYPRCURSOR_SIZE,${builtins.toString cursor.size}"
             "XCURSOR_SIZE,${builtins.toString cursor.size}"
           ];
@@ -339,7 +339,6 @@ in
               ]
               # mediakeys
               [
-
                 ", XF86AudioRaiseVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ +10%"
                 ", XF86AudioLowerVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ -10%"
                 ", XF86AudioMute, exec, pactl set-sink-mute @DEFAULT_SINK@ toggle"
