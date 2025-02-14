@@ -243,6 +243,7 @@ in
           windowrulev2 = [
             "float,class:(clipse)" # ensure you have a floating window class set if you want this behavior
             "size 622 652,class:(clipse)" # set the size of the window as necessary
+            "idleinhibit fullscreen, class:.*" # idle inhibit whenever something is fullscreen (possible workaround for regression: https://github.com/hyprwm/Hyprland/issues/9170 )
           ];
 
           # https://wiki.hyprland.org/Configuring/Uncommon-tips--tricks/
