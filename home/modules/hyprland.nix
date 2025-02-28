@@ -223,7 +223,7 @@ in
             "clipse -listen"
             "${pkgs.hyprpanel}/bin/hyprpanel"
             "[workspace name:t silent] wezterm"
-            "[workspace name:b silent] brave"
+            "[workspace name:b silent] zen"
             # "[workspace name:u silent] logseq"
             "[workspace name:p silent] todoist-electron"
             "[workspace name:p silent] 1password"
@@ -360,7 +360,7 @@ in
               ]
               (appShortcuts "$hyper" {
                 t = "org.wezfurlong.wezterm";
-                b = "Brave-browser";
+                b = "zen";
                 u = "Logseq";
                 p = "Todoist";
               })

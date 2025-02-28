@@ -48,7 +48,6 @@ in
   };
   extraPackages = pkgs: with pkgs; [
     _1password-gui
-    brave
     devenv
     logseq
     morgen
@@ -56,6 +55,7 @@ in
     todoist-electron
     qt5.qtwayland
     webcord-vencord
+    myPkgs.zen-browser
   ];
 
   system = system;
