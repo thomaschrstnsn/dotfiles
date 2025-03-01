@@ -23,6 +23,7 @@ in
         bemoji # emoji picker
         clipse # clipboard history
         nerd-fonts.jetbrains-mono
+        noto-fonts
         font-awesome
         gentle-down
         hyprpanel
