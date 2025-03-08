@@ -17,6 +17,10 @@ in
   config = mkIf cfg.enable
     {
       fonts.fontconfig.enable = true;
+
+      # check up on font installation nixos vs home-manager: https://nixos.wiki/wiki/Fonts
+      # fonts.packages = with pkgs; [];
+
       home.packages = with pkgs; [
         myPkgs.appleFonts.sf-pro
         bibata-cursors
