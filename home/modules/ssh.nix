@@ -45,6 +45,9 @@ in
       devUser = "dev";
       lindDevHosts = [
         "lcunixbld01"
+        "stlcubuk8s01"
+        "stlcubuk8s02"
+        "stlcubuk8s03"
       ];
       knownHosts = {
         "rpi4" = {
