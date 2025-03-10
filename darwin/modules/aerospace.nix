@@ -15,6 +15,7 @@ in
   config = mkIf cfg.enable {
     system.defaults.NSGlobalDomain._HIHideMenuBar = true;
 
+    # may be necessary to manually update: brew install --cask nikitabobko/tap/aerospace
     homebrew.taps = [ "nikitabobko/tap" ];
     homebrew.casks = [ "aerospace" ];
 
