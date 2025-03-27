@@ -82,8 +82,6 @@
               nixpkgs.config.permittedInsecurePackages = insecure;
             }
 
-            home-manager.darwinModule
-
             {
               nix = {
 
@@ -108,6 +106,7 @@
               };
             }
 
+            home-manager.darwinModules
             {
               home-manager = {
                 users."${config.user.name}" = home-manager-config;
