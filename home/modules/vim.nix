@@ -709,10 +709,10 @@ in
           plugin = luasnip;
           config = mkLua ''require("luasnip/loaders/from_vscode").lazy_load()'';
         }
-        {
-          plugin = (fromGitHub "klen/nvim-test" "1.4.1" "e06f3d029ee161f3ead6193cf27354d1eb8723c3");
-          config = mkLuaFile ./vim/plugins/nvim-test.lua;
-        }
+        # {
+        #   plugin = (fromGitHub "klen/nvim-test" "1.4.1" "e06f3d029ee161f3ead6193cf27354d1eb8723c3");
+        #   config = mkLuaFile ./vim/plugins/nvim-test.lua;
+        # }
         {
           plugin = markview-nvim;
           config = mkLuaFile ./vim/plugins/markview.lua;
