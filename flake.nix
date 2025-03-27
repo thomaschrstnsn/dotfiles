@@ -58,7 +58,7 @@
       inherit (nixpkgs) lib;
 
       insecure = [
-        "electron-27.3.11"
+        # "electron-27.3.11"
         "dotnet-sdk-6.0.428"
         "dotnet-sdk-7.0.410"
       ];

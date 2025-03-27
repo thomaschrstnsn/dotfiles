@@ -36,7 +36,7 @@ in
     };
     hyprland.enable = true;
     wezterm = {
-      package = inputs.wezterm.packages.${system}.default;
+      # package = inputs.wezterm.packages.${system}.default;
       enable = true;
       fontsize = 11.5;
       window_decorations.resize = false;
@@ -49,7 +49,7 @@ in
   extraPackages = pkgs: with pkgs; [
     _1password-gui
     devenv
-    logseq
+    # logseq
     morgen
     spotify
     todoist-electron

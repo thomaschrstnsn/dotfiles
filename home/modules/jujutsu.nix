@@ -30,18 +30,12 @@ in
         # lazyjj # broken currently on nixpkgs
       ];
 
-    programs.jujutsu = {
+    programs.jujutsu = mkMerge [{
       enable = true;
       settings = {
         user = {
           name = cfg.userName;
           email = cfg.userEmail;
-        };
-        signing = {
-          key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIErz7lXsjPyJcjzRKMWyZodRGzjkbCxWu/Lqk+NpjupZ";
-          backend = "ssh";
-          backends.ssh.program = config.programs.git.extraConfig.gpg.ssh.program;
-          sign-all = (sshConfig.use1PasswordAgent && cfg.gpgVia1Password);
         };
         ui = {
           pager = "delta";
@@ -54,7 +48,16 @@ in
           des = [ "describe" "-m" ];
         };
       };
-    };
+    }
+      (mkIf (sshConfig.use1PasswordAgent && cfg.gpgVia1Password)
+        {
+          settings.signing = {
+            key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIErz7lXsjPyJcjzRKMWyZodRGzjkbCxWu/Lqk+NpjupZ";
+            backend = "ssh";
+            backends.ssh.program = config.programs.git.extraConfig.gpg.ssh.program;
+            behavior = "own";
+          };
+        })];
 
     home.shellAliases = {
       js = "jj st";
