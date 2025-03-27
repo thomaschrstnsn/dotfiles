@@ -15,14 +15,14 @@ in
 
   nix.settings = {
     trusted-users = [
-      "@admin" "${userCfg.name}"
+      "@admin"
+      "${userCfg.name}"
     ];
   };
 
   users.users."${userCfg.name}".home = userCfg.homedir;
 
-  services.nix-daemon.enable = true;
-  nix.configureBuildUsers = true;
+  nix.enable = true;
 
   system.stateVersion = 4;
 }

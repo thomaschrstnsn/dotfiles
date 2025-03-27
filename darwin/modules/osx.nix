@@ -34,7 +34,7 @@
     NSWindowResizeTime = 0.0;
   };
 
-  security.pam.enableSudoTouchIdAuth = true;
+  security.pam.services.sudo_local.touchIdAuth=true;
 
   # https://write.rog.gr/writing/using-touchid-with-tmux/
   environment = {
