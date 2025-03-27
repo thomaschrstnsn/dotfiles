@@ -49,7 +49,7 @@ in
   extraPackages = pkgs: with pkgs; [
     _1password-gui
     devenv
-    logseq
+    # logseq
     morgen
     spotify
     todoist-electron
