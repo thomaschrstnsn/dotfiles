@@ -106,7 +106,7 @@
               };
             }
 
-            home-manager.darwinModules
+            home-manager.darwinModules.home-manager
             {
               home-manager = {
                 users."${config.user.name}" = home-manager-config;
