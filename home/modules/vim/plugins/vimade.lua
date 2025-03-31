@@ -5,7 +5,7 @@ require('vimade').setup {
 		Fade {
 			value = animate.Number {
 				start = 1,
-				to = 0.5
+				to = 0.8
 			}
 		}
 	},
