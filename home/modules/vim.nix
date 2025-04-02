@@ -66,10 +66,15 @@ in
     ideavim = mkEnableOption "ideavimrc";
     codelldb.enable = mkEnableOption "lldb";
     copilot.enable = mkOption { type = bool; default = true; description = "copilot"; };
+    completionPlugin = mkOption {
+      type = enum [ "cmp" "blink" ];
+      default = "blink";
+      description = "completion plugin (cmp or blink)";
+    };
     theme = mkOption {
       type = enum [ "ayu" "everforest" "catppuccin" "rose-pine" "tokyonight" "vscode" ];
       default = "rose-pine";
-      description = "theme for tmux";
+      description = "theme for neovim";
     };
     auto-dark-mode = mkOption {
       type = bool;
@@ -203,8 +208,41 @@ in
       luaLoader.enable = true;
       plugins = {
         barbar = { enable = true; settings.animation = false; };
+        blink-cmp = {
+          enable = cfg.completionPlugin == "blink";
+          settings = {
+            completion = {
+              ghost_text.enabled = true;
+              documentation.auto_show = true;
+            };
+            keymap = {
+              preset = "super-tab";
+            };
+            signature = {
+              enabled = true;
+            };
+            sources = {
+              providers = {
+                copilot = {
+                  async = true;
+                  module = "blink-cmp-copilot";
+                  name = "copilot";
+                  score_offset = 100;
+                };
+              };
+              default = [
+                "lsp"
+                "path"
+                "snippets"
+                "buffer"
+                (mkIf (cfg.copilot.enable) "copilot")
+              ];
+            };
+          };
+        };
+        blink-cmp-copilot.enable = cfg.copilot.enable && cfg.completionPlugin == "blink";
         cmp = {
-          enable = true;
+          enable = cfg.completionPlugin == "cmp";
           settings.mapping = {
             "<C-y>" = "cmp.mapping.confirm({ select = true })";
             "<C-p>" = "cmp.mapping.select_prev_item { behavior == cmp.SelectBehavior.Insert }";
@@ -276,7 +314,7 @@ in
           };
         };
         copilot-cmp = {
-          enable = cfg.copilot.enable;
+          enable = cfg.copilot.enable && cfg.completionPlugin == "cmp";
           settings = {
             fix_pairs = false;
           };
@@ -705,10 +743,10 @@ in
           config = mkLua ''require("gx").setup()'';
         }
         kmonad-vim
-        {
+        (mkIf (cfg.completionPlugin == "cmp") {
           plugin = luasnip;
           config = mkLua ''require("luasnip/loaders/from_vscode").lazy_load()'';
-        }
+        })
         # {
         #   plugin = (fromGitHub "klen/nvim-test" "1.4.1" "e06f3d029ee161f3ead6193cf27354d1eb8723c3");
         #   config = mkLuaFile ./vim/plugins/nvim-test.lua;
