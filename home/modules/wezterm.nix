@@ -51,6 +51,18 @@ in
         description = "The Wezterm package to install.";
       };
       autoDarkMode = mkEnableOption "Use theme that matches appearance (auto light/dark mode)" // { default = pkgs.stdenv.isDarwin; };
+      windowBackgroundOpacity = mkOption {
+        type = types.number;
+        description = "background opacity";
+        default = 1.0;
+        example = 0.7;
+      };
+      textBackgroundOpacity = mkOption {
+        type = types.number;
+        description = "text background opacity";
+        default = 1.0;
+        example = 0.6;
+      };
       mux = mkEnableOption "use wezterm as multiplexer (ala tmux)";
     };
 
@@ -64,6 +76,8 @@ in
           "-- CONFIG_OVERRIDES_HERE"
           ''"AUTO_DARK_MODE"''
           ''"USE_MUX"''
+          ''"WINDOW_BACKGROUND_OPACITY"''
+          ''"TEXT_BACKGROUND_OPACITY"''
         ]
         [
           (toString cfg.fontsize)
@@ -71,6 +85,8 @@ in
           config_overrides
           (if cfg.autoDarkMode then "true" else "false")
           (if cfg.mux then "true" else "false")
+          (toString cfg.windowBackgroundOpacity)
+          (toString cfg.textBackgroundOpacity)
         ]
         (readFile ./wezterm/wezterm.lua);
     };

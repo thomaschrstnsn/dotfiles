@@ -30,14 +30,20 @@
     };
     vim = {
       enable = true;
+      copilot.enable = true;
       ideavim = true;
-      lsp.servers.omnisharp = true;
       codelldb.enable = false;
     };
     tmux = {
       enable = true;
+      theme = "rose-pine";
     };
-    wezterm = { enable = true; fontsize = 13; };
+    wezterm = {
+      enable = true;
+      fontsize = 13;
+      windowBackgroundOpacity = 0.7;
+      textBackgroundOpacity = 0.6;
+    };
     zsh = {
       enable = true;
     };

@@ -165,6 +165,9 @@ else
 	config.color_scheme = dark_theme;
 end
 
+config.window_background_opacity = "WINDOW_BACKGROUND_OPACITY"
+config.text_background_opacity = "TEXT_BACKGROUND_OPACITY"
+
 config.font                  = wezterm.font_with_fallback({
 	"JetBrains Mono",
 	{ family = "Symbols Nerd Font Mono", scale = 0.95 },
