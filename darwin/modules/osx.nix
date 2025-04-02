@@ -34,6 +34,8 @@
     NSWindowResizeTime = 0.0;
   };
 
+  system.defaults.WindowManager.StandardHideDesktopIcons = true;
+
   security.pam.services.sudo_local.touchIdAuth = true;
 
   # https://write.rog.gr/writing/using-touchid-with-tmux/
