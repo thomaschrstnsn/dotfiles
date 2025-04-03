@@ -200,12 +200,14 @@ in
           pattern = "*";
           command = "lua vim.highlight.on_yank{timeout=500}";
         }
-
       ];
 
       colorschemes."${cfg.theme}" = { enable = true; };
       diagnostics.virtual_lines.only_current_line = true;
       luaLoader.enable = true;
+      performance.byteCompileLua = {
+        enable = true;
+      };
       plugins = {
         barbar = { enable = true; settings.animation = false; };
         blink-cmp = {
@@ -452,7 +454,7 @@ in
           enable = true;
         };
         lspkind = {
-          enable = true;
+          enable = cfg.completionPlugin == "cmp";
           cmp.enable = true;
           symbolMap = {
             Class = "ﴯ";
@@ -518,21 +520,6 @@ in
             sessions = { autoread = false; autowrite = false; file = ""; directory.__raw = "vim.fn.stdpath('state')..'/sessions/'"; };
             surround = { };
             trailspace = { };
-          };
-        };
-        neo-tree = {
-          enable = true;
-          closeIfLastWindow = true;
-          autoCleanAfterSessionRestore = true;
-          openFilesInLastWindow = true;
-          filesystem.followCurrentFile.enabled = true;
-          sourceSelector.winbar = true;
-          eventHandlers = {
-            file_opened = ''
-              function(file_path)
-                require("neo-tree").close_all()
-              end
-            '';
           };
         };
         nix.enable = true;
@@ -743,7 +730,7 @@ in
           plugin = (fromGitHub "chrishrb/gx.nvim" "0.7.0" "4136a82a48e8601fe8f2fde5d2ac2d706ac6d0b6");
           config = mkLua ''require("gx").setup()'';
         }
-        kmonad-vim
+        # kmonad-vim
         (mkIf (cfg.completionPlugin == "cmp") {
           plugin = luasnip;
           config = mkLua ''require("luasnip/loaders/from_vscode").lazy_load()'';
