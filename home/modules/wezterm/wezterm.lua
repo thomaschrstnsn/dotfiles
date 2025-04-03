@@ -166,15 +166,15 @@ else
 end
 
 config.window_background_opacity = "WINDOW_BACKGROUND_OPACITY"
-config.text_background_opacity = "TEXT_BACKGROUND_OPACITY"
+config.text_background_opacity   = "TEXT_BACKGROUND_OPACITY"
 
-config.font                  = wezterm.font_with_fallback({
+config.font                      = wezterm.font_with_fallback({
 	"JetBrains Mono",
 	{ family = "Symbols Nerd Font Mono", scale = 0.95 },
 })
-config.font_size             = "FONT_SIZE"
+config.font_size                 = "FONT_SIZE"
 
-config.keys                  = {
+config.keys                      = {
 	{ key = "t", mods = "CMD", action = wezterm.action_callback(themePicker) },
 	{ key = "f", mods = "CMD", action = wezterm.action_callback(toggle_fullscreen) },
 	{ key = "d", mods = "CMD", action = wezterm.action.ShowDebugOverlay },
@@ -191,7 +191,7 @@ config.keys                  = {
 
 -- CONFIG_OVERRIDES_HERE
 
-config.enable_kitty_keyboard = true
+config.enable_kitty_keyboard     = true
 
 -- for debugging key events
 -- config.debug_key_events = true
