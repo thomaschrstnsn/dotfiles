@@ -539,6 +539,7 @@ in
         noice = {
           enable = true;
           settings.notify.enabled = false;
+          settings.lsp.signature.enabled = cfg.completionPlugin == "cmp";
         };
         nvim-autopairs.enable = true;
         nvim-ufo = {
