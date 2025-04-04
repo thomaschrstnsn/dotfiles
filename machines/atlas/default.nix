@@ -41,6 +41,8 @@ in
       fontsize = 11.5;
       window_decorations.resize = false;
       window_padding.override = true;
+      windowBackgroundOpacity = 0.7;
+      textBackgroundOpacity = 0.6;
     };
     vim = {
       enable = true;

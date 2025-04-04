@@ -61,31 +61,35 @@ in
         ff = "merge --ff-only";
       };
 
-      extraConfig = {
-        push.autoSetupRemote = "true"; # since 2.37.0
-        push.default = "current";
-        branch.autosetuprebase = "always";
-        fetch.prune = "true";
-        log.date = "iso";
-        branch.sort = "committerdate";
-        url = builtins.listToAttrs (
-          map
-            (gh: {
-              name = "git@" + gh + ":";
-              value = { insteadOf = "https://" + gh; };
-            }
-            )
-            cfg.githubs
-        );
-        user.signingkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIErz7lXsjPyJcjzRKMWyZodRGzjkbCxWu/Lqk+NpjupZ";
-        gpg.format = "ssh";
-        gpg.ssh.program =
-          if pkgs.stdenv.isDarwin then
-            "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
-          else
-            "${lib.getExe' pkgs._1password-gui "op-ssh-sign"}";
-        commit.gpgsign = (sshConfig.use1PasswordAgent && cfg.gpgVia1Password);
-      };
+      extraConfig = mkMerge [
+        {
+          push.autoSetupRemote = "true"; # since 2.37.0
+          push.default = "current";
+          branch.autosetuprebase = "always";
+          fetch.prune = "true";
+          log.date = "iso";
+          branch.sort = "committerdate";
+          url = builtins.listToAttrs (
+            map
+              (gh: {
+                name = "git@" + gh + ":";
+                value = { insteadOf = "https://" + gh; };
+              }
+              )
+              cfg.githubs
+          );
+        }
+        (mkIf cfg.gpgVia1Password {
+          user.signingkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIErz7lXsjPyJcjzRKMWyZodRGzjkbCxWu/Lqk+NpjupZ";
+          gpg.format = "ssh";
+          gpg.ssh.program =
+            if pkgs.stdenv.isDarwin then
+              "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
+            else
+              "${lib.getExe' pkgs._1password-gui "op-ssh-sign"}";
+          commit.gpgsign = (sshConfig.use1PasswordAgent && cfg.gpgVia1Password);
+        })
+      ];
 
       ignores = [ "*~" "*.swp" ".DS_Store" ".bacon-locations" ];
 
