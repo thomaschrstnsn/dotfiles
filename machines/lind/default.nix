@@ -54,6 +54,8 @@
     wezterm = {
       enable = true;
       fontsize = 15.2;
+      windowBackgroundOpacity = 0.7;
+      textBackgroundOpacity = 0.6;
       package = null;
       mux = false;
     };
