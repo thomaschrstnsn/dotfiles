@@ -36,7 +36,7 @@ in
       enable = true;
       autosuggestion.enable = true;
       syntaxHighlighting.enable = true;
-      initExtra = ''
+      initContent = lib.mkOrder 1000 (''
         export PATH=~/bin:$PATH
 
         source ${pkgs.zsh-forgit}/share/zsh/zsh-forgit/forgit.plugin.zsh
@@ -76,7 +76,7 @@ in
         zstyle :omz:plugins:ssh-agent lazy yes 
         zstyle :omz:plugins:ssh-agent agent-forwarding yes
       ''
-      else "");
+      else ""));
       shellAliases = mkMerge [
         (mkIf true {
           cat = "${pkgs.bat}/bin/bat";

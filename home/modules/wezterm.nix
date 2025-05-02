@@ -90,6 +90,6 @@ in
         ]
         (readFile ./wezterm/wezterm.lua);
     };
-    programs.zsh.initExtra = shellIntegrationStr;
+    programs.zsh.initContent = shellIntegrationStr;
   };
 }

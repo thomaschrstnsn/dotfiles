@@ -14,7 +14,7 @@ in
       wslu
     ];
 
-    programs.zsh.initExtra = ''
+    programs.zsh.initContent = ''
       export PATH=/mnt/c/Windows/System32:/mnt/c/Windows/System32/WindowsPowerShell/v1.0:$PATH
     '';
   };

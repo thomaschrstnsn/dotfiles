@@ -149,7 +149,7 @@ in
       }
       (mkIf cfg.use1PasswordAgent
         {
-          programs.zsh.initExtraBeforeCompInit = ''
+          programs.zsh.initContent = lib.mkOrder 550 ''
             export SSH_AUTH_SOCK="${agentPath (if pkgs.stdenv.isDarwin then "/Users/$USER" else "/home/$USER")}";
           '';
           home.file = {

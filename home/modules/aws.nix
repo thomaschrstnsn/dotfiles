@@ -21,7 +21,7 @@ in
 
     programs.zsh.oh-my-zsh.plugins = [ "terraform" "aws" ];
 
-    programs.zsh.initExtra = ''
+    programs.zsh.initContent = ''
       export PATH=~/bin:$PATH
     '';
   };

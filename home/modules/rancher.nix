@@ -10,7 +10,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    programs.zsh.initExtraBeforeCompInit = ''
+    programs.zsh.initContent = lib.mkOrder 550 ''
       export PATH=$PATH:~/.rd/bin
     '';
   };

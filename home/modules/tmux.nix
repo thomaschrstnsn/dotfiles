@@ -202,7 +202,7 @@ in
       ];
     };
 
-    programs.zsh.initExtraBeforeCompInit = if cfg.disableAutoStarting then "" else ''
+    programs.zsh.initContent = lib.mkOrder 550 (if cfg.disableAutoStarting then "" else ''
       export ZSH_TMUX_AUTOQUIT=false
       export ZSH_TMUX_AUTOSTART=true
       export ZSH_TMUX_UNICODE=true
@@ -218,7 +218,7 @@ in
         fi
         export SSH_AUTH_SOCK=/tmp/ssh-agent-${usercfg.username}-tmux
       fi
-    '';
+    '');
 
     programs.zsh.oh-my-zsh.plugins = [ "tmux" ];
   };

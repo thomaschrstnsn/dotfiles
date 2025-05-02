@@ -42,7 +42,7 @@ in
       r = "rider (fd --type f --glob '*.{sln,??proj} | fzf)";
     };
 
-    programs.zsh.initExtra = ''
+    programs.zsh.initContent = ''
       export PATH=$PATH:~/.dotnet/tools
 
       _fzf_complete_rider() {
