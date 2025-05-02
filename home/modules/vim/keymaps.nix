@@ -106,6 +106,13 @@
   # oil
   { key = "-"; mode = "n"; action = ''<cmd>Oil --float<cr>''; options.desc = "Open parent dir (float)"; }
 
+  # harpoon
+  { mode = "n"; key = "<leader>ja"; action.__raw = "function() require'harpoon':list():add() end"; options.desc = "Harpoon: add"; }
+  { mode = "n"; key = "<M-f>"; action.__raw = "function() require'harpoon':list():select(1) end"; }
+  { mode = "n"; key = "<M-d>"; action.__raw = "function() require'harpoon':list():select(2) end"; }
+  { mode = "n"; key = "<M-s>"; action.__raw = "function() require'harpoon':list():select(3) end"; }
+  { mode = "n"; key = "<M-d>"; action.__raw = "function() require'harpoon':list():select(4) end"; }
+
   # copying current files path
   {
     key = "<leader>yp";

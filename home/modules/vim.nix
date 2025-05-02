@@ -393,21 +393,7 @@ in
               map("n", "[g", gs.prev_hunk, "Prev Hunk")
             end'';
         };
-        harpoon = {
-          enable = true;
-          keymaps = {
-            addFile = "<leader>ja";
-            toggleQuickMenu = "<leader>jj";
-            navFile = {
-              "1" = "<M-f>";
-              "2" = "<M-d>";
-              "3" = "<M-s>";
-              "4" = "<M-a>";
-            };
-            navNext = "<C-]>";
-            navPrev = "<C-[>";
-          };
-        };
+        harpoon = { enable = true; };
         illuminate = { enable = true; };
         inc-rename = {
           enable = true;
