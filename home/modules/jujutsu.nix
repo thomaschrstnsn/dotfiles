@@ -40,13 +40,23 @@ in
         ui = {
           pager = "delta";
           diff.format = "git";
-          default-command = "log";
+          default-command = "log-recent";
           diff-editor = "gitpatch";
         };
         aliases = {
           e = [ "edit" ];
           stash = [ "new" "@-" ];
           des = [ "describe" "-m" ];
+          log-recent = [ "log" "-r" "default() & recent()" ];
+          tug = [ "bookmark" "move" "--from" "closest_bookmark(@-)" "--to" "@-" ];
+        };
+        revset-aliases = {
+          "recent()" = ''committer_date(after:"3 months ago")'';
+          "closest_bookmark(to)" = "heads(::to & bookmarks())";
+          "default()" = "present(@) | ancestors(immutable_heads().., 2) | present(trunk())";
+        };
+        git = {
+          push-new-bookmarks = true;
         };
         # https://zerowidth.com/2025/jj-tips-and-tricks/#hunk-wise-style
         merge-tools.gitpatch = {
