@@ -187,7 +187,7 @@ in
               plugin = rose-pine;
               extraConfig = ''
                 set -g @rose_pine_variant 'main'
-                set -g @rose_pine_date_time 'W%W %Y-%m-%d %H:%M'
+                set -g @rose_pine_date_time 'W%V %Y-%m-%d %H:%M'
                 set -g @rose_pine_date 'on'
                 set -g @rose_pine_directory 'on' # Turn on the current folder component in the status bar
                 set -g @rose_pine_disable_active_window_menu 'on' # Disables the menu that shows the active window on the left
