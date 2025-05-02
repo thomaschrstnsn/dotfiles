@@ -203,7 +203,7 @@ in
       ];
 
       colorschemes."${cfg.theme}" = { enable = true; };
-      diagnostics.virtual_lines.only_current_line = true;
+      diagnostic.settings.virtual_lines.only_current_line = true;
       luaLoader.enable = true;
       performance.byteCompileLua = {
         enable = true;
