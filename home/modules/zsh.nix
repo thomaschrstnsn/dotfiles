@@ -79,7 +79,7 @@ in
       else ""));
       shellAliases = mkMerge [
         (mkIf true {
-          cat = "${pkgs.bat}/bin/bat";
+          cat = "bat";
           man = "batman";
           reload_zshrc = "source ~/.zshrc";
         })
