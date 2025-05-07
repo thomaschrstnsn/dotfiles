@@ -15,8 +15,8 @@ let
     {
       owner = "yazi-rs";
       repo = "plugins";
-      rev = "600614a9dc59a12a63721738498c5541c7923873";
-      sha256 = "sha256-mQkivPt9tOXom78jgvSwveF/8SD8M2XCXxGY8oijl+o";
+      rev = "864a0210d9ba1e8eb925160c2e2a25342031d8d3";
+      sha256 = "sha256-m3709h7/AHJAtoJ3ebDA40c77D+5dCycpecprjVqj/k";
     };
 in
 {
