@@ -99,6 +99,7 @@ in
       jp = "jj git push";
       jf = "jj git fetch";
       je = "jj edit";
+      jla = "jj log -r ::";
       jgc = "jj git clone --colocate";
     };
   };
