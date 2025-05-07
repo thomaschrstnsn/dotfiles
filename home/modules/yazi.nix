@@ -7,8 +7,8 @@ let
   yaziFlavors = pkgs.fetchFromGitHub {
     owner = "yazi-rs";
     repo = "flavors";
-    rev = "fc8eeaab9da882d0e77ecb4e603b67903a94ee6e";
-    sha256 = "sha256-wvxwK4QQ3gUOuIXpZvrzmllJLDNK6zqG5V2JAqTxjiY";
+    rev = "68326b4ca4b5b66da3d4a4cce3050e5e950aade5";
+    sha256 = "sha256-nhIhCMBqr4VSzesplQRF6Ik55b3Ljae0dN+TYbzQb5s";
   };
 
   yaziPlugins = pkgs.fetchFromGitHub
