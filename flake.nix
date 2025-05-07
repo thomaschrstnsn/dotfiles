@@ -36,6 +36,10 @@
       url = "github:Jas-SinghFSU/HyprPanel";
     };
 
+    starship-jj = {
+      url = "gitlab:lanastara_foss/starship-jj";
+    };
+
     nixpkgs-python.url = "github:cachix/nixpkgs-python";
     pyenv-nix-install.url = "github:sirno/pyenv-nix-install";
 
