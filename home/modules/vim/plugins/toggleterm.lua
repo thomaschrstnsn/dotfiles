@@ -17,9 +17,9 @@ function Lazygit_toggle()
 	lazygit:toggle()
 end
 
-local lazyjj = Terminal:new({ cmd = "lazyjj", hidden = true, direction = "float" })
-function Lazyjj_toggle()
-	lazyjj:toggle()
+local jjui = Terminal:new({ cmd = "jjui", hidden = true, direction = "float" })
+function Jjui_toggle()
+	jjui:toggle()
 end
 
 function _G.set_terminal_keymaps()

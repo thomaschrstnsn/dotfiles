@@ -28,6 +28,7 @@ in
     home.packages = with pkgs;
       [
         myPkgs.starship-jj
+        jjui
       ];
 
     programs.jujutsu = mkMerge [{
