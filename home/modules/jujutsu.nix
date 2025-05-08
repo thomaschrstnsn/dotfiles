@@ -27,7 +27,7 @@ in
   config = mkIf cfg.enable {
     home.packages = with pkgs;
       [
-        # lazyjj # broken currently on nixpkgs
+        myPkgs.starship-jj
       ];
 
     programs.jujutsu = mkMerge [{
@@ -91,6 +91,16 @@ in
             behavior = "own";
           };
         })];
+
+    programs.starship.settings.custom.jj = {
+      ## TODO: it seems we need to write the default config for it to work (0.3.2)
+      ## ❯ /nix/store/ikxy2k01l8wnbdssc6l59v5ighzdc161-starship-jj-0.3.2/bin/starship-jj starship config default > "/Users/tfc/Library/Application Support/starship-jj/starship-jj.toml
+      command = ''${pkgs.myPkgs.starship-jj}/bin/starship-jj --ignore-working-copy starship prompt'';
+      format = "[$symbol](blue bold) $output ";
+      symbol = "󱗆 ";
+      when = "jj root --ignore-working-copy";
+    };
+
 
     home.shellAliases = {
       js = "jj st";
