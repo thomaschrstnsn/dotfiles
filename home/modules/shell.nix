@@ -27,6 +27,7 @@ in
     home.packages = with pkgs; [
       bottom
       du-dust
+      dua # disk usage analyzer - `$ dua i`
       lazydocker
       lnav
       fd
