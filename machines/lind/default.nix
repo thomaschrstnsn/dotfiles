@@ -109,6 +109,7 @@
 
   extraPackages = pkgs: with pkgs; [
     devenv
+    lnav
   ];
 
   system = systems.m1-darwin;

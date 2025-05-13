@@ -52,6 +52,7 @@ in
     _1password-gui
     devenv
     # logseq
+    lnav
     morgen
     spotify
     todoist-electron

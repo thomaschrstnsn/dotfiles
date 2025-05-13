@@ -29,7 +29,6 @@ in
       du-dust
       dua # disk usage analyzer - `$ dua i`
       lazydocker
-      lnav
       fd
       file
       jq

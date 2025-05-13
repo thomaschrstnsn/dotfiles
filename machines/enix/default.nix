@@ -26,6 +26,7 @@ in
   };
   extraPackages = pkgs: with pkgs; [
     devenv
+    lnav
   ];
 
   system = systems.x64-linux;
