@@ -28,6 +28,7 @@ in
       copilot.enable = false;
       markdown-preview.enable = false;
     };
+    yazi.enable = false;
   };
   system = systems.arm-linux;
 
