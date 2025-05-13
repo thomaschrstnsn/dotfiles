@@ -104,14 +104,15 @@ in
 
 
     home.shellAliases = {
-      js = "jj st";
-      jd = "jj diff";
       jc = "jj git clone";
-      jp = "jj git push";
-      jf = "jj git fetch";
+      jd = "jj diff";
       je = "jj edit";
-      jla = "jj log -r ::";
+      jf = "jj git fetch";
       jgc = "jj git clone --colocate";
+      jla = "jj log -r ::";
+      jp = "jj git push";
+      js = "jj st";
+      jk = "jjui";
     };
   };
 }
