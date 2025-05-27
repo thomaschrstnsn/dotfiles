@@ -25,6 +25,8 @@ in
     gpgVia1Password = mkEnableOption "Use 1Password for GPG signing";
 
     mergiraf.enable = mkEnableOption "mergiraf support" // { default = true; };
+
+    difftastic.enable = mkEnableOption "Setup difftastic as diff tool (not default tool)" // { default = true; };
   };
 
   config = mkIf cfg.enable {
@@ -32,7 +34,9 @@ in
       [
         myPkgs.starship-jj
         jjui
-      ] ++ mkIfList cfg.mergiraf.enable [ mergiraf ];
+      ]
+      ++ mkIfList cfg.mergiraf.enable [ mergiraf ]
+      ++ mkIfList cfg.difftastic.enable [ difftastic ];
 
     programs.jujutsu = mkMerge [{
       enable = true;
@@ -100,6 +104,16 @@ in
       (mkIf cfg.mergiraf.enable
         {
           settings.aliases.mergiraf = [ "resolve" "--tool" "mergiraf" ];
+        })
+      (mkIf cfg.difftastic.enable
+        {
+          settings = {
+            aliases.dt = [ "diff" "--tool" "difftastic" ];
+            merge-tools.difftastic = {
+              program = "difft";
+              diff-args = [ "--color=always" "$left" "$right" ];
+            };
+          };
         })];
 
     programs.starship.settings.custom.jj = {
