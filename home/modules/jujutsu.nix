@@ -33,55 +33,56 @@ in
 
     programs.jujutsu = mkMerge [{
       enable = true;
-      settings = {
-        user = {
-          name = cfg.userName;
-          email = cfg.userEmail;
+      settings =
+        {
+          user = {
+            name = cfg.userName;
+            email = cfg.userEmail;
+          };
+          ui = {
+            pager = "delta";
+            diff.format = "git";
+            default-command = "log-recent";
+          };
+          aliases = {
+            e = [ "edit" ];
+            stash = [ "new" "@-" ];
+            des = [ "describe" "-m" ];
+            log-recent = [ "log" "-r" "default() & recent()" ];
+            tug = [ "bookmark" "move" "--from" "closest_bookmark(@-)" "--to" "@-" ];
+            nb = [ "bookmark" "create" "-r" "@-" ];
+          };
+          revset-aliases = {
+            "recent()" = ''committer_date(after:"3 months ago")'';
+            "closest_bookmark(to)" = "heads(::to & bookmarks())";
+            "default()" = "present(@) | ancestors(immutable_heads().., 2) | present(trunk())";
+          };
+          git = {
+            push-new-bookmarks = true;
+          };
+          # https://zerowidth.com/2025/jj-tips-and-tricks/#hunk-wise-style
+          merge-tools.gitpatch = {
+            program = "sh";
+            edit-args = [
+              "-c"
+              ''
+                set -eu
+                rm -f "$right/JJ-INSTRUCTIONS"
+                git -C "$left" init -q
+                git -C "$left" add -A
+                git -C "$left" commit -q -m baseline --allow-empty
+                mv "$left/.git" "$right"
+                git -C "$right" add --intent-to-add -A
+                git -C "$right" add -p
+                git -C "$right" diff-index --quiet --cached HEAD && { echo "No changes done, aborting split."; exit 1; }
+                git -C "$right" commit -q -m split
+                git -C "$right" restore . # undo changes in modified files
+                git -C "$right" reset .   # undo --intent-to-add
+                git -C "$right" clean -q -df # remove untracked files
+              ''
+            ];
+          };
         };
-        ui = {
-          pager = "delta";
-          diff.format = "git";
-          default-command = "log-recent";
-          diff-editor = "gitpatch";
-        };
-        aliases = {
-          e = [ "edit" ];
-          stash = [ "new" "@-" ];
-          des = [ "describe" "-m" ];
-          log-recent = [ "log" "-r" "default() & recent()" ];
-          tug = [ "bookmark" "move" "--from" "closest_bookmark(@-)" "--to" "@-" ];
-        };
-        revset-aliases = {
-          "recent()" = ''committer_date(after:"3 months ago")'';
-          "closest_bookmark(to)" = "heads(::to & bookmarks())";
-          "default()" = "present(@) | ancestors(immutable_heads().., 2) | present(trunk())";
-        };
-        git = {
-          push-new-bookmarks = true;
-        };
-        # https://zerowidth.com/2025/jj-tips-and-tricks/#hunk-wise-style
-        merge-tools.gitpatch = {
-          program = "sh";
-          edit-args = [
-            "-c"
-            ''
-              set -eu
-              rm -f "$right/JJ-INSTRUCTIONS"
-              git -C "$left" init -q
-              git -C "$left" add -A
-              git -C "$left" commit -q -m baseline --allow-empty
-              mv "$left/.git" "$right"
-              git -C "$right" add --intent-to-add -A
-              git -C "$right" add -p
-              git -C "$right" diff-index --quiet --cached HEAD && { echo "No changes done, aborting split."; exit 1; }
-              git -C "$right" commit -q -m split
-              git -C "$right" restore . # undo changes in modified files
-              git -C "$right" reset .   # undo --intent-to-add
-              git -C "$right" clean -q -df # remove untracked files
-            ''
-          ];
-        };
-      };
     }
       (mkIf (sshConfig.use1PasswordAgent && cfg.gpgVia1Password)
         {
