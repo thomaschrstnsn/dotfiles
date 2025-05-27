@@ -4,6 +4,7 @@ with lib;
 let
   cfg = config.tc.git;
   sshConfig = config.tc.ssh;
+  mkIfList = cond: xs: if cond then xs else [ ];
 in
 {
   options.tc.git = with types; {
@@ -33,14 +34,15 @@ in
     };
 
     gpgVia1Password = mkEnableOption "Use 1Password for GPG signing";
+
+    mergiraf.enable = mkEnableOption "mergiraf support" // { default = true; };
   };
 
   config = mkIf cfg.enable {
 
     home.packages = with pkgs;
-      if (cfg.differ == "difftastic")
-      then [ difftastic ]
-      else [ ];
+    (mkIfList (cfg.differ == "difftastic") [ difftastic ]) ++
+    (mkIfList cfg.mergiraf.enable [ mergiraf ]);
 
     programs.git = {
       enable = true;
@@ -89,6 +91,16 @@ in
               "${lib.getExe' pkgs._1password-gui "op-ssh-sign"}";
           commit.gpgsign = (sshConfig.use1PasswordAgent && cfg.gpgVia1Password);
         })
+        (mkIf cfg.mergiraf.enable {
+          merge.mergiraf = {
+            name = "mergiraf";
+            driver = "mergiraf merge --git %O %A %B -s %S -x %X -y %Y -p %P -l %L";
+          };
+        })
+      ];
+
+      attributes = mkIfList cfg.mergiraf.enable [
+        "* merge=mergiraf"
       ];
 
       ignores = [ "*~" "*.swp" ".DS_Store" ".bacon-locations" ];
