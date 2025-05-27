@@ -43,6 +43,7 @@ in
             email = cfg.userEmail;
           };
           ui = {
+            diff.tool = "delta";
             pager = "delta";
             diff.format = "git";
             default-command = "log-recent";
