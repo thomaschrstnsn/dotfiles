@@ -41,8 +41,8 @@ in
   config = mkIf cfg.enable {
 
     home.packages = with pkgs;
-    (mkIfList (cfg.differ == "difftastic") [ difftastic ]) ++
-    (mkIfList cfg.mergiraf.enable [ mergiraf ]);
+      (mkIfList (cfg.differ == "difftastic") [ difftastic ]) ++
+      (mkIfList cfg.mergiraf.enable [ mergiraf ]);
 
     programs.git = {
       enable = true;
