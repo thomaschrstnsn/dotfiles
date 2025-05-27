@@ -4,6 +4,7 @@ with lib;
 let
   cfg = config.tc.jj;
   sshConfig = config.tc.ssh;
+  mkIfList = cond: xs: if cond then xs else [ ];
 in
 {
   options.tc.jj = with types; {
@@ -22,6 +23,8 @@ in
     };
 
     gpgVia1Password = mkEnableOption "Use 1Password for GPG signing";
+
+    mergiraf.enable = mkEnableOption "mergiraf support" // { default = true; };
   };
 
   config = mkIf cfg.enable {
@@ -29,7 +32,7 @@ in
       [
         myPkgs.starship-jj
         jjui
-      ];
+      ] ++ mkIfList cfg.mergiraf.enable [ mergiraf ];
 
     programs.jujutsu = mkMerge [{
       enable = true;
@@ -92,6 +95,10 @@ in
             backends.ssh.program = config.programs.git.extraConfig.gpg.ssh.program;
             behavior = "own";
           };
+        })
+      (mkIf cfg.mergiraf.enable
+        {
+          settings.aliases.mergiraf = [ "resolve" "--tool" "mergiraf" ];
         })];
 
     programs.starship.settings.custom.jj = {
