@@ -27,6 +27,8 @@ in
     mergiraf.enable = mkEnableOption "mergiraf support" // { default = true; };
 
     difftastic.enable = mkEnableOption "Setup difftastic as diff tool (not default tool)" // { default = true; };
+
+    meld.enable = mkEnableOption "Use meld as merge tool";
   };
 
   config = mkIf cfg.enable {
@@ -36,7 +38,8 @@ in
         jjui
       ]
       ++ mkIfList cfg.mergiraf.enable [ mergiraf ]
-      ++ mkIfList cfg.difftastic.enable [ difftastic ];
+      ++ mkIfList cfg.difftastic.enable [ difftastic ]
+      ++ mkIfList cfg.meld.enable [ meld ];
 
     programs.jujutsu = mkMerge [{
       enable = true;
@@ -113,6 +116,12 @@ in
               program = "difft";
               diff-args = [ "--color=always" "$left" "$right" ];
             };
+          };
+        })
+      (mkIf cfg.meld.enable
+        {
+          settings = {
+            aliases.meld = [ "resolve" "--tool" "meld" ];
           };
         })];
 

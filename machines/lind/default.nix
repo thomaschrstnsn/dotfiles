@@ -22,6 +22,7 @@
       enable = true;
       userEmail = "tfc@lindcapital.com";
       gpgVia1Password = true;
+      meld.enable = true;
     };
     sesh.extraSessionConfig = ''
       [[session]]
