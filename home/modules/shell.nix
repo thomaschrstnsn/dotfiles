@@ -7,9 +7,16 @@ in
 {
   options.tc.shell = with types; {
     enable = (mkEnableOption "default shell env") // { default = true; };
+
+    editor = mkOption {
+      description = "Set $EDITOR (for cmdline git etc)";
+      type = str;
+      default = "nvim";
+    };
   };
 
   config = mkIf cfg.enable {
+
 
     programs.starship = mkMerge [{
       enable = true;
@@ -38,7 +45,6 @@ in
 
     programs.eza = {
       enable = true;
-      enableZshIntegration = true;
     };
 
     programs.bat = {
@@ -76,6 +82,7 @@ in
     xdg.enable = true;
 
     home.sessionVariables = {
+      EDITOR = cfg.editor;
       # XDG_CONFIG_HOME = "${config.home}/.config";
     };
 

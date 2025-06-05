@@ -11,6 +11,7 @@
       enable = true;
       sdks = [ "7.0" "8.0" ];
     };
+    fish.enable = true;
     git = {
       enable = true;
       githubs = [ ];
@@ -44,9 +45,7 @@
       windowBackgroundOpacity = 0.7;
       textBackgroundOpacity = 0.6;
     };
-    zsh = {
-      enable = true;
-    };
+    zsh.enable = true;
   };
 
   darwin = {

@@ -7,6 +7,7 @@
     ./check-terminal-color-and-fonts.nix
     ./direnv.nix
     ./dotnet.nix
+    ./fish.nix
     ./git.nix
     ./home.nix
     ./hyprland.nix

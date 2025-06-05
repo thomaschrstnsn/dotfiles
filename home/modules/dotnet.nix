@@ -37,10 +37,19 @@ in
       rider = ''open -na "Rider.app" --args "$@"''; # https://www.jetbrains.com/help/rider/Working_with_the_IDE_Features_from_Command_Line.html#10c968a9
       r = "rider $(fd --type f --glob '*.{sln,??proj}' | fzf)";
     };
-    programs.nushell.shellAliases = {
-      rider = ''open -na "Rider.app" --args'';
-      r = "rider (fd --type f --glob '*.{sln,??proj} | fzf)";
+
+    programs.fish.shellAliases = {
+      rider = ''open -na "Rider.app" --args $args''; # https://www.jetbrains.com/help/rider/Working_with_the_IDE_Features_from_Command_Line.html#10c968a9
+      r = "rider $(fd --type f --glob '*.{sln,??proj}' | fzf)";
     };
+
+    programs.fish.interactiveShellInit = ''
+      set PATH $PATH ~/.dotnet/tools
+
+      set ASPNETCORE_ENVIRONMENT Development
+      set DOTNET_ROOT "${combinedDotnet}"
+      set DOTNET_HOST_PATH "${combinedDotnet}/dotnet"
+      '';
 
     programs.zsh.initContent = ''
       export PATH=$PATH:~/.dotnet/tools

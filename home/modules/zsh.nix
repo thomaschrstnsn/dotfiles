@@ -9,11 +9,6 @@ in
   options.tc.zsh = with types; {
     enable = mkEnableOption "zsh with settings";
 
-    editor = mkOption {
-      description = "Set $EDITOR (for cmdline git etc)";
-      type = str;
-      default = "nvim";
-    };
     extraAliases = mkOption {
       description = "Extra aliases for zsh";
       type = attrs;
@@ -28,6 +23,8 @@ in
 
   config = mkIf cfg.enable {
 
+    home.shell.enableZshIntegration = true;
+
     home.packages = with pkgs; [
       zsh-fzf-tab
     ];
@@ -40,8 +37,6 @@ in
         export PATH=~/bin:$PATH
 
         source ${pkgs.zsh-forgit}/share/zsh/zsh-forgit/forgit.plugin.zsh
-
-        export EDITOR="${cfg.editor}"
 
         # term title
         export ZSH_THEME_TERM_TITLE_IDLE="%~"
