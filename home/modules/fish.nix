@@ -4,7 +4,6 @@ with lib;
 let
   cfg = config.tc.fish;
   ssh-cfg = config.tc.ssh;
-  shell = config.tc.shell;
 in
 {
   options.tc.fish = with types; {
@@ -27,6 +26,8 @@ in
         ''
           set PATH $PATH ~/bin
 
+          fish_config theme choose "ayu Mirage"
+
           # function killport() { lsof -i TCP:$1 | grep LISTEN | awk '{print $2}' | xargs kill -9 }
         ''
       );
@@ -35,7 +36,7 @@ in
         {
           cat = "bat";
           man = "batman";
-          # reload_fishrc = "source ~/.fishrc";
+          reload_fish = "exec fish";
           gtime = ''${pkgs.time}/bin/time'';
         }
         cfg.extraAliases
