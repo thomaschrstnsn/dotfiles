@@ -152,6 +152,9 @@ in
           programs.zsh.initContent = lib.mkOrder 550 ''
             export SSH_AUTH_SOCK="${agentPath (if pkgs.stdenv.isDarwin then "/Users/$USER" else "/home/$USER")}";
           '';
+          programs.fish.interactiveShellInit = lib.mkOrder 550 ''
+            set SSH_AUTH_SOCK "${agentPath (if pkgs.stdenv.isDarwin then "/Users/$USER" else "/home/$USER")}";
+          '';
           home.file = {
             ".config/1Password/ssh/agent.toml".text = ''
               [[ssh-keys]]
