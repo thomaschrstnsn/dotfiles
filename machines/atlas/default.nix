@@ -51,7 +51,7 @@ in
   extraPackages = pkgs: with pkgs; [
     _1password-gui
     devenv
-    # logseq
+    logseq
     lnav
     morgen
     spotify
