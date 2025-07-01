@@ -365,10 +365,12 @@ in
               ]
               (appShortcuts "$hyper" {
                 t = "org.wezfurlong.wezterm";
-                b = "zen";
                 u = "Logseq";
                 p = "Todoist";
               })
+              [
+                "$hyper, b, focuswindow, initialtitle:Zen Browser"
+              ]
               [
                 # copy/paste using super
                 "SUPER, C, exec, ${./hypr/copy_unless_wezterm.sh}"
