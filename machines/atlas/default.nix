@@ -59,6 +59,7 @@ in
     qt5.qtwayland
     webcord-vencord
     myPkgs.zen-browser
+    wine64
   ];
 
   system = system;
