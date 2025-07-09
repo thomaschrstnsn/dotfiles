@@ -31,7 +31,7 @@
     };
     vim = {
       enable = true;
-      copilot.enable = true;
+      copilot.enable = false;
       ideavim = true;
       codelldb.enable = false;
     };
@@ -84,7 +84,6 @@
   extraPackages = pkgs: with pkgs; [
     devenv
     lnav
-
   ];
 
   system = systems.m1-darwin;

@@ -65,7 +65,7 @@ in
     enable = mkEnableOption "vim";
     ideavim = mkEnableOption "ideavimrc";
     codelldb.enable = mkEnableOption "lldb";
-    copilot.enable = mkOption { type = bool; default = true; description = "copilot"; };
+    copilot.enable = mkOption { type = bool; default = false; description = "copilot"; };
     completionPlugin = mkOption {
       type = enum [ "cmp" "blink" ];
       default = "blink";
