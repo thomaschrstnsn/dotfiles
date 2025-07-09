@@ -202,7 +202,10 @@ in
         }
       ];
 
-      colorschemes."${cfg.theme}" = { enable = true; };
+      colorschemes."${cfg.theme}" = {
+        enable = true;
+        settings.styles.transparency = true;
+      };
       diagnostic.settings.virtual_lines.only_current_line = true;
       luaLoader.enable = true;
       performance.byteCompileLua = {
