@@ -34,6 +34,7 @@ in
         font-size = cfg.fontsize;
         initial-window = true;
         macos-window-shadow = false;
+        mouse-hide-while-typing = true;
         minimum-contrast = 1.1;
         theme = "light:rose-pine-dawn,dark:rose-pine";
         window-decoration = "none";
