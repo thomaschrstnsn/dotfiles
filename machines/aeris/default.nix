@@ -56,7 +56,7 @@
     aerospace.enable = true;
     homebrew = {
       enable = true;
-      extraBrews = [ "exiv2" ];
+      extraBrews = [ "sst/tap/opencode" "exiv2" ];
       extraCasks = [
         "arc"
         # "ghostty" # cask is broken currently, installed from official diskimage
@@ -64,6 +64,7 @@
         "istat-menus@6"
         "logseq"
       ];
+      extraTaps = [ "sst/tap" ];
     };
     jankyborders.enable = true;
     skhd = {
