@@ -20,6 +20,8 @@ in
       default = 1.0;
       example = 0.7;
     };
+
+    shaders = mkEnableOption "custom sharders" // { default = true; };
   };
 
   config = mkIf cfg.enable {
@@ -27,8 +29,7 @@ in
       enable = true;
       package = null; # on macOS we get it from homebrew
       # installBatSyntax = true; # only when package is not null
-      # todo: cursor trail/smears https://www.youtube.com/watch?v=enwDjM7pNNE
-      settings = {
+      settings = mkMerge [{
         background-blur = true;
         background-opacity = cfg.windowBackgroundOpacity;
         cursor-style-blink = true;
@@ -39,7 +40,10 @@ in
         minimum-contrast = 1.1;
         theme = "light:rose-pine-dawn,dark:rose-pine";
         window-decoration = "none";
-      };
+      }
+        (mkIf cfg.shaders {
+          custom-shader = "${./ghostty/shaders/cursor_blaze.glsl}";
+        })];
     };
   };
 }
