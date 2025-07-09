@@ -5,7 +5,6 @@
       username = "tfc";
       homedir = "/Users/${username}";
     };
-    aerospace.enable = true;
     aws.enable = true;
     direnv.enable = true;
     dotnet = {

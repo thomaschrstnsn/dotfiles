@@ -5,7 +5,6 @@
       username = "thomas";
       homedir = "/Users/${username}";
     };
-    aerospace.enable = true;
     direnv.enable = true;
     dotnet = {
       enable = true;
