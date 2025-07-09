@@ -27,10 +27,11 @@ in
       enable = true;
       package = null; # on macOS we get it from homebrew
       # installBatSyntax = true; # only when package is not null
-      # todo: cursor trail/smears https://github.com/BryceBeagle/nixos-config/issues/176
+      # todo: cursor trail/smears https://www.youtube.com/watch?v=enwDjM7pNNE
       settings = {
         background-blur = true;
         background-opacity = cfg.windowBackgroundOpacity;
+        cursor-style-blink = true;
         font-size = cfg.fontsize;
         initial-window = true;
         macos-window-shadow = false;
