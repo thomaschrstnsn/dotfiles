@@ -18,7 +18,7 @@
     };
     ghostty = {
       enable = true;
-      fontsize = 13;
+      fontsize = 15;
       windowBackgroundOpacity = 0.7;
     };
     jj = {
