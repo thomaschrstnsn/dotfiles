@@ -16,6 +16,11 @@
       githubs = [ ];
       gpgVia1Password = true;
     };
+    ghostty = {
+      enable = true;
+      fontsize = 13;
+      windowBackgroundOpacity = 0.7;
+    };
     jj = {
       enable = true;
       gpgVia1Password = true;
@@ -54,6 +59,7 @@
       extraBrews = [ "exiv2" ];
       extraCasks = [
         "arc"
+        # "ghostty" # cask is broken currently, installed from official diskimage
         "google-drive"
         "istat-menus@6"
         "logseq"
@@ -63,7 +69,7 @@
     skhd = {
       enable = true;
       browser = "Arc";
-      terminal = "WezTerm";
+      terminal = "ghostty"; # "WezTerm"
       extraAppShortcuts = {
         "hyper - r" = "Rider";
         "hyper - u" = "Logseq";

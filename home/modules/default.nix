@@ -8,6 +8,7 @@
     ./dotnet.nix
     ./fish.nix
     ./git.nix
+    ./ghostty.nix
     ./home.nix
     ./hyprland.nix
     ./jujutsu.nix
