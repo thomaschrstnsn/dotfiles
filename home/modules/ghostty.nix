@@ -36,10 +36,10 @@ in
         font-size = cfg.fontsize;
         initial-window = true;
         macos-window-shadow = false;
-        mouse-hide-while-typing = true;
+        macos-titlebar-style = "hidden";
+        # window-decoration = "none"; # needs to be auto on macos for rounded corners
         minimum-contrast = 1.1;
         theme = "light:rose-pine-dawn,dark:rose-pine";
-        window-decoration = "none";
       }
         (mkIf cfg.shaders {
           custom-shader = "${./ghostty/shaders/cursor_blaze.glsl}";
