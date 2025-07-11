@@ -28,9 +28,17 @@ in
 
           fish_config theme choose "ayu Mirage"
 
+          if test -f ~/.env
+            fenv source ~/.env
+          end
+
           # function killport() { lsof -i TCP:$1 | grep LISTEN | awk '{print $2}' | xargs kill -9 }
         ''
       );
+
+      plugins = with pkgs.fishPlugins; [
+        { name = "foreign-env"; src = foreign-env.src; }
+      ];
 
       shellAliases = mkMerge [
         {
