@@ -39,6 +39,7 @@ in
         macos-titlebar-style = "hidden";
         # window-decoration = "none"; # needs to be auto on macos for rounded corners
         minimum-contrast = 1.1;
+        mouse-hide-while-typing = true;
         theme = "light:rose-pine-dawn,dark:rose-pine";
       }
         (mkIf cfg.shaders {
