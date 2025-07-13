@@ -35,12 +35,13 @@ in
         cursor-style-blink = true;
         font-size = cfg.fontsize;
         initial-window = true;
-        macos-window-shadow = false;
+        macos-icon = "retro";
         macos-titlebar-style = "hidden";
-        # window-decoration = "none"; # needs to be auto on macos for rounded corners
+        macos-window-shadow = false;
         minimum-contrast = 1.1;
         mouse-hide-while-typing = true;
         theme = "light:rose-pine-dawn,dark:rose-pine";
+        # window-decoration = "none"; # needs to be auto on macos for rounded corners
       }
         (mkIf cfg.shaders {
           custom-shader = "${./ghostty/shaders/cursor_blaze.glsl}";
