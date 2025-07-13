@@ -220,6 +220,36 @@ in
       fi
     '');
 
+    programs.fish = {
+      interactiveShellInit = lib.mkOrder 5000 (if cfg.disableAutoStarting then "" else ''
+        set -gx fish_tmux_autostart true
+        set -gx fish_tmux_autoquit false
+        if test -n $SSH_CONNECTION; and test -z $TMUX;
+          echo "fish: autostarting tmux"
+          set -gx fish_tmux_autoquit true
+          set fish_tmux_ssh_auth_sock /tmp/ssh-agent-${usercfg.username}-tmux
+          if not test -S ~/.ssh/ssh_auth_sock; and not test -S $SSH_AUTH_SOCK;
+            echo "fish: forwarding ssh agent"
+            ln -sf $SSH_AUTH_SOCK $fish_tmux_ssh_auth_sock
+          end
+          set -gx SSH_AUTH_SOCK $fish_tmux_ssh_auth_sock
+        end
+      '');
+      plugins = [
+        {
+          name = "tmux";
+          src = pkgs.fetchFromGitHub {
+            owner = "budimanjojo";
+            repo = "tmux.fish";
+            rev = "db0030b7f4f78af4053dc5c032c7512406961ea5";
+            sha256 = "sha256-rRibn+FN8VNTSC1HmV05DXEa6+3uOHNx03tprkcjjs8";
+          };
+        }
+      ];
+
+
+    };
+
     programs.zsh.oh-my-zsh.plugins = [ "tmux" ];
   };
 }
