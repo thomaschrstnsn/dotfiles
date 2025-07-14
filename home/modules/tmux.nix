@@ -222,11 +222,15 @@ in
 
     programs.fish = {
       interactiveShellInit = lib.mkOrder 5000 (if cfg.disableAutoStarting then "" else ''
-        set -gx fish_tmux_autostart true
-        set -gx fish_tmux_autoquit false
-        if test -n $SSH_CONNECTION; and test -z $TMUX;
+        set fish_tmux_autoquit false
+        set fish_tmux_autostart_once true
+        set fish_tmux_autoconnect false
+
+        if test -n "$SSH_CONNECTION"; and test -z "$TMUX";
           echo "fish: autostarting tmux"
-          set -gx fish_tmux_autoquit true
+          set fish_tmux_autoquit true
+
+          # ssh agent forwarding
           set fish_tmux_ssh_auth_sock /tmp/ssh-agent-${usercfg.username}-tmux
           if not test -S ~/.ssh/ssh_auth_sock; and not test -S $SSH_AUTH_SOCK;
             echo "fish: forwarding ssh agent"
@@ -234,6 +238,7 @@ in
           end
           set -gx SSH_AUTH_SOCK $fish_tmux_ssh_auth_sock
         end
+        set fish_tmux_autostart true
       '');
       plugins = [
         {
