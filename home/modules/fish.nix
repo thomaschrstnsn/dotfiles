@@ -27,6 +27,7 @@ in
           set PATH $PATH ~/bin
 
           fish_config theme choose "ayu Mirage"
+          set fish_greeting ""
 
           if test -f ~/.env
             fenv source ~/.env
