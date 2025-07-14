@@ -41,6 +41,10 @@ in
       ++ mkIfList cfg.difftastic.enable [ difftastic ]
       ++ mkIfList cfg.meld.enable [ meld ];
 
+    programs.tmux.extraConfig = ''
+      bind-key "C-g" display-popup -E -w 90% -h 90% "jjui"
+    '';
+
     programs.jujutsu = mkMerge [{
       enable = true;
       settings =
