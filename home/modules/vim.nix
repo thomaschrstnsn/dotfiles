@@ -121,6 +121,11 @@ in
       description = "python lsp enabled";
     };
     lsp.servers.roslyn = mkEnableOption "roslyn ls";
+    scrolloff = mkOption {
+      type = types.int;
+      default = 49;
+      description = "Number of lines to keep above and below cursor";
+    };
   };
 
   config = mkIf cfg.enable {
@@ -158,7 +163,7 @@ in
         inccommand = "split";
         number = true;
         relativenumber = true;
-        scrolloff = 49;
+        scrolloff = cfg.scrolloff;
         sessionoptions = "buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions";
         shiftwidth = 4;
         signcolumn = "yes";

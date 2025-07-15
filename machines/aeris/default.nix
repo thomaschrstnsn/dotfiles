@@ -38,6 +38,7 @@
       copilot.enable = false;
       ideavim = true;
       codelldb.enable = false;
+      scrolloff = 5;
     };
     tmux = {
       enable = true;
