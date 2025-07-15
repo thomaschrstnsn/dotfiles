@@ -125,21 +125,7 @@ in
         # default-command was set to 'reattach-to-user-namespace -l /bin/sh' for some unknown reason
         set -g default-command ""
 
-        bind-key "C-k" run-shell "sesh connect \"$(
-            sesh list | fzf-tmux -p 55%,60% \
-              --no-sort --border-label ' sesh ' --prompt '⚡  ' \
-                --header '  ^a all ^t tmux ^s src/ ^g configs ^x zoxide ^d tmux kill ^f find' \
-              --bind 'tab:down,btab:up' \
-              --bind 'ctrl-a:change-prompt(⚡  )+reload(sesh list)' \
-              --bind 'ctrl-s:change-prompt(👩‍💻  )+reload(fd -d 1 -t d . ~/src)' \
-              --bind 'ctrl-t:change-prompt(🪟  )+reload(sesh list -t)' \
-              --bind 'ctrl-g:change-prompt(⚙️  )+reload(sesh list -c)' \
-              --bind 'ctrl-x:change-prompt(📁  )+reload(sesh list -z)' \
-              --bind 'ctrl-f:change-prompt(🔎  )+reload(fd -H -d 2 -t d -E .Trash . ~)' \
-              --bind 'ctrl-d:execute(tmux kill-session -t {})+change-prompt(⚡  )+reload(sesh list)'
-        )\""
-
-        bind-key "C-j" display-popup -E -w 40% "sesh connect \"$(
+        bind-key "C-k" display-popup -E -w 40% "sesh connect \"$(
           sesh list -i | gum filter --limit 1 --no-sort --placeholder 'Pick a sesh' --height 50 --prompt='⚡'
           )\""
       '';
