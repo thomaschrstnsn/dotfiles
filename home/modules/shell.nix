@@ -13,10 +13,15 @@ in
       type = str;
       default = "nvim";
     };
+
+    bat.theme = mkOption {
+      description = "Theme for sharkdp/bat";
+      type = enum [ "tokyo-night" "rose-pine" "rose-pine-dawn" "rose-pine-moon" ];
+      default = "rose-pine";
+    };
   };
 
   config = mkIf cfg.enable {
-
 
     programs.starship = mkMerge [{
       enable = true;
@@ -50,19 +55,43 @@ in
     programs.bat = {
       enable = true;
       extraPackages = with pkgs.bat-extras; [ batman ];
-      config.theme = "enki-tokyo-night";
-      themes = {
-        # enki: https://github.com/enkia/enki-theme
-        enki-tokyo-night = {
-          src = pkgs.fetchFromGitHub {
-            owner = "enkia";
-            repo = "enki-theme"; # Bat uses sublime syntax for its themes
-            rev = "0b629142733a27ba3a6a7d4eac04f81744bc714f";
-            sha256 = "sha256-Q+sac7xBdLhjfCjmlvfQwGS6KUzt+2fu+crG4NdNr4w=";
+      config.theme = {
+        "tokyo-night" = "enki-tokyo-night";
+      }.${cfg.bat.theme} or cfg.bat.theme;
+
+      themes =
+        let
+          rose-pine-src = pkgs.fetchFromGitHub {
+            owner = "rose-pine";
+            repo = "tm-theme";
+            rev = "c4cab0c431f55a3c4f9897407b7bdad363bbb862";
+            sha256 = "sha256-maQp4QTJOlK24eid7mUsoS7kc8P0gerKcbvNaxO8Mic";
           };
-          file = "scheme/Enki-Tokyo-Night.tmTheme";
+        in
+        {
+          # enki: https://github.com/enkia/enki-theme
+          enki-tokyo-night = {
+            src = pkgs.fetchFromGitHub {
+              owner = "enkia";
+              repo = "enki-theme"; # Bat uses sublime syntax for its themes
+              rev = "0b629142733a27ba3a6a7d4eac04f81744bc714f";
+              sha256 = "sha256-Q+sac7xBdLhjfCjmlvfQwGS6KUzt+2fu+crG4NdNr4w=";
+            };
+            file = "scheme/Enki-Tokyo-Night.tmTheme";
+          };
+          rose-pine-moon = {
+            src = rose-pine-src;
+            file = "dist/themes/rose-pine-moon.tmTheme";
+          };
+          rose-pine-dawn = {
+            src = rose-pine-src;
+            file = "dist/themes/rose-pine-dawn.tmTheme";
+          };
+          rose-pine = {
+            src = rose-pine-src;
+            file = "dist/themes/rose-pine.tmTheme";
+          };
         };
-      };
     };
 
     programs.fzf = {
