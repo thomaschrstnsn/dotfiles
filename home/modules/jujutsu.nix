@@ -48,6 +48,15 @@ in
       bind-key "l" display-popup -E -x R -h 99% "jj log --color=always -r :: | less -R"
     '';
 
+    # jjui configuration
+    xdg.configFile."jjui/config.toml" = {
+      source = (pkgs.formats.toml { }).generate "jjui-config.toml" {
+        preview = {
+          extra_args = [ "--tool" "delta" ];
+        };
+      };
+    };
+
     programs.jujutsu = mkMerge [{
       enable = true;
       settings =
