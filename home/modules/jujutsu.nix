@@ -54,6 +54,29 @@ in
         preview = {
           extra_args = [ "--tool" "delta" ];
         };
+        custom_commands = {
+          "show diff" = {
+            key = [ "U" ];
+            args = [ "diff" "--tool" "delta" "-r" "$change_id" "--color" "always" ];
+            show = "diff";
+          };
+          "resolve vscode" = {
+            key = [ "R" ];
+            args = [ "resolve" "--tool" "vscode" ];
+            show = "interactive";
+          };
+          tug = {
+            key = [ "ctrl+t" ];
+            args = [
+              "bookmark"
+              "move"
+              "--from"
+              "closest_bookmark($change_id)"
+              "--to"
+              "closest_pushable($change_id)"
+            ];
+          };
+        };
       };
     };
 
@@ -75,13 +98,15 @@ in
             stash = [ "new" "@-" ];
             des = [ "describe" "-m" ];
             log-recent = [ "log" "-r" "default() & recent()" ];
-            tug = [ "bookmark" "move" "--from" "closest_bookmark(@-)" "--to" "@-" ];
+            tug = [ "bookmark" "move" "--from" "closest_bookmark(@-)" "--to" "closest_pushable(@-)" ];
             nb = [ "bookmark" "create" "-r" "@-" ];
           };
           revset-aliases = {
             "recent()" = ''committer_date(after:"3 months ago")'';
-            "closest_bookmark(to)" = "heads(::to & bookmarks())";
             "default()" = "present(@) | ancestors(immutable_heads().., 2) | present(trunk())";
+            # for tug: https://github.com/jj-vcs/jj/discussions/5568#discussioncomment-13034102
+            "closest_bookmark(to)" = "heads(::to & bookmarks())";
+            "closest_pushable(to)" = ''heads(::to & mutable() & ~description(exact:"") & (~empty() | merges()))'';
           };
           git = {
             push-new-bookmarks = true;
