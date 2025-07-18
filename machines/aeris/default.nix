@@ -49,7 +49,11 @@
     aerospace.enable = true;
     homebrew = {
       enable = true;
-      extraBrews = [ "sst/tap/opencode" "exiv2" ];
+      extraBrews = [
+        "exiv2"
+        "graelo/tap/pumas"
+        "sst/tap/opencode"
+      ];
       extraCasks = [
         "arc"
         # "ghostty" # cask is broken currently, installed from official diskimage
@@ -58,6 +62,7 @@
         "logseq"
       ];
       extraTaps = [
+        "graelo/tap" # pumas
         "sst/tap" #opencode
       ];
     };
