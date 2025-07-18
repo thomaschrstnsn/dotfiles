@@ -103,7 +103,7 @@ case "$target" in
     ;;
     "darwin") 
         set -x
-        ./result/sw/bin/darwin-rebuild switch --flake .\#"$CONFIGURATION" "$@"
+        sudo ./result/sw/bin/darwin-rebuild switch --flake .\#"$CONFIGURATION" "$@"
     ;;
     "nixos") 
         set -x

@@ -117,6 +117,9 @@
                 useUserPackages = true;
               };
             }
+            {
+              system.primaryUser = config.user.name;
+            }
 
             ./darwin/services
             ./darwin/modules
