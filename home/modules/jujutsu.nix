@@ -57,9 +57,8 @@ in
             email = cfg.userEmail;
           };
           ui = {
-            diff.tool = "delta";
             pager = "delta";
-            diff.format = "git";
+            diff-formatter = ":git";
             default-command = "log-recent";
           };
           aliases = {
