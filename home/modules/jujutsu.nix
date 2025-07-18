@@ -22,6 +22,8 @@ in
       default = "thomas@chrstnsn.dk";
     };
 
+    starship.enable = mkEnableOption "Enable starship-jj integration";
+
     gpgVia1Password = mkEnableOption "Use 1Password for GPG signing";
 
     mergiraf.enable = mkEnableOption "mergiraf support" // { default = true; };
@@ -34,7 +36,6 @@ in
   config = mkIf cfg.enable {
     home.packages = with pkgs;
       [
-        myPkgs.starship-jj
         jjui
       ]
       ++ mkIfList cfg.mergiraf.enable [ mergiraf ]
@@ -131,7 +132,7 @@ in
           };
         })];
 
-    programs.starship.settings.custom.jj = {
+    programs.starship.settings.custom.jj = mkIf cfg.starship.enable {
       ## TODO: it seems we need to write the default config for it to work (0.3.2)
       ## ❯ /nix/store/ikxy2k01l8wnbdssc6l59v5ighzdc161-starship-jj-0.3.2/bin/starship-jj starship config default > "/Users/tfc/Library/Application Support/starship-jj/starship-jj.toml
       command = ''${pkgs.myPkgs.starship-jj}/bin/starship-jj --ignore-working-copy starship prompt'';
