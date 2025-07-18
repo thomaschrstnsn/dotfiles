@@ -8,7 +8,7 @@
     direnv.enable = true;
     dotnet = {
       enable = true;
-      sdks = [ "7.0" "8.0" ];
+      sdks = [ "8.0" "9.0" ];
     };
     fish.enable = true;
     git = {
@@ -25,7 +25,6 @@
       enable = true;
       gpgVia1Password = true;
     };
-    nushell.enable = true;
     python.enable = true;
     ssh = {
       enable = true;
@@ -44,13 +43,6 @@
       enable = true;
       theme = "rose-pine";
     };
-    wezterm = {
-      enable = true;
-      fontsize = 13;
-      windowBackgroundOpacity = 0.7;
-      textBackgroundOpacity = 0.6;
-    };
-    zsh.enable = true;
   };
 
   darwin = {
@@ -65,13 +57,15 @@
         "istat-menus@6"
         "logseq"
       ];
-      extraTaps = [ "sst/tap" ];
+      extraTaps = [
+        "sst/tap" #opencode
+      ];
     };
     jankyborders.enable = true;
     skhd = {
       enable = true;
       browser = "Arc";
-      terminal = "ghostty"; # "WezTerm"
+      terminal = "ghostty";
       extraAppShortcuts = {
         "hyper - r" = "Rider";
         "hyper - u" = "Logseq";
