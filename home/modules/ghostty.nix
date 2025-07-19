@@ -43,6 +43,7 @@ in
         macos-window-shadow = false;
         minimum-contrast = 1.1;
         mouse-hide-while-typing = true;
+        app-notifications = "no-clipboard-copy";
         theme =
           if cfg.lightAndDarkMode.enable
           then "light:rose-pine-dawn,dark:rose-pine"
