@@ -24,7 +24,7 @@ in
     };
     defaultShell = mkOption {
       type = enum [ "zsh" "fish" ];
-      default = zsh;
+      default = "zsh";
       description = "The default user shell.";
     };
   };
