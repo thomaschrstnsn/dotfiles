@@ -218,7 +218,7 @@ in
 
           # ssh agent forwarding
           set fish_tmux_ssh_auth_sock /tmp/ssh-agent-${usercfg.username}-tmux
-          if not test -S ~/.ssh/ssh_auth_sock; and not test -S $SSH_AUTH_SOCK;
+          if test -S $SSH_AUTH_SOCK;
             echo "fish: forwarding ssh agent"
             ln -sf $SSH_AUTH_SOCK $fish_tmux_ssh_auth_sock
           end
