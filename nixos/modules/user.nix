@@ -4,6 +4,7 @@ with lib;
 
 let
   cfg = config.tc.user;
+  shellToPkg = { "zsh" = pkgs.zsh; "fish" = pkgs.fish; };
 in
 {
   options.tc.user = with types; {
@@ -21,6 +22,11 @@ in
       default = [ "wheel" ];
       description = "groups for the user";
     };
+    defaultShell = mkOption {
+      type = enum [ "zsh" "fish" ];
+      default = zsh;
+      description = "The default user shell.";
+    };
   };
 
   config = mkIf cfg.enable {
@@ -29,8 +35,9 @@ in
         "${cfg.name}"
       ];
     };
+    programs.fish.enable = true;
     users = {
-      defaultUserShell = pkgs.zsh;
+      defaultUserShell = shellToPkg.${cfg.defaultShell};
       mutableUsers = false;
       users."${cfg.name}" = {
         isNormalUser = true;
@@ -39,6 +46,5 @@ in
         openssh.authorizedKeys.keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICTvFy5gC46MnA0Eu+DoYQbldwxoJJVd9KVpAFwkS+ZH" ];
       };
     };
-
   };
 }

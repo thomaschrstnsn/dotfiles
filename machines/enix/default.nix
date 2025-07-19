@@ -10,16 +10,19 @@ in
       homedir = "/home/thomas";
     };
     direnv.enable = true;
+    jj = {
+      enable = true;
+    };
     ssh = {
       enable = true;
       hosts = [ "rpi4" "vmnix" "enix" "rsync.net" ];
     };
+    fish.enable = true;
     git.enable = true;
-    zsh = {
+    tmux = {
       enable = true;
+      remote = true;
     };
-    tmux.enable = true;
-    tmux.remote = true;
     vim = {
       enable = true;
     };
@@ -37,6 +40,7 @@ in
       user = {
         name = username;
         groups = [ "wheel" "docker" "navidrome" ];
+        defaultShell = "fish";
       };
     };
     base = {
