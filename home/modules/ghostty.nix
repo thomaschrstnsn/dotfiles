@@ -3,23 +3,26 @@ with lib;
 
 let
   cfg = config.tc.ghostty;
+  installFromPkgs = !pkgs.stdenv.isDarwin;
 in
 {
   options.tc.ghostty = with types; {
     enable = mkEnableOption "ghostty (terminal emulator)";
 
     fontsize = mkOption {
-      type = types.number;
+      type = number;
       description = "fontsize in terminal";
       default = 15.2;
     };
 
     windowBackgroundOpacity = mkOption {
-      type = types.number;
+      type = number;
       description = "background opacity";
       default = 1.0;
       example = 0.7;
     };
+
+    lightAndDarkMode.enable = mkEnableOption "Support both light and dark mode" // { default = true; };
 
     shaders = mkEnableOption "custom sharders" // { default = true; };
   };
@@ -27,8 +30,8 @@ in
   config = mkIf cfg.enable {
     programs.ghostty = {
       enable = true;
-      package = null; # on macOS we get it from homebrew
-      # installBatSyntax = true; # only when package is not null
+      package = if installFromPkgs then pkgs.ghostty else null; # on macOS we get it from homebrew
+      installBatSyntax = installFromPkgs; # only when package is not null
       settings = mkMerge [{
         background-blur = true;
         background-opacity = cfg.windowBackgroundOpacity;
@@ -40,7 +43,10 @@ in
         macos-window-shadow = false;
         minimum-contrast = 1.1;
         mouse-hide-while-typing = true;
-        theme = "light:rose-pine-dawn,dark:rose-pine";
+        theme =
+          if cfg.lightAndDarkMode.enable
+          then "light:rose-pine-dawn,dark:rose-pine"
+          else "rose-pine";
         # window-decoration = "none"; # needs to be auto on macos for rounded corners
       }
         (mkIf cfg.shaders {

@@ -16,6 +16,12 @@ in
       hosts = [ "rpi4" "vmnix" "enix" "rsync.net" "logseq-personal-deploy" ];
       use1PasswordAgent = true;
     };
+    ghostty = {
+      enable = true;
+      fontsize = 12.5;
+      windowBackgroundOpacity = 0.7;
+      lightAndDarkMode.enable = false;
+    };
     git = {
       enable = true;
       gpgVia1Password = true;
