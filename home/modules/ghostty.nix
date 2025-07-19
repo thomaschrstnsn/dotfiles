@@ -3,7 +3,6 @@ with lib;
 
 let
   cfg = config.tc.ghostty;
-  installFromPkgs = !pkgs.stdenv.isDarwin;
 in
 {
   options.tc.ghostty = with types; {
@@ -13,6 +12,13 @@ in
       type = number;
       description = "fontsize in terminal";
       default = 15.2;
+    };
+
+    package = mkOption {
+      type = nullOr package;
+      default = pkgs.ghostty;
+      defaultText = literalExpression "pkgs.ghostty";
+      description = "The ghostty package to install.";
     };
 
     windowBackgroundOpacity = mkOption {
@@ -30,8 +36,8 @@ in
   config = mkIf cfg.enable {
     programs.ghostty = {
       enable = true;
-      package = if installFromPkgs then pkgs.ghostty else null; # on macOS we get it from homebrew
-      installBatSyntax = installFromPkgs; # only when package is not null
+      package = cfg.package;
+      installBatSyntax = cfg.package != null;
       settings = mkMerge [{
         background-blur = true;
         background-opacity = cfg.windowBackgroundOpacity;

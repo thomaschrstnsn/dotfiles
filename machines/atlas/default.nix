@@ -22,6 +22,7 @@ in
       fontsize = 12.5;
       windowBackgroundOpacity = 0.7;
       lightAndDarkMode.enable = false;
+      package = inputs.ghostty.packages.${system}.default; # for the shader support in (unreleased) 1.2
     };
     git = {
       enable = true;

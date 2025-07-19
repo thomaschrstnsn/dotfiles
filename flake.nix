@@ -32,6 +32,10 @@
       url = "github:wez/wezterm?dir=nix";
     };
 
+    ghostty = {
+      url = "github:ghostty-org/ghostty";
+    };
+
     hyprpanel = {
       url = "github:Jas-SinghFSU/HyprPanel";
     };

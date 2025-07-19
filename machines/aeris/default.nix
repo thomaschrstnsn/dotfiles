@@ -20,6 +20,7 @@
       enable = true;
       fontsize = 15;
       windowBackgroundOpacity = 0.7;
+      package = null;
     };
     jj = {
       enable = true;
