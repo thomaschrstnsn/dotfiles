@@ -16,6 +16,7 @@ in
       hosts = [ "rpi4" "vmnix" "enix" "rsync.net" "logseq-personal-deploy" ];
       use1PasswordAgent = true;
     };
+    fish.enable = true;
     ghostty = {
       enable = true;
       fontsize = 12.5;
@@ -29,10 +30,6 @@ in
     jj = {
       enable = true;
       gpgVia1Password = true;
-    };
-    zsh = {
-      enable = true;
-      vi-mode.enable = false;
     };
     tmux = {
       enable = true;
@@ -79,6 +76,7 @@ in
       user = {
         name = username;
         groups = [ "wheel" "docker" "gamemode" ];
+        defaultShell = "fish";
       };
     };
     base = {
