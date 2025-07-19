@@ -9,10 +9,24 @@ let
     text = readFile ./hypr/gentle_down.sh;
   };
   cursor.size = 32;
+
+  terminal = {
+    executable = term: term;
+    class = term: {
+      "wezterm" = "org.wezfurlong.wezterm";
+      "ghostty" = "com.mitchellh.ghostty";
+    }.${term};
+  };
 in
 {
   options.tc.hyprland = with types; {
     enable = mkEnableOption "hyprland";
+
+    terminal = mkOption {
+      type = enum [ "wezterm" "ghostty" ];
+      description = "which terminal to use";
+      default = "wezterm";
+    };
   };
   config = mkIf cfg.enable
     {
@@ -227,7 +241,7 @@ in
             "hyprlock"
             "clipse -listen"
             "${pkgs.hyprpanel}/bin/hyprpanel"
-            "[workspace name:t silent] wezterm"
+            "[workspace name:t silent] ${terminal.executable cfg.terminal}"
             "[workspace name:b silent] zen"
             "[workspace name:u silent] logseq"
             "[workspace name:p silent] todoist-electron"
@@ -337,7 +351,7 @@ in
             in
             concatLists [
               [
-                "SUPER, Return, exec, wezterm"
+                "SUPER, Return, exec, ${terminal.executable cfg.terminal}"
                 "SUPER, Space, exec, pgrep wofi || wofi --show run"
                 "$hyper, f, fullscreen, 0"
                 "CTRL+SUPER, q, exec, pidof hyprlock || hyprlock"
@@ -364,7 +378,7 @@ in
                 "$hyper, w, movecurrentworkspacetomonitor, r"
               ]
               (appShortcuts "$hyper" {
-                t = "org.wezfurlong.wezterm";
+                t = terminal.class cfg.terminal;
                 u = "Logseq";
                 p = "Todoist";
               })
@@ -373,9 +387,9 @@ in
               ]
               [
                 # copy/paste using super
-                "SUPER, C, exec, ${./hypr/copy_unless_wezterm.sh}"
-                "SUPER, V, exec, ${./hypr/paste_unless_wezterm.sh}"
-                "SUPER, Z, exec, ${./hypr/undo_unless_wezterm.sh}"
+                "SUPER, C, exec, ${./hypr/copy_unless_term.sh}"
+                "SUPER, V, exec, ${./hypr/paste_unless_term.sh}"
+                "SUPER, Z, exec, ${./hypr/undo_unless_term.sh}"
                 "SUPER+SHIFT, C, exec, wezterm start --class clipse -e 'clipse'"
                 # "ALT, comma, exec, <reserved for giphy picker>"
                 "ALT, period, exec, bemoji -t"

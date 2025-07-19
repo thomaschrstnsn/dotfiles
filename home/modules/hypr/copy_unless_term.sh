@@ -4,12 +4,12 @@ activeWindow=$(hyprctl -j activewindow | jq -r .class)
 
 echo active "$activeWindow"
 
-if [ "$activeWindow" == "org.wezfurlong.wezterm" ];
+if [[ "$activeWindow" == "org.wezfurlong.wezterm" || "$activeWindow" == "com.mitchellh.ghostty" ]];
 then
-	echo "wezterm"
+	echo "term"
 	hyprctl dispatch sendshortcut CTRL+SHIFT, C, activewindow
 else
-	echo "not wezterm"
+	echo "not term"
 	hyprctl dispatch sendshortcut CTRL, C, activewindow
 fi
 

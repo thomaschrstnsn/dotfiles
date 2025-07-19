@@ -40,7 +40,10 @@ in
       theme = "rose-pine";
       cliptool = "wl-copy";
     };
-    hyprland.enable = true;
+    hyprland = {
+      enable = true;
+      terminal = "ghostty";
+    };
     wezterm = {
       # package = inputs.wezterm.packages.${system}.default;
       enable = true;
