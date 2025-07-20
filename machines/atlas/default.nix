@@ -44,7 +44,7 @@ in
     };
     wezterm = {
       # package = inputs.wezterm.packages.${system}.default;
-      enable = true;
+      enable = false;
       fontsize = 11.5;
       window_decorations.resize = false;
       window_padding.override = true;

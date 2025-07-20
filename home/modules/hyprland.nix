@@ -10,11 +10,17 @@ let
   };
   cursor.size = 32;
 
+  clipseClass = "name.savedra1.clipse";
+
   terminal = {
     executable = term: term;
     class = term: {
-      "wezterm" = "org.wezfurlong.wezterm";
-      "ghostty" = "com.mitchellh.ghostty";
+      wezterm = "org.wezfurlong.wezterm";
+      ghostty = "com.mitchellh.ghostty";
+    }.${term};
+    starter = term: { class, command }: {
+      wezterm = "wezterm start --class ${class} -e '${command}'";
+      ghostty = "ghostty --class=${class} -e '${command}'";
     }.${term};
   };
 in
@@ -281,8 +287,8 @@ in
             ];
 
           windowrulev2 = [
-            "float,class:(clipse)" # ensure you have a floating window class set if you want this behavior
-            "size 622 652,class:(clipse)" # set the size of the window as necessary
+            "float,class:(${clipseClass})" # ensure you have a floating window class set if you want this behavior
+            "size 622 652,class:(${clipseClass})" # set the size of the window as necessary
             "idleinhibit fullscreen, class:.*" # idle inhibit whenever something is fullscreen (possible workaround for regression: https://github.com/hyprwm/Hyprland/issues/9170 )
           ];
 
@@ -411,7 +417,7 @@ in
                 "SUPER, C, exec, ${./hypr/copy_unless_term.sh}"
                 "SUPER, V, exec, ${./hypr/paste_unless_term.sh}"
                 "SUPER, Z, exec, ${./hypr/undo_unless_term.sh}"
-                "SUPER+SHIFT, C, exec, wezterm start --class clipse -e 'clipse'"
+                "SUPER+SHIFT, C, exec, ${terminal.starter cfg.terminal {class = clipseClass; command = "clipse";}}"
                 # "ALT, comma, exec, <reserved for giphy picker>"
                 "ALT, period, exec, bemoji -t"
 
