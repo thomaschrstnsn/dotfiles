@@ -8,14 +8,38 @@ in
 {
   # Use the systemd-boot EFI boot loader.
   # boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader = {
-    grub = {
-      enable = true;
-      devices = [ "nodev" ];
-      efiSupport = true;
-      useOSProber = true;
+  boot = {
+    loader.efi.canTouchEfiVariables = true;
+    loader = {
+      timeout = 0;
+      grub = {
+        enable = true;
+        devices = [ "nodev" ];
+        efiSupport = true;
+        useOSProber = true;
+      };
     };
+    plymouth = {
+      enable = true;
+      theme = "abstract_ring";
+      themePackages = with pkgs; [
+        # By default we would install all themes
+        (adi1090x-plymouth-themes.override {
+          selected_themes = [ "abstract_ring" ];
+        })
+      ];
+    };
+    # Enable "Silent boot"
+    consoleLogLevel = 3;
+    initrd.verbose = false;
+    kernelParams = [
+      "quiet"
+      "splash"
+      "boot.shell_on_fail"
+      "udev.log_priority=3"
+      "rd.systemd.show_status=auto"
+      "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
+    ];
   };
 
   services.xserver = {
@@ -74,7 +98,6 @@ in
     enable32Bit = true;
   };
 
-  boot.kernelParams = [ "nvidia.NVreg_PreserveVideoMemoryAllocations=1" ];
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia = {
     modesetting.enable = true;
