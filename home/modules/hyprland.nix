@@ -258,6 +258,27 @@ in
             "name:c, monitor:DP-2, persistent:true"
             "name:m, monitor:DP-2, persistent:true"
           ];
+          windowrule =
+            let
+              settingsAndPreviews = builtins.concatStringsSep "|"
+                [ "org.pulseaudio.pavucontrol" "blueberry.py" "Impala" "org.gnome.NautilusPreviewer" "io.github.kaii_lb.Overskride" ];
+              filePickers = builtins.concatStringsSep "|"
+                [ "Open.*Files?" "Save.*Files?" "All Files" "Save" ];
+            in
+            [
+              ## inspired by https://github.com/basecamp/omarchy/blob/master/default/hypr/windows.conf
+              # Float and center settings and previews
+              "float, class:^(${settingsAndPreviews})$"
+              "size 1024 768, class:^(${settingsAndPreviews})$"
+              "center, class:^(${settingsAndPreviews})$"
+
+              # Float and center file pickers
+              "float, class:xdg-desktop-portal-gtk, title:^(${filePickers})"
+              "center, class:xdg-desktop-portal-gtk, title:^(${filePickers})"
+
+              # Float Steam
+              "float, class:^(steam)$"
+            ];
 
           windowrulev2 = [
             "float,class:(clipse)" # ensure you have a floating window class set if you want this behavior
