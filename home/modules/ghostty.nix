@@ -54,7 +54,7 @@ in
           if cfg.lightAndDarkMode.enable
           then "light:rose-pine-dawn,dark:rose-pine"
           else "rose-pine";
-        # window-decoration = "none"; # needs to be auto on macos for rounded corners
+        window-decoration = if pkgs.stdenv.isDarwin then "auto" else "none"; # needs to be auto on macos for rounded corners
       }
         (mkIf cfg.shaders {
           custom-shader = "${./ghostty/shaders/cursor_blaze.glsl}";

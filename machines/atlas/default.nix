@@ -19,7 +19,7 @@ in
     fish.enable = true;
     ghostty = {
       enable = true;
-      fontsize = 12.5;
+      fontsize = 13;
       windowBackgroundOpacity = 0.7;
       lightAndDarkMode.enable = false;
       package = inputs.ghostty.packages.${system}.default; # for the shader support in (unreleased) 1.2
