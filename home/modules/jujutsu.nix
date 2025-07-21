@@ -55,6 +55,11 @@ in
           extra_args = [ "--tool" "delta" ];
         };
         custom_commands = {
+          "split gitpatch" = {
+            args = [ "split" "--tool" "gitpatch" "-r" "$change_id" "$file" ];
+            key = [ "S" ];
+            show = "interactive";
+          };
           "show diff" = {
             key = [ "U" ];
             args = [ "diff" "--tool" "delta" "-r" "$change_id" "--color" "always" ];
