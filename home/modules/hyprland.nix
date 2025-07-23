@@ -361,11 +361,11 @@ in
             "easeInOutCubic,0.65,0,0.35,1"
           ];
           animation = [
-            "windowsIn,1,5,easeOutBack,popin"
-            "windowsOut,1,5,easeInBack,popin"
+            "windowsIn,1,1,easeOutBack,popin"
+            "windowsOut,1,1,easeInBack,popin"
             "fadeIn,0"
-            "fadeOut,1,10,easeInCubic"
-            "workspaces,1,4,easeInOutCubic,slide"
+            "fadeOut,1,2,easeInCubic"
+            "workspaces,1,1,easeInOutCubic,slide"
           ];
 
           "$hyper" = "SUPER+SHIFT+CTRL+ALT";
