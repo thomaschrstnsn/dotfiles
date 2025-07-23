@@ -186,6 +186,10 @@ in
     };
   };
 
+  security.pam.services = {
+    sudo.u2fAuth = true;
+  };
+
   networking.hostName = "atlas"; # Define your hostname.
 
   time.hardwareClockInLocalTime = true;
