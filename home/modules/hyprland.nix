@@ -283,7 +283,7 @@ in
               "center, class:xdg-desktop-portal-gtk, title:^(${filePickers})"
 
               # Float Steam
-              "float, class:^(steam)$"
+              "center, float, class:^(steam)$"
             ];
 
           windowrulev2 = [
