@@ -244,7 +244,7 @@ in
           # debug.disable_logs = false;
           exec-once = [
             "hyprctl setcursor Bibata-Modern-Classic 32"
-            "blueman-applet"
+            "sleep 5 && blueman-applet"
             "hyprlock"
             "clipse -listen"
             "${pkgs.hyprpanel}/bin/hyprpanel"
