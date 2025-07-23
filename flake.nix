@@ -47,7 +47,10 @@
     nixpkgs-python.url = "github:cachix/nixpkgs-python";
     pyenv-nix-install.url = "github:sirno/pyenv-nix-install";
 
-    zen-browser.url = "github:0xc000022070/zen-browser-flake";
+    zen-browser = {
+      url = "github:youwen5/zen-browser-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
