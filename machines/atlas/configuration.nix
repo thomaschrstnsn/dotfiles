@@ -108,6 +108,12 @@ in
   programs.steam.enable = true;
   programs.steam.gamescopeSession.enable = true;
 
+  programs._1password.enable = true;
+  programs._1password-gui = {
+    enable = true;
+    polkitPolicyOwners = [ "thomas" ];
+  };
+
   environment.systemPackages = with pkgs; [
     mangohud
     protonup
@@ -186,7 +192,15 @@ in
     };
   };
 
+  security.pam.u2f = {
+    enable = true;
+    settings = {
+      cue = true;
+    };
+  };
+
   security.pam.services = {
+    login.u2fAuth = true;
     sudo.u2fAuth = true;
   };
 
