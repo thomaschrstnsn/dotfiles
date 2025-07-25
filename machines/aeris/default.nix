@@ -1,4 +1,4 @@
-{ systems, ... }:
+{ ... }:
 {
   home = {
     user = rec {
@@ -93,5 +93,5 @@
     lnav
   ];
 
-  system = systems.m1-darwin;
+  system = "aarch64-darwin";
 }

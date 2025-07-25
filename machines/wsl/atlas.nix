@@ -1,4 +1,4 @@
-{ systems, ... }:
+{ ... }:
 
 let
   username = "nixos";
@@ -35,7 +35,7 @@ in
       enable = true;
     };
   };
-  system = systems.x64-linux;
+  system = "x86_64-linux";
 
   nixos = {
     config = {

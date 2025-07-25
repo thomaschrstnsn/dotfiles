@@ -1,4 +1,4 @@
-{ systems, ... }:
+{ ... }:
 
 let
   username = "thomas";
@@ -25,7 +25,7 @@ in
     jq
   ];
 
-  system = systems.arm-linux;
+  system = "aarch64-linux";
 
   nixos = {
     config = {

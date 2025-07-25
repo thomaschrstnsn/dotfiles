@@ -1,4 +1,4 @@
-{ systems, inputs, ... }:
+{ inputs, ... }:
 let
   username = "thomas";
   configurationRoot = ./nixos/machines/aero-nix;
@@ -62,5 +62,5 @@ in
     };
   };
 
-  system = systems.x64-linux;
+  system = "x86_64-linux";
 }

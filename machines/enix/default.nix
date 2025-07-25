@@ -1,4 +1,4 @@
-{ systems, ... }:
+{ ... }:
 
 let
   username = "thomas";
@@ -32,7 +32,7 @@ in
     lnav
   ];
 
-  system = systems.x64-linux;
+  system = "x86_64-linux";
 
   nixos = {
     config = {

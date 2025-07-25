@@ -1,8 +1,8 @@
-{ systems, inputs, ... }:
+{ inputs, ... }:
 
 let
   username = "thomas";
-  system = systems.x64-linux;
+  system = "x86_64-linux";
 in
 {
   home = {

@@ -1,4 +1,4 @@
-{ systems, inputs, ... }:
+{ inputs, ... }:
 
 let
   username = "pi";
@@ -30,7 +30,7 @@ in
     };
     yazi.enable = false;
   };
-  system = systems.arm-linux;
+  system = "aarch64-linux";
 
   extraPackages = pkgs: with pkgs; [
   ];
