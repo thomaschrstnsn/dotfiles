@@ -3,6 +3,7 @@ with lib;
 
 let
   cfg = config.tc.shell;
+  mkIfList = cond: xs: if cond then xs else [ ];
 in
 {
   options.tc.shell = with types; {
@@ -46,7 +47,11 @@ in
       jq
       tree
       wget
-    ];
+    ] ++ mkIfList pkgs.stdenv.isLinux [ dysk ];
+
+    home.shellAliases = mkIf pkgs.stdenv.isLinux {
+      df = "dysk";
+    };
 
     programs.eza = {
       enable = true;
