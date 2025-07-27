@@ -6,32 +6,12 @@ let
   user = "thomas";
 in
 {
-  # Use the systemd-boot EFI boot loader.
-  # boot.loader.systemd-boot.enable = true;
   boot = {
     loader.efi.canTouchEfiVariables = true;
-    loader = {
-      timeout = 0;
-      grub = {
-        enable = true;
-        devices = [ "nodev" ];
-        efiSupport = true;
-        useOSProber = true;
-      };
-    };
-    plymouth = {
-      enable = true;
-      theme = "rings";
-      themePackages = with pkgs; [
-        # By default we would install all themes
-        (adi1090x-plymouth-themes.override {
-          selected_themes = [ "rings" ];
-        })
-      ];
-    };
-    # Enable "Silent boot"
-    consoleLogLevel = 3;
-    initrd.verbose = false;
+
+    # Use the systemd-boot EFI boot loader.
+    loader.systemd-boot.enable = true;
+
     kernelParams = [
       "quiet"
       "splash"
