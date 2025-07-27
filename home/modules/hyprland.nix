@@ -283,8 +283,9 @@ in
               "float, class:xdg-desktop-portal-gtk, title:^(${filePickers})"
               "center, class:xdg-desktop-portal-gtk, title:^(${filePickers})"
 
-              # Float Steam
-              "center, float, class:^(steam)$"
+              # Float Steam windows, except primary
+              "float,class:steam"
+              "tile,class:steam,title:Steam"
             ];
 
           windowrulev2 = [
