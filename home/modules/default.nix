@@ -4,6 +4,7 @@
   imports = [
     ./aws.nix
     ./check-terminal-color-and-fonts.nix
+    ./desktop.nix
     ./direnv.nix
     ./dotnet.nix
     ./fish.nix

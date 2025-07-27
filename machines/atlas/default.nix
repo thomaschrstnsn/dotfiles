@@ -10,6 +10,7 @@ in
       username = username;
       homedir = "/home/thomas";
     };
+    desktop.enable = true;
     direnv.enable = true;
     ssh = {
       enable = true;
