@@ -33,6 +33,8 @@ in
             fenv source ~/.env
           end
 
+          set -g fish_key_bindings fish_vi_key_bindings
+
           # function killport() { lsof -i TCP:$1 | grep LISTEN | awk '{print $2}' | xargs kill -9 }
         ''
       );
