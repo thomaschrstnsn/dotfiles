@@ -43,7 +43,6 @@ in
 
       home.packages = with pkgs; [
         myPkgs.appleFonts.sf-pro
-        bibata-cursors
         bemoji # emoji picker
         clipse # clipboard history
         nerd-fonts.jetbrains-mono
@@ -79,6 +78,14 @@ in
         cursorTheme = {
           name = "Bibata-Modern-Classic";
           package = pkgs.bibata-cursors;
+        };
+
+        # does not seem fully baked, seems to need env
+        # GTK_THEME=Adwaita:dark nautilus
+        # GTK_THEME=Adwaita:dark gnome-calculator
+        theme = {
+          name = "Adwaita-dark";
+          package = pkgs.gnome-themes-extra;
         };
       };
 
