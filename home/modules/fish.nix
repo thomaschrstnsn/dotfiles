@@ -3,7 +3,6 @@ with lib;
 
 let
   cfg = config.tc.fish;
-  ssh-cfg = config.tc.ssh;
 in
 {
   options.tc.fish = with types; {
@@ -22,6 +21,11 @@ in
 
     programs.fish = {
       enable = true;
+
+      functions = {
+        kill_port = ''${pkgs.lsof}/bin/lsof -i TCP:$argv[1] | grep LISTEN | awk '{print $2}' | xargs kill -9'';
+      };
+
       interactiveShellInit = lib.mkOrder 1000 (
         ''
           set PATH $PATH ~/bin
@@ -34,8 +38,6 @@ in
           end
 
           set -g fish_key_bindings fish_vi_key_bindings
-
-          # function killport() { lsof -i TCP:$1 | grep LISTEN | awk '{print $2}' | xargs kill -9 }
         ''
       );
 
