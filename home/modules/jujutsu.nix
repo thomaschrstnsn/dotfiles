@@ -57,7 +57,7 @@ in
         custom_commands = {
           "split gitpatch" = {
             args = [ "split" "--tool" "gitpatch" "-r" "$change_id" "$file" ];
-            key = [ "S" ];
+            key = [ "ctrl+s" ];
             show = "interactive";
           };
           "show diff" = {
