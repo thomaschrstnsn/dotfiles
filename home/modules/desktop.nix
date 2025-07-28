@@ -7,11 +7,7 @@ let
 in
 {
   options.tc.desktop = with types; {
-    enable = mkOption
-      {
-        description = "default desktop settings";
-        type = bool;
-      };
+    enable = mkEnableOption  "default desktop settings";
   };
 
   config = mkIf cfg.enable {
