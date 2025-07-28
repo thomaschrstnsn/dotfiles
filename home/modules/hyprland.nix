@@ -293,6 +293,8 @@ in
               # Float Steam windows, except primary
               "float,class:steam"
               "tile,class:steam,title:Steam"
+
+              "tile,class:^(path of building.exe)"
             ];
 
           windowrulev2 = [
@@ -390,6 +392,7 @@ in
                 "SUPER, Return, exec, ${terminal.executable cfg.terminal}"
                 "SUPER, Space, exec, pgrep wofi || wofi --show run"
                 "$hyper, f, fullscreen, 0"
+                "SUPER, f, togglefloating"
                 "CTRL+SUPER, q, exec, pidof hyprlock || hyprlock"
                 "SHIFT+SUPER, 4, exec, hyprshot -m region"
                 "SHIFT+SUPER, 3, exec, hyprshot -m window"
