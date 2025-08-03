@@ -1,40 +1,59 @@
 { ... }:
+let
+  email = "tfc@mft-energy.com";
+in
 {
   home = {
     user = rec {
       username = "tfc";
       homedir = "/Users/${username}";
     };
-    aws.enable = true;
     direnv.enable = true;
     dotnet = {
       enable = true;
-      sdks = [ "7.0" "8.0" "9.0" ];
+      sdks = [ "8.0" "9.0" ];
     };
     git = {
       enable = true;
       githubs = [ ];
-      userEmail = "tfc@lindcapital.com";
-      gpgVia1Password = true;
+      userName = "Thomas Fisker Christensen";
+      userEmail = email;
+      publicKeyFile = "~/.ssh/github-mft.pub";
+      gpgVia1Password.enable = true;
+      gpgVia1Password.key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINfb3NXjwOznbBFJ4QQ0WWmDrZncdHof4Y9VVZYrxX7J";
+      alternativeConfig = {
+        enable = true;
+        paths = [ "~/dotfiles/" "~/personal/" ];
+        userEmail = "thomas@chrstnsn.dk";
+        userName = "Thomas Christensen";
+        gpgVia1Password.key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIErz7lXsjPyJcjzRKMWyZodRGzjkbCxWu/Lqk+NpjupZ";
+        publicKeyFile = "~/.ssh/github-personal.pub";
+      };
+    };
+    ghostty = {
+      enable = true;
+      fontsize = 15;
+      windowBackgroundOpacity = 0.7;
+      package = null;
     };
     jj = {
       enable = true;
-      userEmail = "tfc@lindcapital.com";
+      userEmail = email;
       gpgVia1Password = true;
       meld.enable = true;
     };
-    sesh.extraSessionConfig = ''
-      [[session]]
-      name = "lcfs Kubernetes staging/production"
-      path = "/Volumes/Kubernetes"
-      startup_command = "${./sesh/lcfs.sh}"
-    '';
     ssh = {
       enable = true;
-      use1PasswordAgent = true;
+      _1password = {
+        enableAgent = true;
+        keys = [ "abzfs445wgvufgybncdcjgptla" "6ddacbrzis56q7qmq5bkinjsum" "lksx2w2y2iewhnbbczk7lg4d2a" "uczvt65unrn2iqsshuvyuhysky" ];
+      };
       hosts = [ "rpi4" "vmnix" "aero-nix" "enix" "rsync.net" "logseq-personal-deploy" ];
       includes = [ "personal_config" ];
-      addLindHosts = true;
+      publicKeys = {
+        "github-mft.pub" = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKOu8nwGPqqqz9fRAAGk7b9ZP5Y7kNd3u/efxUTGFeto";
+        "github-personal.pub" = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICTvFy5gC46MnA0Eu+DoYQbldwxoJJVd9KVpAFwkS+ZH";
+      };
     };
     python.enable = true;
     vim = {
@@ -43,21 +62,12 @@
       lsp.servers.javascript = true;
       lsp.servers.python = true;
       lsp.servers.roslyn = true;
-      # codelldb.enable = true;
-      # splitNavigator = "smart-splits";
+      scrolloff = 5;
     };
     tmux = {
       enable = true;
       disableAutoStarting = true;
       theme = "rose-pine";
-    };
-    wezterm = {
-      enable = true;
-      fontsize = 15.2;
-      windowBackgroundOpacity = 0.7;
-      textBackgroundOpacity = 0.6;
-      package = null;
-      mux = false;
     };
     zsh = {
       enable = true;
@@ -73,27 +83,23 @@
       ];
       extraCasks = [
         "arc"
-        "bitwarden"
         "istat-menus@6"
         "jetbrains-toolbox"
         "logseq"
         "todoist"
-        "wezterm"
       ];
       extraTaps = [ ];
     };
     skhd = {
       enable = true;
       browser = "Arc";
-      terminal = "WezTerm";
+      terminal = "ghostty";
       extraAppShortcuts = {
         "hyper - c" = "Microsoft Teams";
         "hyper - d" = "Azure Data Studio";
         "hyper - i" = "Microsoft Outlook";
         "hyper - r" = "Rider";
-        "hyper - s" = "Self-Service";
         "hyper - u" = "Logseq";
-        "hyper - y" = "Microsoft Remote Desktop";
         "hyper - z" = "Spotify";
         "hyper - p" = "todoist";
       };
@@ -109,7 +115,7 @@
 
   extraPackages = pkgs: with pkgs; [
     devenv
-    lnav
+    rustup
   ];
 
   system = "aarch64-darwin";
