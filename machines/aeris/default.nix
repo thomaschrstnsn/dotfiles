@@ -14,7 +14,7 @@
     git = {
       enable = true;
       githubs = [ ];
-      gpgVia1Password = true;
+      gpgVia1Password.enable = true;
     };
     ghostty = {
       enable = true;
@@ -29,7 +29,7 @@
     python.enable = true;
     ssh = {
       enable = true;
-      use1PasswordAgent = true;
+      _1Password.enableAgent = true;
       hosts = [ "rpi4" "vmnix" "aero-nix" "enix" "rsync.net" "logseq-personal-deploy" ];
       includes = [ "personal_config" ];
     };

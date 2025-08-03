@@ -18,7 +18,17 @@ in
       description = "known hosts to add to ssh config";
     };
     addLindHosts = mkEnableOption "add Lind hosts";
-    use1PasswordAgent = mkEnableOption "1Password ssh-agent on mac";
+    _1password.enableAgent = mkEnableOption "1Password ssh-agent";
+    _1password.keys = mkOption {
+      type = listOf str;
+      description = "ssh keys (by item id) to use from 1password (item id: https://www.1password.community/discussions/1password/view-item-uuid-from-ui/60675)";
+    };
+    publicKeys = mkOption {
+      type = attrsOf str;
+      description = ''public keys to write into ~/.ssh/, e.g. {github = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIErz7lXsjPyJcjzRKMWyZodRGzjkbCxWu/Lqk+NpjupZ";
+";}'';
+      default = { };
+    };
     agent.enable = mkEnableOption "ssh-agent enabled";
     includes = mkOption
       {
@@ -112,7 +122,7 @@ in
           enable = true;
           forwardAgent = true;
           extraConfig =
-            if cfg.use1PasswordAgent
+            if cfg._1password.enableAgent
             then ''
               IdentityAgent = "${agentPath "~"}"
             ''
@@ -147,7 +157,17 @@ in
           includes = cfg.includes;
         };
       }
-      (mkIf cfg.use1PasswordAgent
+      (mkIf cfg._1password.enableAgent (
+        let
+          generateSshKeyLines = keys:
+            lib.concatMapStrings
+              (key: ''
+                [[ssh-keys]]
+                item = "${key}"
+
+              '')
+              keys;
+        in
         {
           programs.zsh.initContent = lib.mkOrder 550 ''
             export SSH_AUTH_SOCK="${agentPath (if pkgs.stdenv.isDarwin then "/Users/$USER" else "/home/$USER")}";
@@ -156,15 +176,16 @@ in
             set SSH_AUTH_SOCK "${agentPath (if pkgs.stdenv.isDarwin then "/Users/$USER" else "/home/$USER")}";
           '';
           home.file = {
-            ".config/1Password/ssh/agent.toml".text = ''
-              [[ssh-keys]]
-              item = "abzfs445wgvufgybncdcjgptla"
-
-              [[ssh-keys]]
-              item = "6ddacbrzis56q7qmq5bkinjsum"
-            '';
+            ".config/1Password/ssh/agent.toml".text = generateSshKeyLines cfg._1password.keys;
           };
-        })
+        }
+      ))
+      {
+        home.file =
+          lib.mapAttrs'
+            (name: content: lib.nameValuePair ".ssh/${name}" { text = content; })
+            cfg.publicKeys;
+      }
     ]
   );
 }

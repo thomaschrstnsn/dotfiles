@@ -1,6 +1,22 @@
-{ ... }:
+{ sshKeys, ... }:
 let
-  email = "tfc@mft-energy.com";
+  vcs = {
+    primaryConfig = {
+      userName = "Thomas Fisker Christensen";
+      userEmail = "tfc@mft-energy.com";
+      gpgVia1Password.enable = true;
+      gpgVia1Password.key = sshKeys.mft.signing.publicKey;
+      publicKeyFile = "~/.ssh/github-mft.pub";
+    };
+    alternativeConfig = {
+      enable = true;
+      paths = [ "~/dotfiles/" "~/personal/" ];
+      userEmail = "thomas@chrstnsn.dk";
+      userName = "Thomas Christensen";
+      gpgVia1Password.key = sshKeys.personal.signing.publicKey;
+      publicKeyFile = "~/.ssh/github-personal.pub";
+    };
+  };
 in
 {
   home = {
@@ -15,44 +31,33 @@ in
     };
     git = {
       enable = true;
-      githubs = [ ];
-      userName = "Thomas Fisker Christensen";
-      userEmail = email;
-      publicKeyFile = "~/.ssh/github-mft.pub";
-      gpgVia1Password.enable = true;
-      gpgVia1Password.key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINfb3NXjwOznbBFJ4QQ0WWmDrZncdHof4Y9VVZYrxX7J";
-      alternativeConfig = {
-        enable = true;
-        paths = [ "~/dotfiles/" "~/personal/" ];
-        userEmail = "thomas@chrstnsn.dk";
-        userName = "Thomas Christensen";
-        gpgVia1Password.key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIErz7lXsjPyJcjzRKMWyZodRGzjkbCxWu/Lqk+NpjupZ";
-        publicKeyFile = "~/.ssh/github-personal.pub";
-      };
-    };
+    } // { alternativeConfig = vcs.alternativeConfig; } // vcs.primaryConfig;
     ghostty = {
       enable = true;
       fontsize = 15;
-      windowBackgroundOpacity = 0.7;
+      windowBackgroundOpacity = 0.85;
       package = null;
     };
     jj = {
       enable = true;
-      userEmail = email;
-      gpgVia1Password = true;
       meld.enable = true;
-    };
+    } // { alternativeConfig = vcs.alternativeConfig; } // vcs.primaryConfig;
     ssh = {
       enable = true;
       _1password = {
         enableAgent = true;
-        keys = [ "abzfs445wgvufgybncdcjgptla" "6ddacbrzis56q7qmq5bkinjsum" "lksx2w2y2iewhnbbczk7lg4d2a" "uczvt65unrn2iqsshuvyuhysky" ];
+        keys = [
+          sshKeys.mft.access._1passwordId
+          sshKeys.mft.signing._1passwordId
+          sshKeys.personal.access._1passwordId
+          sshKeys.personal.signing._1passwordId
+        ];
       };
       hosts = [ "rpi4" "vmnix" "aero-nix" "enix" "rsync.net" "logseq-personal-deploy" ];
       includes = [ "personal_config" ];
       publicKeys = {
-        "github-mft.pub" = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKOu8nwGPqqqz9fRAAGk7b9ZP5Y7kNd3u/efxUTGFeto";
-        "github-personal.pub" = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICTvFy5gC46MnA0Eu+DoYQbldwxoJJVd9KVpAFwkS+ZH";
+        "github-mft.pub" = sshKeys.mft.access.publicKey;
+        "github-personal.pub" = sshKeys.personal.access.publicKey;
       };
     };
     python.enable = true;
@@ -66,7 +71,6 @@ in
     };
     tmux = {
       enable = true;
-      disableAutoStarting = true;
       theme = "rose-pine";
     };
     zsh = {
@@ -77,13 +81,13 @@ in
 
   darwin = {
     aerospace.enable = true;
+    jankyborders.enable = true;
     homebrew = {
       enable = true;
       extraBrews = [
       ];
       extraCasks = [
         "arc"
-        "istat-menus@6"
         "jetbrains-toolbox"
         "logseq"
         "todoist"
@@ -115,6 +119,8 @@ in
 
   extraPackages = pkgs: with pkgs; [
     devenv
+    azure-cli
+    just
     rustup
   ];
 

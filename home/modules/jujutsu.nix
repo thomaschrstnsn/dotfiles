@@ -24,16 +24,73 @@ in
 
     starship.enable = mkEnableOption "Enable starship-jj integration";
 
-    gpgVia1Password = mkEnableOption "Use 1Password for GPG signing";
-
     mergiraf.enable = mkEnableOption "mergiraf support" // { default = true; };
 
     difftastic.enable = mkEnableOption "Setup difftastic as diff tool (not default tool)" // { default = true; };
 
     meld.enable = mkEnableOption "Use meld as merge tool";
+
+    gpgVia1Password.enable = mkEnableOption "Use 1Password for GPG signing";
+
+    gpgVia1Password.key = mkOption {
+      type = str;
+      description = "sshkey from 1password for signing (public)";
+    };
+
+    publicKeyFile = mkOption {
+      type = nullOr str;
+      description = "Which ssh-key (path to a public key file) to prefer for connecting with ssh";
+      example = "~/.ssh/github.pub";
+      default = null;
+    };
+
+    alternativeConfig.enable = mkEnableOption "Add an alternative configuration for repos under specified paths";
+    alternativeConfig.paths = mkOption {
+      type = listOf str;
+      description = "repository paths to enable alternative configuration in";
+      default = [ ];
+    };
+
+    alternativeConfig.userName = mkOption {
+      description = "Alternative config Name for jj";
+      type = str;
+      default = cfg.userName;
+    };
+
+    alternativeConfig.userEmail = mkOption {
+      description = "Alternative config Email for jj";
+      type = nullOr str;
+      default = null;
+    };
+
+    alternativeConfig.gpgVia1Password.key = mkOption {
+      type = nullOr str;
+      description = "sshkey from 1password for signing (public)";
+      example = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIErz7lXsjPyJcjzRKMWyZodRGzjkbCxWu/Lqk+NpjupZ";
+      default = null;
+    };
+
+    alternativeConfig.publicKeyFile = mkOption {
+      type = nullOr str;
+      description = "Which ssh-key (path to a public key file) to prefer for connecting with ssh";
+      example = "~/.ssh/github-alternative.pub";
+      default = null;
+    };
+
   };
 
   config = mkIf cfg.enable {
+    assertions = [
+      {
+        assertion = cfg.alternativeConfig.enable -> (cfg.alternativeConfig.userEmail != null);
+        message = "tc.jj.alternativeConfig.userEmail must be set when enabling alternativeConfig";
+      }
+      {
+        assertion = cfg.alternativeConfig.enable -> (cfg.alternativeConfig.paths != [ ]);
+        message = "tc.jj.alternativeConfig.paths must not be empty when enabling alternativeConfig";
+      }
+    ];
+
     home.packages = with pkgs;
       [
         jjui
@@ -140,10 +197,10 @@ in
           };
         };
     }
-      (mkIf (sshConfig.use1PasswordAgent && cfg.gpgVia1Password)
+      (mkIf (sshConfig._1password.enableAgent && cfg.gpgVia1Password.enable)
         {
           settings.signing = {
-            key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIErz7lXsjPyJcjzRKMWyZodRGzjkbCxWu/Lqk+NpjupZ";
+            key = cfg.gpgVia1Password.key;
             backend = "ssh";
             backends.ssh.program = config.programs.git.extraConfig.gpg.ssh.program;
             behavior = "own";
@@ -168,7 +225,34 @@ in
           settings = {
             aliases.meld = [ "resolve" "--tool" "meld" ];
           };
-        })];
+        })
+      (mkIf (cfg.publicKeyFile != null) {
+        settings.git.ssh-command = [ "ssh" "-i" cfg.publicKeyFile "-o" "IdentitiesOnly=yes" ];
+      })];
+
+    xdg.configFile."jj/conf.d/alternative-config.toml" =
+      let
+        settings = mergeAttrsList ([
+          {
+            user = {
+              name = cfg.alternativeConfig.userName;
+              email = cfg.alternativeConfig.userEmail;
+            };
+          }
+        ]
+        ++ optional (cfg.alternativeConfig.gpgVia1Password.key != null)
+          {
+            signing.key = cfg.alternativeConfig.gpgVia1Password.key;
+          }
+        ++ optional (cfg.alternativeConfig.publicKeyFile != null) {
+          git.ssh-command = [ "ssh" "-i" cfg.alternativeConfig.publicKeyFile "-o" "IdentitiesOnly=yes" ];
+        }
+        );
+      in
+      mkIf cfg.alternativeConfig.enable {
+        text = ''--when.repositories = ${builtins.toJSON cfg.alternativeConfig.paths}
+'' + (readFile ((pkgs.formats.toml { }).generate "alt.toml" settings));
+      };
 
     programs.starship.settings.custom.jj = mkIf cfg.starship.enable {
       ## TODO: it seems we need to write the default config for it to work (0.3.2)

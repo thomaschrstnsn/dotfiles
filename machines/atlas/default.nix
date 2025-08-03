@@ -15,7 +15,7 @@ in
     ssh = {
       enable = true;
       hosts = [ "rpi4" "vmnix" "enix" "rsync.net" "logseq-personal-deploy" ];
-      use1PasswordAgent = true;
+      _1password.enableAgent = true;
     };
     fish.enable = true;
     ghostty = {
@@ -27,7 +27,7 @@ in
     };
     git = {
       enable = true;
-      gpgVia1Password = true;
+      gpgVia1Password.enable = true;
     };
     jj = {
       enable = true;
