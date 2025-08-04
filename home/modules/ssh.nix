@@ -17,7 +17,6 @@ in
       default = [ ];
       description = "known hosts to add to ssh config";
     };
-    addLindHosts = mkEnableOption "add Lind hosts";
     _1password.enableAgent = mkEnableOption "1Password ssh-agent";
     _1password.keys = mkOption {
       type = listOf str;
@@ -40,25 +39,6 @@ in
 
   config = mkIf cfg.enable (
     let
-      t1user = "t1tfc@local-lindcapital.dk";
-      lindHosts = [
-        "stlcevs01"
-        "stlcevs02"
-        "stlcevs03"
-        "stlcunixhost02"
-        "lcevs04"
-        "lcevs05"
-        "lcunixhost01"
-        "lcunixhost02"
-        "vmlcunixhost10"
-      ];
-      devUser = "dev";
-      lindDevHosts = [
-        "lcunixbld01"
-        "stlcubuk8s01"
-        "stlcubuk8s02"
-        "stlcubuk8s03"
-      ];
       knownHosts = {
         "rpi4" = {
           "rpi4" = {
@@ -130,28 +110,6 @@ in
 
           matchBlocks = mkMerge [
             (hostsToMatchblocks cfg.hosts)
-            (mkIf cfg.addLindHosts
-              (listToAttrs (map
-                (h: {
-                  name = h;
-                  value = {
-                    user = devUser;
-                    hostname = h;
-                  };
-                })
-                lindDevHosts))
-            )
-            (mkIf cfg.addLindHosts
-              (listToAttrs (map
-                (h: {
-                  name = h;
-                  value = {
-                    user = t1user;
-                    hostname = h;
-                  };
-                })
-                lindHosts))
-            )
           ];
 
           includes = cfg.includes;
