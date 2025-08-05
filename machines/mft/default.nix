@@ -1,5 +1,14 @@
 { sshKeys, ... }:
 let
+  personal = {
+    userEmail = "thomas@chrstnsn.dk";
+    userName = "Thomas Christensen";
+    gpgVia1Password.key = sshKeys.personal.signing.publicKey;
+    publicKeyFile = "~/.ssh/github-personal.pub";
+  };
+  logseq = {
+    publicKeyFile = null;
+  };
   vcs = {
     primaryConfig = {
       userName = "Thomas Fisker Christensen";
@@ -8,13 +17,10 @@ let
       gpgVia1Password.key = sshKeys.mft.signing.publicKey;
       publicKeyFile = "~/.ssh/github-mft.pub";
     };
-    alternativeConfig = {
-      enable = true;
-      paths = [ "~/dotfiles/" "~/personal/" ];
-      userEmail = "thomas@chrstnsn.dk";
-      userName = "Thomas Christensen";
-      gpgVia1Password.key = sshKeys.personal.signing.publicKey;
-      publicKeyFile = "~/.ssh/github-personal.pub";
+    alternativeConfigs = {
+      "~/dotfiles/" = personal;
+      "~/personal/" = personal;
+      "~/logseq.personal/" = logseq;
     };
   };
 in
@@ -31,7 +37,7 @@ in
     };
     git = {
       enable = true;
-    } // { alternativeConfig = vcs.alternativeConfig; } // vcs.primaryConfig;
+    } // { alternativeConfigs = vcs.alternativeConfigs; } // vcs.primaryConfig;
     ghostty = {
       enable = true;
       fontsize = 15;
@@ -41,7 +47,7 @@ in
     jj = {
       enable = true;
       meld.enable = true;
-    } // { alternativeConfig = vcs.alternativeConfig; } // vcs.primaryConfig;
+    } // { alternativeConfigs = vcs.alternativeConfigs; } // vcs.primaryConfig;
     ssh = {
       enable = true;
       _1password = {
@@ -85,6 +91,7 @@ in
     homebrew = {
       enable = true;
       extraBrews = [
+        "azure-cli"
       ];
       extraCasks = [
         "arc"
@@ -119,9 +126,10 @@ in
 
   extraPackages = pkgs: with pkgs; [
     devenv
-    azure-cli
+    # azure-cli
     just
     rustup
+    bacon
   ];
 
   system = "aarch64-darwin";

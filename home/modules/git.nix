@@ -5,6 +5,35 @@ let
   cfg = config.tc.git;
   sshConfig = config.tc.ssh;
   mkIfList = cond: xs: if cond then xs else [ ];
+  alternativeConfigType = with types; submodule {
+    options = {
+      userName = mkOption {
+        description = "Alternative config Name for git";
+        type = nullOr str;
+        default = null;
+      };
+
+      userEmail = mkOption {
+        description = "Alternative config Email for git";
+        type = nullOr str;
+        default = null;
+      };
+
+      gpgVia1Password.key = mkOption {
+        type = nullOr str;
+        description = "sshkey from 1password for signing (public)";
+        example = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIErz7lXsjPyJcjzRKMWyZodRGzjkbCxWu/Lqk+NpjupZ";
+        default = null;
+      };
+
+      publicKeyFile = mkOption {
+        type = nullOr str;
+        description = "Which ssh-key (path to a public key for agent or private key on file) to prefer for connecting with ssh";
+        example = "~/.ssh/github-alternative.pub";
+        default = null;
+      };
+    };
+  };
 in
 {
   options.tc.git = with types; {
@@ -47,54 +76,16 @@ in
       description = "sshkey from 1password for signing (public)";
     };
 
-    alternativeConfig.enable = mkEnableOption "Add an alternative configuration for repos under specified paths";
-    alternativeConfig.paths = mkOption {
-      type = listOf str;
-      description = "repository paths to enable alternative configuration in";
-      default = [ ];
-    };
-
-    alternativeConfig.userName = mkOption {
-      description = "Alternative config Name for git";
-      type = str;
-      default = cfg.userName;
-    };
-
-    alternativeConfig.userEmail = mkOption {
-      description = "Alternative config Email for git";
-      type = nullOr str;
-      default = null;
-    };
-
-    alternativeConfig.gpgVia1Password.key = mkOption {
-      type = nullOr str;
-      description = "sshkey from 1password for signing (public)";
-      example = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIErz7lXsjPyJcjzRKMWyZodRGzjkbCxWu/Lqk+NpjupZ";
-      default = null;
-    };
-
-    alternativeConfig.publicKeyFile = mkOption {
-      type = nullOr str;
-      description = "Which ssh-key (path to a public key file) to prefer for connecting with ssh";
-      example = "~/.ssh/github-alternative.pub";
-      default = null;
+    alternativeConfigs = mkOption {
+      type = attrsOf alternativeConfigType;
+      description = "keyed by git-dir matching repositories, values are alternative configurations enabled";
+      default = { };
     };
 
     mergiraf.enable = mkEnableOption "mergiraf support" // { default = true; };
   };
 
   config = mkIf cfg.enable {
-    assertions = [
-      {
-        assertion = cfg.alternativeConfig.enable -> (cfg.alternativeConfig.userEmail != null);
-        message = "tc.git.alternativeConfig.userEmail must be set when enabling alternativeConfig";
-      }
-      {
-        assertion = cfg.alternativeConfig.enable -> (cfg.alternativeConfig.paths != [ ]);
-        message = "tc.git.alternativeConfig.paths must not be empty when enabling alternativeConfig";
-      }
-    ];
-
     home.packages = with pkgs;
       (mkIfList (cfg.differ == "difftastic") [ difftastic ]) ++
       (mkIfList cfg.mergiraf.enable [ mergiraf ]);
@@ -163,30 +154,35 @@ in
 
       ignores = [ "*~" "*.swp" ".DS_Store" ".bacon-locations" ];
 
-      includes = mkIfList cfg.alternativeConfig.enable
-        (map
-          (path: {
-            condition = "gitdir:${path}";
-            contents = mkMerge [
-              {
-                user = mkMerge [
+      includes = mapAttrsToList
+        (path: altCfg: {
+          condition = "gitdir:${path}";
+          contents = mkMerge [
+            {
+              user = mkMerge [
+                (mkIf (altCfg.userEmail != null)
                   {
-                    email = cfg.alternativeConfig.userEmail;
-                    name = cfg.alternativeConfig.userName;
-                  }
-                  (mkIf (cfg.alternativeConfig.gpgVia1Password.key != null)
-                    {
-                      signingkey = cfg.alternativeConfig.gpgVia1Password.key;
-                    }
-                  )
-                ];
-              }
-              (mkIf (cfg.alternativeConfig.publicKeyFile != null) {
-                core.sshCommand = "ssh -i ${cfg.alternativeConfig.publicKeyFile} -o IdentitiesOnly=yes";
-              })
-            ];
-          })
-          cfg.alternativeConfig.paths);
+                    email = altCfg.userEmail;
+                  })
+                (mkIf (altCfg.userName != null)
+                  {
+                    name = altCfg.userName;
+                  })
+                (mkIf (altCfg.gpgVia1Password.key != null)
+                  {
+                    signingkey = altCfg.gpgVia1Password.key;
+                  })
+              ];
+            }
+            (mkIf (altCfg.publicKeyFile != null) {
+              core.sshCommand = "ssh -i ${altCfg.publicKeyFile} -o IdentitiesOnly=yes";
+            })
+            (mkIf (altCfg.publicKeyFile == null) {
+              core.sshCommand = "ssh";
+            })
+          ];
+        })
+        cfg.alternativeConfigs;
 
       delta = {
         enable = cfg.differ == "delta";

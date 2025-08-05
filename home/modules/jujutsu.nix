@@ -5,6 +5,35 @@ let
   cfg = config.tc.jj;
   sshConfig = config.tc.ssh;
   mkIfList = cond: xs: if cond then xs else [ ];
+  alternativeConfigType = with types; submodule {
+    options = {
+      userName = mkOption {
+        description = "Alternative config Name for jj";
+        type = nullOr str;
+        default = null;
+      };
+
+      userEmail = mkOption {
+        description = "Alternative config Email for jj";
+        type = nullOr str;
+        default = null;
+      };
+
+      gpgVia1Password.key = mkOption {
+        type = nullOr str;
+        description = "sshkey from 1password for signing (public)";
+        example = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIErz7lXsjPyJcjzRKMWyZodRGzjkbCxWu/Lqk+NpjupZ";
+        default = null;
+      };
+
+      publicKeyFile = mkOption {
+        type = nullOr str;
+        description = "Which ssh-key (path to a public key for agent or private key on file) to prefer for connecting with ssh";
+        example = "~/.ssh/github-alternative.pub";
+        default = null;
+      };
+    };
+  };
 in
 {
   options.tc.jj = with types; {
@@ -44,53 +73,14 @@ in
       default = null;
     };
 
-    alternativeConfig.enable = mkEnableOption "Add an alternative configuration for repos under specified paths";
-    alternativeConfig.paths = mkOption {
-      type = listOf str;
-      description = "repository paths to enable alternative configuration in";
-      default = [ ];
+    alternativeConfigs = mkOption {
+      type = attrsOf alternativeConfigType;
+      description = "keyed by paths matching repositories, values are alternative configurations enabled";
+      default = { };
     };
-
-    alternativeConfig.userName = mkOption {
-      description = "Alternative config Name for jj";
-      type = str;
-      default = cfg.userName;
-    };
-
-    alternativeConfig.userEmail = mkOption {
-      description = "Alternative config Email for jj";
-      type = nullOr str;
-      default = null;
-    };
-
-    alternativeConfig.gpgVia1Password.key = mkOption {
-      type = nullOr str;
-      description = "sshkey from 1password for signing (public)";
-      example = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIErz7lXsjPyJcjzRKMWyZodRGzjkbCxWu/Lqk+NpjupZ";
-      default = null;
-    };
-
-    alternativeConfig.publicKeyFile = mkOption {
-      type = nullOr str;
-      description = "Which ssh-key (path to a public key file) to prefer for connecting with ssh";
-      example = "~/.ssh/github-alternative.pub";
-      default = null;
-    };
-
   };
 
   config = mkIf cfg.enable {
-    assertions = [
-      {
-        assertion = cfg.alternativeConfig.enable -> (cfg.alternativeConfig.userEmail != null);
-        message = "tc.jj.alternativeConfig.userEmail must be set when enabling alternativeConfig";
-      }
-      {
-        assertion = cfg.alternativeConfig.enable -> (cfg.alternativeConfig.paths != [ ]);
-        message = "tc.jj.alternativeConfig.paths must not be empty when enabling alternativeConfig";
-      }
-    ];
-
     home.packages = with pkgs;
       [
         jjui
@@ -104,43 +94,6 @@ in
       bind-key "C-l" display-popup -E -x R -h 99% "jj log --color=always | less -R"
       bind-key "l" display-popup -E -x R -h 99% "jj log --color=always -r :: | less -R"
     '';
-
-    # jjui configuration
-    xdg.configFile."jjui/config.toml" = {
-      source = (pkgs.formats.toml { }).generate "jjui-config.toml" {
-        preview = {
-          extra_args = [ "--tool" "delta" ];
-        };
-        custom_commands = {
-          "split gitpatch" = {
-            args = [ "split" "--tool" "gitpatch" "-r" "$change_id" "$file" ];
-            key = [ "ctrl+s" ];
-            show = "interactive";
-          };
-          "show diff" = {
-            key = [ "U" ];
-            args = [ "diff" "--tool" "delta" "-r" "$change_id" "--color" "always" ];
-            show = "diff";
-          };
-          "resolve vscode" = {
-            key = [ "R" ];
-            args = [ "resolve" "--tool" "vscode" ];
-            show = "interactive";
-          };
-          tug = {
-            key = [ "ctrl+t" ];
-            args = [
-              "bookmark"
-              "move"
-              "--from"
-              "closest_bookmark($change_id)"
-              "--to"
-              "closest_pushable($change_id)"
-            ];
-          };
-        };
-      };
-    };
 
     programs.jujutsu = mkMerge [{
       enable = true;
@@ -230,29 +183,84 @@ in
         settings.git.ssh-command = [ "ssh" "-i" cfg.publicKeyFile "-o" "IdentitiesOnly=yes" ];
       })];
 
-    xdg.configFile."jj/conf.d/alternative-config.toml" =
+    xdg.configFile =
       let
-        settings = mergeAttrsList ([
+        mkOptionsFromAltCfg = altCfg: (
           {
-            user = {
-              name = cfg.alternativeConfig.userName;
-              email = cfg.alternativeConfig.userEmail;
-            };
+            user.name = altCfg.userName;
+            user.email = altCfg.userEmail;
+            signing.key = altCfg.gpgVia1Password.key;
+            git.ssh-command = if (altCfg.publicKeyFile != null) then [ "ssh" "-i" altCfg.publicKeyFile "-o" "IdentitiesOnly=yes" ] else [ "ssh" ];
           }
-        ]
-        ++ optional (cfg.alternativeConfig.gpgVia1Password.key != null)
-          {
-            signing.key = cfg.alternativeConfig.gpgVia1Password.key;
-          }
-        ++ optional (cfg.alternativeConfig.publicKeyFile != null) {
-          git.ssh-command = [ "ssh" "-i" cfg.alternativeConfig.publicKeyFile "-o" "IdentitiesOnly=yes" ];
-        }
         );
+
+        mkFile = index: path: altCfg:
+          let
+            deepFilterAttrs = pred: attrs:
+              lib.filterAttrs (_: v: true) (
+                builtins.mapAttrs
+                  (_: v:
+                    if builtins.isAttrs v then deepFilterAttrs pred v else v
+                  )
+                  (lib.filterAttrs pred attrs)
+              );
+            options = mkOptionsFromAltCfg altCfg;
+            nonNullOptions = deepFilterAttrs (_: v: v != null) options;
+            nonEmptyOptions = deepFilterAttrs (_: v: !(builtins.isAttrs v && builtins.attrNames v == [ ])) nonNullOptions;
+          in
+          {
+            text = ''--when.repositories = [ "${path}" ]
+          '' + (readFile ((pkgs.formats.toml { }).generate "alt-${toString index}.toml" nonEmptyOptions));
+          };
       in
-      mkIf cfg.alternativeConfig.enable {
-        text = ''--when.repositories = ${builtins.toJSON cfg.alternativeConfig.paths}
-'' + (readFile ((pkgs.formats.toml { }).generate "alt.toml" settings));
-      };
+      mkMerge [
+        {
+          "jjui/config.toml" = {
+            source = (pkgs.formats.toml { }).generate "jjui-config.toml" {
+              preview = {
+                extra_args = [ "--tool" "delta" ];
+              };
+              custom_commands = {
+                "split gitpatch" = {
+                  args = [ "split" "--tool" "gitpatch" "-r" "$change_id" "$file" ];
+                  key = [ "ctrl+s" ];
+                  show = "interactive";
+                };
+                "show diff" = {
+                  key = [ "U" ];
+                  args = [ "diff" "--tool" "delta" "-r" "$change_id" "--color" "always" ];
+                  show = "diff";
+                };
+                "resolve vscode" = {
+                  key = [ "R" ];
+                  args = [ "resolve" "--tool" "vscode" ];
+                  show = "interactive";
+                };
+                tug = {
+                  key = [ "ctrl+t" ];
+                  args = [
+                    "bookmark"
+                    "move"
+                    "--from"
+                    "closest_bookmark($change_id)"
+                    "--to"
+                    "closest_pushable($change_id)"
+                  ];
+                };
+              };
+            };
+          };
+        }
+        # iterate over each alternativeConfig
+        (
+          listToAttrs (imap0
+            (index: key: {
+              name = "jj/conf.d/alternative-config-${toString(index)}.toml";
+              value = mkFile index key (cfg.alternativeConfigs."${key}");
+            })
+            (attrNames cfg.alternativeConfigs))
+        )
+      ];
 
     programs.starship.settings.custom.jj = mkIf cfg.starship.enable {
       ## TODO: it seems we need to write the default config for it to work (0.3.2)
