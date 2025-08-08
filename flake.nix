@@ -166,6 +166,8 @@
                 nixPath = [
                   "nixpkgs=${inputs.nixpkgs.outPath}"
                 ];
+                # Use the modern optimise setting instead of auto-optimise-store
+                optimise.automatic = true;
               };
             }
 

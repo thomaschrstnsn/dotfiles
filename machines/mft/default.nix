@@ -86,6 +86,7 @@ in
   };
 
   darwin = {
+    nix.daemon.enable = false; # determinate nix provides its own
     aerospace.enable = true;
     jankyborders.enable = true;
     homebrew = {
