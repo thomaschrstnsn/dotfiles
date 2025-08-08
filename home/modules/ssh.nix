@@ -13,7 +13,7 @@ in
   options.tc.ssh = with types; {
     enable = mkEnableOption "ssh";
     hosts = mkOption {
-      type = listOf (enum [ "rpi4" "vmnix" "aero-nix" "enix" "rsync.net" "logseq-personal-deploy" ]);
+      type = listOf (enum [ "rpi4" "vmnix" "aero-nix" "enix" "rsync.net" "logseq-personal-deploy" "mft-az" ]);
       default = [ ];
       description = "known hosts to add to ssh config";
     };
@@ -86,6 +86,15 @@ in
             identitiesOnly = true;
           };
         };
+        "mft-az" =
+          {
+            "10.100.*.*" =
+              {
+                identityAgent = "none";
+                identitiesOnly = true;
+                forwardAgent = false;
+              };
+          };
       };
 
       hostsToMatchblocks =

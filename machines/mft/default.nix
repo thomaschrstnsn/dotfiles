@@ -30,6 +30,7 @@ in
       username = "tfc";
       homedir = "/Users/${username}";
     };
+    azure.enable = true;
     direnv.enable = true;
     dotnet = {
       enable = true;
@@ -60,7 +61,7 @@ in
           sshKeys.personal.signing._1passwordId
         ];
       };
-      hosts = [ "rpi4" "vmnix" "aero-nix" "enix" "rsync.net" "logseq-personal-deploy" ];
+      hosts = [ "rpi4" "vmnix" "aero-nix" "enix" "rsync.net" "logseq-personal-deploy" "mft-az" ];
       includes = [ "personal_config" ];
       publicKeys = {
         "github-mft.pub" = sshKeys.mft.access.publicKey;
@@ -88,9 +89,7 @@ in
     jankyborders.enable = true;
     homebrew = {
       enable = true;
-      extraBrews = [
-        "azure-cli"
-      ];
+      extraBrews = [ ];
       extraCasks = [
         "arc"
         "jetbrains-toolbox"
@@ -124,7 +123,6 @@ in
 
   extraPackages = pkgs: with pkgs; [
     devenv
-    # azure-cli
     just
     rustup
     bacon

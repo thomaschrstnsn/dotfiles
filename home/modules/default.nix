@@ -3,6 +3,7 @@
 {
   imports = [
     ./aws.nix
+    ./azure.nix
     ./check-terminal-color-and-fonts.nix
     ./desktop.nix
     ./direnv.nix
