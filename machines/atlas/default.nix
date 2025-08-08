@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ inputs, sshKeys, ... }:
 
 let
   username = "thomas";
@@ -15,7 +15,13 @@ in
     ssh = {
       enable = true;
       hosts = [ "rpi4" "vmnix" "enix" "rsync.net" "logseq-personal-deploy" ];
-      _1password.enableAgent = true;
+      _1password = {
+        enableAgent = true;
+        keys = [
+          sshKeys.personal.access._1passwordId
+          sshKeys.personal.signing._1passwordId
+        ];
+      };
     };
     fish.enable = true;
     ghostty = {
@@ -28,10 +34,14 @@ in
     git = {
       enable = true;
       gpgVia1Password.enable = true;
+      gpgVia1Password.key = sshKeys.personal.signing.publicKey;
+      publicKeyFile = "~/.ssh/github-personal.pub";
     };
     jj = {
       enable = true;
-      gpgVia1Password = true;
+      gpgVia1Password.enable = true;
+      gpgVia1Password.key = sshKeys.personal.signing.publicKey;
+      publicKeyFile = "~/.ssh/github-personal.pub";
     };
     tmux = {
       enable = true;
