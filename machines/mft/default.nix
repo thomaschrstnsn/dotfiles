@@ -35,6 +35,7 @@ in
       enable = true;
       sdks = [ "8.0" "9.0" ];
     };
+    fish.enable = true;
     git = {
       enable = true;
     } // { alternativeConfigs = vcs.alternativeConfigs; } // vcs.primaryConfig;
@@ -78,10 +79,6 @@ in
     tmux = {
       enable = true;
       theme = "rose-pine";
-    };
-    zsh = {
-      enable = true;
-      vi-mode.enable = false;
     };
   };
 
