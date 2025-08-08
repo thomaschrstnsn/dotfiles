@@ -14,13 +14,16 @@ in
     direnv.enable = true;
     ssh = {
       enable = true;
-      hosts = [ "rpi4" "vmnix" "enix" "rsync.net" "logseq-personal-deploy" ];
+      hosts = [ "rpi4" "vmnix" "enix" "rsync.net" ];
       _1password = {
         enableAgent = true;
         keys = [
           sshKeys.personal.access._1passwordId
           sshKeys.personal.signing._1passwordId
         ];
+      };
+      publicKeys = {
+        "github-personal.pub" = sshKeys.personal.access.publicKey;
       };
     };
     fish.enable = true;
@@ -36,6 +39,9 @@ in
       gpgVia1Password.enable = true;
       gpgVia1Password.key = sshKeys.personal.signing.publicKey;
       publicKeyFile = "~/.ssh/github-personal.pub";
+      alternativeConfigs = {
+        "~/logseq.personal/" = { publicKeyFile = "~/.ssh/logseq-personal-deploy_ed25519"; };
+      };
     };
     jj = {
       enable = true;

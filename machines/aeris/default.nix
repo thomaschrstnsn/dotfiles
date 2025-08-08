@@ -16,6 +16,9 @@
       gpgVia1Password.enable = true;
       gpgVia1Password.key = sshKeys.personal.signing.publicKey;
       publicKeyFile = "~/.ssh/github-personal.pub";
+      alternativeConfigs = {
+        "~/logseq.personal/" = { publicKeyFile = "~/.ssh/logseq-personal-deploy_ed25519"; };
+      };
     };
     ghostty = {
       enable = true;
@@ -39,8 +42,11 @@
           sshKeys.personal.signing._1passwordId
         ];
       };
-      hosts = [ "rpi4" "vmnix" "aero-nix" "enix" "rsync.net" "logseq-personal-deploy" ];
+      hosts = [ "rpi4" "vmnix" "aero-nix" "enix" "rsync.net" ];
       includes = [ "personal_config" ];
+      publicKeys = {
+        "github-personal.pub" = sshKeys.personal.access.publicKey;
+      };
     };
     vim = {
       enable = true;
