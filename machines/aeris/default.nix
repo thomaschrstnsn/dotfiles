@@ -1,4 +1,4 @@
-{ ... }:
+{ sshKeys, ... }:
 {
   home = {
     user = rec {
@@ -13,8 +13,9 @@
     fish.enable = true;
     git = {
       enable = true;
-      githubs = [ ];
       gpgVia1Password.enable = true;
+      gpgVia1Password.key = sshKeys.personal.signing.publicKey;
+      publicKeyFile = "~/.ssh/github-personal.pub";
     };
     ghostty = {
       enable = true;
@@ -24,12 +25,20 @@
     };
     jj = {
       enable = true;
-      gpgVia1Password = true;
+      gpgVia1Password.enable = true;
+      gpgVia1Password.key = sshKeys.personal.signing.publicKey;
+      publicKeyFile = "~/.ssh/github-personal.pub";
     };
     python.enable = true;
     ssh = {
       enable = true;
-      _1Password.enableAgent = true;
+      _1password = {
+        enableAgent = true;
+        keys = [
+          sshKeys.personal.access._1passwordId
+          sshKeys.personal.signing._1passwordId
+        ];
+      };
       hosts = [ "rpi4" "vmnix" "aero-nix" "enix" "rsync.net" "logseq-personal-deploy" ];
       includes = [ "personal_config" ];
     };
