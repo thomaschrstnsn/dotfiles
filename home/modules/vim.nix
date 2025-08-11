@@ -529,11 +529,6 @@ in
         nvim-ufo = {
           enable = true;
           settings = {
-            close_fold_kinds_for_ft = {
-              default = [ "imports" "comment" ];
-              json = [ "array" ];
-              c = [ "comment" "region" ];
-            };
             provider_selector.__raw = ''
               function(bufnr, filetype, buftype)
                 local ftMap = {
