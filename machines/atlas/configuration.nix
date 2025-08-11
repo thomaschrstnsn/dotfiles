@@ -22,6 +22,8 @@ in
     ];
   };
 
+  programs.localsend.enable = true;
+
   services.xserver = {
     enable = true;
     xkb.layout = "gb";
