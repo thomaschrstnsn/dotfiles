@@ -383,7 +383,10 @@ in
         };
         flash = {
           enable = true;
-          settings.modes.search.enabled = true;
+          settings = {
+            jump.jumplist = true;
+            modes.search.enabled = true;
+          };
         };
         gitblame = {
           enable = true;

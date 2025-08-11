@@ -382,6 +382,24 @@
     action = ''<cmd>lua require("flash").treesitter()<CR>'';
     options.desc = "flash treesitter";
   }
+  {
+    key = "r";
+    mode = [ "o" ];
+    action = ''<cmd>lua require("flash").remote()<CR>'';
+    options.desc = "Remote Flash";
+  }
+  {
+    key = "R";
+    mode = [ "o" "x" ];
+    action = ''<cmd>lua require("flash").treesitter_search()<CR>'';
+    options.desc = "Treesitter Search";
+  }
+  {
+    key = "<c-s>";
+    mode = [ "c" ];
+    action = ''<cmd>lua require("flash").toggle()<CR>'';
+    options.desc = "Toggle Flash Search";
+  }
 
   { key = "<C-h>"; mode = "n"; action = "<cmd>wincmd h<CR>"; }
   { key = "<C-j>"; mode = "n"; action = "<cmd>wincmd j<CR>"; }
