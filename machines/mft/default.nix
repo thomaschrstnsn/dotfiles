@@ -95,6 +95,7 @@ in
         "jetbrains-toolbox"
         "logseq"
         "todoist"
+        "webcatalog"
       ];
       extraTaps = [ ];
     };
