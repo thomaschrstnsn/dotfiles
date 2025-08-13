@@ -124,10 +124,11 @@ in
   };
 
   extraPackages = pkgs: with pkgs; [
+    bacon
     devenv
     just
+    opencode
     rustup
-    bacon
   ];
 
   system = "aarch64-darwin";
