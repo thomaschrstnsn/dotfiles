@@ -11,15 +11,14 @@ require("toggleterm").setup({
 	end,
 })
 local Terminal = require('toggleterm.terminal').Terminal
-local lazygit  = Terminal:new({ cmd = "lazygit", hidden = true, direction = "float" })
+local vcsTerm  = Terminal:new({
+	cmd = "jj root --ignore-working-copy && jjui || lazygit",
+	hidden = true,
+	direction = "float"
+})
 
-function Lazygit_toggle()
-	lazygit:toggle()
-end
-
-local jjui = Terminal:new({ cmd = "jjui", hidden = true, direction = "float" })
-function Jjui_toggle()
-	jjui:toggle()
+function VcsTerm_toggle()
+	vcsTerm:toggle()
 end
 
 function _G.set_terminal_keymaps()
