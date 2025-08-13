@@ -1,13 +1,5 @@
 [
   {
-    key = "<leader>e";
-    action = "<cmd>Neotree toggle<CR>";
-    options = {
-      silent = true;
-      desc = "neotree toggle";
-    };
-  }
-  {
     key = "<esc>";
     action = "<cmd>noh<cr><cmd>Noice dismiss<cr><esc>";
     options = {
@@ -17,9 +9,9 @@
 
   {
     key = "<leader>w";
-    action = "<cmd>w<cr>";
+    action = "<cmd>wa<cr>";
     mode = "n";
-    options.desc = "Save";
+    options.desc = "Save all";
   }
   {
     key = "<leader>q";
@@ -327,13 +319,13 @@
   { key = "<"; mode = "v"; action = "<gv"; }
 
   {
-    key = "<leader><CR>"; # todo: conflict with flash treesitter
+    key = "<leader>lf";
     mode = "n";
     action = ''<cmd>lua FormatBuffer()<CR>'';
     options.desc = "Format buffer (via conform/LSP)";
   }
   {
-    key = "<leader><CR>";
+    key = "<leader>lf";
     mode = "v";
     action = ''<cmd>lua FormatSelection()<CR>'';
     options.desc = "Format selection (via conform/LSP)";

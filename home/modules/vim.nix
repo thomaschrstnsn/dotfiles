@@ -547,6 +547,7 @@ in
           settings = {
             keymaps = {
               "C-h" = false;
+              "q" = "actions.close";
             };
             skip_confirm_for_simple_edits = true;
             delete_to_trash = true;
