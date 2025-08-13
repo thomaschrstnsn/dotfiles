@@ -7,7 +7,7 @@ let
     publicKeyFile = "~/.ssh/github-personal.pub";
   };
   logseq = {
-    publicKeyFile = null;
+    publicKeyFile = "~/.ssh/logseq-personal-deploy_ed25519";
   };
   vcs = {
     primaryConfig = {
@@ -39,6 +39,7 @@ in
     fish.enable = true;
     git = {
       enable = true;
+      mergiraf.enable = true;
     } // { alternativeConfigs = vcs.alternativeConfigs; } // vcs.primaryConfig;
     ghostty = {
       enable = true;
