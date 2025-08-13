@@ -232,14 +232,16 @@ in
               enabled = true;
             };
             sources = {
-              providers = {
-                copilot = {
-                  async = true;
-                  module = "blink-cmp-copilot";
-                  name = "copilot";
-                  score_offset = 100;
-                };
-              };
+              providers = mkMerge [
+                (mkIf cfg.copilot.enable {
+                  copilot = {
+                    async = true;
+                    module = "blink-cmp-copilot";
+                    name = "copilot";
+                    score_offset = 100;
+                  };
+                })
+              ];
               default = [
                 "lsp"
                 "path"
