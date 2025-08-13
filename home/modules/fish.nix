@@ -24,6 +24,7 @@ in
 
       functions = {
         kill_port = ''${pkgs.lsof}/bin/lsof -i TCP:$argv[1] | grep LISTEN | awk '{print $2}' | xargs kill -9'';
+        take = ''mkdir -p $argv && cd $argv'';
       };
 
       interactiveShellInit = lib.mkOrder 1000 (
@@ -54,6 +55,8 @@ in
         }
         cfg.extraAliases
       ];
+
+      shellAbbrs = { j = "just"; };
     };
   };
 }

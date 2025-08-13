@@ -4,6 +4,20 @@ with lib;
 let
   cfg = config.tc.jj;
   sshConfig = config.tc.ssh;
+
+  preferFishAbbreviations = config.tc.fish.enable;
+  abbrevationsAndAliases = {
+    jc = "jj git clone";
+    jd = "jj diff";
+    je = "jj edit";
+    jf = "jj git fetch";
+    jgc = "jj git clone --colocate";
+    jla = "jj log -r ::";
+    jp = "jj git push";
+    js = "jj st";
+    jk = "jjui";
+  };
+
   mkIfList = cond: xs: if cond then xs else [ ];
   alternativeConfigType = with types; submodule {
     options = {
@@ -271,17 +285,7 @@ in
       when = "jj root --ignore-working-copy";
     };
 
-
-    home.shellAliases = {
-      jc = "jj git clone";
-      jd = "jj diff";
-      je = "jj edit";
-      jf = "jj git fetch";
-      jgc = "jj git clone --colocate";
-      jla = "jj log -r ::";
-      jp = "jj git push";
-      js = "jj st";
-      jk = "jjui";
-    };
+    home.shellAliases = mkIf (!preferFishAbbreviations) abbrevationsAndAliases;
+    programs.fish.shellAbbrs = mkIf preferFishAbbreviations abbrevationsAndAliases;
   };
 }

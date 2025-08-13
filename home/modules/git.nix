@@ -3,6 +3,17 @@ with lib;
 
 let
   cfg = config.tc.git;
+  preferFishAbbreviations = config.tc.fish.enable;
+
+  abbrevationsAndAliases = {
+    gs = "git status";
+    ga = "git add";
+    gc = "git clone";
+    gp = "git push -u";
+    gl = "git pull";
+    glo = "git lola";
+  };
+
   sshConfig = config.tc.ssh;
   mkIfList = cond: xs: if cond then xs else [ ];
   alternativeConfigType = with types; submodule {
@@ -199,11 +210,8 @@ in
       };
     };
 
-    home.shellAliases =
-      {
-        gs = "git st";
-        gc = "git clone";
-        gp = "git push -u"; # set upstream
-      };
+    home.shellAliases = mkIf (!preferFishAbbreviations) abbrevationsAndAliases;
+
+    programs.fish.shellAbbrs = mkIf preferFishAbbreviations abbrevationsAndAliases;
   };
 }

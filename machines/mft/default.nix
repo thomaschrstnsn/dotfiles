@@ -126,7 +126,6 @@ in
   extraPackages = pkgs: with pkgs; [
     bacon
     devenv
-    just
     opencode
     rustup
   ];

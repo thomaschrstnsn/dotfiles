@@ -45,6 +45,7 @@ in
       fd
       file
       jq
+      just
       tree
       wget
     ] ++ mkIfList pkgs.stdenv.isLinux [ dysk ];
