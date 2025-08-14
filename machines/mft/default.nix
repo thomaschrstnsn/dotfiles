@@ -72,6 +72,7 @@ in
     python.enable = true;
     vim = {
       enable = true;
+      copilot.enable = true;
       ideavim = true;
       lsp.servers.javascript = true;
       lsp.servers.python = true;

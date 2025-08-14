@@ -332,7 +332,7 @@ in
           };
         };
         copilot-chat = {
-          enable = cfg.copilot.enable;
+          enable = false; # currently broken
           settings = {
             mappings = {
               accept_diff = {
