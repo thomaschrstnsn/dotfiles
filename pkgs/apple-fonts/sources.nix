@@ -2,7 +2,7 @@
   sf-pro = {
     url =
       "https://devimages-cdn.apple.com/design/resources/download/SF-Pro.dmg";
-    hash = "sha256-IccB0uWWfPCidHYX6sAusuEZX906dVYo8IaqeX7/O88=";
+    hash = "sha256-090HwtgILtK/KGoOzcwz1iAtoiShKAVjiNhUDQtO+gQ=";
   };
   sf-compact = {
     url =
