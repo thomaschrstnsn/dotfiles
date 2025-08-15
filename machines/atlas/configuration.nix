@@ -175,7 +175,7 @@ in
   services.openssh.enable = true;
 
   services.kanata = {
-    enable = true;
+    enable = false;
     keyboards.internal = {
       devices = [ "/dev/input/by-id/usb-Keychron_Keychron_Q11-event-kbd" ];
       config = builtins.readFile ./kanata.kbd;
