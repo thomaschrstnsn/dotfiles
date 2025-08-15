@@ -251,7 +251,7 @@ in
                   show = "interactive";
                 };
                 tug = {
-                  key = [ "ctrl+t" ];
+                  key = [ "t" ];
                   args = [
                     "bookmark"
                     "move"
