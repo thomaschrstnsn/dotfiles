@@ -213,7 +213,7 @@
                   packages = extraPackages pkgs;
                 };
             }
-            nixvim.homeManagerModules.nixvim
+            nixvim.homeModules.nixvim
             {
               # this module seems to be needed when we disable nixvim, otherwise we have an error:
               # error: The option `home-manager.users.someuser.programs.nixvim' is used but not defined.

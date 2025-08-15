@@ -455,7 +455,7 @@ in
         lspkind = {
           enable = cfg.completionPlugin == "cmp";
           cmp.enable = true;
-          symbolMap = {
+          settings.symbol_map = {
             Class = "ﴯ";
             Color = "";
             Constant = "";
