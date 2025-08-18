@@ -30,8 +30,6 @@ let
     })
     appIdsToDesktops;
 
-
-
   toSkhdConfig = attrs: concatLines (mapAttrsToList (key: cmd: "${key}: aerospace ${cmd}") attrs);
 in
 {
