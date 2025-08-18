@@ -5,13 +5,39 @@ with lib;
 let
   cfg = config.tc.aerospace;
 
+  appIdsToDesktops = {
+    "company.thebrowser.Browser" = "B";
+
+    "com.microsoft.Outlook" = "C";
+    "com.microsoft.teams2" = "C";
+
+    "com.spotify.client" = "M";
+
+    "com.webcatalog.juli.icloud-calendar" = "P";
+    "com.1password.1password" = "P";
+    "com.todoist.mac.Todoist" = "P";
+
+    "com.mitchellh.ghostty" = "T";
+
+    "com.electron.logseq" = "U";
+  };
+
+  onWindowDetected = mapAttrsToList
+    (appId: desktop: {
+      "if".app-id = appId;
+      run = [ "move-node-to-workspace ${desktop}" ];
+    })
+    appIdsToDesktops;
+
+
+
   toSkhdConfig = attrs: concatLines (mapAttrsToList (key: cmd: "${key}: aerospace ${cmd}") attrs);
 in
 {
-  options.tc.aerospace = with types;
-    {
-      enable = mkEnableOption "aerospace tiling window manager https://github.com/nikitabobko/AeroSpace";
-    };
+  options.tc.aerospace = with types; {
+    enable = mkEnableOption "aerospace tiling window manager https://github.com/nikitabobko/AeroSpace";
+
+  };
   config = mkIf cfg.enable {
     services.aerospace = {
       enable = true;
@@ -96,6 +122,8 @@ in
           f = [ "layout floating tiling" "mode main" ]; # Toggle between floating and tiling layout
           backspace = [ "close-all-windows-but-current" "mode main" ];
         };
+
+        on-window-detected = onWindowDetected;
       };
     };
 
