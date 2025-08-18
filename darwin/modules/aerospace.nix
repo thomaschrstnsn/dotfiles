@@ -14,6 +14,7 @@ let
     "com.spotify.client" = "M";
 
     "com.webcatalog.juli.icloud-calendar" = "P";
+    "com.apple.iCal" = "P";
     "com.1password.1password" = "P";
     "com.todoist.mac.Todoist" = "P";
 
