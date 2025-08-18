@@ -45,6 +45,7 @@ in
         font-size = cfg.fontsize;
         initial-window = true;
         macos-icon = "retro";
+        macos-option-as-alt = true;
         macos-titlebar-style = "hidden";
         macos-window-shadow = false;
         minimum-contrast = 1.1;
