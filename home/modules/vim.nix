@@ -4,6 +4,9 @@ with lib;
 let
   cfg = config.tc.vim;
 
+  nixvim = config.lib.nixvim;
+
+
   fromGitHub = repo: version: rev: pkgs.vimUtils.buildVimPlugin {
     pname = "${lib.strings.sanitizeDerivationName repo}";
     version = version;
@@ -377,6 +380,13 @@ in
         };
         dap-ui.enable = true;
         dap-virtual-text.enable = true;
+        dressing = {
+          enable = true;
+          settings.select = {
+            enabled = true;
+            backend = [ "telescope" "fzf-lua" "builtin" ];
+          };
+        };
         efmls-configs = {
           enable = true;
           setup = {

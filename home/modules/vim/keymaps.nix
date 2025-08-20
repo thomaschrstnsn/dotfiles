@@ -56,8 +56,8 @@
     mode = "n";
     options.desc = "Go to implementation";
   }
+  { key = "<leader>a"; action = "<cmd>lua vim.lsp.buf.code_action()<cr>"; mode = "n"; options.desc = "Code Actions"; }
   { key = "<leader>la"; action = "<cmd>Lspsaga code_action<cr>"; mode = "n"; options.desc = "Code Actions"; }
-  { key = "<leader>a"; action = "<cmd>Lspsaga code_action<cr>"; mode = "n"; options.desc = "Code Actions"; }
   { key = "<leader>ld"; action = "<cmd>Telescope lsp_definitions<cr>"; mode = "n"; options.desc = "Definitions"; }
   { key = "K"; action = "<cmd>Lspsaga hover_doc<cr>"; mode = "n"; options.desc = "Hover Docs"; }
   {
