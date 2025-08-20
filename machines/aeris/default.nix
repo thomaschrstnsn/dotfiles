@@ -75,6 +75,7 @@
         # "ghostty" # cask is broken currently, installed from official diskimage
         "google-drive"
         "istat-menus@6"
+        "karabiner-elements"
         "logseq"
       ];
       extraTaps = [
