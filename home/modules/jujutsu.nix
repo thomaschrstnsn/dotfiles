@@ -226,11 +226,23 @@ in
             text = ''--when.repositories = [ "${path}" ]
           '' + (readFile ((pkgs.formats.toml { }).generate "alt-${toString index}.toml" nonEmptyOptions));
           };
+
+        jjuiThemes = pkgs.fetchFromGitHub {
+          owner = "vic";
+          repo = "tinted-jjui";
+          rev = "25dc3531e01fe155d4bdcf4bcb4b707fe5e56b3f";
+          sha256 = "sha256-sT3TVSjGq5X/nJQtPQN4Kby7254udrZCAMAO5rCzUjk";
+        };
+
       in
       mkMerge [
         {
+          "jjui/themes/my-theme.toml" = { source = "${jjuiThemes}/themes/base16-rose-pine.toml"; };
+        }
+        {
           "jjui/config.toml" = {
             source = (pkgs.formats.toml { }).generate "jjui-config.toml" {
+              ui.theme = "my-theme";
               preview = {
                 revision_command = [ "show" "-r" "$change_id" "--tool" "delta" ];
                 file_command = [ "diff" "-r" "$change_id" "--tool" "delta" "$file" ];
