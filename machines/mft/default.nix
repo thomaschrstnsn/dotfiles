@@ -96,7 +96,6 @@ in
         "arc"
         "jetbrains-toolbox"
         "logseq"
-        "todoist"
         "webcatalog"
       ];
       extraTaps = [ ];
