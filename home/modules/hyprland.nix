@@ -33,6 +33,12 @@ in
       description = "which terminal to use";
       default = "wezterm";
     };
+
+    keyboard = mkOption {
+      type = str;
+      description = "which keyboard device to use (hyprctl devices)";
+      example = "kanata";
+    };
   };
   config = mkIf cfg.enable
     {
@@ -434,7 +440,7 @@ in
                 "ALT, period, exec, bemoji -t"
 
                 # toggle kb_layout
-                "ALT, Space, exec, ${./hypr/toggle_kb_layout.sh} kanata"
+                "ALT, Space, exec, ${./hypr/toggle_kb_layout.sh} ${cfg.keyboard}"
 
                 "SUPER, Tab, focuscurrentorlast"
               ]

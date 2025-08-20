@@ -58,6 +58,7 @@ in
     hyprland = {
       enable = true;
       terminal = "ghostty";
+      keyboard = "keychron-keychron-q11";
     };
     wezterm = {
       # package = inputs.wezterm.packages.${system}.default;
