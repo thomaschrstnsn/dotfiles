@@ -232,7 +232,8 @@ in
           "jjui/config.toml" = {
             source = (pkgs.formats.toml { }).generate "jjui-config.toml" {
               preview = {
-                extra_args = [ "--tool" "delta" ];
+                revision_command = [ "show" "-r" "$change_id" "--tool" "delta" ];
+                file_command = [ "diff" "-r" "$change_id" "--tool" "delta" "$file" ];
               };
               custom_commands = {
                 "split gitpatch" = {
