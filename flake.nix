@@ -28,6 +28,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    LazyVim = {
+      url = "github:matadaniel/LazyVim-module";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     wezterm = {
       url = "github:wez/wezterm?dir=nix";
     };
@@ -214,6 +219,7 @@
                 };
             }
             nixvim.homeModules.nixvim
+            inputs.LazyVim.homeManagerModules.default
             {
               # this module seems to be needed when we disable nixvim, otherwise we have an error:
               # error: The option `home-manager.users.someuser.programs.nixvim' is used but not defined.

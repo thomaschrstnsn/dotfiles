@@ -14,6 +14,7 @@
     ./home.nix
     ./hyprland.nix
     ./jujutsu.nix
+    ./lazyvim.nix
     ./nodejs.nix
     ./nushell.nix
     ./python.nix

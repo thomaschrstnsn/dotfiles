@@ -69,8 +69,9 @@ in
       windowBackgroundOpacity = 0.7;
       textBackgroundOpacity = 0.6;
     };
+    lazyvim = { enable = true; };
     vim = {
-      enable = true;
+      enable = false;
     };
   };
   extraPackages = pkgs: with pkgs; [
