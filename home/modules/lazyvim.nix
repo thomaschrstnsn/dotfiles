@@ -22,6 +22,7 @@ in
         oil-nvim
         rose-pine
         rustaceanvim
+        nvim-spider
         undotree
         vim-tmux-navigator
       ];
@@ -32,6 +33,7 @@ in
         "rose-pine.lua".source = ./lazy/plugins/rose-pine.lua;
         "rust.lua".source = ./lazy/plugins/rust.lua;
         "snacks.lua".source = ./lazy/plugins/snacks.lua;
+        "spider.lua".source = ./lazy/plugins/spider.lua;
       };
 
       pluginsToDisable = [
