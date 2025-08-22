@@ -30,6 +30,7 @@ in
         "oil.lua".source = ./lazy/plugins/oil.lua;
         "rose-pine.lua".source = ./lazy/plugins/rose-pine.lua;
         "rust.lua".source = ./lazy/plugins/rust.lua;
+        "snacks.lua".source = ./lazy/plugins/snacks.lua;
       };
 
       pluginsToDisable = [
