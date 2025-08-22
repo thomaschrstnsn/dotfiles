@@ -58,6 +58,7 @@ in
 
     home.packages = with pkgs; [
       figlet
+      lazygit
       lolcat
       nixpkgs-fmt
       ripgrep
