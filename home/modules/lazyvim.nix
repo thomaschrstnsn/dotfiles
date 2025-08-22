@@ -47,9 +47,11 @@ in
     };
 
     home.packages = with pkgs; [
+      figlet
+      lolcat
+      nixpkgs-fmt
       ripgrep
       taplo
-      nixpkgs-fmt
     ];
 
     home.shellAliases = {
