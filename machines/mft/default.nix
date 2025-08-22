@@ -70,8 +70,11 @@ in
       };
     };
     python.enable = true;
-    vim = {
+    lazyvim = {
       enable = true;
+    };
+    vim = {
+      enable = false;
       copilot.enable = true;
       ideavim = true;
       lsp.servers.javascript = true;
