@@ -18,6 +18,13 @@ in
         };
       };
       plugins = with pkgs.vimPlugins; [
+        (nvim-treesitter.withPlugins (plugins: attrValues {
+          inherit (plugins)
+            c_sharp
+            rust
+            yaml
+            zig;
+        }))
         crates-nvim
         oil-nvim
         rose-pine
