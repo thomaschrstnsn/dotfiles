@@ -3,7 +3,20 @@ return {
 		"neovim/nvim-lspconfig",
 		opts = {
 			servers = {
-				nil_ls = { formatter = { command = { "nixpkgs-fmt" } }, nix = { flake = { autoArchive = true } } },
+				nil_ls = {
+					settings = {
+						["nil"] = {
+							formatting = {
+								command = { "nixpkgs-fmt" },
+							},
+							nix = {
+								flake = {
+									autoArchive = true,
+								},
+							},
+						},
+					},
+				},
 			},
 		},
 	},
