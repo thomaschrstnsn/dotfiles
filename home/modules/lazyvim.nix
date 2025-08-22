@@ -27,6 +27,7 @@ in
       ];
       pluginsFile = {
         "editor.lua".source = ./lazy/plugins/editor.lua;
+        "lsp.lua".source = ./lazy/plugins/lsp.lua;
         "oil.lua".source = ./lazy/plugins/oil.lua;
         "rose-pine.lua".source = ./lazy/plugins/rose-pine.lua;
         "rust.lua".source = ./lazy/plugins/rust.lua;
