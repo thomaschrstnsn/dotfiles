@@ -54,6 +54,7 @@ in
 
     xdg.configFile = {
       "nvim/lua/config/keymaps.lua".source = ./lazy/config/keymaps.lua;
+      "nvim/lua/config/options.lua".source = ./lazy/config/options.lua;
     };
 
     home.packages = with pkgs; [
