@@ -3,6 +3,16 @@ with lib;
 
 let
   cfg = config.tc.lazyvim;
+
+  fromGitHub = repo: version: rev: pkgs.vimUtils.buildVimPlugin {
+    pname = "${lib.strings.sanitizeDerivationName repo}";
+    version = version;
+    src = builtins.fetchGit {
+      url = "https://github.com/${repo}.git";
+      rev = rev;
+    };
+  };
+
 in
 {
   options.tc.lazyvim = {
