@@ -48,8 +48,9 @@
         "github-personal.pub" = sshKeys.personal.access.publicKey;
       };
     };
+    lazyvim = { enable = true; };
     vim = {
-      enable = true;
+      enable = false;
       copilot.enable = false;
       ideavim = true;
       codelldb.enable = false;
