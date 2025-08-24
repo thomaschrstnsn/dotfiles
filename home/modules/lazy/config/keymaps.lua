@@ -7,3 +7,7 @@ map("n", "-", "<cmd>Oil<cr>", { desc = "Save File" })
 map("n", "H", function()
 	vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
 end, { desc = "Toggle inlay hints" })
+
+map("n", "<leader>/", function()
+	Snacks.picker.lines()
+end, { desc = "Search lines in buffer" })
