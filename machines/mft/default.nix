@@ -72,6 +72,8 @@ in
     python.enable = true;
     lazyvim = {
       enable = true;
+      copilot.enable = true;
+      lang.python.enable = true;
     };
     vim = {
       enable = false;

@@ -1,4 +1,3 @@
--- Configure diagnostics after LazyVim loads
 vim.diagnostic.config({
 	float = {
 		border = "rounded",
@@ -9,3 +8,6 @@ vim.diagnostic.config({
 	},
 })
 
+vim.g.lazyvim_check_order = false
+
+vim.g.trouble_lualine = false
