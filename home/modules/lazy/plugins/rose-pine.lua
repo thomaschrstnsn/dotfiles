@@ -9,10 +9,15 @@ return {
 					bold = true,
 					italic = true,
 					transparency = true,
-				}
+				},
+
+				highlight_groups = {
+					NormalFloat = { bg = "overlay" },
+					FloatBorder = { fg = "muted", bg = "surface" },
+				},
 			})
 			vim.cmd("colorscheme rose-pine")
-		end
+		end,
 	},
 	{
 		"LazyVim/LazyVim",
