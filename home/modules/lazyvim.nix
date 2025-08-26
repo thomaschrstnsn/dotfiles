@@ -79,7 +79,6 @@ in
       # - dap
       # - neotest
       # - rest
-      # - shellcheck (via efmls?)
       # - harpoon
       # - auto-dark-mode vs darklight
       # - femaco
@@ -89,6 +88,7 @@ in
         "editor.lua".source = ./lazy/plugins/editor.lua;
         "blink.lua".source = ./lazy/plugins/blink.lua;
         "lsp.lua".source = ./lazy/plugins/lsp.lua;
+        "lint.lua".source = ./lazy/plugins/lint.lua;
         "lualine.lua".source = ./lazy/plugins/lualine.lua;
         "oil.lua".source = ./lazy/plugins/oil.lua;
         "rose-pine.lua".source = ./lazy/plugins/rose-pine.lua;
@@ -132,6 +132,7 @@ in
       lolcat
       nixpkgs-fmt
       ripgrep
+      shellcheck
       taplo
     ];
 
