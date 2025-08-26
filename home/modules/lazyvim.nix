@@ -22,6 +22,7 @@ in
     copilot.enable = mkEnableOption "copilot";
     lang.python.enable = mkEnableOption "python";
     lang.json.enable = mkEnableOption "json" // { default = true; };
+    lang.markdown.enable = mkEnableOption "markdown" // { default = true; };
   };
 
   config = mkIf cfg.enable {
@@ -66,6 +67,10 @@ in
         (mkIfList cfg.lang.json.enable [
           SchemaStore-nvim
         ])
+        (mkIfList cfg.lang.markdown.enable [
+          markdown-preview-nvim
+          render-markdown-nvim
+        ])
       ];
       pluginsFile = {
         "editor.lua".source = ./lazy/plugins/editor.lua;
@@ -82,6 +87,7 @@ in
             "return {"
             (optionalString cfg.copilot.enable ''{ import = "lazyvim.plugins.extras.ai.copilot" },'')
             (optionalString cfg.lang.json.enable ''{ import = "lazyvim.plugins.extras.lang.json" },'')
+            (optionalString cfg.lang.markdown.enable ''{ import = "lazyvim.plugins.extras.lang.markdown" },'')
             ''{ import = "lazyvim.plugins.extras.editor.inc-rename" },''
             "}"
           ]);
