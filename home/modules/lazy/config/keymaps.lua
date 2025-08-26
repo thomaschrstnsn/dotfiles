@@ -11,3 +11,6 @@ end, { desc = "Toggle inlay hints" })
 map("n", "<leader>/", function()
 	Snacks.picker.lines()
 end, { desc = "Search lines in buffer" })
+
+map("n", '<leader>"', "<C-W>s", { desc = "Split window below" })
+map("n", "<leader>%", "<C-W>v", { desc = "Split window right" })
