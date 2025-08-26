@@ -85,11 +85,11 @@ in
       # - femaco
       # - otter
       # - smartyank (ocs52?)
-      # - lualine decorations
       pluginsFile = {
         "editor.lua".source = ./lazy/plugins/editor.lua;
         "blink.lua".source = ./lazy/plugins/blink.lua;
         "lsp.lua".source = ./lazy/plugins/lsp.lua;
+        "lualine.lua".source = ./lazy/plugins/lualine.lua;
         "oil.lua".source = ./lazy/plugins/oil.lua;
         "rose-pine.lua".source = ./lazy/plugins/rose-pine.lua;
         "rust.lua".source = ./lazy/plugins/rust.lua;
