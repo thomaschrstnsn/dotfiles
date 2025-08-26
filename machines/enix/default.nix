@@ -1,4 +1,4 @@
-{ ... }:
+{ sshKeys, ... }:
 
 let
   username = "thomas";
@@ -12,13 +12,20 @@ in
     direnv.enable = true;
     jj = {
       enable = true;
+      publicKeyFile = "~/.ssh/github-personal.pub";
     };
     ssh = {
       enable = true;
       hosts = [ "rpi4" "vmnix" "enix" "rsync.net" ];
+      publicKeys = {
+        "github-personal.pub" = sshKeys.personal.access.publicKey;
+      };
     };
     fish.enable = true;
-    git.enable = true;
+    git = {
+      enable = true;
+      publicKeyFile = "~/.ssh/github-personal.pub";
+    };
     tmux = {
       enable = true;
       remote = true;
