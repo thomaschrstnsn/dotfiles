@@ -22,9 +22,11 @@ in
     tmux = {
       enable = true;
       remote = true;
+      theme = "rose-pine";
     };
+    lazyvim.enable = true;
     vim = {
-      enable = true;
+      enable = false;
     };
   };
   extraPackages = pkgs: with pkgs; [
