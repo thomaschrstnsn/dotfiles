@@ -89,6 +89,8 @@ in
             (optionalString cfg.lang.json.enable ''{ import = "lazyvim.plugins.extras.lang.json" },'')
             (optionalString cfg.lang.markdown.enable ''{ import = "lazyvim.plugins.extras.lang.markdown" },'')
             ''{ import = "lazyvim.plugins.extras.editor.inc-rename" },''
+            ''{ import = "lazyvim.plugins.extras.lang.toml" },''
+            ''{ import = "lazyvim.plugins.extras.lang.docker" },''
             "}"
           ]);
       };
