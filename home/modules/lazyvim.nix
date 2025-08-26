@@ -57,6 +57,7 @@ in
           rustaceanvim
           nvim-spider
           nvim-treesitter-context
+          mini-surround
           undotree
           vim-tmux-navigator
         ]
@@ -75,7 +76,6 @@ in
       # TODO:
       # - lspsaga?
       # - csharp/dotnet?
-      # - surround (vs flash in bindings)
       # - dap
       # - neotest
       # - rest
@@ -102,6 +102,7 @@ in
             (optionalString cfg.copilot.enable ''{ import = "lazyvim.plugins.extras.ai.copilot" },'')
             (optionalString cfg.lang.json.enable ''{ import = "lazyvim.plugins.extras.lang.json" },'')
             (optionalString cfg.lang.markdown.enable ''{ import = "lazyvim.plugins.extras.lang.markdown" },'')
+            ''{ import = "lazyvim.plugins.extras.coding.mini-surround" },''
             ''{ import = "lazyvim.plugins.extras.editor.inc-rename" },''
             ''{ import = "lazyvim.plugins.extras.lang.toml" },''
             ''{ import = "lazyvim.plugins.extras.lang.docker" },''
