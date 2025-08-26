@@ -21,6 +21,7 @@ in
     enable = mkEnableOption "lazyvim";
     copilot.enable = mkEnableOption "copilot";
     lang.python.enable = mkEnableOption "python";
+    lang.json.enable = mkEnableOption "json" // { default = true; };
   };
 
   config = mkIf cfg.enable {
@@ -33,7 +34,6 @@ in
           # copilot-chat = cfg.copilot.enable;
         };
         lang = {
-          # markdown.enable = true; # TODO broken on macos
           nix.enable = true;
           python.enable = cfg.lang.python.enable;
         };
@@ -63,6 +63,9 @@ in
           blink-cmp-copilot
           copilot-lua
         ])
+        (mkIfList cfg.lang.json.enable [
+          SchemaStore-nvim
+        ])
       ];
       pluginsFile = {
         "editor.lua".source = ./lazy/plugins/editor.lua;
@@ -78,6 +81,7 @@ in
           (filter (s: s != "") [
             "return {"
             (optionalString cfg.copilot.enable ''{ import = "lazyvim.plugins.extras.ai.copilot" },'')
+            (optionalString cfg.lang.json.enable ''{ import = "lazyvim.plugins.extras.lang.json" },'')
             ''{ import = "lazyvim.plugins.extras.editor.inc-rename" },''
             "}"
           ]);
