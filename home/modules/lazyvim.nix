@@ -72,6 +72,20 @@ in
           render-markdown-nvim
         ])
       ];
+      # TODO:
+      # - lspsaga?
+      # - csharp/dotnet?
+      # - surround (vs flash in bindings)
+      # - dap
+      # - neotest
+      # - rest
+      # - shellcheck (via efmls?)
+      # - harpoon
+      # - auto-dark-mode vs darklight
+      # - femaco
+      # - otter
+      # - smartyank (ocs52?)
+      # - lualine decorations
       pluginsFile = {
         "editor.lua".source = ./lazy/plugins/editor.lua;
         "blink.lua".source = ./lazy/plugins/blink.lua;
