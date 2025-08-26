@@ -14,3 +14,11 @@ end, { desc = "Search lines in buffer" })
 
 map("n", '<leader>"', "<C-W>s", { desc = "Split window below" })
 map("n", "<leader>%", "<C-W>v", { desc = "Split window right" })
+
+map("n", "<leader>co", "<cmd>Trouble symbols toggle focus=true<cr>", { desc = "Trouble symbols outline" })
+map(
+	"n",
+	"<leader>cL",
+	"<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
+	{ desc = "Trouble references hover" }
+)
