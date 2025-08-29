@@ -58,6 +58,7 @@ in
           nvim-spider
           nvim-treesitter-context
           mini-surround
+          (fromGitHub "ibhagwan/smartyank.nvim" "2024nov10" "0a4554a4ea4cad73dab0a15e559f2128ca03c7b2")
           undotree
           vim-tmux-navigator
         ]
@@ -83,7 +84,6 @@ in
       # - auto-dark-mode vs darklight
       # - femaco
       # - otter
-      # - smartyank (ocs52?)
       pluginsFile = {
         "editor.lua".source = ./lazy/plugins/editor.lua;
         "blink.lua".source = ./lazy/plugins/blink.lua;
@@ -93,6 +93,7 @@ in
         "oil.lua".source = ./lazy/plugins/oil.lua;
         "rose-pine.lua".source = ./lazy/plugins/rose-pine.lua;
         "rust.lua".source = ./lazy/plugins/rust.lua;
+        "smartyank.lua".source = ./lazy/plugins/smartyank.lua;
         "snacks.lua".source = ./lazy/plugins/snacks.lua;
         "spider.lua".source = ./lazy/plugins/spider.lua;
         "treesitter-context.lua".source = ./lazy/plugins/treesitter-context.lua;
