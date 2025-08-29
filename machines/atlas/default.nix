@@ -70,9 +70,6 @@ in
       textBackgroundOpacity = 0.6;
     };
     lazyvim = { enable = true; };
-    vim = {
-      enable = false;
-    };
   };
   extraPackages = pkgs: with pkgs; [
     devenv
