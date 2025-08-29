@@ -15,6 +15,9 @@ end, { desc = "Search lines in buffer" })
 map("n", '<leader>"', "<C-W>s", { desc = "Split window below" })
 map("n", "<leader>%", "<C-W>v", { desc = "Split window right" })
 
+map("n", "<leader>a", vim.lsp.buf.code_action, { desc = "Code action" })
+map("n", "<leader>d", vim.diagnostic.open_float, { desc = "Code action" })
+
 map("n", "<leader>co", "<cmd>Trouble symbols toggle focus=true<cr>", { desc = "Trouble symbols outline" })
 map(
 	"n",
