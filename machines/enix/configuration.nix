@@ -37,6 +37,7 @@
     3000 # poolmonitor for local testing
     3210 # grafana poolmonitor
     5432 # postgres
+    2283 # immich
   ];
 
   environment.systemPackages = with pkgs; [
