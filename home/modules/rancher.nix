@@ -10,6 +10,11 @@ in
   };
 
   config = mkIf cfg.enable {
+    programs.fish.interactiveShellInit = lib.mkOrder 1500 (
+      ''
+        set PATH $PATH ~/.rd/bin
+      ''
+    );
     programs.zsh.initContent = lib.mkOrder 550 ''
       export PATH=$PATH:~/.rd/bin
     '';
