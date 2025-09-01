@@ -44,7 +44,7 @@ in
     ghostty = {
       enable = true;
       fontsize = 15;
-      windowBackgroundOpacity = 0.85;
+      windowBackgroundOpacity = 0.70;
       package = null;
     };
     jj = {
