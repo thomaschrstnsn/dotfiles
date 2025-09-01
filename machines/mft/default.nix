@@ -51,6 +51,7 @@ in
       enable = true;
       meld.enable = true;
     } // { alternativeConfigs = vcs.alternativeConfigs; } // vcs.primaryConfig;
+    rancher.enable = true;
     ssh = {
       enable = true;
       _1password = {
@@ -101,6 +102,7 @@ in
         "arc"
         "jetbrains-toolbox"
         "logseq"
+        "rancher"
         "webcatalog"
       ];
       extraTaps = [ ];
