@@ -56,7 +56,10 @@ in
         cfg.extraAliases
       ];
 
-      shellAbbrs = { j = "just"; };
+      shellAbbrs = {
+        j = "just";
+        "..." = "cd ../..";
+      };
     };
   };
 }
