@@ -126,13 +126,13 @@ in
             e = [ "edit" ];
             stash = [ "new" "@-" ];
             des = [ "describe" "-m" ];
-            log-recent = [ "log" "-r" "default() & recent()" ];
+            log-recent = [ "log" "-r" "default(8) & recent()" ];
             tug = [ "bookmark" "move" "--from" "closest_bookmark(@-)" "--to" "closest_pushable(@-)" ];
             nb = [ "bookmark" "create" "-r" "@-" ];
           };
           revset-aliases = {
             "recent()" = ''committer_date(after:"3 months ago")'';
-            "default()" = "present(@) | ancestors(immutable_heads().., 2) | present(trunk())";
+            "default(n)" = "present(@) | ancestors(immutable_heads().., n) | present(trunk())";
             # for tug: https://github.com/jj-vcs/jj/discussions/5568#discussioncomment-13034102
             "closest_bookmark(to)" = "heads(::to & bookmarks())";
             "closest_pushable(to)" = ''heads(::to & mutable() & ~description(exact:"") & (~empty() | merges()))'';
@@ -242,6 +242,9 @@ in
         {
           "jjui/config.toml" = {
             source = (pkgs.formats.toml { }).generate "jjui-config.toml" {
+              revisions = {
+                revset = "default(16) & recent()";
+              };
               ui.theme = "my-theme";
               preview = {
                 revision_command = [ "show" "-r" "$change_id" "--tool" "delta" ];
