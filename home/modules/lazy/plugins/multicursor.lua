@@ -8,11 +8,11 @@ return {
 		local set = vim.keymap.set
 
 		-- Add or skip cursor above/below the main cursor.
-		set({ "n", "x" }, "<Up>", function()
+		set({ "n", "x" }, "<a-Up>", function()
 			mc.lineAddCursor(-1)
 		end, { desc = "Multicursor line above" })
 
-		set({ "n", "x" }, "<Down>", function()
+		set({ "n", "x" }, "<a-Down>", function()
 			mc.lineAddCursor(1)
 		end, { desc = "Multicursor line below" })
 		set({ "n", "x" }, "<leader><up>", function()
