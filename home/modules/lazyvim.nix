@@ -52,6 +52,7 @@ in
           crates-nvim
           inc-rename-nvim
           lualine-nvim
+          multicursor-nvim
           oil-nvim
           rose-pine
           rustaceanvim
@@ -90,6 +91,7 @@ in
         "lsp.lua".source = ./lazy/plugins/lsp.lua;
         "lint.lua".source = ./lazy/plugins/lint.lua;
         "lualine.lua".source = ./lazy/plugins/lualine.lua;
+        "multicursor.lua".source = ./lazy/plugins/multicursor.lua;
         "oil.lua".source = ./lazy/plugins/oil.lua;
         "rose-pine.lua".source = ./lazy/plugins/rose-pine.lua;
         "rust.lua".source = ./lazy/plugins/rust.lua;
