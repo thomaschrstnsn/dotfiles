@@ -4,11 +4,11 @@ with lib;
 let
   cfg = config.tc.lazyvim;
 
-  fromGitHub = repo: version: rev: pkgs.vimUtils.buildVimPlugin {
+  fromGitHub = owner: repo: version: rev: pkgs.vimUtils.buildVimPlugin {
     pname = "${lib.strings.sanitizeDerivationName repo}";
     version = version;
     src = builtins.fetchGit {
-      url = "https://github.com/${repo}.git";
+      url = "https://github.com/${owner}/${repo}.git";
       rev = rev;
     };
   };
@@ -58,7 +58,7 @@ in
           nvim-spider
           nvim-treesitter-context
           mini-surround
-          (fromGitHub "ibhagwan/smartyank.nvim" "2024nov10" "0a4554a4ea4cad73dab0a15e559f2128ca03c7b2")
+          (fromGitHub "ibhagwan" "smartyank.nvim" "2024nov10" "0a4554a4ea4cad73dab0a15e559f2128ca03c7b2")
           undotree
           vim-tmux-navigator
         ]

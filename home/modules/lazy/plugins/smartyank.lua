@@ -1,5 +1,5 @@
 return {
-	"ibhagwan/ibhagwan-smartyank.nvim",
+	"ibhagwan/smartyank.nvim",
 	lazy = false,
 	opts = {},
 }
