@@ -13,6 +13,7 @@
     ./ghostty.nix
     ./home.nix
     ./hyprland.nix
+    ./ideavim.nix
     ./jujutsu.nix
     ./lazyvim.nix
     ./nodejs.nix

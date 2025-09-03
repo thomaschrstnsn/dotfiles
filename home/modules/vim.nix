@@ -66,7 +66,6 @@ in
 {
   options.tc.vim = with types; {
     enable = mkEnableOption "vim";
-    ideavim = mkEnableOption "ideavimrc";
     codelldb.enable = mkEnableOption "lldb";
     copilot.enable = mkOption { type = bool; default = false; description = "copilot"; };
     completionPlugin = mkOption {
@@ -139,10 +138,6 @@ in
       ripgrep
       taplo # toml formatter
     ] ++ (if cfg.lsp.servers.roslyn then [ roslyn-ls ] else [ ]);
-
-    home.file = mkIf cfg.ideavim {
-      ".ideavimrc".source = ./vim/ideavimrc;
-    };
 
     programs.nixvim = {
       enable = true;

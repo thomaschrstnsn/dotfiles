@@ -76,10 +76,10 @@ in
       copilot.enable = true;
       lang.python.enable = true;
     };
+    ideavim.enable = true;
     vim = {
       enable = false;
       copilot.enable = true;
-      ideavim = true;
       lsp.servers.javascript = true;
       lsp.servers.python = true;
       lsp.servers.roslyn = true;
