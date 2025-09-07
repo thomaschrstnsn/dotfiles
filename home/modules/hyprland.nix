@@ -266,7 +266,7 @@ in
             "[workspace name:u silent] logseq"
             "[workspace name:p silent] todoist-electron"
             "[workspace name:p silent] 1password"
-            "[workspace name:c silent] morgen"
+            # "[workspace name:c silent] morgen"
             "[workspace name:m silent] spotify"
           ];
 
@@ -414,10 +414,10 @@ in
               (repeatBind "SHIFT + ALT, $KEY, movetoworkspace, name:$KEY" workspaceChars)
               (repeatBind "CTRL + ALT, $KEY, movetoworkspacesilent, name:$KEY" workspaceChars)
               [
-                "$hyper, h, movefocus, l"
-                "$hyper, j, movefocus, d"
-                "$hyper, k, movefocus, u"
-                "$hyper, l, movefocus, r"
+                "alt, h, movefocus, l"
+                "alt, j, movefocus, d"
+                "alt, k, movefocus, u"
+                "alt, l, movefocus, r"
 
                 "$hyper, q, movecurrentworkspacetomonitor, l"
                 "$hyper, w, movecurrentworkspacetomonitor, r"

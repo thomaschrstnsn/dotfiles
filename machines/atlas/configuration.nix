@@ -112,6 +112,8 @@ in
     lutris
     heroic
 
+    usbutils
+
     gparted
     ntfs3g
   ];

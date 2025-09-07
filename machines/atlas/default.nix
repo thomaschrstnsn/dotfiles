@@ -14,7 +14,7 @@ in
     direnv.enable = true;
     ssh = {
       enable = true;
-      hosts = [ "rpi4" "vmnix" "enix" "rsync.net" ];
+      hosts = [ "rpi4" "enix" "rsync.net" ];
       _1password = {
         enableAgent = true;
         keys = [
@@ -69,13 +69,15 @@ in
       windowBackgroundOpacity = 0.7;
       textBackgroundOpacity = 0.6;
     };
-    lazyvim = { enable = true; };
+    lazyvim = {
+      enable = true;
+      lang.python.enable = true;
+    };
   };
   extraPackages = pkgs: with pkgs; [
     devenv
     logseq
     lnav
-    morgen
     spotify
     todoist-electron
     qt5.qtwayland
