@@ -113,7 +113,7 @@ in
       terminal = "ghostty";
       extraAppShortcuts = {
         "hyper - c" = "Microsoft Teams";
-        "hyper - d" = "Azure Data Studio";
+        "hyper - g" = "ChatGPT";
         "hyper - i" = "Microsoft Outlook";
         "hyper - r" = "Rider";
         "hyper - u" = "Logseq";
