@@ -37,12 +37,12 @@ set matchit
 
 nmap <Esc> :noh<CR><Esc>
 nmap <leader>ff <Action>(GotoFile)
-nmap <leader>fs <Action>(FindInPath)
-nmap <leader>ft <Action>(TextSearchAction)
-nmap <leader>fd <Action>(GotoSymbol)
+nmap <leader>sg <Action>(FindInPath)
+" nmap <leader>ft <Action>(TextSearchAction)
+nmap <leader>sS <Action>(GotoSymbol)
 
 nmap <leader>d <Action>(FileStructurePopup)
-nmap <leader>D <Action>(GotoSymbol)
+nmap <leader>ss <Action>(GotoSymbol)
 
 " this works best when bound in Riders settings, so it also works when tool
 " windows have focus
@@ -65,8 +65,8 @@ nmap <M-d> :action GotoHarpoon2<CR>
 nmap <M-s> :action GotoHarpoon3<CR>
 nmap <M-a> :action GotoHarpoon4<CR>
 
-vmap <leader><CR> :action ReformatCode<CR>
-nmap <leader><CR> :action ReformatCode<CR>
+vmap <leader>cf :action ReformatCode<CR>
+nmap <leader>cf :action ReformatCode<CR>
 
 "https://youtrack.jetbrains.com/issue/IDEA-306871/Question-What-is-the-action-when-the-mouse-hovers
 nmap K <Action>(ShowErrorDescription)<Action>(QuickJavaDoc) 
@@ -76,7 +76,7 @@ nnoremap <c-.> :action ActivateTerminalToolWindow<CR>
 nnoremap \\\\ :action ActivateTerminalToolWindow<CR>
 
 nnoremap gd :action GotoDeclaration<CR>
-nnoremap <leader>u :action FindUsages<CR>
+nnoremap gr :action FindUsages<CR>
 
 vnoremap < <gv
 vnoremap > >gv
@@ -103,13 +103,13 @@ nmap <C-i> <Action>(Forward)
 nnoremap <S-Tab> :action PreviousTab<cr>
 nnoremap <Tab> :action NextTab<cr>
 
-nmap <leader>sh :action SplitHorizontally<cr>
-nmap <leader>sv :action SplitVertically<cr>
-nmap <leader>sx :action Unsplit<cr>
-nmap <leader>bX :action CloseAllUnpinnedEditors<cr>
+nmap <leader>" :action SplitHorizontally<cr>
+nmap <leader>% :action SplitVertically<cr>
+nmap <leader>wq :action Unsplit<cr>
+nmap <leader>bo :action CloseAllUnpinnedEditors<cr>
 nmap <leader>bx :action CloseEditor<cr>
 nmap <leader>bm :action MoveEditorToOppositeTabGroup<CR>
-nmap <leader>x <Action>(CloseContent)
+nmap <leader>bd <Action>(CloseContent)
 
 " Signature Help in Insert Mode
 imap <C-k> <C-o>:action ParameterInfo<CR>i
