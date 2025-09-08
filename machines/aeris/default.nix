@@ -49,10 +49,10 @@
       };
     };
     lazyvim = { enable = true; };
+    ideavim.enable = true;
     vim = {
       enable = false;
       copilot.enable = false;
-      ideavim = true;
       codelldb.enable = false;
       scrolloff = 5;
     };
