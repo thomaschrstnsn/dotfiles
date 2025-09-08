@@ -47,9 +47,11 @@ in
       set PATH $PATH ~/.dotnet/tools
 
       set ASPNETCORE_ENVIRONMENT Development
-      set DOTNET_ROOT "${combinedDotnet}"
-      set DOTNET_HOST_PATH "${combinedDotnet}/dotnet"
-      '';
+
+      # https://discourse.nixos.org/t/dotnet-maui-workload/20370/24
+      set DOTNET_PATH "${combinedDotnet}/bin/dotnet"
+      set DOTNET_ROOT "${combinedDotnet}/share/dotnet"
+    '';
 
     programs.zsh.initContent = ''
       export PATH=$PATH:~/.dotnet/tools
@@ -61,8 +63,8 @@ in
       }
 
       export ASPNETCORE_ENVIRONMENT="Development"
-      export DOTNET_ROOT="${combinedDotnet}"
-      export DOTNET_HOST_PATH="${combinedDotnet}/dotnet"
+      export DOTNET_PATH="${combinedDotnet}/bin/dotnet"
+      export DOTNET_ROOT="${combinedDotnet}/share/dotnet"
     '';
   };
 }
