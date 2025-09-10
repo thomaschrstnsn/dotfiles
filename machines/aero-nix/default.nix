@@ -23,7 +23,6 @@ in
     sway.enable = true;
     waybar.enable = true;
     tmux.enable = true;
-    vim.enable = true;
     wezterm = {
       enable = true;
       fontsize = 11.5;

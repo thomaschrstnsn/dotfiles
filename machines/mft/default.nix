@@ -77,14 +77,6 @@ in
       lang.python.enable = true;
     };
     ideavim.enable = true;
-    vim = {
-      enable = false;
-      copilot.enable = true;
-      lsp.servers.javascript = true;
-      lsp.servers.python = true;
-      lsp.servers.roslyn = true;
-      scrolloff = 5;
-    };
     tmux = {
       enable = true;
       theme = "rose-pine";

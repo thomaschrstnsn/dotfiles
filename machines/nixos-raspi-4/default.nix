@@ -22,12 +22,6 @@ in
       enable = true;
       remote = true;
     };
-    vim = {
-      enable = true;
-      treesitter.grammarPackageSet = "slim";
-      copilot.enable = false;
-      markdown-preview.enable = false;
-    };
     yazi.enable = false;
   };
   system = "aarch64-linux";

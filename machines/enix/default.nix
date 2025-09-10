@@ -32,9 +32,6 @@ in
       theme = "rose-pine";
     };
     lazyvim.enable = true;
-    vim = {
-      enable = false;
-    };
   };
   extraPackages = pkgs: with pkgs; [
     devenv

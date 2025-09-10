@@ -23,11 +23,6 @@
       url = "https://flakehub.com/f/NixOS/nixos-hardware/0.1.*.tar.gz";
     };
 
-    nixvim = {
-      url = "github:nix-community/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     LazyVim = {
       url = "github:matadaniel/LazyVim-module";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -62,7 +57,6 @@
     { nixpkgs
     , home-manager
     , darwin
-    , nixvim
     , nixos-wsl
     , wezterm
     , hyprpanel
@@ -199,7 +193,6 @@
         { homeConfig
         , extraPackages ? _: [ ]
         , system
-        , nixvim
         }:
         let
           version = "21.11";
@@ -218,13 +211,7 @@
                   packages = extraPackages pkgs;
                 };
             }
-            nixvim.homeModules.nixvim
             inputs.LazyVim.homeManagerModules.default
-            {
-              # this module seems to be needed when we disable nixvim, otherwise we have an error:
-              # error: The option `home-manager.users.someuser.programs.nixvim' is used but not defined.
-              config = { programs.nixvim.extraPlugins = [ ]; };
-            }
             ./home/modules
           ];
         };
@@ -235,7 +222,7 @@
         , system
         }:
         home-manager.lib.homeManagerConfiguration
-          (mkHMUser' { inherit homeConfig extraPackages system nixvim; });
+          (mkHMUser' { inherit homeConfig extraPackages system; });
 
       pkgsAndOverlaysForSystem = system:
         let
@@ -288,7 +275,6 @@
               };
               extraPackages = extraPackages;
               system = system;
-              inherit nixvim;
             };
           in
           mkDarwinSystem {
@@ -314,7 +300,6 @@
               homeConfig = home;
               extraPackages = extraPackages;
               system = system;
-              inherit nixvim;
             };
             user = nixos.config.user // { name = home.user.username; };
           in

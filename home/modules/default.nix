@@ -26,7 +26,6 @@
     ./ssh.nix
     ./sway.nix
     ./tmux.nix
-    ./vim.nix
     ./waybar.nix
     ./wezterm.nix
     ./wsl.nix

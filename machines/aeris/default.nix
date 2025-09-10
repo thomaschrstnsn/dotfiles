@@ -50,12 +50,6 @@
     };
     lazyvim = { enable = true; };
     ideavim.enable = true;
-    vim = {
-      enable = false;
-      copilot.enable = false;
-      codelldb.enable = false;
-      scrolloff = 5;
-    };
     tmux = {
       enable = true;
       theme = "rose-pine";

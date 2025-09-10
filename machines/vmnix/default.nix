@@ -15,10 +15,6 @@ in
     };
     tmux.enable = true;
     tmux.remote = true;
-    vim = {
-      enable = true;
-      treesitter.grammarPackageSet = "slim";
-    };
   };
   extraPackages = pkgs: with pkgs; [
     cachix
