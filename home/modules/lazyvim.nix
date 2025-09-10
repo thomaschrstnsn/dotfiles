@@ -77,7 +77,7 @@ in
       ];
       # TODO:
       # - lspsaga?
-      # - csharp/dotnet?
+      # - csharp/dotnet? https://www.reddit.com/r/dotnet/comments/1keiv1m/comment/mqp6yag/
       # - dap
       # - neotest
       # - rest
