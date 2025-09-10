@@ -55,15 +55,20 @@ in
           alt-slash = "layout tiles horizontal vertical";
           alt-shift-slash = "layout accordion horizontal vertical";
 
-          alt-h = "move left";
-          alt-j = "move down";
-          alt-k = "move up";
-          alt-l = "move right";
+          alt-h = "focus left";
+          alt-j = "focus down";
+          alt-k = "focus up";
+          alt-l = "focus right";
 
-          alt-shift-h = "join-with left";
-          alt-shift-j = "join-with down";
-          alt-shift-k = "join-with up";
-          alt-shift-l = "join-with right";
+          alt-shift-h = "move left";
+          alt-shift-j = "move down";
+          alt-shift-k = "move up";
+          alt-shift-l = "move right";
+
+          ctrl-alt-h = "join-with left";
+          ctrl-alt-j = "join-with down";
+          ctrl-alt-k = "join-with up";
+          ctrl-alt-l = "join-with right";
 
           # A,S,D,F missing
           # alt-a = "workspace A";
