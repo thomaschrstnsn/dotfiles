@@ -85,6 +85,9 @@ in
         bind M select-pane -M
         bind < join-pane
 
+        bind Space last-window
+        bind C-Space last-window
+
         bind-key -r -T prefix       S-Up              resize-pane -U 5
         bind-key -r -T prefix       S-Down            resize-pane -D 5
         bind-key -r -T prefix       S-Left            resize-pane -L 5
