@@ -15,7 +15,9 @@ let
 
     "com.webcatalog.juli.icloud-calendar" = "P";
     "com.apple.iCal" = "P";
-    "com.1password.1password" = "P";
+
+    # seems to interfere with 1Password's prompts (fingerprint to unlock)
+    # "com.1password.1password" = "P";
     "com.todoist.mac.Todoist" = "P";
 
     "com.mitchellh.ghostty" = "T";
