@@ -57,7 +57,10 @@
   };
 
   darwin = {
-    aerospace.enable = true;
+    aerospace = {
+      enable = true;
+      hideMenuBar = true;
+    };
     homebrew = {
       enable = true;
       extraBrews = [

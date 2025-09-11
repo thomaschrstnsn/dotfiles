@@ -37,7 +37,11 @@ in
 {
   options.tc.aerospace = with types; {
     enable = mkEnableOption "aerospace tiling window manager https://github.com/nikitabobko/AeroSpace";
-
+    hideMenuBar = mkOption {
+      type = types.bool;
+      default = false;
+      description = "Hide the menu bar (equivalent to setting _HIHideMenuBar to true)";
+    };
   };
   config = mkIf cfg.enable {
     services.aerospace = {
@@ -46,12 +50,12 @@ in
         on-focused-monitor-changed = [ "move-mouse monitor-lazy-center" ];
         on-focus-changed = [ "move-mouse window-lazy-center" ];
         gaps = {
-          inner.horizontal = 6;
-          inner.vertical = 6;
-          outer.left = 6;
-          outer.bottom = 6;
-          outer.top = 6;
-          outer.right = 6;
+          inner.horizontal = 1;
+          inner.vertical = 1;
+          outer.left = 3;
+          outer.bottom = 3;
+          outer.top = 3;
+          outer.right = 3;
         };
         mode.main.binding = {
           alt-slash = "layout tiles horizontal vertical";
@@ -133,7 +137,7 @@ in
       };
     };
 
-    system.defaults.NSGlobalDomain._HIHideMenuBar = true;
+    system.defaults.NSGlobalDomain._HIHideMenuBar = cfg.hideMenuBar;
 
     # https://nikitabobko.github.io/AeroSpace/guide#a-note-on-displays-have-separate-spaces
     system.defaults.spaces.spans-displays = true;
@@ -144,10 +148,6 @@ in
       "hyper - q" = "move-workspace-to-monitor --wrap-around prev";
       "hyper - w" = "move-workspace-to-monitor --wrap-around next";
       "hyper - f" = "fullscreen";
-      "hyper - h" = "focus left";
-      "hyper - j" = "focus down";
-      "hyper - k" = "focus up";
-      "hyper - l" = "focus right";
       "hyper - left" = "resize smart -50";
       "hyper - right" = "resize smart +50";
       "hyper - escape" = "reload-config";
