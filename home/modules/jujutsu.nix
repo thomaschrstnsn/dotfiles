@@ -104,7 +104,7 @@ in
       ++ mkIfList cfg.meld.enable [ meld ];
 
     programs.tmux.extraConfig = ''
-      bind-key "C-j" display-popup -E -w 90% -h 90% "jjui"
+      bind-key "C-j" display-popup -E -w 99% -h 99% "jjui"
       bind-key "C-l" display-popup -E -x R -h 99% "jj log --color=always | less -R"
       bind-key "l" display-popup -E -x R -h 99% "jj log --color=always -r :: | less -R"
     '';
