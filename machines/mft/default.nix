@@ -75,6 +75,7 @@ in
       enable = true;
       copilot.enable = true;
       lang.python.enable = true;
+      lang.markdown.notes.enable = true;
     };
     ideavim.enable = true;
     tmux = {

@@ -23,6 +23,7 @@ in
     lang.python.enable = mkEnableOption "python";
     lang.json.enable = mkEnableOption "json" // { default = true; };
     lang.markdown.enable = mkEnableOption "markdown" // { default = true; };
+    lang.markdown.notes.enable = mkEnableOption "Full markdown notes taking";
   };
 
   config = mkIf cfg.enable {
@@ -85,33 +86,38 @@ in
       # - auto-dark-mode vs darklight
       # - femaco
       # - otter
-      pluginsFile = {
-        "editor.lua".source = ./lazy/plugins/editor.lua;
-        "blink.lua".source = ./lazy/plugins/blink.lua;
-        "lsp.lua".source = ./lazy/plugins/lsp.lua;
-        "lint.lua".source = ./lazy/plugins/lint.lua;
-        "lualine.lua".source = ./lazy/plugins/lualine.lua;
-        "multicursor.lua".source = ./lazy/plugins/multicursor.lua;
-        "oil.lua".source = ./lazy/plugins/oil.lua;
-        "rose-pine.lua".source = ./lazy/plugins/rose-pine.lua;
-        "rust.lua".source = ./lazy/plugins/rust.lua;
-        "smartyank.lua".source = ./lazy/plugins/smartyank.lua;
-        "snacks.lua".source = ./lazy/plugins/snacks.lua;
-        "spider.lua".source = ./lazy/plugins/spider.lua;
-        "treesitter-context.lua".source = ./lazy/plugins/treesitter-context.lua;
-        "extras.lua".text = concatStringsSep "\n"
-          (filter (s: s != "") [
-            "return {"
-            (optionalString cfg.copilot.enable ''{ import = "lazyvim.plugins.extras.ai.copilot" },'')
-            (optionalString cfg.lang.json.enable ''{ import = "lazyvim.plugins.extras.lang.json" },'')
-            (optionalString cfg.lang.markdown.enable ''{ import = "lazyvim.plugins.extras.lang.markdown" },'')
-            ''{ import = "lazyvim.plugins.extras.coding.mini-surround" },''
-            ''{ import = "lazyvim.plugins.extras.editor.inc-rename" },''
-            ''{ import = "lazyvim.plugins.extras.lang.toml" },''
-            ''{ import = "lazyvim.plugins.extras.lang.docker" },''
-            "}"
-          ]);
-      };
+      pluginsFile = mkMerge [
+        {
+          "editor.lua".source = ./lazy/plugins/editor.lua;
+          "blink.lua".source = ./lazy/plugins/blink.lua;
+          "lsp.lua".source = ./lazy/plugins/lsp.lua;
+          "lint.lua".source = ./lazy/plugins/lint.lua;
+          "lualine.lua".source = ./lazy/plugins/lualine.lua;
+          "multicursor.lua".source = ./lazy/plugins/multicursor.lua;
+          "oil.lua".source = ./lazy/plugins/oil.lua;
+          "rose-pine.lua".source = ./lazy/plugins/rose-pine.lua;
+          "rust.lua".source = ./lazy/plugins/rust.lua;
+          "smartyank.lua".source = ./lazy/plugins/smartyank.lua;
+          "snacks.lua".source = ./lazy/plugins/snacks.lua;
+          "spider.lua".source = ./lazy/plugins/spider.lua;
+          "treesitter-context.lua".source = ./lazy/plugins/treesitter-context.lua;
+          "extras.lua".text = concatStringsSep "\n"
+            (filter (s: s != "") [
+              "return {"
+              (optionalString cfg.copilot.enable ''{ import = "lazyvim.plugins.extras.ai.copilot" },'')
+              (optionalString cfg.lang.json.enable ''{ import = "lazyvim.plugins.extras.lang.json" },'')
+              (optionalString cfg.lang.markdown.enable ''{ import = "lazyvim.plugins.extras.lang.markdown" },'')
+              ''{ import = "lazyvim.plugins.extras.coding.mini-surround" },''
+              ''{ import = "lazyvim.plugins.extras.editor.inc-rename" },''
+              ''{ import = "lazyvim.plugins.extras.lang.toml" },''
+              ''{ import = "lazyvim.plugins.extras.lang.docker" },''
+              "}"
+            ]);
+        }
+        (mkIf cfg.lang.markdown.notes.enable {
+          "notes.lua".source = ./lazy/plugins/notes.lua;
+        })
+      ];
 
       pluginsToDisable = [
         # # example - tokyonight seems to be required
@@ -129,14 +135,25 @@ in
 
     programs.neovim.withNodeJs = cfg.copilot.enable;
 
-    home.packages = with pkgs; [
-      figlet
-      lazygit
-      lolcat
-      nixpkgs-fmt
-      ripgrep
-      shellcheck
-      taplo
+    programs.neovim.extraPackages = with pkgs; concatLists [
+      [
+        nixpkgs-fmt
+        shellcheck
+        taplo
+      ]
+      (mkIfList cfg.lang.markdown.enable [
+        marksman
+        markdownlint-cli2
+      ])
+    ];
+
+    home.packages = with pkgs; concatLists [
+      [
+        figlet
+        lazygit
+        lolcat
+        ripgrep
+      ]
     ];
 
     home.shellAliases = {

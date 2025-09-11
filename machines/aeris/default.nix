@@ -48,7 +48,10 @@
         "github-personal.pub" = sshKeys.personal.access.publicKey;
       };
     };
-    lazyvim = { enable = true; };
+    lazyvim = {
+      enable = true;
+      lang.markdown.notes.enable = true;
+    };
     ideavim.enable = true;
     tmux = {
       enable = true;
