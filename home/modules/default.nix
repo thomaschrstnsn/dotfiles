@@ -19,6 +19,7 @@
     ./nodejs.nix
     ./nushell.nix
     ./python.nix
+    ./rust.nix
     ./rancher.nix
     ./realise_symlink.nix
     ./sesh.nix

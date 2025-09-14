@@ -71,6 +71,7 @@ in
       };
     };
     python.enable = true;
+    rust.enable = true;
     lazyvim = {
       enable = true;
       copilot.enable = true;
@@ -130,7 +131,6 @@ in
     bacon
     devenv
     opencode
-    rustup
   ];
 
   system = "aarch64-darwin";

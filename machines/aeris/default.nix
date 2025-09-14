@@ -33,6 +33,7 @@
       publicKeyFile = "~/.ssh/github-personal.pub";
     };
     python.enable = true;
+    rust.enable = true;
     ssh = {
       enable = true;
       _1password = {
