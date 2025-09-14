@@ -88,6 +88,7 @@
     jankyborders.enable = true;
     skhd = {
       enable = true;
+      opener = "aetc";
       browser = "Arc";
       terminal = "ghostty";
       extraAppShortcuts = {

@@ -16,9 +16,11 @@ let
   cfg = config.tc.skhd;
   yabaiCfg = config.tc.yabai;
   switchToApp = onlySwitchIfOpen: app:
-    if cfg.useOpenForAppShortcuts
-    then ''open -a "${app}"''
-    else ''${scripts}/switchToApp.sh "${windowNameForApp app}" "${if onlySwitchIfOpen then "" else app}"'';
+    {
+      open = ''open -a "${app}"'';
+      aetc = ''/Users/thomas/.cargo/bin/aero-traffic-control "${app}"'';
+      switchToApp = ''${scripts}/switchToApp.sh "${windowNameForApp app}" "${if onlySwitchIfOpen then "" else app}"'';
+    }."${cfg.opener}";
   mkAppShortcut = (onlySwitchIfOpen: shortcut: app: "${shortcut} : ${switchToApp onlySwitchIfOpen app}");
   mkShortcut = (shortcut: cmd: "${shortcut} : ${cmd}");
 
@@ -84,10 +86,10 @@ in
       type = str;
       default = "Visual Studio Code";
     };
-    useOpenForAppShortcuts = mkOption {
-      type = bool;
-      description = "Use 'open -a' to open apps (otherwise use custom switchToApp script)";
-      default = true;
+    opener = mkOption {
+      type = enum [ "open" "aetc" "switchToApp.sh" ];
+      description = "command to use for opening/switching to apps";
+      default = "open";
     };
     extraAppShortcuts = mkOption {
       description = "Extra shortcuts to open apps";
