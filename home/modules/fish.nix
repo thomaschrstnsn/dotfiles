@@ -34,6 +34,8 @@ in
           fish_config theme choose "ayu Mirage"
           set fish_greeting ""
 
+          functions --erase lt # conflict with lt tool
+
           if test -f ~/.env
             fenv source ~/.env
           end

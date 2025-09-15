@@ -46,16 +46,19 @@ in
       file
       jq
       just
-      tree
       wget
     ] ++ mkIfList pkgs.stdenv.isLinux [ dysk ];
 
-    home.shellAliases = mkIf pkgs.stdenv.isLinux {
-      df = "dysk";
-    };
+    home.shellAliases = mkMerge [
+      { tree = "eza --tree"; }
+      (mkIf pkgs.stdenv.isLinux {
+        df = "dysk";
+      })
+    ];
 
     programs.eza = {
       enable = true;
+      icons = "auto";
     };
 
     programs.bat = {
