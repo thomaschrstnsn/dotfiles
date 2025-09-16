@@ -50,12 +50,12 @@ in
         on-focused-monitor-changed = [ "move-mouse monitor-lazy-center" ];
         on-focus-changed = [ "move-mouse window-lazy-center" ];
         gaps = {
-          inner.horizontal = 1;
-          inner.vertical = 1;
-          outer.left = 3;
-          outer.bottom = 3;
-          outer.top = 3;
-          outer.right = 3;
+          inner.horizontal = 2;
+          inner.vertical = 2;
+          outer.left = 4;
+          outer.bottom = 4;
+          outer.top = 4;
+          outer.right = 4;
         };
         mode.main.binding = {
           alt-slash = "layout tiles horizontal vertical";
