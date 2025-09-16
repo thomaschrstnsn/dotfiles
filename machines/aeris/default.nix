@@ -43,7 +43,7 @@
           sshKeys.personal.signing._1passwordId
         ];
       };
-      hosts = [ "rpi4" "vmnix" "aero-nix" "enix" "rsync.net" ];
+      hosts = [ "rpi4" "aero-nix" "enix" "rsync.net" ];
       includes = [ "personal_config" ];
       publicKeys = {
         "github-personal.pub" = sshKeys.personal.access.publicKey;

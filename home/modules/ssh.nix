@@ -13,7 +13,7 @@ in
   options.tc.ssh = with types; {
     enable = mkEnableOption "ssh";
     hosts = mkOption {
-      type = listOf (enum [ "rpi4" "vmnix" "aero-nix" "enix" "rsync.net" "mft-az" ]);
+      type = listOf (enum [ "rpi4" "aero-nix" "enix" "rsync.net" "mft-az" ]);
       default = [ ];
       description = "known hosts to add to ssh config";
     };
@@ -39,41 +39,43 @@ in
 
   config = mkIf cfg.enable (
     let
+      withAgent = matchBlock:
+        if cfg._1password.enableAgent
+        then
+          matchBlock // {
+            forwardAgent = true;
+            identityAgent = ''"${agentPath "~"}"'';
+          }
+        else matchBlock;
       knownHosts = {
         "rpi4" = {
-          "rpi4" = {
+          "rpi4" = withAgent {
             hostname = "192.168.1.40";
             user = "pi";
           };
-          "ssh.chrstnsn.dk" = {
+          "ssh.chrstnsn.dk" = withAgent {
             user = "pi";
             proxyCommand = "${pkgs.cloudflared}/bin/cloudflared access ssh --hostname %h";
           };
         };
         "aero-nix" = {
-          "aero-nix" = {
+          "aero-nix" = withAgent {
             user = "thomas";
             hostname = "192.168.1.193";
           };
         };
-        "vmnix" = {
-          "vmnix" = {
-            user = "thomas";
-            hostname = "192.168.64.6";
-          };
-        };
         "enix" = {
-          "enix" = {
+          "enix" = withAgent {
             user = "thomas";
             hostname = "192.168.1.163";
           };
-          "enix.chrstnsn.dk" = {
+          "enix.chrstnsn.dk" = withAgent {
             user = "thomas";
             proxyCommand = "${pkgs.cloudflared}/bin/cloudflared access ssh --hostname %h";
           };
         };
         "rsync.net" = {
-          "rsync.net" = {
+          "rsync.net" = withAgent {
             user = "zh4414";
             hostname = "zh4414.rsync.net";
           };
@@ -101,13 +103,7 @@ in
       {
         programs.ssh = {
           enable = true;
-          forwardAgent = true;
-          extraConfig =
-            if cfg._1password.enableAgent
-            then ''
-              IdentityAgent = "${agentPath "~"}"
-            ''
-            else "";
+          enableDefaultConfig = false;
 
           matchBlocks = mkMerge [
             (hostsToMatchblocks cfg.hosts)

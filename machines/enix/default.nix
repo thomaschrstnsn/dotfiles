@@ -16,7 +16,7 @@ in
     };
     ssh = {
       enable = true;
-      hosts = [ "rpi4" "vmnix" "enix" "rsync.net" ];
+      hosts = [ "rpi4" "enix" "rsync.net" ];
       publicKeys = {
         "github-personal.pub" = sshKeys.personal.access.publicKey;
       };

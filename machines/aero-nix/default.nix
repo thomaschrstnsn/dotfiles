@@ -17,7 +17,7 @@ in
     git.enable = true;
     ssh = {
       enable = true;
-      hosts = [ "rpi4" "vmnix" "enix" "rsync.net" ];
+      hosts = [ "rpi4" "enix" "rsync.net" ];
       agent.enable = true;
     };
     sway.enable = true;
