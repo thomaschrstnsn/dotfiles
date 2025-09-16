@@ -30,6 +30,11 @@
     };
   };
 
+  services.plex = {
+    enable = true;
+    openFirewall = true;
+  };
+
   powerManagement.powertop.enable = true;
 
   networking.firewall.allowedTCPPorts = [
