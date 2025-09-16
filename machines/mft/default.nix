@@ -99,6 +99,7 @@ in
         "arc"
         "jetbrains-toolbox"
         "logseq"
+        "meetingbar"
         "rancher"
         "webcatalog"
       ];
