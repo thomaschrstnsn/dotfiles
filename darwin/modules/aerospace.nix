@@ -52,10 +52,10 @@ in
         gaps = {
           inner.horizontal = 2;
           inner.vertical = 2;
-          outer.left = 4;
+          outer.left = 2;
           outer.bottom = 4;
-          outer.top = 4;
-          outer.right = 4;
+          outer.top = 2;
+          outer.right = 2;
         };
         mode.main.binding = {
           alt-slash = "layout tiles horizontal vertical";
