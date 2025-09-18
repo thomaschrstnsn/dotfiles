@@ -16,7 +16,8 @@
 
   system.defaults.LaunchServices.LSQuarantine = false;
 
-  system.defaults.screencapture.location = "~/Desktop/screenshots";
+  # system.defaults.screencapture.location = "~/Desktop/screenshots";
+  system.defaults.screencapture.target = "clipboard";
 
   system.defaults.NSGlobalDomain = {
     InitialKeyRepeat = 15;
