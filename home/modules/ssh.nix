@@ -107,6 +107,7 @@ in
 
           matchBlocks = mkMerge [
             (hostsToMatchblocks cfg.hosts)
+            { "*" = withAgent { }; }
           ];
 
           includes = cfg.includes;
