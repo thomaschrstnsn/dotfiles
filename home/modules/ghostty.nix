@@ -53,8 +53,8 @@ in
         app-notifications = "no-clipboard-copy";
         theme =
           if cfg.lightAndDarkMode.enable
-          then "light:rose-pine-dawn,dark:rose-pine"
-          else "rose-pine";
+          then "light:Rose Pine Dawn,dark:Rose Pine"
+          else "Rose Pine";
         window-decoration = if pkgs.stdenv.isDarwin then "auto" else "none"; # needs to be auto on macos for rounded corners
       }
         (mkIf cfg.shaders {
