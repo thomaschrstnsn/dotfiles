@@ -249,6 +249,7 @@ in
         '';
 
         settings = {
+          ecosystem.no_update_news = true;
           env = [
             "HYPRSHOT_DIR,/home/thomas/Screenshots" # TODO: fix hardcoding
             "HYPRCURSOR_SIZE,${builtins.toString cursor.size}"
