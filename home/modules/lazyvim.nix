@@ -71,6 +71,9 @@ in
         (mkIfList cfg.lang.json.enable [
           SchemaStore-nvim
         ])
+        (mkIfList cfg.lang.python.enable [
+          (fromGitHub "linux-cultist" "venv-selector.nvim" "2025sept" "2b49d1f8b8fcf5cfbd0913136f48f118225cca5d")
+        ])
         (mkIfList cfg.lang.markdown.enable [
           markdown-preview-nvim
           render-markdown-nvim

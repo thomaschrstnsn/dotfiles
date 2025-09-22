@@ -1,6 +1,6 @@
 return {
 	{
-		'stevearc/oil.nvim',
+		"stevearc/oil.nvim",
 		---@module 'oil'
 		---@type oil.SetupOpts
 		opts = {
@@ -13,13 +13,12 @@ return {
 			delete_to_trash = true,
 			view_options = {
 				show_hidden = true,
-				is_always_hidden =
-					function(name, _)
-						return name == '..' or name == '.git' or name == '.jj'
-					end,
+				is_always_hidden = function(name, _)
+					return name == ".." or name == ".git" or name == ".jj"
+				end,
 			},
 		},
-		dependencies = { { "echasnovski/mini.icons", opts = {} } },
+		dependencies = { { "nvim-mini/mini.icons", opts = {} } },
 		lazy = false,
 	},
 }
