@@ -97,6 +97,7 @@ in
       extraBrews = [ ];
       extraCasks = [
         "arc"
+        "ghostty"
         "jetbrains-toolbox"
         "logseq"
         "meetingbar"
