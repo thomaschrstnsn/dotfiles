@@ -24,6 +24,7 @@ in
     lang.json.enable = mkEnableOption "json" // { default = true; };
     lang.markdown.enable = mkEnableOption "markdown" // { default = true; };
     lang.markdown.notes.enable = mkEnableOption "Full markdown notes taking";
+    util.rest.enable = mkEnableOption "rest client" // { default = true; };
   };
 
   config = mkIf cfg.enable {
@@ -78,6 +79,10 @@ in
           markdown-preview-nvim
           render-markdown-nvim
         ])
+        (mkIfList cfg.util.rest.enable [
+          kulala-nvim
+
+        ])
       ];
       # TODO:
       # - lspsaga?
@@ -110,6 +115,7 @@ in
               (optionalString cfg.copilot.enable ''{ import = "lazyvim.plugins.extras.ai.copilot" },'')
               (optionalString cfg.lang.json.enable ''{ import = "lazyvim.plugins.extras.lang.json" },'')
               (optionalString cfg.lang.markdown.enable ''{ import = "lazyvim.plugins.extras.lang.markdown" },'')
+              (optionalString cfg.util.rest.enable ''{ import = "lazyvim.plugins.extras.util.rest" },'')
               ''{ import = "lazyvim.plugins.extras.coding.mini-surround" },''
               ''{ import = "lazyvim.plugins.extras.editor.inc-rename" },''
               ''{ import = "lazyvim.plugins.extras.lang.toml" },''
