@@ -7,6 +7,16 @@
       inherit myPkgs;
     })
 
+    (final: prev: {
+      vimPlugins = prev.vimPlugins // {
+        kulala-nvim = prev.vimPlugins.kulala-nvim.overrideAttrs (oldAttrs: {
+          patches = (oldAttrs.patches or [ ]) ++ [
+            ./kulala-treesitter.patch # path to your patch file
+          ];
+        });
+      };
+    })
+
     # left as an example of how to make an override
     # (final: prev: {
     #   ## 0.12.4 has an annoying issue with tmux TERM definition

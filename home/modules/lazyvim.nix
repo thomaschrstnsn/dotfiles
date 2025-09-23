@@ -15,6 +15,18 @@ let
 
   mkIfList = cond: xs: if cond then xs else [ ];
 
+  kulala-http-grammar = pkgs.tree-sitter.buildGrammar {
+    language = "kulala_http";
+    version = "6b6e1c8b538cce6654cfc5fb3e4a3acfa316ce57";
+    src = pkgs.fetchFromGitHub {
+      owner = "mistweaverco";
+      repo = "kulala.nvim";
+      rev = "6b6e1c8b538cce6654cfc5fb3e4a3acfa316ce57";
+      sha256 = "07sgyqnlsm0zgxfg5ir3kmxbhy53h7bw14hiylvixdbp1x3xhn3h";
+    };
+    location = "lua/tree-sitter";
+    generate = false;
+  };
 in
 {
   options.tc.lazyvim = with types; {
