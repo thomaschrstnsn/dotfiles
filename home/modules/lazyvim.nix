@@ -81,7 +81,6 @@ in
         ])
         (mkIfList cfg.util.rest.enable [
           kulala-nvim
-
         ])
       ];
       # TODO:
@@ -89,7 +88,6 @@ in
       # - csharp/dotnet? https://www.reddit.com/r/dotnet/comments/1keiv1m/comment/mqp6yag/
       # - dap
       # - neotest
-      # - rest
       # - harpoon
       # - auto-dark-mode vs darklight
       # - femaco
@@ -153,6 +151,9 @@ in
       (mkIfList cfg.lang.markdown.enable [
         marksman
         markdownlint-cli2
+      ])
+      (mkIfList cfg.lang.json.enable [
+        vscode-langservers-extracted
       ])
     ];
 
