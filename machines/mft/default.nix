@@ -98,6 +98,7 @@ in
       extraCasks = [
         "arc"
         "ghostty"
+        "istat-menus@6"
         "jetbrains-toolbox"
         "logseq"
         "meetingbar"
@@ -134,6 +135,7 @@ in
   extraPackages = pkgs: with pkgs; [
     bacon
     devenv
+    natscli
     opencode
   ];
 
