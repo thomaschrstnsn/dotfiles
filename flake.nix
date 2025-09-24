@@ -3,6 +3,7 @@
   inputs = {
     nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1.*.tar.gz";
     nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
+    determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
 
     home-manager = {
       url = "https://flakehub.com/f/nix-community/home-manager/0.1.*.tar.gz";
@@ -153,7 +154,7 @@
               nixpkgs.config.permittedInsecurePackages = insecure;
             }
 
-
+            inputs.determinate.nixosModules.default
             inputs.home-manager.nixosModules.home-manager
             inputs.agenix.nixosModules.default
 
