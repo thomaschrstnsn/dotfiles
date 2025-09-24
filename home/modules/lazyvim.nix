@@ -55,13 +55,15 @@ in
       };
       plugins = with pkgs.vimPlugins; concatLists [
         [
-          (nvim-treesitter.withPlugins (plugins: attrValues {
-            inherit (plugins)
-              c_sharp
-              rust
-              yaml
-              zig;
-          }))
+          (nvim-treesitter.withPlugins (plugins: attrValues
+            {
+              inherit (plugins)
+                c_sharp
+                rust
+                yaml
+                zig;
+              kulala_http = kulala-http-grammar;
+            }))
           blink-cmp
           crates-nvim
           inc-rename-nvim
