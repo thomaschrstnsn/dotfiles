@@ -39,6 +39,9 @@ in
       package = cfg.package;
       installBatSyntax = cfg.package != null;
       settings = mkMerge [{
+        keybind = [
+          "shift+enter=csi:13;2u"
+        ];
         background-blur = true;
         background-opacity = cfg.windowBackgroundOpacity;
         cursor-style-blink = true;

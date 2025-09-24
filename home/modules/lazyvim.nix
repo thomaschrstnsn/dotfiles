@@ -138,6 +138,9 @@ in
         (mkIf cfg.lang.markdown.notes.enable {
           "notes.lua".source = ./lazy/plugins/notes.lua;
         })
+        (mkIf cfg.util.rest.enable {
+          "rest.lua".source = ./lazy/plugins/rest.lua;
+        })
       ];
 
       pluginsToDisable = [
