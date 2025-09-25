@@ -74,7 +74,7 @@
       ];
       extraCasks = [
         "arc"
-        # "ghostty" # cask is broken currently, installed from official diskimage
+        "ghostty"
         "google-drive"
         "istat-menus@6"
         "karabiner-elements"
