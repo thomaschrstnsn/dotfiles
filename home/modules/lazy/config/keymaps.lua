@@ -1,5 +1,3 @@
-vim.keymap.del("n", "<leader>wd")
-
 local map = vim.keymap.set
 
 -- map("n", "<leader>w", "<cmd>w<cr><esc>", { desc = "Save File" })
@@ -18,6 +16,10 @@ map("n", "<leader>%", "<C-W>v", { desc = "Split window right" })
 
 map("n", "<leader>a", vim.lsp.buf.code_action, { desc = "Code action" })
 map("n", "<leader>d", vim.diagnostic.open_float, { desc = "Code action" })
+
+map("n", "<leader>sa", function()
+	Snacks.picker.lsp_workspace_symbols()
+end, { desc = "LSP Workspace Symbols" })
 
 map("n", "<leader>co", "<cmd>Trouble symbols toggle focus=true<cr>", { desc = "Trouble symbols outline" })
 map(
