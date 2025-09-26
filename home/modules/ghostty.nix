@@ -9,6 +9,7 @@ let
     cursor_blaze_tapered = ./ghostty/shaders/cursor_blaze_tapered.glsl;
     mnoise = ./ghostty/shaders/mnoise.glsl;
     underwater = ./ghostty/shaders/underwater.glsl;
+    underwater_moving = ./ghostty/shaders/underwater_moving.glsl;
   };
 in
 {
@@ -38,7 +39,7 @@ in
     lightAndDarkMode.enable = mkEnableOption "Support both light and dark mode" // { default = true; };
 
     shaders = mkOption {
-      type = listOf (enum [ "cursor_blaze" "cursor_blaze_tapered" "mnoise" "underwater" ]);
+      type = listOf (enum [ "cursor_blaze" "cursor_blaze_tapered" "mnoise" "underwater" "underwater_moving" ]);
       description = "shaders to enable";
       default = [ "cursor_blaze_tapered" "underwater" "mnoise" ];
     };
