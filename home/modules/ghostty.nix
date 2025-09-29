@@ -53,7 +53,7 @@ in
       settings = mkMerge [
         {
           keybind = [
-            "shift+enter=csi:13;2u"
+            # "shift+enter=csi:13;2u"
           ];
           background-blur = true;
           background-opacity = cfg.windowBackgroundOpacity;

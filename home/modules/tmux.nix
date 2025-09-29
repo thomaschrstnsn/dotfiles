@@ -46,6 +46,10 @@ in
         set -g default-terminal "tmux-256color"
         set -ag terminal-overrides ",xterm-256color:RGB"
 
+        # pass through shift+enter and ctrl+enter
+        bind -n S-Enter send-keys Escape "[13;2u"
+        bind -n C-Enter send-keys Escape "[13;5u"
+
         # undercurls: https://github.com/folke/tokyonight.nvim#fix-undercurls-in-tmux
         set -as terminal-overrides ',*:Smulx=\E[4::%p1%dm'  # undercurl support
         set -as terminal-overrides ',*:Setulc=\E[58::2::%p1%{65536}%/%d::%p1%{256}%/%{255}%&%d::%p1%{255}%&%d%;m'  # underscore colours - needs tmux-3.0
