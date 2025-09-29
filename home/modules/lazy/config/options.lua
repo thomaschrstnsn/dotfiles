@@ -1,7 +1,7 @@
 vim.diagnostic.config({
 	float = {
 		border = "rounded",
-		source = "always",
+		source = true,
 		header = "",
 		prefix = "",
 		focusable = false,
@@ -11,3 +11,5 @@ vim.diagnostic.config({
 vim.g.lazyvim_check_order = false
 
 vim.g.trouble_lualine = false
+
+vim.opt.swapfile = false
