@@ -46,7 +46,7 @@ in
       fontsize = 15;
       windowBackgroundOpacity = 0.70;
       package = null;
-      shaders = [ "cursor_blaze_tapered" "underwater_moving" ];
+      shaders = [ "cursor_blaze_tapered" ];
     };
     jj = {
       enable = true;
