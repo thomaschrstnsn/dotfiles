@@ -140,6 +140,17 @@ in
         vim-tmux-navigator
         extrakto # https://github.com/laktak/extrakto
         sensible
+        {
+          plugin = fuzzback; # https://github.com/roosta/tmux-fuzzback
+          extraConfig = ''
+            set -g @fuzzback-bind s
+            set -g @fuzzback-popup 1
+            set -g @fuzzback-popup-size '100%'
+            set -g @fuzzback-hide-preview 1
+          '';
+          # TODO: Look into fzf binds: https://github.com/roosta/tmux-fuzzback?tab=readme-ov-file#finder-bind
+          # e.g. copy content, paste into new nvim instance
+        }
         (mkIf (cfg.theme == "dracula") {
           plugin = dracula;
           extraConfig = ''
