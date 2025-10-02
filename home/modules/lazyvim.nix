@@ -27,6 +27,21 @@ let
     location = "lua/tree-sitter";
     generate = false;
   };
+  colorschemes = {
+    pkgs = with pkgs.vimPlugins; {
+      everforest = [ everforest ];
+      kanagawa = [ kanagawa-nvim ];
+      rose-pine = [ rose-pine ];
+      tokyonight = [ ];
+    };
+    lua = {
+      everforest = { "everforest.lua".source = ./lazy/plugins/everforest.lua; };
+      kanagawa = { "kanagawa.lua".source = ./lazy/plugins/kanagawa.lua; };
+      rose-pine = { "rose-pine.lua".source = ./lazy/plugins/rose-pine.lua; };
+      tokyonight = { };
+    };
+  };
+
 in
 {
   options.tc.lazyvim = with types; {
@@ -37,6 +52,16 @@ in
     lang.markdown.enable = mkEnableOption "markdown" // { default = true; };
     lang.markdown.notes.enable = mkEnableOption "Full markdown notes taking";
     util.rest.enable = mkEnableOption "rest client" // { default = true; };
+    colorscheme = mkOption {
+      type = enum [
+        "everforest"
+        "kanagawa"
+        "rose-pine"
+        "tokyonight"
+      ];
+      description = "colorscheme to apply";
+      default = "rose-pine";
+    };
   };
 
   config = mkIf cfg.enable {
@@ -70,7 +95,6 @@ in
           lualine-nvim
           multicursor-nvim
           oil-nvim
-          rose-pine
           rustaceanvim
           nvim-spider
           nvim-treesitter-context
@@ -79,6 +103,7 @@ in
           undotree
           vim-tmux-navigator
         ]
+        (colorschemes.pkgs."${cfg.colorscheme}")
         (mkIfList cfg.copilot.enable [
           blink-cmp-copilot
           copilot-lua
@@ -115,7 +140,6 @@ in
           "lualine.lua".source = ./lazy/plugins/lualine.lua;
           "multicursor.lua".source = ./lazy/plugins/multicursor.lua;
           "oil.lua".source = ./lazy/plugins/oil.lua;
-          "rose-pine.lua".source = ./lazy/plugins/rose-pine.lua;
           "rust.lua".source = ./lazy/plugins/rust.lua;
           "smartyank.lua".source = ./lazy/plugins/smartyank.lua;
           "snacks.lua".source = ./lazy/plugins/snacks.lua;
@@ -141,6 +165,7 @@ in
         (mkIf cfg.util.rest.enable {
           "rest.lua".source = ./lazy/plugins/rest.lua;
         })
+        (colorschemes.lua."${cfg.colorscheme}")
       ];
 
       pluginsToDisable = [
