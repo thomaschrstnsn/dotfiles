@@ -185,6 +185,8 @@ in
 
     home.shellAliases = {
       vim = "nvim";
+      pv = ''nvim -c 'enew' -c 'setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile' -c 'call setline(1, split(getreg("+"), "\n"))' '';
     };
   };
 }
+
