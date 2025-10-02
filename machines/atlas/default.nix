@@ -32,7 +32,8 @@ in
       fontsize = 13;
       windowBackgroundOpacity = 0.7;
       lightAndDarkMode.enable = false;
-      package = inputs.ghostty.packages.${system}.default; # for the shader support in (unreleased) 1.2
+      package = inputs.ghostty.packages.${system}.default;
+      shaders = [ "cursor_blaze_tapered" ];
     };
     git = {
       enable = true;
@@ -60,18 +61,11 @@ in
       terminal = "ghostty";
       keyboard = "keychron-keychron-q11";
     };
-    wezterm = {
-      # package = inputs.wezterm.packages.${system}.default;
-      enable = false;
-      fontsize = 11.5;
-      window_decorations.resize = false;
-      window_padding.override = true;
-      windowBackgroundOpacity = 0.7;
-      textBackgroundOpacity = 0.6;
-    };
     lazyvim = {
+      colorscheme = "kanagawa";
       enable = true;
       lang.python.enable = true;
+      lang.markdown.notes.enable = true;
     };
   };
   extraPackages = pkgs: with pkgs; [
