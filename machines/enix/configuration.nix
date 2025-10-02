@@ -19,17 +19,6 @@
     };
   };
 
-  services.navidrome = {
-    enable = true;
-
-    openFirewall = true;
-
-    settings = {
-      MusicFolder = "/music";
-      Address = "0.0.0.0";
-    };
-  };
-
   services.plex = {
     enable = true;
     openFirewall = true;
@@ -38,7 +27,6 @@
   powerManagement.powertop.enable = true;
 
   networking.firewall.allowedTCPPorts = [
-    4534 # bonobo (sonos to navidrome integration)
     3000 # poolmonitor for local testing
     3210 # grafana poolmonitor
     5432 # postgres
