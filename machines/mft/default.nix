@@ -44,7 +44,7 @@ in
     ghostty = {
       enable = true;
       fontsize = 15;
-      windowBackgroundOpacity = 0.70;
+      windowBackgroundOpacity = 0.90;
       package = null;
       shaders = [ "cursor_blaze_tapered" ];
     };
@@ -74,6 +74,7 @@ in
     python.enable = true;
     rust.enable = true;
     lazyvim = {
+      colorscheme = "kanagawa";
       enable = true;
       copilot.enable = true;
       lang.python.enable = true;
