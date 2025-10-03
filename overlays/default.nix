@@ -17,6 +17,22 @@
       };
     })
 
+    (final: prev: {
+      tmuxPlugins = prev.tmuxPlugins // {
+        fuzzback = prev.tmuxPlugins.fuzzback.overrideAttrs
+          (_: {
+            version = "unstable-2025-05-07";
+
+            src = prev.fetchFromGitHub {
+              owner = "roosta";
+              repo = "tmux-fuzzback";
+              rev = "0aafeeec4555d7b44a5a2a8252f29c238d954d59";
+              hash = "sha256-2UlyX5X3rlvrMJ9r8imlQzZyeaubzL0Lp3fX++VUUhQ";
+            };
+          });
+      };
+    })
+
     # left as an example of how to make an override
     # (final: prev: {
     #   ## 0.12.4 has an annoying issue with tmux TERM definition
