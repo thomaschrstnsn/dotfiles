@@ -29,10 +29,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    wezterm = {
-      url = "github:wez/wezterm?dir=nix";
-    };
-
     ghostty = {
       url = "github:ghostty-org/ghostty";
     };
@@ -59,7 +55,6 @@
     , home-manager
     , darwin
     , nixos-wsl
-    , wezterm
     , hyprpanel
     , pyenv-nix-install
     , zen-browser
