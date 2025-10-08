@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ sshKeys, inputs, ... }:
 
 let
   username = "pi";
@@ -10,6 +10,10 @@ in
       homedir = "/home/${username}";
     };
     direnv.enable = true;
+    jj = {
+      enable = true;
+      publicKeyFile = "~/.ssh/github-personal.pub";
+    };
     git.enable = true;
     zsh = {
       enable = true;
@@ -18,11 +22,15 @@ in
     ssh = {
       enable = true;
       hosts = [ "rpi4" "enix" "rsync.net" ];
+      publicKeys = {
+        "github-personal.pub" = sshKeys.personal.access.publicKey;
+      };
     };
     tmux = {
       enable = true;
       remote = true;
     };
+    lazyvim.enable = true;
     yazi.enable = false;
   }];
   system = "aarch64-linux";
