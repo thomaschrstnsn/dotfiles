@@ -17,6 +17,9 @@ ingress:
   - hostname: pihole.chrstnsn.dk
     service: http://192.168.1.163:1080
 
+  - hostname: immich.chrstnsn.dk
+    service: http://192.168.1.163:2283
+
   - hostname: ssh.chrstnsn.dk
     service: ssh://localhost:22
 
