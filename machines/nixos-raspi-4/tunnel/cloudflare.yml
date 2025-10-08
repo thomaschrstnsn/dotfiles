@@ -20,6 +20,9 @@ ingress:
   - hostname: immich.chrstnsn.dk
     service: http://192.168.1.163:2283
 
+  - hostname: plex.chrstnsn.dk
+    service: http://192.168.1.163:32400
+
   - hostname: ssh.chrstnsn.dk
     service: ssh://localhost:22
 
