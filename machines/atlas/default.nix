@@ -67,6 +67,7 @@ in
       lang.python.enable = true;
       lang.markdown.notes.enable = true;
     };
+    webapps.enable = true;
   }];
   extraPackages = pkgs: with pkgs; [
     devenv

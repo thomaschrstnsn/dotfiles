@@ -23,6 +23,11 @@ let
       ghostty = "ghostty --class=${class} -e '${command}'";
     }.${term};
   };
+
+  webapp = {
+    starter = app: "${pkgs.gtk3}/bin/gtk-launch ${app}.desktop";
+    # class = app: "webapp-${app}";
+  };
 in
 {
   options.tc.hyprland = with types; {
@@ -267,7 +272,7 @@ in
             "[workspace name:u silent] logseq"
             "[workspace name:p silent] todoist-electron"
             "[workspace name:p silent] 1password"
-            # "[workspace name:c silent] morgen"
+            "[workspace name:c silent] ${webapp.starter "icloud-calendar"}"
             "[workspace name:m silent] spotify"
           ];
 
@@ -386,7 +391,7 @@ in
           ];
 
           "$hyper" = "SUPER+SHIFT+CTRL+ALT";
-          bindm = [ "ALT, mouse:272, movewindow" ];
+          bindm = [ "SUPER, mouse:272, movewindow" ];
 
           bind =
             let
@@ -427,6 +432,8 @@ in
                 t = terminal.class cfg.terminal;
                 u = "Logseq";
                 p = "Todoist";
+                # g = webapp.class "claude";
+                # c = webapp.class "icloud-calendar";
               })
               [
                 "$hyper, b, focuswindow, initialtitle:Zen Browser"

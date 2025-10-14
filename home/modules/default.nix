@@ -27,6 +27,7 @@
     ./sway.nix
     ./tmux.nix
     ./waybar.nix
+    ./webapps.nix
     ./wezterm.nix
     ./wsl.nix
     ./yazi.nix
