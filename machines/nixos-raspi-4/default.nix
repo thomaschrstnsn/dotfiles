@@ -14,6 +14,7 @@ in
     zsh = {
       enable = true;
     };
+    scripts = { enable = true; onlyCore = true; };
     ssh = {
       enable = true;
       hosts = [ "rpi4" "enix" "rsync.net" ];

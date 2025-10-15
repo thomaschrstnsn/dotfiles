@@ -4,7 +4,6 @@
   imports = [
     ./aws.nix
     ./azure.nix
-    ./check-terminal-color-and-fonts.nix
     ./desktop.nix
     ./direnv.nix
     ./dotnet.nix
@@ -21,7 +20,7 @@
     ./python.nix
     ./rust.nix
     ./rancher.nix
-    ./realise_symlink.nix
+    ./scripts.nix
     ./sesh.nix
     ./shell.nix
     ./ssh.nix
