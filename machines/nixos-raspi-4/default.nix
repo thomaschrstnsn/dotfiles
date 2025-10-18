@@ -31,6 +31,7 @@ in
   ];
 
   nixos = {
+    determinateNix = false;
     config = {
       user = {
         name = username;

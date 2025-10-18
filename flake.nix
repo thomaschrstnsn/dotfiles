@@ -66,6 +66,8 @@
       insecure = [
       ];
 
+      mkIfList = cond: xs: if cond then xs else [ ];
+
       mkDarwinSystem =
         { extraModules ? [ ]
         , system
@@ -146,7 +148,6 @@
               nixpkgs.config.permittedInsecurePackages = insecure;
             }
 
-            inputs.determinate.nixosModules.default
             inputs.home-manager.nixosModules.home-manager
             inputs.agenix.nixosModules.default
 
@@ -321,7 +322,10 @@
             system = system;
             config = nixos.config;
             base = nixos.base;
-            extraModules = if (lib.attrsets.attrByPath [ "isWsl" ] false nixos) then [ nixos-wsl.nixosModules.default ] else [ ];
+            extraModules = lib.concatLists [
+              (mkIfList (lib.attrsets.attrByPath [ "isWsl" ] false nixos) [ nixos-wsl.nixosModules.default ])
+              (mkIfList (lib.attrsets.attrByPath [ "determinateNix" ] true nixos) [ inputs.determinate.nixosModules.default ])
+            ];
             homeManagerConfigs = homeCfgs;
           }
         );
@@ -332,7 +336,7 @@
       mapAttrWhenHasAttr = f: musthave: attr:
         builtins.mapAttrs f (lib.filterAttrs (n: v: builtins.hasAttr musthave v) attr);
     in
-    rec {
+    {
       homeManagerConfigurations =
         mapAttrWhenHasAttr machineToHome "home" machines;
 
