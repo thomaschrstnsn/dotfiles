@@ -1,5 +1,6 @@
 { sshKeys, ... }:
 let
+  username = "tfc";
   personal = {
     userEmail = "thomas@chrstnsn.dk";
     userName = "Thomas Christensen";
@@ -25,9 +26,9 @@ let
   };
 in
 {
-  home = {
-    user = rec {
-      username = "tfc";
+  home = [{
+    user = {
+      inherit username;
       homedir = "/Users/${username}";
     };
     azure.enable = true;
@@ -85,7 +86,7 @@ in
       enable = true;
       theme = "rose-pine";
     };
-  };
+  }];
 
   darwin = {
     nix.daemon.enable = false; # determinate nix provides its own

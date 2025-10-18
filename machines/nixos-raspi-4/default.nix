@@ -4,9 +4,9 @@ let
   username = "pi";
 in
 {
-  home = {
+  home = [{
     user = {
-      username = username;
+      inherit username;
       homedir = "/home/${username}";
     };
     direnv.enable = true;
@@ -24,7 +24,7 @@ in
       remote = true;
     };
     yazi.enable = false;
-  };
+  }];
   system = "aarch64-linux";
 
   extraPackages = pkgs: with pkgs; [

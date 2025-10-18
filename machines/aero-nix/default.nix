@@ -1,19 +1,14 @@
 { inputs, ... }:
 let
   username = "thomas";
-  configurationRoot = ./nixos/machines/aero-nix;
 in
 {
-  home = {
+  home = [{
     user = {
-      username = username;
+      inherit username;
       homedir = "/home/${username}";
     };
     direnv.enable = true;
-    dotnet = {
-      enable = true;
-      sdks = [ "7.0" ];
-    };
     git.enable = true;
     ssh = {
       enable = true;
@@ -30,7 +25,7 @@ in
     zsh = {
       enable = true;
     };
-  };
+  }];
 
   extraPackages = pkgs: with pkgs; [
     _1password-gui

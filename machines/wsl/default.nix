@@ -4,15 +4,15 @@ let
   username = "nixos";
 in
 {
-  home = {
+  home = [{
     user = {
-      username = username;
+      inherit username;
       homedir = "/home/${username}";
     };
     direnv.enable = true;
     dotnet = {
       enable = true;
-      sdks = [ "7.0" "8.0" ];
+      sdks = [ "8.0" ];
     };
     git = {
       enable = true;
@@ -30,7 +30,7 @@ in
     zsh = {
       enable = true;
     };
-  };
+  }];
   system = "x86_64-linux";
 
   nixos = {

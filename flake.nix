@@ -64,16 +64,13 @@
       inherit (nixpkgs) lib;
 
       insecure = [
-        # "electron-27.3.11"
-        "dotnet-sdk-6.0.428"
-        "dotnet-sdk-7.0.410"
       ];
 
       mkDarwinSystem =
         { extraModules ? [ ]
         , system
         , config ? { }
-        , home-manager-config ? { }
+        , homeManagerConfig ? { }
         }:
         let
           inherit (pkgsAndOverlaysForSystem system) pkgs overlays;
@@ -114,7 +111,7 @@
             home-manager.darwinModules.home-manager
             {
               home-manager = {
-                users."${config.user.name}" = home-manager-config;
+                users."${config.user.name}" = homeManagerConfig;
                 useGlobalPkgs = true;
                 useUserPackages = true;
               };
@@ -130,10 +127,10 @@
 
       mkNixosSystem =
         { base ? { }
-        , extra-modules
+        , extraModules
         , system
         , config ? { }
-        , home-manager-config ? { }
+        , homeManagerConfigs ? [ ]
         }:
         let
           inherit (pkgsAndOverlaysForSystem system) pkgs overlays;
@@ -171,10 +168,9 @@
 
             {
               home-manager = {
-                users."${config.user.name}" = home-manager-config;
+                users = homeManagerConfigs;
                 useGlobalPkgs = true;
                 useUserPackages = true;
-
               };
             }
 
@@ -182,7 +178,7 @@
             ./nixos/modules
 
             base
-          ] ++ extra-modules;
+          ] ++ extraModules;
         };
 
       mkHMUser' =
@@ -241,32 +237,46 @@
 
       machineToHome =
         (machine:
-          { home ? null
+          { home ? [ ]
           , extraPackages ? _: [ ]
           , system
           , ...
           }:
+          let
+            homeConfig = assertOnlyOneHomeConfiguration home;
+          in
           {
-            "${builtins.replaceStrings ["."] ["_"] home.user.username}" = mkHMUser {
-              homeConfig = home;
+            "${builtins.replaceStrings ["."] ["_"] homeConfig.user.username}" = mkHMUser {
+              homeConfig = homeConfig;
               extraPackages = extraPackages;
               system = system;
             };
           }
         );
 
+      assertOnlyOneHomeConfiguration = home:
+        if home == [ ] then
+          throw "expected exactly one home configuration, found none"
+        else if builtins.tail home != [ ] then
+          throw "expected exactly one home configuration, found ${builtins.length home}"
+        else
+          builtins.head home;
+
       machineToDarwin =
         (machine:
           { system
           , darwin ? { }
-          , home ? null
+          , home ? [ ]
           , extraPackages ? _: [ ]
           , ...
           }:
           let
-            fixedUser = home.user // { homedir = null; };
-            hm-config = mkHMUser' {
-              homeConfig = home // {
+            homeConfig = assertOnlyOneHomeConfiguration home;
+            fixedUser = homeConfig.user // {
+              homedir = null;
+            };
+            hmConfig = mkHMUser' {
+              homeConfig = homeConfig // {
                 user = fixedUser;
               };
               extraPackages = extraPackages;
@@ -276,10 +286,10 @@
           mkDarwinSystem {
             system = system;
             config = darwin // {
-              user.name = home.user.username;
-              user.homedir = home.user.homedir;
+              user.name = homeConfig.user.username;
+              user.homedir = homeConfig.user.homedir;
             };
-            home-manager-config = { imports = hm-config.modules; manual.manpages.enable = false; };
+            homeManagerConfig = { imports = hmConfig.modules; manual.manpages.enable = false; };
           }
         );
 
@@ -287,24 +297,32 @@
         (machine:
           { system
           , nixos
-          , home ? null
+          , home ? [ ]
           , extraPackages ? _: [ ]
           , ...
           }:
           let
-            homeCfg = mkHMUser' {
-              homeConfig = home;
-              extraPackages = extraPackages;
-              system = system;
-            };
-            user = nixos.config.user // { name = home.user.username; };
+            # set/dict with keys that are user names, values are homemanager configs
+            homeCfgs = builtins.listToAttrs (map
+              (hc: {
+                name = hc.user.username;
+                value = {
+                  imports = (mkHMUser' {
+                    homeConfig = hc;
+                    extraPackages = extraPackages;
+                    system = system;
+                  }).modules;
+                  manual.manpages.enable = false;
+                };
+              })
+              home);
           in
           mkNixosSystem {
             system = system;
-            config = nixos.config // { inherit user; };
+            config = nixos.config;
             base = nixos.base;
-            extra-modules = if (lib.attrsets.attrByPath [ "isWsl" ] false nixos) then [ nixos-wsl.nixosModules.default ] else [ ];
-            home-manager-config = { imports = homeCfg.modules; manual.manpages.enable = false; };
+            extraModules = if (lib.attrsets.attrByPath [ "isWsl" ] false nixos) then [ nixos-wsl.nixosModules.default ] else [ ];
+            homeManagerConfigs = homeCfgs;
           }
         );
 

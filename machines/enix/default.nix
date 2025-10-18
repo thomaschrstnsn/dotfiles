@@ -4,9 +4,9 @@ let
   username = "thomas";
 in
 {
-  home = {
+  home = [{
     user = {
-      username = username;
+      inherit username;
       homedir = "/home/thomas";
     };
     direnv.enable = true;
@@ -32,7 +32,7 @@ in
       theme = "rose-pine";
     };
     lazyvim.enable = true;
-  };
+  }];
   extraPackages = pkgs: with pkgs; [
     devenv
     lnav

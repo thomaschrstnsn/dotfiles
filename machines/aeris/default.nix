@@ -1,8 +1,12 @@
 { sshKeys, ... }:
+
+let
+  username = "thomas";
+in
 {
-  home = {
-    user = rec {
-      username = "thomas";
+  home = [{
+    user = {
+      inherit username;
       homedir = "/Users/${username}";
     };
     direnv.enable = true;
@@ -60,7 +64,7 @@
       enable = true;
       theme = "rose-pine";
     };
-  };
+  }];
 
   darwin = {
     aerospace = {

@@ -4,9 +4,9 @@ let
   username = "thomas";
 in
 {
-  home = {
+  home = [{
     user = {
-      username = username;
+      inherit username;
       homedir = "/home/thomas";
     };
     git.enable = true;
@@ -15,7 +15,7 @@ in
     };
     tmux.enable = true;
     tmux.remote = true;
-  };
+  }];
   extraPackages = pkgs: with pkgs; [
     cachix
     jq

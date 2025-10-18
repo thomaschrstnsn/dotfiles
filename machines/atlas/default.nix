@@ -5,9 +5,9 @@ let
   system = "x86_64-linux";
 in
 {
-  home = {
+  home = [{
     user = {
-      username = username;
+      inherit username;
       homedir = "/home/thomas";
     };
     desktop.enable = true;
@@ -67,7 +67,7 @@ in
       lang.python.enable = true;
       lang.markdown.notes.enable = true;
     };
-  };
+  }];
   extraPackages = pkgs: with pkgs; [
     devenv
     logseq
