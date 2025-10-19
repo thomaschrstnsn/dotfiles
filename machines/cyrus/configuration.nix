@@ -22,7 +22,11 @@
   services.libinput.enable = true;
 
   # gnome
+  services.displayManager.gdm.enable = true;
   services.desktopManager.gnome.enable = true;
+
+  # flatpak
+  services.flatpak.enable = true;
 
   # Set system locale to Danish
   i18n.defaultLocale = "da_DK.UTF-8";
