@@ -51,8 +51,7 @@
   };
 
   # system tray icons
-  # environment.systemPackages = [ pkgs.gnomeExtensions.appindicator ];
-  # services.udev.packages = [ pkgs.gnome-settings-daemon ];
+  services.udev.packages = [ pkgs.gnome-settings-daemon ];
 
   # user
   users.users.conrad = {
@@ -132,6 +131,8 @@
 
     gparted
     ntfs3g
+
+    gnomeExtensions.appindicator
   ];
 
   environment.sessionVariables = {
