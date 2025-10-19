@@ -13,7 +13,7 @@ in
   options.tc.ssh = with types; {
     enable = mkEnableOption "ssh";
     hosts = mkOption {
-      type = listOf (enum [ "rpi4" "aero-nix" "enix" "rsync.net" "mft-az" ]);
+      type = listOf (enum [ "rpi4" "aero-nix" "cyrus" "enix" "rsync.net" "mft-az" ]);
       default = [ ];
       description = "known hosts to add to ssh config";
     };
@@ -73,6 +73,9 @@ in
             user = "thomas";
             proxyCommand = "${pkgs.cloudflared}/bin/cloudflared access ssh --hostname %h";
           };
+        };
+        cyrus = {
+          cyrus = withAgent { user = "thomas"; hostname = "192.168.1.142"; };
         };
         "rsync.net" = {
           "rsync.net" = withAgent {
