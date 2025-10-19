@@ -25,6 +25,7 @@ in
     aero-nix = import ./aero-nix { inherit inputs sshKeys; };
     atlas = import ./atlas { inherit inputs sshKeys; };
     aeris = import ./aeris { inherit inputs sshKeys; };
+    cyrus = import ./cyrus { inherit inputs sshKeys; };
     "MFT-L6407N5H2V" = import ./mft { inherit inputs sshKeys; };
     enix = import ./enix/default.nix { inherit inputs sshKeys; };
     Atlas = import ./wsl { inherit inputs sshKeys; };
