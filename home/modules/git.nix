@@ -171,18 +171,15 @@ in
           contents = mkMerge [
             {
               user = mkMerge [
-                (mkIf (altCfg.userEmail != null)
-                  {
-                    email = altCfg.userEmail;
-                  })
-                (mkIf (altCfg.userName != null)
-                  {
-                    name = altCfg.userName;
-                  })
-                (mkIf (altCfg.gpgVia1Password.key != null)
-                  {
-                    signingkey = altCfg.gpgVia1Password.key;
-                  })
+                (mkIf (altCfg.userEmail != null) {
+                  email = altCfg.userEmail;
+                })
+                (mkIf (altCfg.userName != null) {
+                  name = altCfg.userName;
+                })
+                (mkIf (altCfg.gpgVia1Password.key != null) {
+                  signingkey = altCfg.gpgVia1Password.key;
+                })
               ];
             }
             (mkIf (altCfg.publicKeyFile != null) {
@@ -190,6 +187,9 @@ in
             })
             (mkIf (altCfg.publicKeyFile == null) {
               core.sshCommand = "ssh";
+            })
+            (mkIf (altCfg.gpgVia1Password.key == null) {
+              commit.gpgSign = false;
             })
           ];
         })
