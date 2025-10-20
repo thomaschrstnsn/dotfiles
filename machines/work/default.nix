@@ -140,6 +140,7 @@ in
     devenv
     natscli
     opencode
+    myPkgs.github-copilot-cli
   ];
 
   system = "aarch64-darwin";

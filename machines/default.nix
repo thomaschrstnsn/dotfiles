@@ -26,7 +26,7 @@ in
     atlas = import ./atlas { inherit inputs sshKeys; };
     aeris = import ./aeris { inherit inputs sshKeys; };
     cyrus = import ./cyrus { inherit inputs sshKeys; };
-    "MFT-L6407N5H2V" = import ./mft { inherit inputs sshKeys; };
+    "MFT-L6407N5H2V" = import ./work { inherit inputs sshKeys; };
     enix = import ./enix/default.nix { inherit inputs sshKeys; };
     Atlas = import ./wsl { inherit inputs sshKeys; };
     nixos-raspi-4 = import ./nixos-raspi-4 { inherit inputs sshKeys; };
