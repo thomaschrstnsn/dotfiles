@@ -169,7 +169,7 @@ in
           settings.signing = {
             key = cfg.gpgVia1Password.key;
             backend = "ssh";
-            backends.ssh.program = config.programs.git.extraConfig.gpg.ssh.program;
+            backends.ssh.program = config.programs.git.settings.gpg.ssh.program;
             behavior = "own";
           };
         })

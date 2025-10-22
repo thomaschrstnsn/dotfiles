@@ -103,41 +103,39 @@ in
 
     programs.git = {
       enable = true;
-      userName = cfg.userName;
-      userEmail = cfg.userEmail;
+      settings = mkMerge [{
+        user.name = cfg.userName;
+        user.email = cfg.userEmail;
 
-      aliases = {
-        st = "status -s";
-        sm = "submodule";
-        ci = "commit";
-        cia = "commit -a";
-        co = "checkout";
-        nb = "checkout -b";
-        br = "branch";
-        l1 = "log --pretty=oneline";
-        lol = "log --graph --decorate --pretty=oneline --abbrev-commit";
-        lola = "log --graph --decorate --pretty=oneline --abbrev-commit --all";
-        ff = "merge --ff-only";
-      };
-
-      extraConfig = mkMerge [
-        {
-          push.autoSetupRemote = "true"; # since 2.37.0
-          push.default = "current";
-          branch.autosetuprebase = "always";
-          fetch.prune = "true";
-          log.date = "iso";
-          branch.sort = "committerdate";
-          url = builtins.listToAttrs (
-            map
-              (gh: {
-                name = "git@" + gh + ":";
-                value = { insteadOf = "https://" + gh; };
-              }
-              )
-              cfg.githubs
-          );
-        }
+        aliases = {
+          st = "status -s";
+          sm = "submodule";
+          ci = "commit";
+          cia = "commit -a";
+          co = "checkout";
+          nb = "checkout -b";
+          br = "branch";
+          l1 = "log --pretty=oneline";
+          lol = "log --graph --decorate --pretty=oneline --abbrev-commit";
+          lola = "log --graph --decorate --pretty=oneline --abbrev-commit --all";
+          ff = "merge --ff-only";
+        };
+        push.autoSetupRemote = "true"; # since 2.37.0
+        push.default = "current";
+        branch.autosetuprebase = "always";
+        fetch.prune = "true";
+        log.date = "iso";
+        branch.sort = "committerdate";
+        url = builtins.listToAttrs (
+          map
+            (gh: {
+              name = "git@" + gh + ":";
+              value = { insteadOf = "https://" + gh; };
+            }
+            )
+            cfg.githubs
+        );
+      }
         (mkIf cfg.gpgVia1Password.enable {
           user.signingkey = "${cfg.gpgVia1Password.key}";
           gpg.format = "ssh";
@@ -156,8 +154,7 @@ in
         })
         (mkIf (cfg.publicKeyFile != null) {
           core.sshCommand = "ssh -i ${cfg.publicKeyFile} -o IdentitiesOnly=yes";
-        })
-      ];
+        })];
 
       attributes = mkIfList cfg.mergiraf.enable [
         "* merge=mergiraf"
@@ -195,17 +192,19 @@ in
         })
         cfg.alternativeConfigs;
 
-      delta = {
-        enable = cfg.differ == "delta";
-        options = {
-          core-autocrlf = "input";
-          features = "line-numbers decorations";
-          whitespace-error-style = "22 reverse";
-          decorations = {
-            commit-decoration-style = "bold yellow box ul";
-            file-style = "bold yellow ul";
-            file-decoration-style = "none";
-          };
+    };
+
+    programs.delta = {
+      enable = cfg.differ == "delta";
+      enableGitIntegration = true;
+      options = {
+        core-autocrlf = "input";
+        features = "line-numbers decorations";
+        whitespace-error-style = "22 reverse";
+        decorations = {
+          commit-decoration-style = "bold yellow box ul";
+          file-style = "bold yellow ul";
+          file-decoration-style = "none";
         };
       };
     };
