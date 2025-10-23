@@ -6,10 +6,10 @@ let
 
   fromGitHub = owner: repo: version: rev: pkgs.vimUtils.buildVimPlugin {
     pname = "${lib.strings.sanitizeDerivationName repo}";
-    version = version;
+    inherit version;
     src = builtins.fetchGit {
       url = "https://github.com/${owner}/${repo}.git";
-      rev = rev;
+      inherit rev;
     };
   };
 
@@ -47,10 +47,12 @@ in
   options.tc.lazyvim = with types; {
     enable = mkEnableOption "lazyvim";
     copilot.enable = mkEnableOption "copilot";
-    lang.python.enable = mkEnableOption "python";
-    lang.json.enable = mkEnableOption "json" // { default = true; };
-    lang.markdown.enable = mkEnableOption "markdown" // { default = true; };
-    lang.markdown.notes.enable = mkEnableOption "Full markdown notes taking";
+    lang = {
+      python.enable = mkEnableOption "python";
+      json.enable = mkEnableOption "json" // { default = true; };
+      markdown.enable = mkEnableOption "markdown" // { default = true; };
+      markdown.notes.enable = mkEnableOption "Full markdown notes taking";
+    };
     util.rest.enable = mkEnableOption "rest client" // { default = true; };
     colorscheme = mkOption {
       type = enum [
@@ -65,140 +67,143 @@ in
   };
 
   config = mkIf cfg.enable {
-    programs.lazyvim = {
-      enable = true;
-      extras = {
-        ai = {
-          # NOTE: these extras are not super reliable, seems better to create my own installs of dependencies and then use the "plugins/extras.lua"
-          # copilot = cfg.copilot.enable;
-          # copilot-chat = cfg.copilot.enable;
+    programs = {
+      lazyvim = {
+        enable = true;
+        extras = {
+          ai = {
+            # NOTE: these extras are not super reliable, seems better to create my own installs of dependencies and then use the "plugins/extras.lua"
+            # copilot = cfg.copilot.enable;
+            # copilot-chat = cfg.copilot.enable;
+          };
+          lang = {
+            nix.enable = true;
+            python.enable = cfg.lang.python.enable;
+          };
         };
-        lang = {
-          nix.enable = true;
-          python.enable = cfg.lang.python.enable;
-        };
+        plugins = with pkgs.vimPlugins; concatLists [
+          [
+            (nvim-treesitter.withPlugins (plugins: attrValues
+              {
+                inherit (plugins)
+                  c_sharp
+                  rust
+                  yaml
+                  zig;
+                kulala_http = kulala-http-grammar;
+              }))
+            blink-cmp
+            crates-nvim
+            inc-rename-nvim
+            lualine-nvim
+            multicursor-nvim
+            oil-nvim
+            rustaceanvim
+            nvim-spider
+            nvim-treesitter-context
+            mini-surround
+            (fromGitHub "ibhagwan" "smartyank.nvim" "2024nov10" "0a4554a4ea4cad73dab0a15e559f2128ca03c7b2")
+            undotree
+            vim-tmux-navigator
+          ]
+          colorschemes.pkgs."${cfg.colorscheme}"
+          (mkIfList cfg.copilot.enable [
+            blink-cmp-copilot
+            copilot-lua
+          ])
+          (mkIfList cfg.lang.json.enable [
+            SchemaStore-nvim
+          ])
+          (mkIfList cfg.lang.python.enable [
+            (fromGitHub "linux-cultist" "venv-selector.nvim" "2025sept" "2b49d1f8b8fcf5cfbd0913136f48f118225cca5d")
+          ])
+          (mkIfList cfg.lang.markdown.enable [
+            markdown-preview-nvim
+            render-markdown-nvim
+          ])
+          (mkIfList cfg.util.rest.enable [
+            kulala-nvim
+          ])
+        ];
+        # TODO:
+        # - lspsaga?
+        # - csharp/dotnet? https://www.reddit.com/r/dotnet/comments/1keiv1m/comment/mqp6yag/
+        # - dap
+        # - neotest
+        # - harpoon
+        # - auto-dark-mode vs darklight
+        # - femaco
+        # - otter
+        pluginsFile = mkMerge [
+          {
+            "editor.lua".source = ./lazy/plugins/editor.lua;
+            "blink.lua".source = ./lazy/plugins/blink.lua;
+            "lsp.lua".source = ./lazy/plugins/lsp.lua;
+            "lint.lua".source = ./lazy/plugins/lint.lua;
+            "lualine.lua".source = ./lazy/plugins/lualine.lua;
+            "multicursor.lua".source = ./lazy/plugins/multicursor.lua;
+            "oil.lua".source = ./lazy/plugins/oil.lua;
+            "rust.lua".source = ./lazy/plugins/rust.lua;
+            "smartyank.lua".source = ./lazy/plugins/smartyank.lua;
+            "snacks.lua".source = ./lazy/plugins/snacks.lua;
+            "spider.lua".source = ./lazy/plugins/spider.lua;
+            "treesitter-context.lua".source = ./lazy/plugins/treesitter-context.lua;
+            "extras.lua".text = concatStringsSep "\n"
+              (filter (s: s != "") [
+                "return {"
+                (optionalString cfg.copilot.enable ''{ import = "lazyvim.plugins.extras.ai.copilot" },'')
+                (optionalString cfg.lang.json.enable ''{ import = "lazyvim.plugins.extras.lang.json" },'')
+                (optionalString cfg.lang.markdown.enable ''{ import = "lazyvim.plugins.extras.lang.markdown" },'')
+                (optionalString cfg.util.rest.enable ''{ import = "lazyvim.plugins.extras.util.rest" },'')
+                ''{ import = "lazyvim.plugins.extras.coding.mini-surround" },''
+                ''{ import = "lazyvim.plugins.extras.editor.inc-rename" },''
+                ''{ import = "lazyvim.plugins.extras.lang.toml" },''
+                ''{ import = "lazyvim.plugins.extras.lang.docker" },''
+                "}"
+              ]);
+          }
+          (mkIf cfg.lang.markdown.notes.enable {
+            "notes.lua".source = ./lazy/plugins/notes.lua;
+          })
+          (mkIf cfg.util.rest.enable {
+            "rest.lua".source = ./lazy/plugins/rest.lua;
+          })
+          colorschemes.lua."${cfg.colorscheme}"
+        ];
+
+        pluginsToDisable = [
+          # # example - tokyonight seems to be required
+          # {
+          #   lazyName = "tokyonight.nvim";
+          #   nixName = "tokyonight-nvim";
+          # }
+        ];
       };
-      plugins = with pkgs.vimPlugins; concatLists [
+      neovim.withNodeJs = cfg.copilot.enable;
+
+      neovim.extraPackages = with pkgs; concatLists [
         [
-          (nvim-treesitter.withPlugins (plugins: attrValues
-            {
-              inherit (plugins)
-                c_sharp
-                rust
-                yaml
-                zig;
-              kulala_http = kulala-http-grammar;
-            }))
-          blink-cmp
-          crates-nvim
-          inc-rename-nvim
-          lualine-nvim
-          multicursor-nvim
-          oil-nvim
-          rustaceanvim
-          nvim-spider
-          nvim-treesitter-context
-          mini-surround
-          (fromGitHub "ibhagwan" "smartyank.nvim" "2024nov10" "0a4554a4ea4cad73dab0a15e559f2128ca03c7b2")
-          undotree
-          vim-tmux-navigator
+          nixpkgs-fmt
+          shellcheck
+          statix
+          taplo
         ]
-        (colorschemes.pkgs."${cfg.colorscheme}")
-        (mkIfList cfg.copilot.enable [
-          blink-cmp-copilot
-          copilot-lua
+        (mkIfList cfg.lang.markdown.enable [
+          marksman
+          markdownlint-cli2
         ])
         (mkIfList cfg.lang.json.enable [
-          SchemaStore-nvim
+          vscode-langservers-extracted
         ])
-        (mkIfList cfg.lang.python.enable [
-          (fromGitHub "linux-cultist" "venv-selector.nvim" "2025sept" "2b49d1f8b8fcf5cfbd0913136f48f118225cca5d")
-        ])
-        (mkIfList cfg.lang.markdown.enable [
-          markdown-preview-nvim
-          render-markdown-nvim
-        ])
-        (mkIfList cfg.util.rest.enable [
-          kulala-nvim
-        ])
-      ];
-      # TODO:
-      # - lspsaga?
-      # - csharp/dotnet? https://www.reddit.com/r/dotnet/comments/1keiv1m/comment/mqp6yag/
-      # - dap
-      # - neotest
-      # - harpoon
-      # - auto-dark-mode vs darklight
-      # - femaco
-      # - otter
-      pluginsFile = mkMerge [
-        {
-          "editor.lua".source = ./lazy/plugins/editor.lua;
-          "blink.lua".source = ./lazy/plugins/blink.lua;
-          "lsp.lua".source = ./lazy/plugins/lsp.lua;
-          "lint.lua".source = ./lazy/plugins/lint.lua;
-          "lualine.lua".source = ./lazy/plugins/lualine.lua;
-          "multicursor.lua".source = ./lazy/plugins/multicursor.lua;
-          "oil.lua".source = ./lazy/plugins/oil.lua;
-          "rust.lua".source = ./lazy/plugins/rust.lua;
-          "smartyank.lua".source = ./lazy/plugins/smartyank.lua;
-          "snacks.lua".source = ./lazy/plugins/snacks.lua;
-          "spider.lua".source = ./lazy/plugins/spider.lua;
-          "treesitter-context.lua".source = ./lazy/plugins/treesitter-context.lua;
-          "extras.lua".text = concatStringsSep "\n"
-            (filter (s: s != "") [
-              "return {"
-              (optionalString cfg.copilot.enable ''{ import = "lazyvim.plugins.extras.ai.copilot" },'')
-              (optionalString cfg.lang.json.enable ''{ import = "lazyvim.plugins.extras.lang.json" },'')
-              (optionalString cfg.lang.markdown.enable ''{ import = "lazyvim.plugins.extras.lang.markdown" },'')
-              (optionalString cfg.util.rest.enable ''{ import = "lazyvim.plugins.extras.util.rest" },'')
-              ''{ import = "lazyvim.plugins.extras.coding.mini-surround" },''
-              ''{ import = "lazyvim.plugins.extras.editor.inc-rename" },''
-              ''{ import = "lazyvim.plugins.extras.lang.toml" },''
-              ''{ import = "lazyvim.plugins.extras.lang.docker" },''
-              "}"
-            ]);
-        }
-        (mkIf cfg.lang.markdown.notes.enable {
-          "notes.lua".source = ./lazy/plugins/notes.lua;
-        })
-        (mkIf cfg.util.rest.enable {
-          "rest.lua".source = ./lazy/plugins/rest.lua;
-        })
-        (colorschemes.lua."${cfg.colorscheme}")
-      ];
-
-      pluginsToDisable = [
-        # # example - tokyonight seems to be required
-        # {
-        #   lazyName = "tokyonight.nvim";
-        #   nixName = "tokyonight-nvim";
-        # }
       ];
     };
+
 
     xdg.configFile = {
       "nvim/lua/config/keymaps.lua".source = ./lazy/config/keymaps.lua;
       "nvim/lua/config/options.lua".source = ./lazy/config/options.lua;
     };
 
-    programs.neovim.withNodeJs = cfg.copilot.enable;
-
-    programs.neovim.extraPackages = with pkgs; concatLists [
-      [
-        nixpkgs-fmt
-        shellcheck
-        statix
-        taplo
-      ]
-      (mkIfList cfg.lang.markdown.enable [
-        marksman
-        markdownlint-cli2
-      ])
-      (mkIfList cfg.lang.json.enable [
-        vscode-langservers-extracted
-      ])
-    ];
 
     home.packages = with pkgs; concatLists [
       [
