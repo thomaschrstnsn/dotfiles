@@ -121,6 +121,10 @@ in
             markdown-preview-nvim
             render-markdown-nvim
           ])
+          (mkIfList cfg.lang.markdown.notes.enable [
+            image-nvim
+            vimwiki
+          ])
           (mkIfList cfg.util.rest.enable [
             kulala-nvim
           ])
@@ -179,23 +183,31 @@ in
           # }
         ];
       };
-      neovim.withNodeJs = cfg.copilot.enable;
 
-      neovim.extraPackages = with pkgs; concatLists [
-        [
-          nixpkgs-fmt
-          shellcheck
-          statix
-          taplo
-        ]
-        (mkIfList cfg.lang.markdown.enable [
-          marksman
-          markdownlint-cli2
-        ])
-        (mkIfList cfg.lang.json.enable [
-          vscode-langservers-extracted
-        ])
-      ];
+      neovim = {
+        withNodeJs = cfg.copilot.enable;
+
+        extraPackages = with pkgs; concatLists [
+          [
+            nixpkgs-fmt
+            shellcheck
+            statix
+            taplo
+          ]
+          (mkIfList cfg.lang.markdown.enable [
+            marksman
+            markdownlint-cli2
+          ])
+          (mkIfList cfg.lang.markdown.notes.enable [ imagemagick ])
+          (mkIfList cfg.lang.json.enable [ vscode-langservers-extracted ])
+        ];
+
+        extraLuaPackages = ps: concatLists [
+          (mkIfList cfg.lang.markdown.notes.enable [
+            ps.magick
+          ])
+        ];
+      };
     };
 
 
