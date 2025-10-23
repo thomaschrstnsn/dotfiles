@@ -123,6 +123,7 @@ in
           ])
           (mkIfList cfg.lang.markdown.notes.enable [
             image-nvim
+            img-clip-nvim
             vimwiki
           ])
           (mkIfList cfg.util.rest.enable [
