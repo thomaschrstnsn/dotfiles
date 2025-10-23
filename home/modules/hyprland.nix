@@ -407,6 +407,8 @@ in
                 "CTRL+SUPER, q, exec, pidof hyprlock || hyprlock"
                 "SHIFT+SUPER, 4, exec, hyprshot -m region --clipboard-only"
                 "SHIFT+SUPER, 3, exec, hyprshot -m window --clipboard-only"
+                "CTRL, Escape, exec, ${pkgs.hyprpanel}/bin/hyprpanel t verification"
+                "CTRL+SHIFT, Escape, exec, ${pkgs.hyprpanel}/bin/hyprpanel t powerdropdownmenu"
               ]
               # mediakeys
               [
