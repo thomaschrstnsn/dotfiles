@@ -256,7 +256,6 @@ in
         settings = {
           ecosystem.no_update_news = true;
           env = [
-            "HYPRSHOT_DIR,/home/thomas/Screenshots" # TODO: fix hardcoding
             "HYPRCURSOR_SIZE,${builtins.toString cursor.size}"
             "XCURSOR_SIZE,${builtins.toString cursor.size}"
           ];
@@ -406,8 +405,8 @@ in
                 "$hyper, f, fullscreen, 0"
                 "SHIFT+SUPER, f, togglefloating"
                 "CTRL+SUPER, q, exec, pidof hyprlock || hyprlock"
-                "SHIFT+SUPER, 4, exec, hyprshot -m region"
-                "SHIFT+SUPER, 3, exec, hyprshot -m window"
+                "SHIFT+SUPER, 4, exec, hyprshot -m region --clipboard-only"
+                "SHIFT+SUPER, 3, exec, hyprshot -m window --clipboard-only"
               ]
               # mediakeys
               [
