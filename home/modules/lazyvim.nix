@@ -188,6 +188,7 @@ in
       [
         nixpkgs-fmt
         shellcheck
+        statix
         taplo
       ]
       (mkIfList cfg.lang.markdown.enable [
