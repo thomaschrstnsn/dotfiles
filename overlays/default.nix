@@ -1,8 +1,7 @@
-{ pkgs, system, lib, myPkgs, hyprpanel }:
+{ pkgs, system, lib, myPkgs }:
 
 {
   overlays = [
-    hyprpanel.overlay
     (self: super: {
       inherit myPkgs;
     })

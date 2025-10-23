@@ -33,10 +33,6 @@
       url = "github:ghostty-org/ghostty";
     };
 
-    hyprpanel = {
-      url = "github:Jas-SinghFSU/HyprPanel";
-    };
-
     starship-jj = {
       url = "gitlab:lanastara_foss/starship-jj";
     };
@@ -55,7 +51,6 @@
     , home-manager
     , darwin
     , nixos-wsl
-    , hyprpanel
     , pyenv-nix-install
     , zen-browser
     , ...
@@ -223,7 +218,7 @@
             inherit pkgs nixpkgs system inputs;
           }) myPkgs;
           inherit (import ./overlays {
-            inherit system pkgs lib myPkgs hyprpanel;
+            inherit system pkgs lib myPkgs;
           }) overlays;
 
           pkgs = import nixpkgs {
