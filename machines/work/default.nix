@@ -78,8 +78,11 @@ in
       colorscheme = "kanagawa";
       enable = true;
       copilot.enable = true;
-      lang.python.enable = true;
-      lang.markdown.notes.enable = true;
+      lang = {
+        python.enable = true;
+        markdown.enable = true;
+        markdown.notes.enable = true;
+      };
     };
     ideavim.enable = true;
     tmux = {
