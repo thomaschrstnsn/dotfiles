@@ -72,9 +72,8 @@ in
         enable = true;
         extras = {
           ai = {
-            # NOTE: these extras are not super reliable, seems better to create my own installs of dependencies and then use the "plugins/extras.lua"
-            # copilot = cfg.copilot.enable;
-            # copilot-chat = cfg.copilot.enable;
+            copilot.enable = cfg.copilot.enable;
+            copilot-chat.enable = cfg.copilot.enable;
           };
           lang = {
             nix.enable = true;
@@ -108,8 +107,7 @@ in
           ]
           colorschemes.pkgs."${cfg.colorscheme}"
           (mkIfList cfg.copilot.enable [
-            blink-cmp-copilot
-            copilot-lua
+            blink-copilot
           ])
           (mkIfList cfg.lang.json.enable [
             SchemaStore-nvim
