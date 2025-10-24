@@ -20,6 +20,13 @@ map("n", "<leader>sa", function()
 	Snacks.picker.lsp_workspace_symbols()
 end, { desc = "LSP Workspace Symbols" })
 
+map(
+	"n",
+	"<leader>o",
+	"Trouble symbols toggle pinned=true win.relative=win win.position=right",
+	{ desc = "Trouble symbols pinned outline" }
+)
+
 map("n", "<leader>co", "<cmd>Trouble symbols toggle focus=true<cr>", { desc = "Trouble symbols outline" })
 map(
 	"n",
