@@ -64,8 +64,11 @@ in
     lazyvim = {
       colorscheme = "kanagawa";
       enable = true;
-      lang.python.enable = true;
-      lang.markdown.notes.enable = true;
+      lang = {
+        python.enable = true;
+        markdown.enable = true;
+        markdown.notes.enable = true;
+      };
     };
     webapps.enable = true;
   }];
