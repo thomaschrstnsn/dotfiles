@@ -200,6 +200,7 @@ in
             markdownlint-cli2
           ])
           (mkIfList cfg.lang.markdown.notes.enable [ imagemagick ])
+          (mkIfList (cfg.lang.markdown.notes.enable && pkgs.stdenv.isDarwin) [ pngpaste ])
           (mkIfList cfg.lang.json.enable [ vscode-langservers-extracted ])
         ];
 
