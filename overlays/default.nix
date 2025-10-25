@@ -16,6 +16,29 @@
       };
     })
 
+    # bug in snacks.nvim that is is nixpkgs...
+    # version = "2025-10-20";
+    # src = fetchFromGitHub {
+    #   owner = "folke";
+    #   repo = "snacks.nvim";
+    #   rev = "a54477b0acfb7c7cf7e55edc2619ffcd23b2f357";
+    #   sha256 = "1zpgybhdf74rbwqpycyb88qydcs36yy551ij8si3f0108ag04s88";
+    # };
+    (final: prev: {
+      vimPlugins = prev.vimPlugins // {
+        snacks-nvim = prev.vimPlugins.snacks-nvim.overrideAttrs (oldAttrs: {
+          version = "main-2025-10-25";
+          src = prev.fetchFromGitHub {
+            owner = "folke";
+            repo = "snacks.nvim";
+            rev = "e1dc6b3bddd0d16d0faa5d6802a975f7a7165b2a";
+            sha256 = "sha256-ZFaZ+q9JXQj+s5WcFZjHVCmgWTeVWXezL65sk4n3TpU=";
+          };
+          doCheck = false; # Disable the require check
+        });
+      };
+    })
+
     (final: prev: {
       tmuxPlugins = prev.tmuxPlugins // {
         fuzzback = prev.tmuxPlugins.fuzzback.overrideAttrs

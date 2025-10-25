@@ -214,18 +214,27 @@
 
       pkgsAndOverlaysForSystem = system:
         let
+          # First, create pkgs WITHOUT overlays (for use in overlay definitions)
+          pkgsWithoutOverlays = import nixpkgs {
+            inherit system;
+            config.allowUnfree = true;
+            config.permittedInsecurePackages = insecure;
+          };
+
           inherit (import ./pkgs {
-            inherit pkgs nixpkgs system inputs;
+            pkgs = pkgsWithoutOverlays;
+            inherit nixpkgs system inputs;
           }) myPkgs;
+
           inherit (import ./overlays {
-            inherit system pkgs lib myPkgs;
+            inherit system lib myPkgs;
+            pkgs = pkgsWithoutOverlays; # Use the base pkgs
           }) overlays;
 
+          # Now create the final pkgs WITH overlays applied
           pkgs = import nixpkgs {
             inherit system overlays;
             config.allowUnfree = true;
-
-            # https://github.com/NixOS/nixpkgs/issues/341683
             config.permittedInsecurePackages = insecure;
           };
         in
