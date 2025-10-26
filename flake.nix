@@ -70,16 +70,18 @@
         , homeManagerConfig ? { }
         }:
         let
-          inherit (pkgsAndOverlaysForSystem system) pkgs overlays;
+          inherit (pkgsAndOverlaysForSystem system) overlays;
         in
         darwin.lib.darwinSystem {
           inherit system;
           modules = [
             { config.tc = config; }
             {
-              nixpkgs.overlays = overlays;
-              nixpkgs.config.allowUnfree = true;
-              nixpkgs.config.permittedInsecurePackages = insecure;
+              nixpkgs = {
+                inherit overlays;
+                config.allowUnfree = true;
+                config.permittedInsecurePackages = insecure;
+              };
             }
 
             {
@@ -130,7 +132,7 @@
         , homeManagerConfigs ? [ ]
         }:
         let
-          inherit (pkgsAndOverlaysForSystem system) pkgs overlays;
+          inherit (pkgsAndOverlaysForSystem system) overlays;
         in
         lib.nixosSystem {
           inherit system;
@@ -138,7 +140,7 @@
           modules = [
             { config.tc = config; }
             {
-              nixpkgs.overlays = overlays;
+              nixpkgs = { inherit overlays; };
               nixpkgs.config.allowUnfree = true;
               nixpkgs.config.permittedInsecurePackages = insecure;
             }
@@ -184,18 +186,17 @@
         }:
         let
           version = "21.11";
-          inherit (homeConfig.user) homedir username;
-          inherit (pkgsAndOverlaysForSystem system) pkgs overlays;
+          inherit (homeConfig.user) username;
+          inherit (pkgsAndOverlaysForSystem system) pkgs;
         in
         {
-          inherit pkgs;
           modules = [
             {
               tc = homeConfig;
               home =
                 {
                   stateVersion = version;
-                  username = username;
+                  inherit username;
                   packages = extraPackages pkgs;
                 };
             }
@@ -241,23 +242,22 @@
         { inherit pkgs overlays; };
 
       machineToHome =
-        (machine:
-          { home ? [ ]
-          , extraPackages ? _: [ ]
-          , system
-          , ...
-          }:
-          let
-            homeConfig = assertOnlyOneHomeConfiguration home;
-          in
-          {
-            "${builtins.replaceStrings ["."] ["_"] homeConfig.user.username}" = mkHMUser {
-              homeConfig = homeConfig;
-              extraPackages = extraPackages;
-              system = system;
-            };
-          }
-        );
+        machine:
+        { home ? [ ]
+        , extraPackages ? _: [ ]
+        , system
+        , ...
+        }:
+        let
+          homeConfig = assertOnlyOneHomeConfiguration home;
+        in
+        {
+          "${builtins.replaceStrings ["."] ["_"] homeConfig.user.username}" = mkHMUser {
+            inherit homeConfig;
+            inherit extraPackages;
+            inherit system;
+          };
+        };
 
       assertOnlyOneHomeConfiguration = home:
         if home == [ ] then
@@ -268,71 +268,69 @@
           builtins.head home;
 
       machineToDarwin =
-        (machine:
-          { system
-          , darwin ? { }
-          , home ? [ ]
-          , extraPackages ? _: [ ]
-          , ...
-          }:
-          let
-            homeConfig = assertOnlyOneHomeConfiguration home;
-            fixedUser = homeConfig.user // {
-              homedir = null;
+        machine:
+        { system
+        , darwin ? { }
+        , home ? [ ]
+        , extraPackages ? _: [ ]
+        , ...
+        }:
+        let
+          homeConfig = assertOnlyOneHomeConfiguration home;
+          fixedUser = homeConfig.user // {
+            homedir = null;
+          };
+          hmConfig = mkHMUser' {
+            homeConfig = homeConfig // {
+              user = fixedUser;
             };
-            hmConfig = mkHMUser' {
-              homeConfig = homeConfig // {
-                user = fixedUser;
-              };
-              extraPackages = extraPackages;
-              system = system;
-            };
-          in
-          mkDarwinSystem {
-            system = system;
-            config = darwin // {
-              user.name = homeConfig.user.username;
-              user.homedir = homeConfig.user.homedir;
-            };
-            homeManagerConfig = { imports = hmConfig.modules; manual.manpages.enable = false; };
-          }
-        );
+            inherit extraPackages;
+            inherit system;
+          };
+        in
+        mkDarwinSystem {
+          inherit system;
+          config = darwin // {
+            user.name = homeConfig.user.username;
+            user.homedir = homeConfig.user.homedir;
+          };
+          homeManagerConfig = { imports = hmConfig.modules; manual.manpages.enable = false; };
+        };
 
       machineToNixos =
-        (machine:
-          { system
-          , nixos
-          , home ? [ ]
-          , extraPackages ? _: [ ]
-          , ...
-          }:
-          let
-            # set/dict with keys that are user names, values are homemanager configs
-            homeCfgs = builtins.listToAttrs (map
-              (hc: {
-                name = hc.user.username;
-                value = {
-                  imports = (mkHMUser' {
-                    homeConfig = hc;
-                    extraPackages = extraPackages;
-                    system = system;
-                  }).modules;
-                  manual.manpages.enable = false;
-                };
-              })
-              home);
-          in
-          mkNixosSystem {
-            system = system;
-            config = nixos.config;
-            base = nixos.base;
-            extraModules = lib.concatLists [
-              (mkIfList (lib.attrsets.attrByPath [ "isWsl" ] false nixos) [ nixos-wsl.nixosModules.default ])
-              (mkIfList (lib.attrsets.attrByPath [ "determinateNix" ] true nixos) [ inputs.determinate.nixosModules.default ])
-            ];
-            homeManagerConfigs = homeCfgs;
-          }
-        );
+        machine:
+        { system
+        , nixos
+        , home ? [ ]
+        , extraPackages ? _: [ ]
+        , ...
+        }:
+        let
+          # set/dict with keys that are user names, values are homemanager configs
+          homeCfgs = builtins.listToAttrs (map
+            (hc: {
+              name = hc.user.username;
+              value = {
+                imports = (mkHMUser' {
+                  homeConfig = hc;
+                  inherit extraPackages;
+                  inherit system;
+                }).modules;
+                manual.manpages.enable = false;
+              };
+            })
+            home);
+        in
+        mkNixosSystem {
+          inherit system;
+          inherit (nixos) config;
+          inherit (nixos) base;
+          extraModules = lib.concatLists [
+            (mkIfList (lib.attrsets.attrByPath [ "isWsl" ] false nixos) [ nixos-wsl.nixosModules.default ])
+            (mkIfList (lib.attrsets.attrByPath [ "determinateNix" ] true nixos) [ inputs.determinate.nixosModules.default ])
+          ];
+          homeManagerConfigs = homeCfgs;
+        };
 
       inherit (import ./machines { inherit inputs lib; })
         machines;
