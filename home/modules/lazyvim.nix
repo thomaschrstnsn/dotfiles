@@ -123,6 +123,7 @@ in
             image-nvim
             img-clip-nvim
             vimwiki
+            mattn-calendar-vim
           ])
           (mkIfList cfg.util.rest.enable [
             kulala-nvim
