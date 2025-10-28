@@ -100,7 +100,9 @@ in
     jankyborders.enable = true;
     homebrew = {
       enable = true;
-      extraBrews = [ ];
+      extraBrews = [
+        "Azure/kubelogin/kubelogin"
+      ];
       extraCasks = [
         "arc"
         "ghostty"
@@ -111,7 +113,9 @@ in
         "rancher"
         "webcatalog"
       ];
-      extraTaps = [ ];
+      extraTaps = [
+        "Azure/kubelogin"
+      ];
     };
     skhd = {
       enable = true;
@@ -144,6 +148,10 @@ in
     natscli
     opencode
     myPkgs.github-copilot-cli
+    # kubernetes tools
+    kubectl
+    k9s
+    # kubelogin
   ];
 
   system = "aarch64-darwin";
