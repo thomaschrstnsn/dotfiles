@@ -2,58 +2,79 @@ local dir = "~/wiki/"
 return {
 	-- start from here: https://linkarzu.com/posts/neovim/obsidian-to-neovim/
 	-- fused with: https://mkaz.blog/working-with-vim/vimwiki/
-	-- TODO: markdown-preview with wiki markdown, does not work?
-	{
-		"vimwiki/vimwiki",
-		event = "BufEnter *.md",
-		keys = { "<leader>ww", "<leader>wt", "<leader>w<leader>w" },
-		init = function()
-			vim.g.vimwiki_list = {
-				{
-					path = dir,
-					syntax = "markdown",
-					ext = "md",
-					diary_rel_path = "journal",
-				},
-			}
-			vim.g.vimwiki_global_ext = 0
-			vim.g.vimwiki_auto_header = 1
-
-			vim.api.nvim_create_autocmd("FileType", {
-				pattern = "vimwiki",
-				callback = function()
-					-- not taking over - for Oil
-					vim.keymap.set("n", "-", "<cmd>Oil<cr>", { buffer = true, desc = "Open Oil file-browser" })
-
-					vim.keymap.set(
-						"n",
-						"<C-CR>",
-						"<cmd>VimwikiToggleListItem<cr>",
-						{ buffer = true, desc = "Toggle Completion" }
-					)
-
-					vim.keymap.set("n", "<F3>", "<cmd>Calendar<CR>", { desc = "Open calendar" })
-
-					vim.keymap.set("n", "<leader>xt", function()
-						Snacks.picker.grep({
-							prompt = " ",
-							search = "^\\s*- \\[ \\]",
-							regex = true,
-							live = false,
-							dirs = { dir },
-							finder = "grep",
-							format = "file",
-							show_empty = true,
-							supports_live = true,
-						})
-					end, { buffer = true, desc = "Todos" })
-				end,
-			})
-		end,
-	},
 	{
 		"mattn/mattn-calendar-vim",
 		commands = { "Calendar" },
+	},
+	{
+		"gaoDean/autolist.nvim",
+		ft = {
+			"markdown",
+			"text",
+			"tex",
+			"plaintex",
+			"norg",
+		},
+		config = function()
+			require("autolist").setup()
+
+			local todo_picker_config = {
+				prompt = " ",
+				search = "^\\s*- \\[ \\]",
+				regex = true,
+				live = false,
+				dirs = { dir },
+				finder = "grep",
+				format = "file",
+				show_empty = true,
+				supports_live = true,
+			}
+
+			vim.api.nvim_create_autocmd("FileType", {
+				pattern = { "markdown", "text", "tex", "plaintex", "norg" },
+				callback = function()
+					vim.keymap.set("i", "<tab>", "<cmd>AutolistTab<cr>", { buffer = true })
+					vim.keymap.set("i", "<s-tab>", "<cmd>AutolistShiftTab<cr>", { buffer = true })
+					vim.keymap.set("i", "<CR>", "<CR><cmd>AutolistNewBullet<cr>", { buffer = true })
+					vim.keymap.set("n", "o", "o<cmd>AutolistNewBullet<cr>", { buffer = true })
+					vim.keymap.set("n", "O", "O<cmd>AutolistNewBulletBefore<cr>", { buffer = true })
+					vim.keymap.set("n", "<C-CR>", "<cmd>AutolistToggleCheckbox<cr><CR>", { buffer = true })
+
+					-- functions to recalculate list on edit
+					vim.keymap.set("n", ">>", ">><cmd>AutolistRecalculate<cr>", { buffer = true })
+					vim.keymap.set("n", "<<", "<<<cmd>AutolistRecalculate<cr>", { buffer = true })
+					vim.keymap.set("n", "dd", "dd<cmd>AutolistRecalculate<cr>", { buffer = true })
+					vim.keymap.set("v", "d", "d<cmd>AutolistRecalculate<cr>", { buffer = true })
+
+					vim.keymap.set("n", "<leader>st", function()
+						Snacks.picker.grep(todo_picker_config)
+					end, { desc = "Todos", buffer = true })
+
+					vim.keymap.set("n", "<leader>xt", function()
+						local options = vim.tbl_extend("force", todo_picker_config, {
+							hidden = true,
+							-- When the picker is ready, open its list in Trouble
+							on_show = function(picker)
+								-- If your Trouble version supports passing the picker, use:
+								local ok, src = pcall(require, "trouble.sources.snacks")
+								if ok then
+									-- Works whether open() grabs the current Snacks session,
+									-- or (if supported) accepts a picker argument.
+									-- Try with picker first; fall back to global if needed.
+									if type(src.open) == "function" then
+										local ok2 = pcall(src.open, picker)
+										if not ok2 then
+											pcall(src.open)
+										end
+									end
+								end
+							end,
+						})
+						Snacks.picker.grep(options)
+					end, { desc = "Trouble Todos", buffer = true })
+				end,
+			})
+		end,
 	},
 	{
 		"MeanderingProgrammer/render-markdown.nvim",

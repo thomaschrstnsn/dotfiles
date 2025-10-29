@@ -120,10 +120,11 @@ in
             render-markdown-nvim
           ])
           (mkIfList cfg.lang.markdown.notes.enable [
+            autolist-nvim
             image-nvim
             img-clip-nvim
-            vimwiki
             mattn-calendar-vim
+            zk-nvim
           ])
           (mkIfList cfg.util.rest.enable [
             kulala-nvim
@@ -226,6 +227,11 @@ in
         ripgrep
       ]
     ];
+
+    programs.zk = {
+      inherit (cfg.lang.markdown.notes) enable;
+      settings = { };
+    };
 
     home.shellAliases = {
       vim = "nvim";
