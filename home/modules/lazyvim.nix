@@ -51,7 +51,14 @@ in
       python.enable = mkEnableOption "python";
       json.enable = mkEnableOption "json" // { default = true; };
       markdown.enable = mkEnableOption "markdown" // { default = true; };
-      markdown.notes.enable = mkEnableOption "Full markdown notes taking";
+      markdown.notes = {
+        enable = mkEnableOption "Full markdown notes taking";
+        zkDirectory = mkOption {
+          type = str;
+          default = "$HOME/zk.personal/";
+          description = "Directory for zk notes";
+        };
+      };
     };
     util.rest.enable = mkEnableOption "rest client" // { default = true; };
     colorscheme = mkOption {
@@ -218,24 +225,71 @@ in
       "nvim/lua/config/options.lua".source = ./lazy/config/options.lua;
     };
 
-
-    home.packages = with pkgs; concatLists [
-      [
-        figlet
-        lazygit
-        lolcat
-        ripgrep
-      ]
-    ];
-
     programs.zk = {
       inherit (cfg.lang.markdown.notes) enable;
-      settings = { };
+      settings = {
+        notebook.dir = cfg.lang.markdown.notes.zkDirectory;
+        note = {
+          language = "en";
+          filename = "{{id}}-{{slug title}}";
+          extension = "md";
+          id-charset = "alphanum";
+          id-length = 4;
+          id-case = "lower";
+        };
+        group = {
+          journal = {
+            paths = [ "journal/daily" ];
+            note = {
+              filename = "{{format-date now}}";
+              template = "daily.md";
+            };
+          };
+        };
+        format.markdown.hashtags = true;
+        filter.recents = "--sort created- --created-after 'last two weeks'";
+        alias = {
+          edlast = "zk edit --limit 1 --sort modified- $argv";
+          recent = "zk edit --sort created- --created-after 'last two weeks' --interactive";
+          daily = ''zk new --no-input "$ZK_NOTEBOOK_DIR/journal/daily"'';
+        };
+
+        lsp = {
+          diagnostics = {
+            wiki-title = "hint";
+            dead-link = "error";
+          };
+          completion = {
+            # Show the note title in the completion pop-up, or fallback on its path if empty.
+            note-label = "{{title-or-path}}";
+            # Filter out the completion pop-up using the note title or its path.
+            note-filter-text = "{{title}} {{path}}";
+            # Show the note filename without extension as detail.
+            note-detail = "{{filename-stem}}";
+          };
+        };
+      };
     };
 
-    home.shellAliases = {
-      vim = "nvim";
-      pv = ''nvim -c 'enew' -c 'setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile' -c 'call setline(1, split(getreg("+"), "\n"))' '';
+    home = {
+      packages = with pkgs; concatLists [
+        [
+          figlet
+          lazygit
+          lolcat
+          ripgrep
+          fzf
+        ]
+      ];
+
+      sessionVariables = mkIf cfg.lang.markdown.notes.enable {
+        ZK_NOTEBOOK_DIR = cfg.lang.markdown.notes.zkDirectory;
+      };
+
+      shellAliases = {
+        vim = "nvim";
+        pv = ''nvim -c 'enew' -c 'setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile' -c 'call setline(1, split(getreg("+"), "\n"))' '';
+      };
     };
   };
 }

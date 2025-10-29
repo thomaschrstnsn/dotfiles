@@ -22,6 +22,7 @@ let
       "~/dotfiles/" = personal;
       "~/personal/" = personal;
       "~/logseq.personal/" = logseq;
+      "~/zk.personal" = logseq;
     };
   };
 in

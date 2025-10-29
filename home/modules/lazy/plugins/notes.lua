@@ -1,7 +1,24 @@
-local dir = "~/wiki/"
+local dir = "~/zk.personal/"
 return {
 	-- start from here: https://linkarzu.com/posts/neovim/obsidian-to-neovim/
 	-- fused with: https://mkaz.blog/working-with-vim/vimwiki/
+	-- before ultimately landing on: zk (https://www.youtube.com/watch?v=UzhZb7e4l4Y)
+	{
+		"zk-org/zk-nvim",
+		config = function()
+			require("zk").setup({
+				picker = "snacks_picker",
+				picker_options = {
+					snacks_picker = {
+						layout = {
+							preset = "ivy",
+						},
+					},
+				},
+			})
+		end,
+	},
+	-- TODO: consider scrapping this (only useful from vimwiki?)
 	{
 		"mattn/mattn-calendar-vim",
 		commands = { "Calendar" },
