@@ -249,9 +249,16 @@ in
         format.markdown.hashtags = true;
         filter.recents = "--sort created- --created-after 'last two weeks'";
         alias = {
+          # new change from head, fetch origin, abandon empty changes from head to main@origin, rebase onto main@origin
+          fetch_and_prune = "jj des automatic && jj new -m automatic && jj git fetch && jj abandon 'trunk()::@ & empty()' && jj rebase -d 'trunk()'";
+          # fetch and prune, move our bookmark (if needed) and push
+          sync = "zk fetch_and_prune && jj tug ; jj git push";
+          daily = ''zk sync && zk new --no-input "$ZK_NOTEBOOK_DIR/journal/daily"'';
           edlast = "zk edit --limit 1 --sort modified- $argv";
-          recent = "zk edit --sort created- --created-after 'last two weeks' --interactive";
-          daily = ''zk new --no-input "$ZK_NOTEBOOK_DIR/journal/daily"'';
+          recent = "zk edit --sort created- --modified-after 'last two weeks' --interactive";
+          n = ''jj new --title "$argv"'';
+          ls = "zk list";
+          e = ''zk edit --interactive -m "$argv"'';
         };
 
         lsp = {
