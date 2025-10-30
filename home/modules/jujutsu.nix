@@ -167,11 +167,14 @@ in
       }
         (mkIf (sshConfig._1password.enableAgent && cfg.gpgVia1Password.enable)
           {
-            settings.signing = {
-              inherit (cfg.gpgVia1Password) key;
-              backend = "ssh";
-              backends.ssh.program = config.programs.git.settings.gpg.ssh.program;
-              behavior = "own";
+            settings = {
+              git.sign-on-push = true;
+              signing = {
+                inherit (cfg.gpgVia1Password) key;
+                backend = "ssh";
+                backends.ssh.program = config.programs.git.settings.gpg.ssh.program;
+                behavior = "own";
+              };
             };
           })
         (mkIf cfg.mergiraf.enable
