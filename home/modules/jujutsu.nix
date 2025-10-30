@@ -103,110 +103,124 @@ in
       ++ mkIfList cfg.difftastic.enable [ difftastic ]
       ++ mkIfList cfg.meld.enable [ meld ];
 
-    programs.tmux.extraConfig = ''
-      bind-key "C-j" display-popup -E -w 99% -h 99% "jjui"
-      bind-key "C-l" display-popup -E -x R -h 99% "jj log --color=always | less -R"
-      bind-key "l" display-popup -E -x R -h 99% "jj log --color=always -r :: | less -R"
-    '';
+    programs = {
+      tmux.extraConfig = ''
+        bind-key "C-j" display-popup -E -w 99% -h 99% "jjui"
+        bind-key "C-l" display-popup -E -x R -h 99% "jj log --color=always | less -R"
+        bind-key "l" display-popup -E -x R -h 99% "jj log --color=always -r :: | less -R"
+      '';
 
-    programs.jujutsu = mkMerge [{
-      enable = true;
-      settings =
-        {
-          user = {
-            name = cfg.userName;
-            email = cfg.userEmail;
-          };
-          ui = {
-            pager = "delta";
-            diff-formatter = ":git";
-            default-command = "log-recent";
-          };
-          aliases = {
-            e = [ "edit" ];
-            stash = [ "new" "@-" ];
-            des = [ "describe" "-m" ];
-            log-recent = [ "log" "-r" "default(8) & recent()" ];
-            tug = [ "bookmark" "move" "--from" "closest_bookmark(@-)" "--to" "closest_pushable(@-)" ];
-            nb = [ "bookmark" "create" "-r" "@-" ];
-          };
-          revset-aliases = {
-            "recent()" = ''committer_date(after:"3 months ago")'';
-            "default(n)" = "present(@) | ancestors(immutable_heads().., n) | present(trunk())";
-            # for tug: https://github.com/jj-vcs/jj/discussions/5568#discussioncomment-13034102
-            "closest_bookmark(to)" = "heads(::to & bookmarks())";
-            "closest_pushable(to)" = ''heads(::to & mutable() & ~description(exact:"") & (~empty() | merges()))'';
-          };
-          git = {
-            push-new-bookmarks = true;
-          };
-          # https://zerowidth.com/2025/jj-tips-and-tricks/#hunk-wise-style
-          merge-tools.gitpatch = {
-            program = "sh";
-            edit-args = [
-              "-c"
-              ''
-                set -eu
-                rm -f "$right/JJ-INSTRUCTIONS"
-                git -C "$left" init -q
-                git -C "$left" add -A
-                git -C "$left" commit -q -m baseline --allow-empty
-                mv "$left/.git" "$right"
-                git -C "$right" add --intent-to-add -A
-                git -C "$right" add -p
-                git -C "$right" diff-index --quiet --cached HEAD && { echo "No changes done, aborting split."; exit 1; }
-                git -C "$right" commit -q -m split
-                git -C "$right" restore . # undo changes in modified files
-                git -C "$right" reset .   # undo --intent-to-add
-                git -C "$right" clean -q -df # remove untracked files
-              ''
-            ];
-          };
-        };
-    }
-      (mkIf (sshConfig._1password.enableAgent && cfg.gpgVia1Password.enable)
-        {
-          settings.signing = {
-            key = cfg.gpgVia1Password.key;
-            backend = "ssh";
-            backends.ssh.program = config.programs.git.settings.gpg.ssh.program;
-            behavior = "own";
-          };
-        })
-      (mkIf cfg.mergiraf.enable
-        {
-          settings.aliases.mergiraf = [ "resolve" "--tool" "mergiraf" ];
-        })
-      (mkIf cfg.difftastic.enable
-        {
-          settings = {
-            aliases.dt = [ "diff" "--tool" "difftastic" ];
-            merge-tools.difftastic = {
-              program = "difft";
-              diff-args = [ "--color=always" "$left" "$right" ];
+      jujutsu = mkMerge [{
+        enable = true;
+        settings =
+          {
+            user = {
+              name = cfg.userName;
+              email = cfg.userEmail;
+            };
+            ui = {
+              pager = "delta";
+              diff-formatter = ":git";
+              default-command = "log-recent";
+            };
+            aliases = {
+              e = [ "edit" ];
+              stash = [ "new" "@-" ];
+              des = [ "describe" "-m" ];
+              log-recent = [ "log" "-r" "default(8) & recent()" ];
+              tug = [ "bookmark" "move" "--from" "closest_bookmark(@-)" "--to" "closest_pushable(@-)" ];
+              nb = [ "bookmark" "create" "-r" "@-" ];
+            };
+            revset-aliases = {
+              "recent()" = ''committer_date(after:"3 months ago")'';
+              "default(n)" = "present(@) | ancestors(immutable_heads().., n) | present(trunk())";
+              # for tug: https://github.com/jj-vcs/jj/discussions/5568#discussioncomment-13034102
+              "closest_bookmark(to)" = "heads(::to & bookmarks())";
+              "closest_pushable(to)" = ''heads(::to & mutable() & ~description(exact:"") & (~empty() | merges()))'';
+            };
+            git = {
+              push-new-bookmarks = true;
+            };
+            # https://zerowidth.com/2025/jj-tips-and-tricks/#hunk-wise-style
+            merge-tools.gitpatch = {
+              program = "sh";
+              edit-args = [
+                "-c"
+                ''
+                  set -eu
+                  rm -f "$right/JJ-INSTRUCTIONS"
+                  git -C "$left" init -q
+                  git -C "$left" add -A
+                  git -C "$left" commit -q -m baseline --allow-empty
+                  mv "$left/.git" "$right"
+                  git -C "$right" add --intent-to-add -A
+                  git -C "$right" add -p
+                  git -C "$right" diff-index --quiet --cached HEAD && { echo "No changes done, aborting split."; exit 1; }
+                  git -C "$right" commit -q -m split
+                  git -C "$right" restore . # undo changes in modified files
+                  git -C "$right" reset .   # undo --intent-to-add
+                  git -C "$right" clean -q -df # remove untracked files
+                ''
+              ];
             };
           };
-        })
-      (mkIf cfg.meld.enable
-        {
-          settings = {
-            aliases.meld = [ "resolve" "--tool" "meld" ];
-          };
-        })
-      (mkIf (cfg.publicKeyFile != null) {
-        settings.git.ssh-command = [ "ssh" "-i" cfg.publicKeyFile "-o" "IdentitiesOnly=yes" ];
-      })];
+      }
+        (mkIf (sshConfig._1password.enableAgent && cfg.gpgVia1Password.enable)
+          {
+            settings.signing = {
+              inherit (cfg.gpgVia1Password) key;
+              backend = "ssh";
+              backends.ssh.program = config.programs.git.settings.gpg.ssh.program;
+              behavior = "own";
+            };
+          })
+        (mkIf cfg.mergiraf.enable
+          {
+            settings.aliases.mergiraf = [ "resolve" "--tool" "mergiraf" ];
+          })
+        (mkIf cfg.difftastic.enable
+          {
+            settings = {
+              aliases.dt = [ "diff" "--tool" "difftastic" ];
+              merge-tools.difftastic = {
+                program = "difft";
+                diff-args = [ "--color=always" "$left" "$right" ];
+              };
+            };
+          })
+        (mkIf cfg.meld.enable
+          {
+            settings = {
+              aliases.meld = [ "resolve" "--tool" "meld" ];
+            };
+          })
+        (mkIf (cfg.publicKeyFile != null) {
+          settings.git.ssh-command = [ "ssh" "-i" cfg.publicKeyFile "-o" "IdentitiesOnly=yes" ];
+        })];
+
+      starship.settings.custom.jj = mkIf cfg.starship.enable {
+        ## TODO: it seems we need to write the default config for it to work (0.3.2)
+        ## ❯ /nix/store/ikxy2k01l8wnbdssc6l59v5ighzdc161-starship-jj-0.3.2/bin/starship-jj starship config default > "/Users/tfc/Library/Application Support/starship-jj/starship-jj.toml
+        command = ''${pkgs.myPkgs.starship-jj}/bin/starship-jj --ignore-working-copy starship prompt'';
+        format = "[$symbol](blue bold) $output ";
+        symbol = "󱗆 ";
+        when = "jj root --ignore-working-copy";
+      };
+      fish.shellAbbrs = mkIf preferFishAbbreviations abbrevationsAndAliases;
+    };
 
     xdg.configFile =
       let
-        mkOptionsFromAltCfg = altCfg: (
+        mkOptionsFromAltCfg = altCfg:
           {
             user.name = altCfg.userName;
             user.email = altCfg.userEmail;
-            signing.key = altCfg.gpgVia1Password.key;
+            signing = {
+              inherit (altCfg.gpgVia1Password) key;
+              backend = if (altCfg.gpgVia1Password.key != null) then "ssh" else "none";
+            };
             git.ssh-command = if (altCfg.publicKeyFile != null) then [ "ssh" "-i" altCfg.publicKeyFile "-o" "IdentitiesOnly=yes" ] else [ "ssh" ];
-          }
-        );
+          };
 
         mkFile = index: path: altCfg:
           let
@@ -285,23 +299,13 @@ in
         (
           listToAttrs (imap0
             (index: key: {
-              name = "jj/conf.d/alternative-config-${toString(index)}.toml";
-              value = mkFile index key (cfg.alternativeConfigs."${key}");
+              name = "jj/conf.d/alternative-config-${toString index}.toml";
+              value = mkFile index key cfg.alternativeConfigs."${key}";
             })
             (attrNames cfg.alternativeConfigs))
         )
       ];
 
-    programs.starship.settings.custom.jj = mkIf cfg.starship.enable {
-      ## TODO: it seems we need to write the default config for it to work (0.3.2)
-      ## ❯ /nix/store/ikxy2k01l8wnbdssc6l59v5ighzdc161-starship-jj-0.3.2/bin/starship-jj starship config default > "/Users/tfc/Library/Application Support/starship-jj/starship-jj.toml
-      command = ''${pkgs.myPkgs.starship-jj}/bin/starship-jj --ignore-working-copy starship prompt'';
-      format = "[$symbol](blue bold) $output ";
-      symbol = "󱗆 ";
-      when = "jj root --ignore-working-copy";
-    };
-
     home.shellAliases = mkIf (!preferFishAbbreviations) abbrevationsAndAliases;
-    programs.fish.shellAbbrs = mkIf preferFishAbbreviations abbrevationsAndAliases;
   };
 }
