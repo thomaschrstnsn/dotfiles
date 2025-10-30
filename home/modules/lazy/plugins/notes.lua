@@ -89,6 +89,8 @@ return {
 						})
 						Snacks.picker.grep(options)
 					end, { desc = "Trouble Todos", buffer = true })
+
+					vim.diagnostic.enable(false)
 				end,
 			})
 		end,
