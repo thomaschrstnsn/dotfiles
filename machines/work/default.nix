@@ -10,6 +10,9 @@ let
   logseq = {
     publicKeyFile = "~/.ssh/logseq-personal-deploy_ed25519";
   };
+  zkPersonal = {
+    publicKeyFile = "~/.ssh/zk.personal-deploy-key_ed25519";
+  };
   vcs = {
     primaryConfig = {
       userName = "Thomas Fisker Christensen";
@@ -22,7 +25,7 @@ let
       "~/dotfiles/" = personal;
       "~/personal/" = personal;
       "~/logseq.personal/" = logseq;
-      "~/zk.personal" = logseq;
+      "~/zk.personal/" = zkPersonal;
     };
   };
 in
@@ -42,7 +45,7 @@ in
     git = {
       enable = true;
       mergiraf.enable = true;
-    } // { alternativeConfigs = vcs.alternativeConfigs; } // vcs.primaryConfig;
+    } // { inherit (vcs) alternativeConfigs; } // vcs.primaryConfig;
     ghostty = {
       enable = true;
       fontsize = 15;
@@ -53,7 +56,7 @@ in
     jj = {
       enable = true;
       meld.enable = true;
-    } // { alternativeConfigs = vcs.alternativeConfigs; } // vcs.primaryConfig;
+    } // { inherit (vcs) alternativeConfigs; } // vcs.primaryConfig;
     rancher.enable = true;
     ssh = {
       enable = true;
