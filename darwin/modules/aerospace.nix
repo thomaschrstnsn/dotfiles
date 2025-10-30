@@ -6,7 +6,7 @@ let
   cfg = config.tc.aerospace;
 
   appIdsToDesktops = {
-    "company.thebrowser.Browser" = "B";
+    # "company.thebrowser.Browser" = "B";
 
     "com.microsoft.Outlook" = "C";
     "com.microsoft.teams2" = "C";
