@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, lib, ... }:
 
 with lib;
 
@@ -6,6 +6,7 @@ let
   cfg = config.tc.aerospace;
 
   appIdsToDesktops = {
+    # this rule works against mini-Arc popping up where ever you are working
     # "company.thebrowser.Browser" = "B";
 
     "com.microsoft.Outlook" = "C";
@@ -16,8 +17,6 @@ let
     "com.webcatalog.juli.icloud-calendar" = "P";
     "com.apple.iCal" = "P";
 
-    # seems to interfere with 1Password's prompts (fingerprint to unlock)
-    # "com.1password.1password" = "P";
     "com.todoist.mac.Todoist" = "P";
 
     "com.mitchellh.ghostty" = "T";
@@ -50,12 +49,16 @@ in
         on-focused-monitor-changed = [ "move-mouse monitor-lazy-center" ];
         on-focus-changed = [ "move-mouse window-lazy-center" ];
         gaps = {
-          inner.horizontal = 2;
-          inner.vertical = 2;
-          outer.left = 2;
-          outer.bottom = 4;
-          outer.top = 2;
-          outer.right = 2;
+          inner = {
+            horizontal = 2;
+            vertical = 2;
+          };
+          outer = {
+            left = 2;
+            bottom = 4;
+            top = 2;
+            right = 2;
+          };
         };
         mode.main.binding = {
           alt-slash = "layout tiles horizontal vertical";
@@ -137,12 +140,16 @@ in
       };
     };
 
-    system.defaults.NSGlobalDomain._HIHideMenuBar = cfg.hideMenuBar;
+    system = {
+      defaults = {
+        NSGlobalDomain._HIHideMenuBar = cfg.hideMenuBar;
 
-    # https://nikitabobko.github.io/AeroSpace/guide#a-note-on-displays-have-separate-spaces
-    system.defaults.spaces.spans-displays = true;
-    # https://nikitabobko.github.io/AeroSpace/guide#a-note-on-mission-control
-    system.defaults.dock.expose-group-apps = true;
+        # https://nikitabobko.github.io/AeroSpace/guide#a-note-on-displays-have-separate-spaces
+        spaces.spans-displays = true;
+        # https://nikitabobko.github.io/AeroSpace/guide#a-note-on-mission-control
+        dock.expose-group-apps = true;
+      };
+    };
 
     services.skhd.skhdConfig = toSkhdConfig {
       "hyper - q" = "move-workspace-to-monitor --wrap-around prev";
