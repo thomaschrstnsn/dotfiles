@@ -2,6 +2,10 @@
 
 let
   username = "thomas";
+
+  alternative = {
+    "~/zk.personal/" = { publicKeyFile = "~/.ssh/zk.personal-deploy-key_ed25519"; };
+  };
 in
 {
   home = [{
@@ -20,9 +24,7 @@ in
       gpgVia1Password.enable = true;
       gpgVia1Password.key = sshKeys.personal.signing.publicKey;
       publicKeyFile = "~/.ssh/github-personal.pub";
-      alternativeConfigs = {
-        "~/logseq.personal/" = { publicKeyFile = "~/.ssh/logseq-personal-deploy_ed25519"; };
-      };
+      alternativeConfigs = alternative;
     };
     ghostty = {
       enable = true;
@@ -36,6 +38,7 @@ in
       gpgVia1Password.enable = true;
       gpgVia1Password.key = sshKeys.personal.signing.publicKey;
       publicKeyFile = "~/.ssh/github-personal.pub";
+      alternativeConfigs = alternative;
     };
     python.enable = true;
     rust.enable = true;
@@ -84,7 +87,6 @@ in
         "google-drive"
         "istat-menus@6"
         "karabiner-elements"
-        "logseq"
       ];
       extraTaps = [
         "graelo/tap" # pumas
@@ -99,7 +101,6 @@ in
       terminal = "ghostty";
       extraAppShortcuts = {
         "hyper - r" = "Rider";
-        "hyper - u" = "Logseq";
         "hyper - z" = "Spotify";
         "hyper - p" = "todoist";
       };
