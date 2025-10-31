@@ -18,11 +18,6 @@ return {
 			})
 		end,
 	},
-	-- TODO: consider scrapping this (only useful from vimwiki?)
-	{
-		"mattn/mattn-calendar-vim",
-		commands = { "Calendar" },
-	},
 	{
 		"gaoDean/autolist.nvim",
 		ft = {

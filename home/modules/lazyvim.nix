@@ -130,7 +130,6 @@ in
             autolist-nvim
             image-nvim
             img-clip-nvim
-            mattn-calendar-vim
             zk-nvim
           ])
           (mkIfList cfg.util.rest.enable [
