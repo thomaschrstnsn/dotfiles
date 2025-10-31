@@ -79,7 +79,7 @@ in
     python.enable = true;
     rust.enable = true;
     lazyvim = {
-      colorscheme = "kanagawa";
+      colorscheme = "everforest";
       enable = true;
       copilot.enable = true;
       lang = {
