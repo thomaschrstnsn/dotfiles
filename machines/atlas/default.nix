@@ -3,6 +3,13 @@
 let
   username = "thomas";
   system = "x86_64-linux";
+
+  zkPersonal = {
+    "~/zk.personal/" = {
+      publicKeyFile = "~/.ssh/zk.personal-deploy-key_ed25519";
+    };
+  };
+
 in
 {
   home = [{
@@ -40,15 +47,14 @@ in
       gpgVia1Password.enable = true;
       gpgVia1Password.key = sshKeys.personal.signing.publicKey;
       publicKeyFile = "~/.ssh/github-personal.pub";
-      alternativeConfigs = {
-        "~/logseq.personal/" = { publicKeyFile = "~/.ssh/logseq-personal-deploy_ed25519"; };
-      };
+      alternativeConfigs = zkPersonal;
     };
     jj = {
       enable = true;
       gpgVia1Password.enable = true;
       gpgVia1Password.key = sshKeys.personal.signing.publicKey;
       publicKeyFile = "~/.ssh/github-personal.pub";
+      alternativeConfigs = zkPersonal;
     };
     tmux = {
       enable = true;
