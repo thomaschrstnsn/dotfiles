@@ -34,7 +34,7 @@ in
       colorscheme = "kanagawa";
       enable = true;
       lang.python.enable = true;
-      lang.markdown.notes.enable = true;
+      lang.markdown.zk.enable = true;
     };
   }
     {

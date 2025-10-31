@@ -51,9 +51,9 @@ in
       python.enable = mkEnableOption "python";
       json.enable = mkEnableOption "json" // { default = true; };
       markdown.enable = mkEnableOption "markdown" // { default = true; };
-      markdown.notes = {
-        enable = mkEnableOption "Full markdown notes taking";
-        zkDirectory = mkOption {
+      markdown.zk = {
+        enable = mkEnableOption "Full markdown notes taking with zk";
+        directory = mkOption {
           type = str;
           default = "$HOME/zk.personal/";
           description = "Directory for zk notes";
@@ -126,7 +126,7 @@ in
             markdown-preview-nvim
             render-markdown-nvim
           ])
-          (mkIfList cfg.lang.markdown.notes.enable [
+          (mkIfList cfg.lang.markdown.zk.enable [
             autolist-nvim
             image-nvim
             img-clip-nvim
@@ -173,8 +173,8 @@ in
                 "}"
               ]);
           }
-          (mkIf cfg.lang.markdown.notes.enable {
-            "notes.lua".source = ./lazy/plugins/notes.lua;
+          (mkIf cfg.lang.markdown.zk.enable {
+            "zk.lua".source = ./lazy/plugins/zk.lua;
           })
           (mkIf cfg.util.rest.enable {
             "rest.lua".source = ./lazy/plugins/rest.lua;
@@ -205,13 +205,13 @@ in
             marksman
             markdownlint-cli2
           ])
-          (mkIfList cfg.lang.markdown.notes.enable [ imagemagick ])
-          (mkIfList (cfg.lang.markdown.notes.enable && pkgs.stdenv.isDarwin) [ pngpaste ])
+          (mkIfList cfg.lang.markdown.zk.enable [ imagemagick ])
+          (mkIfList (cfg.lang.markdown.zk.enable && pkgs.stdenv.isDarwin) [ pngpaste ])
           (mkIfList cfg.lang.json.enable [ vscode-langservers-extracted ])
         ];
 
         extraLuaPackages = ps: concatLists [
-          (mkIfList cfg.lang.markdown.notes.enable [
+          (mkIfList cfg.lang.markdown.zk.enable [
             ps.magick
           ])
         ];
@@ -225,9 +225,9 @@ in
     };
 
     programs.zk = {
-      inherit (cfg.lang.markdown.notes) enable;
+      inherit (cfg.lang.markdown.zk) enable;
       settings = {
-        notebook.dir = cfg.lang.markdown.notes.zkDirectory;
+        notebook.dir = cfg.lang.markdown.zk.directory;
         note = {
           language = "en";
           filename = "{{id}}-{{slug title}}";
@@ -288,8 +288,8 @@ in
         ]
       ];
 
-      sessionVariables = mkIf cfg.lang.markdown.notes.enable {
-        ZK_NOTEBOOK_DIR = cfg.lang.markdown.notes.zkDirectory;
+      sessionVariables = mkIf cfg.lang.markdown.zk.enable {
+        ZK_NOTEBOOK_DIR = cfg.lang.markdown.zk.directory;
       };
 
       shellAliases = {

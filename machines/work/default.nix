@@ -85,7 +85,7 @@ in
       lang = {
         python.enable = true;
         markdown.enable = true;
-        markdown.notes.enable = true;
+        markdown.zk.enable = true;
       };
     };
     ideavim.enable = true;

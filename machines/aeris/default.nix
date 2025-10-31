@@ -57,7 +57,7 @@ in
     lazyvim = {
       colorscheme = "everforest";
       enable = true;
-      lang.markdown.notes.enable = true;
+      lang.markdown.zk.enable = true;
     };
     ideavim.enable = true;
     tmux = {
