@@ -48,6 +48,9 @@ return {
 					vim.keymap.set("i", "<tab>", "<cmd>AutolistTab<cr>", { buffer = true })
 					vim.keymap.set("i", "<s-tab>", "<cmd>AutolistShiftTab<cr>", { buffer = true })
 					vim.keymap.set("i", "<CR>", "<CR><cmd>AutolistNewBullet<cr>", { buffer = true })
+
+					vim.keymap.set("i", "<C-l>", "<cmd>ZkInsertLink<cr>", { buffer = true })
+
 					vim.keymap.set("n", "o", "o<cmd>AutolistNewBullet<cr>", { buffer = true })
 					vim.keymap.set("n", "O", "O<cmd>AutolistNewBulletBefore<cr>", { buffer = true })
 					vim.keymap.set("n", "<C-CR>", "<cmd>AutolistToggleCheckbox<cr><CR>", { buffer = true })
