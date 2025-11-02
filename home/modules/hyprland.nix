@@ -312,6 +312,7 @@ in
             "float,class:(${clipseClass})" # ensure you have a floating window class set if you want this behavior
             "size 622 652,class:(${clipseClass})" # set the size of the window as necessary
             "idleinhibit fullscreen, class:.*" # idle inhibit whenever something is fullscreen (possible workaround for regression: https://github.com/hyprwm/Hyprland/issues/9170 )
+            "focusonactivate, class:(zen)" # should allow zen to take focus
           ];
 
           # https://wiki.hyprland.org/Configuring/Uncommon-tips--tricks/
