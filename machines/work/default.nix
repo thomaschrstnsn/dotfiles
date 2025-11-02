@@ -82,6 +82,7 @@ in
       colorscheme = "everforest";
       enable = true;
       copilot.enable = true;
+      gh.enable = true;
       lang = {
         python.enable = true;
         markdown.enable = true;

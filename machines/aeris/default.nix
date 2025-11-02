@@ -61,6 +61,7 @@ in
       colorscheme = "everforest";
       enable = true;
       lang.markdown.zk.enable = true;
+      gh.enable = true;
     };
     ideavim.enable = true;
     tmux = {

@@ -47,6 +47,7 @@ in
   options.tc.lazyvim = with types; {
     enable = mkEnableOption "lazyvim";
     copilot.enable = mkEnableOption "copilot";
+    gh.enable = mkEnableOption "gh (github cli) integation";
     lang = {
       python.enable = mkEnableOption "python";
       json.enable = mkEnableOption "json" // { default = true; };
@@ -179,6 +180,9 @@ in
           (mkIf cfg.util.rest.enable {
             "rest.lua".source = ./lazy/plugins/rest.lua;
           })
+          (mkIf cfg.gh.enable {
+            "gh.lua".source = ./lazy/plugins/gh.lua;
+          })
           colorschemes.lua."${cfg.colorscheme}"
         ];
 
@@ -286,6 +290,9 @@ in
           ripgrep
           fzf
         ]
+        (mkIfList cfg.gh.enable [
+          gh
+        ])
       ];
 
       sessionVariables = mkIf cfg.lang.markdown.zk.enable {

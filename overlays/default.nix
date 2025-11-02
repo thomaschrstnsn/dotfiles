@@ -27,12 +27,12 @@
     (final: prev: {
       vimPlugins = prev.vimPlugins // {
         snacks-nvim = prev.vimPlugins.snacks-nvim.overrideAttrs (oldAttrs: {
-          version = "main-2025-10-25";
+          version = "2.28.0";
           src = prev.fetchFromGitHub {
             owner = "folke";
             repo = "snacks.nvim";
-            rev = "e1dc6b3bddd0d16d0faa5d6802a975f7a7165b2a";
-            sha256 = "sha256-ZFaZ+q9JXQj+s5WcFZjHVCmgWTeVWXezL65sk4n3TpU=";
+            rev = "eadb0ca316ee9af078a181ff9517ce54cb048769";
+            sha256 = "sha256-Kr8NbQ4V0ShJktqQDygd6NN6A6szkcVMlTxhQjjs/AE=";
           };
           doCheck = false; # Disable the require check
         });
