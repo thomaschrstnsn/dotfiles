@@ -49,7 +49,45 @@ return {
 					vim.keymap.set("i", "<s-tab>", "<cmd>AutolistShiftTab<cr>", { buffer = true })
 					vim.keymap.set("i", "<CR>", "<CR><cmd>AutolistNewBullet<cr>", { buffer = true })
 
-					vim.keymap.set("i", "<C-l>", "<cmd>ZkInsertLink<cr>", { buffer = true })
+					vim.keymap.set("i", "<C-l>", function()
+						require("zk").pick_notes(nil, { title = "Zk Insert Link" }, function(notes)
+							if notes and #notes > 0 then
+								local note = notes[1]
+								local link = string.format("[[%s]]", note.title)
+
+								-- Get current cursor position and line
+								local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+								local line = vim.api.nvim_get_current_line()
+
+								-- Check for whitespace before cursor
+								local char_before = col > 0 and line:sub(col, col) or ""
+								local needs_space_before = col > 0 and char_before:match("%S")
+
+								-- Check for whitespace after cursor
+								local char_after = col < #line and line:sub(col + 1, col + 1) or ""
+								local needs_space_after = char_after:match("%S")
+
+								-- print("before/after", char_before, char_after)
+								-- print("need before/after", needs_space_before, needs_space_after)
+
+								-- Build the final link with appropriate spacing
+								local final_link = (needs_space_before and " " or "")
+									.. link
+									.. (needs_space_after and " " or "")
+
+								-- Schedule insert mode and type the link text
+								vim.schedule(function()
+									vim.api.nvim_feedkeys(
+										vim.api.nvim_replace_termcodes("<Right>", true, false, true),
+										"n",
+										false
+									)
+									vim.cmd("startinsert")
+									vim.api.nvim_feedkeys(final_link, "n", false)
+								end)
+							end
+						end)
+					end, { buffer = true, desc = "Insert zk link" })
 
 					vim.keymap.set("n", "o", "o<cmd>AutolistNewBullet<cr>", { buffer = true })
 					vim.keymap.set("n", "O", "O<cmd>AutolistNewBulletBefore<cr>", { buffer = true })
