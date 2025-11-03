@@ -281,6 +281,10 @@ in
       };
     };
 
+    programs.tmux.extraConfig = mkIf cfg.lang.markdown.zk.enable ''
+      bind n run-shell ${tmux/zk-toggle.sh}
+    '';
+
     home = {
       packages = with pkgs; concatLists [
         [
