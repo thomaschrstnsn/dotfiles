@@ -16,10 +16,18 @@ fi
 
 # Check if pane exists in current window
 if [ -n "$pane_id" ] && tmux list-panes -F "#{pane_id}" | grep -q "^$pane_id$"; then
-  # Pane is in current window - HIDE it by breaking to new window in same session
-  if tmux break-pane -d -s "$pane_id" 2>/dev/null; then
-    new_window_id=$(tmux display-message -p -t "$pane_id" "#{window_id}")
-    tmux set -g "$agent_var" "$pane_id:$new_window_id"
+  # Pane is in current window - check if it's active
+  current_pane=$(tmux display-message -p "#{pane_id}")
+  
+  if [ "$pane_id" = "$current_pane" ]; then
+    # Pane is active - HIDE it by breaking to new window in same session
+    if tmux break-pane -d -s "$pane_id" 2>/dev/null; then
+      new_window_id=$(tmux display-message -p -t "$pane_id" "#{window_id}")
+      tmux set -g "$agent_var" "$pane_id:$new_window_id"
+    fi
+  else
+    # Pane exists but is not active - FOCUS it
+    tmux select-pane -t "$pane_id"
   fi
   exit 0
 fi
