@@ -14,17 +14,25 @@ fi
 
 # Check if pane exists in current window
 if [ -n "$pane_id" ] && tmux list-panes -F "#{pane_id}" | grep -q "^$pane_id$"; then
-  # Pane is in current window - HIDE it by moving to dedicated session
-
-  # Ensure zk_personal session exists
-  if ! tmux has-session -t "$ZK_SESSION" 2>/dev/null; then
-    tmux new-session -d -s "$ZK_SESSION"
-  fi
-
-  # Move pane to zk_personal session
-  if tmux break-pane -d -s "$pane_id" -t "$ZK_SESSION:" 2>/dev/null; then
-    new_window_id=$(tmux display-message -p -t "$pane_id" "#{window_id}")
-    tmux set -g "@zk_pane" "$pane_id:$new_window_id"
+  # Pane is in current window - check if it's active
+  current_pane=$(tmux display-message -p "#{pane_id}")
+  
+  if [ "$pane_id" = "$current_pane" ]; then
+    # Pane is active - HIDE it by moving to dedicated session
+    
+    # Ensure zk_personal session exists
+    if ! tmux has-session -t "$ZK_SESSION" 2>/dev/null; then
+      tmux new-session -d -s "$ZK_SESSION"
+    fi
+    
+    # Move pane to zk_personal session
+    if tmux break-pane -d -s "$pane_id" -t "$ZK_SESSION:" 2>/dev/null; then
+      new_window_id=$(tmux display-message -p -t "$pane_id" "#{window_id}")
+      tmux set -g "@zk_pane" "$pane_id:$new_window_id"
+    fi
+  else
+    # Pane exists but is not active - FOCUS it
+    tmux select-pane -t "$pane_id"
   fi
   exit 0
 fi
