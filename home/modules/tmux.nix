@@ -27,6 +27,7 @@ in
       default = "auto";
       description = "override the extrakto_clip_tool";
     };
+    aiAgent.enable = mkEnableOption "tmux ai agent integration";
   };
 
   config = mkIf cfg.enable {
@@ -110,6 +111,11 @@ in
 
         bind '"' split-window -v -c "#{pane_current_path}"
         bind % split-window -h -c "#{pane_current_path}"
+
+        ${if cfg.aiAgent.enable then ''
+          # AI Agent integration
+          bind-key a run-shell ${tmux/agent-toggle.sh}
+          '' else ""}
 
         # remote / nested session support.
         # inspired by: https://github.com/samoshkin/tmux-config/blob/95efd543846a27cd2127496b74fd4f4da94f4a31/tmux/tmux.conf
