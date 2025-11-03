@@ -111,6 +111,7 @@ in
       ];
       extraCasks = [
         "arc"
+        "chatgpt"
         "ghostty"
         "istat-menus@6"
         "jetbrains-toolbox"
@@ -142,7 +143,7 @@ in
       prefixShortcuts = {
         leadingShortcut = "hyper - 9";
         appShortcuts = {
-          c = "Calendar";
+          # c = "Calendar";
         };
       };
     };
