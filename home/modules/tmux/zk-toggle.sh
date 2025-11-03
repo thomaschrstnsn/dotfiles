@@ -15,12 +15,12 @@ fi
 # Check if pane exists in current window
 if [ -n "$pane_id" ] && tmux list-panes -F "#{pane_id}" | grep -q "^$pane_id$"; then
   # Pane is in current window - HIDE it by moving to dedicated session
-  
+
   # Ensure zk_personal session exists
   if ! tmux has-session -t "$ZK_SESSION" 2>/dev/null; then
     tmux new-session -d -s "$ZK_SESSION"
   fi
-  
+
   # Move pane to zk_personal session
   if tmux break-pane -d -s "$pane_id" -t "$ZK_SESSION:" 2>/dev/null; then
     new_window_id=$(tmux display-message -p -t "$pane_id" "#{window_id}")
@@ -61,4 +61,4 @@ new_pane_id=$(tmux display-message -p "#{pane_id}")
 new_window_id=$(tmux display-message -p "#{window_id}")
 tmux set -g "@zk_pane" "$new_pane_id:$new_window_id"
 
-tmux send-keys -t "$new_pane_id" "zk daily" Enter
+tmux send-keys -t "$new_pane_id" "zk sync && zk daily && zk sync" Enter

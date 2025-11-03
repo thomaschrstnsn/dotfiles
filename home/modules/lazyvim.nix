@@ -256,7 +256,7 @@ in
           fetch_and_prune = "jj des automatic && jj new -m automatic && jj git fetch && jj abandon 'trunk()::@ & empty()' && jj rebase -d 'trunk()'";
           # fetch and prune, move our bookmark (if needed) and push
           sync = "zk fetch_and_prune && jj tug ; jj git push";
-          daily = ''zk sync && zk new --no-input "$ZK_NOTEBOOK_DIR/journal/daily"'';
+          daily = ''zk new --no-input "$ZK_NOTEBOOK_DIR/journal/daily"'';
           edlast = "zk edit --limit 1 --sort modified- $argv";
           recent = "zk edit --sort created- --modified-after 'last two weeks' --interactive";
           n = ''jj new --title "$argv"'';
