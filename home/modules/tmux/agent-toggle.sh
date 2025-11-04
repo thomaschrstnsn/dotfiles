@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Get current session ID for per-session storage
 current_session=$(tmux display-message -p "#{session_id}")
@@ -18,7 +18,7 @@ fi
 if [ -n "$pane_id" ] && tmux list-panes -F "#{pane_id}" | grep -q "^$pane_id$"; then
   # Pane is in current window - check if it's active
   current_pane=$(tmux display-message -p "#{pane_id}")
-  
+
   if [ "$pane_id" = "$current_pane" ]; then
     # Pane is active - HIDE it by breaking to new window in same session
     if tmux break-pane -d -s "$pane_id" 2>/dev/null; then
