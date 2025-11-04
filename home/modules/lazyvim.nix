@@ -264,6 +264,8 @@ in
           e = ''zk edit --interactive -m "$argv"'';
         };
 
+        tool.fzf-preview = "bat -p --italic-text always --decorations always --color always {-1}";
+
         lsp = {
           diagnostics = {
             wiki-title = "hint";
