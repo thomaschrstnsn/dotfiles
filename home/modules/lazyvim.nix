@@ -259,7 +259,7 @@ in
           daily = ''zk new --no-input "$ZK_NOTEBOOK_DIR/journal/daily"'';
           edlast = "zk edit --limit 1 --sort modified- $argv";
           recent = "zk edit --sort created- --modified-after 'last two weeks' --interactive";
-          n = ''jj new --title "$argv"'';
+          n = ''zk new --title "$argv"'';
           ls = "zk list";
           e = ''zk edit --interactive -m "$argv"'';
         };
