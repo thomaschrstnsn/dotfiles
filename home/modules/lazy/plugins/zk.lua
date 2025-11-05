@@ -1,4 +1,40 @@
 local dir = "~/zk.personal/"
+
+local MDCheckbox = {}
+local function is_list_item(line)
+	return line:match("^%s*[-*+]%s") ~= nil
+end
+
+-- Check if a line is a checkbox list item
+local function is_checkbox_item(line)
+	return line:match("^%s*[-*+]%s%[.%]%s") ~= nil
+end
+
+-- Toggle the current line through three states: normal -> list -> checkbox -> normal
+function MDCheckbox.toggle_checkbox()
+	local line = vim.api.nvim_get_current_line()
+
+	-- Get the current indentation
+	local indent = line:match("^%s*") or ""
+
+	if is_checkbox_item(line) then
+		-- State 3: checkbox item -> normal line (remove checkbox)
+		local content = line:gsub("^%s*[-*+]%s%[.%]%s", "")
+		vim.api.nvim_set_current_line(indent .. content)
+	elseif is_list_item(line) then
+		-- State 2: list item -> checkbox item
+		local new_line = line:gsub("^(%s*)[-*+]%s", "%1- [ ] ")
+		vim.api.nvim_set_current_line(new_line)
+	else
+		-- State 1: normal line -> list item
+		local content = line:gsub("^%s*", "")
+		vim.api.nvim_set_current_line(indent .. "- " .. content)
+	end
+
+	-- Move cursor to end of line
+	vim.cmd("normal! $")
+end
+
 return {
 	-- start from here: https://linkarzu.com/posts/neovim/obsidian-to-neovim/
 	-- fused with: https://mkaz.blog/working-with-vim/vimwiki/
@@ -92,6 +128,12 @@ return {
 					vim.keymap.set("n", "o", "o<cmd>AutolistNewBullet<cr>", { buffer = true })
 					vim.keymap.set("n", "O", "O<cmd>AutolistNewBulletBefore<cr>", { buffer = true })
 					vim.keymap.set("n", "<C-CR>", "<cmd>AutolistToggleCheckbox<cr><CR>", { buffer = true })
+					vim.keymap.set("n", "<Tab>", function()
+						MDCheckbox.toggle_checkbox()
+					end, {
+						buffer = true,
+						desc = "Toggle markdown checkbox",
+					})
 
 					-- functions to recalculate list on edit
 					vim.keymap.set("n", ">>", ">><cmd>AutolistRecalculate<cr>", { buffer = true })
