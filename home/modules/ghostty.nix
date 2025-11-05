@@ -48,12 +48,13 @@ in
   config = mkIf cfg.enable {
     programs.ghostty = {
       enable = true;
-      package = cfg.package;
+      inherit (cfg) package;
       installBatSyntax = cfg.package != null;
       settings = mkMerge [
         {
           keybind = [
             # "shift+enter=csi:13;2u"
+            "ctrl+enter=unbind" # fullscreen on linux
           ];
           background-blur = true;
           background-opacity = cfg.windowBackgroundOpacity;
