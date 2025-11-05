@@ -186,8 +186,6 @@ return {
 					end, { buffer = true, desc = "Decrease markdown header level" })
 
 					-- functions to recalculate list on edit
-					vim.keymap.set("n", ">>", ">><cmd>AutolistRecalculate<cr>", { buffer = true })
-					vim.keymap.set("n", "<<", "<<<cmd>AutolistRecalculate<cr>", { buffer = true })
 					vim.keymap.set("n", "dd", "dd<cmd>AutolistRecalculate<cr>", { buffer = true })
 					vim.keymap.set("v", "d", "d<cmd>AutolistRecalculate<cr>", { buffer = true })
 
@@ -227,10 +225,6 @@ return {
 		"MeanderingProgrammer/render-markdown.nvim",
 		opts = {
 			file_types = { "markdown", "vimwiki" },
-			heading = {
-				enabled = true,
-				icons = { "󰲡 ", "󰲣 ", "󰲥 ", "󰲧 ", "󰲩 ", "󰲫 " },
-			},
 			checkbox = {
 				enabled = true,
 				custom = {
