@@ -119,6 +119,20 @@ let
     '';
   };
 
+  youtube-download-video = pkgs.writeShellApplication {
+    name = "youtube-download-video";
+    runtimeInputs = with pkgs; [ ffmpeg yt-dlp ];
+    text = ''
+      # Check if exactly 1 arguments are provided
+      if [ $# -ne 1 ]; then
+          echo "Usage: $0 <url>"
+          exit 1
+      fi
+
+      yt-dlp --extractor-args "youtube:player_client=android" -f "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best" --merge-output-format mp4 "$1"
+    '';
+  };
+
   cfg = config.tc.scripts;
 in
 {
@@ -137,7 +151,9 @@ in
         convert-to-flac
         convert-to-mp3
         youtube-download-audio
+        youtube-download-video
       ] else [ ]);
   };
 }
+
 
