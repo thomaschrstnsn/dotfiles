@@ -167,6 +167,13 @@ return {
 						end)
 					end, { buffer = true, desc = "Insert zk link" })
 
+					vim.keymap.set(
+						"v",
+						"<leader>nn",
+						":<C-u>'<,'>ZkNewFromTitleSelection<cr>",
+						{ buffer = true, desc = "New with title from sel." }
+					)
+
 					vim.keymap.set("n", "o", "o<cmd>AutolistNewBullet<cr>", { buffer = true })
 					vim.keymap.set("n", "O", "O<cmd>AutolistNewBulletBefore<cr>", { buffer = true })
 					vim.keymap.set("n", "<C-CR>", "<cmd>AutolistToggleCheckbox<cr><CR>", { buffer = true })
