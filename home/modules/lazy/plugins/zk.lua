@@ -1,6 +1,6 @@
 local dir = "~/zk.personal/"
 
-local MDCheckbox = {}
+local MDUtil = {}
 local function is_list_item(line)
 	return line:match("^%s*[-*+]%s") ~= nil
 end
@@ -11,7 +11,7 @@ local function is_checkbox_item(line)
 end
 
 -- Toggle the current line through three states: normal -> list -> checkbox -> normal
-function MDCheckbox.toggle_checkbox()
+function MDUtil.toggle_checkbox()
 	local line = vim.api.nvim_get_current_line()
 
 	-- Get the current indentation
@@ -33,6 +33,48 @@ function MDCheckbox.toggle_checkbox()
 
 	-- Move cursor to end of line
 	vim.cmd("normal! $")
+end
+
+function MDUtil.increase_header()
+	local line = vim.api.nvim_get_current_line()
+
+	-- Count current header level
+	local header_count = 0
+	local content = line
+
+	-- Match existing headers
+	local header_prefix = line:match("^(#+)%s")
+	if header_prefix then
+		header_count = #header_prefix
+		content = line:gsub("^#+%s*", "")
+	end
+
+	-- Max 6 header levels in markdown
+	if header_count < 6 then
+		local new_header = string.rep("#", header_count + 1) .. " " .. content
+		vim.api.nvim_set_current_line(new_header)
+	end
+end
+
+-- Decrease header level (## -> # -> normal)
+function MDUtil.decrease_header()
+	local line = vim.api.nvim_get_current_line()
+
+	-- Match existing headers
+	local header_prefix = line:match("^(#+)%s")
+	if header_prefix then
+		local header_count = #header_prefix
+		local content = line:gsub("^#+%s*", "")
+
+		if header_count > 1 then
+			-- Decrease by one level
+			local new_header = string.rep("#", header_count - 1) .. " " .. content
+			vim.api.nvim_set_current_line(new_header)
+		else
+			-- Remove header completely (level 1 -> normal)
+			vim.api.nvim_set_current_line(content)
+		end
+	end
 end
 
 return {
@@ -129,11 +171,19 @@ return {
 					vim.keymap.set("n", "O", "O<cmd>AutolistNewBulletBefore<cr>", { buffer = true })
 					vim.keymap.set("n", "<C-CR>", "<cmd>AutolistToggleCheckbox<cr><CR>", { buffer = true })
 					vim.keymap.set("n", "<Tab>", function()
-						MDCheckbox.toggle_checkbox()
+						MDUtil.toggle_checkbox()
 					end, {
 						buffer = true,
 						desc = "Toggle markdown checkbox",
 					})
+
+					vim.keymap.set("n", ">", function()
+						MDUtil.increase_header()
+					end, { buffer = true, desc = "Increase markdown header level" })
+
+					vim.keymap.set("n", "<", function()
+						MDUtil.decrease_header()
+					end, { buffer = true, desc = "Decrease markdown header level" })
 
 					-- functions to recalculate list on edit
 					vim.keymap.set("n", ">>", ">><cmd>AutolistRecalculate<cr>", { buffer = true })
