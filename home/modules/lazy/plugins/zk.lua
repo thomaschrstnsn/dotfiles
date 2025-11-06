@@ -174,6 +174,12 @@ return {
 						{ buffer = true, desc = "New with title from sel." }
 					)
 
+					vim.keymap.set("n", "<leader>nb", "<cmd>ZkBacklinks<CR>", { buffer = true, desc = "Zk: Backlinks" })
+					vim.keymap.set("n", "<leader>nl", "<cmd>ZkLinks<CR>", { buffer = true, desc = "Zk: Links" })
+					vim.keymap.set("n", "<leader>nt", "<cmd>ZkTags<CR>", { buffer = true, desc = "Zk: Tags" })
+					vim.keymap.set("n", "<leader>ni", "<cmd>ZkIndex<CR>", { buffer = true, desc = "Zk: Index" })
+					vim.keymap.set("n", "<leader>ng", "<cmd>ZkNotes<CR>", { buffer = true, desc = "Zk: Notes" })
+
 					vim.keymap.set("n", "o", "o<cmd>AutolistNewBullet<cr>", { buffer = true })
 					vim.keymap.set("n", "O", "O<cmd>AutolistNewBulletBefore<cr>", { buffer = true })
 					vim.keymap.set("n", "<C-CR>", "<cmd>AutolistToggleCheckbox<cr><CR>", { buffer = true })
