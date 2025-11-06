@@ -4,6 +4,7 @@ with lib;
 let
   cfg = config.tc.zk;
   lazyCfg = config.tc.lazyvim;
+  dateProgram = "${pkgs.coreutils}/bin/date";
 in
 {
   options.tc.zk = with types; {
@@ -48,7 +49,7 @@ in
           # fetch and prune, move our bookmark (if needed) and push
           sync = "zk fetch_and_prune && jj tug ; jj git push";
           daily = ''zk new --no-input "$ZK_NOTEBOOK_DIR/journal/daily"'';
-          offset = ''zk new --no-input "$ZK_NOTEBOOK_DIR/journal/daily" --date $(date -v $argv[1]d +%F)'';
+          offset = ''zk new --no-input "$ZK_NOTEBOOK_DIR/journal/daily" --date $(${dateProgram} -d "$argv[1] days" +%F)'';
           edlast = "zk edit --limit 1 --sort modified- $argv";
           recent = "zk edit --sort created- --modified-after 'last two weeks' --interactive";
           n = ''zk new --title "$argv"'';
