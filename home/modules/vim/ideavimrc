@@ -49,8 +49,9 @@ nmap <leader>ss <Action>(GotoSymbol)
 " nmap <C-CR> <Action>(HideAllWindows)
 
 nmap <leader>w :w<CR>
+nmap <leader><leader> :w<CR>
 nmap <leader>q :q<CR>
-nmap <leader><leader>r :source ~/.ideavimrc<CR>
+nmap <leader><tab> :source ~/.ideavimrc<CR>
 nmap <leader>e :NERDTreeFind<CR>
 " nmap - /
 nmap gcc <Action>(CommentByLineComment)
