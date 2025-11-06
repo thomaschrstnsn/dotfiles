@@ -7,7 +7,7 @@ let
   disableSameSiteByDefaultCookies = "--disable-features=SameSiteByDefaultCookies";
 
   mkDesktopEntry = url: name: extraOptions: {
-    name = name;
+    inherit name;
     exec = "${pkgs.chromium}/bin/chromium  --app=${url} --enable-features=WebAppInstallation ${extraOptions}";
     icon = "applications-internet";
     categories = [ "Application" ];
@@ -24,14 +24,15 @@ in
       [
         gtk3 # gtk-launch
       ];
-
-    xdg.enable = true;
-    xdg.mime.enable = true;
-
-    xdg.desktopEntries = {
-      claude = mkDesktopEntry "https://claude.ai" "Claude" "";
-      icloud-calendar = mkDesktopEntry "https://www.icloud.com/calendar/" "iCloud Calendar" disableSameSiteByDefaultCookies;
+    xdg = {
+      enable = true;
+      mime.enable = true;
+      desktopEntries = {
+        claude = mkDesktopEntry "https://claude.ai" "Claude" "";
+        icloud-calendar = mkDesktopEntry "https://www.icloud.com/calendar/" "iCloud Calendar" disableSameSiteByDefaultCookies;
+      };
     };
+
   };
 }
 
