@@ -24,18 +24,10 @@ in
 
   config = mkIf cfg.enable {
 
-    programs.starship = mkMerge [{
+    programs.starship = {
       enable = true;
-      settings = {
-        aws = {
-          format = "on $symbol ($profile) ($style)";
-          symbol = "";
-        };
-        directory = {
-          truncation_symbol = "…/";
-        };
-      };
-    }];
+      settings = builtins.fromTOML (builtins.readFile starship/jetpack.toml);
+    };
 
     home.packages = with pkgs; [
       bottom
