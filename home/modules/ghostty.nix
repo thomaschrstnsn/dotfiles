@@ -16,10 +16,17 @@ in
   options.tc.ghostty = with types; {
     enable = mkEnableOption "ghostty (terminal emulator)";
 
-    fontsize = mkOption {
-      type = number;
-      description = "fontsize in terminal";
-      default = 15.2;
+    font = {
+      size = mkOption {
+        type = number;
+        description = "fontsize in terminal";
+        default = 15.2;
+      };
+      family = mkOption {
+        type = nullOr str;
+        description = "font-family in terminal";
+        default = null;
+      };
     };
 
     package = mkOption {
@@ -59,7 +66,7 @@ in
           background-blur = true;
           background-opacity = cfg.windowBackgroundOpacity;
           cursor-style-blink = true;
-          font-size = cfg.fontsize;
+          font-size = cfg.font.size;
           initial-window = true;
           macos-icon = "retro";
           macos-option-as-alt = true;
@@ -75,6 +82,8 @@ in
           window-decoration = if pkgs.stdenv.isDarwin then "auto" else "none"; # needs to be auto on macos for rounded corners
           window-padding-color = "extend";
         }
+        (mkIf (cfg.font.family != null)
+          { font-family = cfg.font.family; })
         (mkIf (cfg.shaders != [ ]) {
           custom-shader = map (s: "${shaders."${s}"}") cfg.shaders;
         })

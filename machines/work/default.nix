@@ -48,7 +48,8 @@ in
     } // { inherit (vcs) alternativeConfigs; } // vcs.primaryConfig;
     ghostty = {
       enable = true;
-      fontsize = 15;
+      font.size = 15;
+      font.family = "Maple Mono NF";
       windowBackgroundOpacity = 0.90;
       package = null;
       shaders = [ "cursor_blaze_tapered" ];

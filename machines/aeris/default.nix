@@ -28,7 +28,8 @@ in
     };
     ghostty = {
       enable = true;
-      fontsize = 15;
+      font.size = 14;
+      font.family = "Maple Mono NF";
       shaders = [ "cursor_blaze_tapered" ];
       windowBackgroundOpacity = 0.7;
       package = null;
