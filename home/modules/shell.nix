@@ -31,7 +31,7 @@ in
 
     home.packages = with pkgs; [
       bottom
-      du-dust
+      dust
       dua # disk usage analyzer - `$ dua i`
       lazydocker
       fd
