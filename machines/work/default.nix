@@ -48,7 +48,7 @@ in
     } // { inherit (vcs) alternativeConfigs; } // vcs.primaryConfig;
     ghostty = {
       enable = true;
-      font.size = 15;
+      font.size = 14;
       font.family = "Maple Mono NF";
       windowBackgroundOpacity = 0.90;
       package = null;
