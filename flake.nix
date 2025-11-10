@@ -203,6 +203,7 @@
             inputs.LazyVim.homeManagerModules.default
             ./home/modules
           ];
+          inherit pkgs;
         };
 
       mkHMUser =
