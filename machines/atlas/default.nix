@@ -86,12 +86,13 @@ in
     spotify
     todoist-electron
     qt5.qtwayland
-    webcord-vencord
+    # webcord-vencord
+    vesktop
     myPkgs.zen-browser
     wine64
   ];
 
-  system = system;
+  inherit system;
 
   nixos = {
     config = {

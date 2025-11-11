@@ -55,7 +55,8 @@ in
     spotify
     todoist-electron
     qt5.qtwayland
-    webcord-vencord
+    # webcord-vencord
+    vesktop
     wine64
   ];
 
