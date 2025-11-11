@@ -36,7 +36,8 @@ in
     fish.enable = true;
     ghostty = {
       enable = true;
-      fontsize = 13;
+      font.size = 13;
+      font.family = "Maple Mono NF";
       windowBackgroundOpacity = 0.7;
       lightAndDarkMode.enable = false;
       package = inputs.ghostty.packages.${system}.default;
