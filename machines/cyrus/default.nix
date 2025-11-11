@@ -44,7 +44,7 @@ in
       };
       ghostty = {
         enable = true;
-        fontsize = 13;
+        font.size = 13;
         windowBackgroundOpacity = 0.95;
         lightAndDarkMode.enable = false;
         package = inputs.ghostty.packages.${system}.default;
@@ -53,7 +53,6 @@ in
     }];
   extraPackages = pkgs: with pkgs; [
     spotify
-    todoist-electron
     qt5.qtwayland
     # webcord-vencord
     vesktop
