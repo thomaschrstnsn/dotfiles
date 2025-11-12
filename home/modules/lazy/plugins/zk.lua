@@ -1,5 +1,3 @@
-local dir = "~/zk.personal/"
-
 local MDUtil = {}
 local function is_list_item(line)
 	return line:match("^%s*[-*+]%s") ~= nil
@@ -108,6 +106,9 @@ return {
 		config = function()
 			require("autolist").setup()
 
+			local dir = vim.env.ZK_NOTES_DIR or "~/zk.personal/"
+			local spell_file = dir .. "/spell.en.utf8.add"
+
 			local todo_picker_config = {
 				prompt = " ",
 				search = "^\\s*- \\[ \\]",
@@ -126,6 +127,11 @@ return {
 					vim.keymap.set("i", "<tab>", "<cmd>AutolistTab<cr>", { buffer = true })
 					vim.keymap.set("i", "<s-tab>", "<cmd>AutolistShiftTab<cr>", { buffer = true })
 					vim.keymap.set("i", "<CR>", "<CR><cmd>AutolistNewBullet<cr>", { buffer = true })
+
+					-- spelling
+					vim.opt_local.spellfile = vim.fn.expand(spell_file)
+					-- rebuild (.add is checked in to VCS, build the binary again)
+					vim.cmd("mkspell! " .. spell_file)
 
 					vim.keymap.set("i", "<C-l>", function()
 						require("zk").pick_notes(nil, { title = "Zk Insert Link" }, function(notes)
