@@ -69,7 +69,7 @@ in
       keyboard = "keychron-keychron-q11";
     };
     lazyvim = {
-      colorscheme = "kanagawa";
+      colorscheme = "everforest";
       enable = true;
       lang = {
         python.enable = true;
