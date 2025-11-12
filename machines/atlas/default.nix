@@ -90,6 +90,8 @@ in
     vesktop
     myPkgs.zen-browser
     wine64
+
+    inputs.nix-citizen.packages.${system}.star-citizen
   ];
 
   inherit system;
