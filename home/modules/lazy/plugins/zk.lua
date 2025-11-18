@@ -179,6 +179,29 @@ return {
 						":<C-u>'<,'>ZkNewFromTitleSelection<cr>",
 						{ buffer = true, desc = "New with title from sel." }
 					)
+					--
+					-- Visual mode mapping (mode = "x")
+					vim.keymap.set("x", "`", function()
+						-- Get visual selection range (line numbers are 1-based)
+						local start_line = vim.fn.line("v")
+						local end_line = vim.fn.line(".")
+
+						-- Normalize order (support selecting bottom→top)
+						if start_line > end_line then
+							start_line, end_line = end_line, start_line
+						end
+
+						-- Insert closing fence *after* the selection
+						vim.api.nvim_buf_set_lines(0, end_line, end_line, false, { "```" })
+						-- Insert opening fence *before* the selection
+						vim.api.nvim_buf_set_lines(0, start_line - 1, start_line - 1, false, { "```" })
+
+						-- Place cursor after the opening ```
+						vim.api.nvim_win_set_cursor(0, { start_line, 3 })
+					end, {
+						buffer = true,
+						desc = "Surround selection with code fence",
+					})
 
 					vim.keymap.set("n", "<leader>nb", "<cmd>ZkBacklinks<CR>", { buffer = true, desc = "Zk: Backlinks" })
 					vim.keymap.set("n", "<leader>nl", "<cmd>ZkLinks<CR>", { buffer = true, desc = "Zk: Links" })
