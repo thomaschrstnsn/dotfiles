@@ -33,7 +33,11 @@ let
 
   workspaceBindingsComplete = foldl' (acc: v: acc // v) { } (map workspaceBinds workspaces);
 
-  focusBind = key: direction: { };
+  focusBind = key: direction: {
+    "alt-${key}" = "focus --boundaries-action wrap-around-all-monitors --boundaries all-monitors-outer-frame ${direction}";
+  };
+
+  focusBindingsComplete = foldl' (acc: v: acc // v) { } (mapAttrsToList (key: direction: focusBind key direction) { h = "left"; j = "down"; k = "up"; l = "right"; });
 
   onWindowDetected = mapAttrsToList
     (appId: desktop: {
@@ -75,24 +79,19 @@ in
           alt-slash = "layout tiles horizontal vertical";
           alt-shift-slash = "layout accordion horizontal vertical";
 
-          alt-h = "focus --boundaries-action wrap-around-all-monitors --boundaries all-monitors-outer-frame left";
-          alt-j = "focus --boundaries-action wrap-around-all-monitors --boundaries all-monitors-outer-frame down";
-          alt-k = "focus --boundaries-action wrap-around-all-monitors --boundaries all-monitors-outer-frame up";
-          alt-l = "focus --boundaries-action wrap-around-all-monitors --boundaries all-monitors-outer-frame right";
-
           alt-shift-h = "move left";
           alt-shift-j = "move down";
           alt-shift-k = "move up";
           alt-shift-l = "move right";
 
-          ctrl-alt-h = "join-with left";
-          ctrl-alt-j = "join-with down";
-          ctrl-alt-k = "join-with up";
-          ctrl-alt-l = "join-with right";
+          # ctrl-alt-h = "join-with left";
+          # ctrl-alt-j = "join-with down";
+          # ctrl-alt-k = "join-with up";
+          # ctrl-alt-l = "join-with right";
 
           alt-tab = "workspace-back-and-forth";
           alt-shift-semicolon = "mode service";
-        } // workspaceBindingsComplete;
+        } // workspaceBindingsComplete // focusBindingsComplete;
         mode.service.binding = {
           esc = [ "reload-config" "mode main" ];
           r = [ "flatten-workspace-tree" "mode main" ]; # reset layout
