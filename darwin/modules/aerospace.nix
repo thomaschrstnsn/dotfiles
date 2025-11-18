@@ -24,6 +24,17 @@ let
     "com.electron.logseq" = "U";
   };
 
+  workspaceBinds = ws: {
+    "alt-${ws}" = "workspace ${toUpper ws}";
+    "alt-shift-${ws}" = "move-node-to-workspace --focus-follows-window ${toUpper ws}";
+  };
+
+  workspaces = stringToCharacters "bcegimnopqrtuvwxyz"; # minus hjkl and asdf
+
+  workspaceBindingsComplete = foldl' (acc: v: acc // v) { } (map workspaceBinds workspaces);
+
+  focusBind = key: direction: { };
+
   onWindowDetected = mapAttrsToList
     (appId: desktop: {
       "if".app-id = appId;
@@ -64,10 +75,10 @@ in
           alt-slash = "layout tiles horizontal vertical";
           alt-shift-slash = "layout accordion horizontal vertical";
 
-          alt-h = "focus left";
-          alt-j = "focus down";
-          alt-k = "focus up";
-          alt-l = "focus right";
+          alt-h = "focus --boundaries-action wrap-around-all-monitors --boundaries all-monitors-outer-frame left";
+          alt-j = "focus --boundaries-action wrap-around-all-monitors --boundaries all-monitors-outer-frame down";
+          alt-k = "focus --boundaries-action wrap-around-all-monitors --boundaries all-monitors-outer-frame up";
+          alt-l = "focus --boundaries-action wrap-around-all-monitors --boundaries all-monitors-outer-frame right";
 
           alt-shift-h = "move left";
           alt-shift-j = "move down";
@@ -79,56 +90,9 @@ in
           ctrl-alt-k = "join-with up";
           ctrl-alt-l = "join-with right";
 
-          # A,S,D,F missing
-          # alt-a = "workspace A";
-          alt-b = "workspace B";
-          alt-c = "workspace C";
-          # alt-d = "workspace D";
-          alt-e = "workspace E";
-          # alt-f = "workspace F";
-          alt-g = "workspace G";
-          alt-i = "workspace I";
-          alt-m = "workspace M";
-          alt-n = "workspace N";
-          alt-o = "workspace O";
-          alt-p = "workspace P";
-          alt-q = "workspace Q";
-          alt-r = "workspace R";
-          # alt-s = "workspace S";
-          alt-t = "workspace T";
-          alt-u = "workspace U";
-          alt-v = "workspace V";
-          alt-w = "workspace W";
-          alt-x = "workspace X";
-          alt-y = "workspace Y";
-          alt-z = "workspace Z";
-
-          # alt-shift-a = "move-node-to-workspace A";
-          alt-shift-b = "move-node-to-workspace B";
-          alt-shift-c = "move-node-to-workspace C";
-          # alt-shift-d = "move-node-to-workspace D";
-          alt-shift-e = "move-node-to-workspace E";
-          # alt-shift-f = "move-node-to-workspace F";
-          alt-shift-g = "move-node-to-workspace G";
-          alt-shift-i = "move-node-to-workspace I";
-          alt-shift-m = "move-node-to-workspace M";
-          alt-shift-n = "move-node-to-workspace N";
-          alt-shift-o = "move-node-to-workspace O";
-          alt-shift-p = "move-node-to-workspace P";
-          alt-shift-q = "move-node-to-workspace Q";
-          alt-shift-r = "move-node-to-workspace R";
-          # alt-shift-s = "move-node-to-workspace S";
-          alt-shift-t = "move-node-to-workspace T";
-          alt-shift-u = "move-node-to-workspace U";
-          alt-shift-v = "move-node-to-workspace V";
-          alt-shift-w = "move-node-to-workspace W";
-          alt-shift-x = "move-node-to-workspace X";
-          alt-shift-y = "move-node-to-workspace Y";
-          alt-shift-z = "move-node-to-workspace Z";
-
           alt-tab = "workspace-back-and-forth";
           alt-shift-semicolon = "mode service";
-        };
+        } // workspaceBindingsComplete;
         mode.service.binding = {
           esc = [ "reload-config" "mode main" ];
           r = [ "flatten-workspace-tree" "mode main" ]; # reset layout
