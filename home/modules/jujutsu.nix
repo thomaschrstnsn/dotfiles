@@ -279,7 +279,7 @@ in
                   show = "diff";
                 };
                 "resolve vscode" = {
-                  key = [ "R" ];
+                  key = [ "V" ];
                   args = [ "resolve" "--tool" "vscode" ];
                   show = "interactive";
                 };
