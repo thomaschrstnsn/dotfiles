@@ -139,7 +139,7 @@ in
         "hyper - u" = "Logseq";
         "hyper - z" = "Spotify";
         "hyper - p" = "todoist";
-        "hyper - v" = "Preview";
+        "hyper - v" = "Azure VPN Client";
       };
       extraShortcuts = { };
       prefixShortcuts = {
