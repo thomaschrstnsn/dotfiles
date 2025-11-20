@@ -10,7 +10,7 @@ in
 
     pkg = mkOption {
       description = "Which pkg to use";
-      default = pkgs: pkgs.nodejs-14_x;
+      default = pkgs: pkgs.nodejs_24;
     };
   };
 

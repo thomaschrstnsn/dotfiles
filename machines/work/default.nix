@@ -42,6 +42,7 @@ in
       sdks = [ "8.0" "9.0" ];
     };
     fish.enable = true;
+    nodejs.enable = true;
     git = {
       enable = true;
       mergiraf.enable = true;
