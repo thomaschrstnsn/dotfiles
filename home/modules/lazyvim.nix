@@ -55,6 +55,7 @@ in
       markdown.zk = {
         enable = mkEnableOption "Full markdown notes taking with zk";
       };
+      typescript.enable = mkEnableOption "typescript";
     };
     util.rest.enable = mkEnableOption "rest client" // { default = true; };
     colorscheme = mkOption {
@@ -128,6 +129,9 @@ in
             img-clip-nvim
             zk-nvim
           ])
+          (mkIfList cfg.lang.typescript.enable [
+            nvim-vtsls
+          ])
           (mkIfList cfg.util.rest.enable [
             kulala-nvim
           ])
@@ -161,6 +165,7 @@ in
                 (optionalString cfg.copilot.enable ''{ import = "lazyvim.plugins.extras.ai.copilot" },'')
                 (optionalString cfg.lang.json.enable ''{ import = "lazyvim.plugins.extras.lang.json" },'')
                 (optionalString cfg.lang.markdown.enable ''{ import = "lazyvim.plugins.extras.lang.markdown" },'')
+                (optionalString cfg.lang.typescript.enable ''{ import = "lazyvim.plugins.extras.lang.typescript" },'')
                 (optionalString cfg.util.rest.enable ''{ import = "lazyvim.plugins.extras.util.rest" },'')
                 ''{ import = "lazyvim.plugins.extras.coding.mini-surround" },''
                 ''{ import = "lazyvim.plugins.extras.editor.inc-rename" },''
@@ -207,6 +212,7 @@ in
           (mkIfList cfg.lang.markdown.zk.enable [ imagemagick ])
           (mkIfList (cfg.lang.markdown.zk.enable && pkgs.stdenv.isDarwin) [ pngpaste ])
           (mkIfList cfg.lang.json.enable [ vscode-langservers-extracted ])
+          (mkIfList cfg.lang.typescript.enable [ typescript-language-server ])
         ];
 
         extraLuaPackages = ps: concatLists [

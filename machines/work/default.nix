@@ -89,6 +89,7 @@ in
         python.enable = true;
         markdown.enable = true;
         markdown.zk.enable = true;
+        typescript.enable = true;
       };
     };
     ideavim.enable = true;
