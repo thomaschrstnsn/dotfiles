@@ -463,7 +463,7 @@ in
 
           # https://wiki.hyprland.org/Configuring/Monitors/#rotating
           monitor = [
-            "DP-2, 2560x1440@165, 0x0, 1"
+            "DP-3, 2560x1440@165, 0x0, 1"
             "HDMI-A-1, 2560x1440@60, 2560x-100, 1, transform, 1"
             ", preferred, auto, 1"
           ];
