@@ -14,6 +14,7 @@
     ./hyprland.nix
     ./ideavim.nix
     ./jujutsu.nix
+    ./kiorg.nix
     ./lazyvim.nix
     ./nodejs.nix
     ./nushell.nix

@@ -59,6 +59,7 @@ in
       enable = true;
       meld.enable = true;
     } // { inherit (vcs) alternativeConfigs; } // vcs.primaryConfig;
+    kiorg.enable = true;
     rancher.enable = true;
     ssh = {
       enable = true;
