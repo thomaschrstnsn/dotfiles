@@ -120,6 +120,7 @@ in
         "jetbrains-toolbox"
         "logseq"
         "meetingbar"
+        "opencode"
         "rancher"
         "webcatalog"
       ];
@@ -156,7 +157,7 @@ in
     bacon
     devenv
     natscli
-    opencode
+    # opencode
     myPkgs.github-copilot-cli
     # kubernetes tools
     kubectl
