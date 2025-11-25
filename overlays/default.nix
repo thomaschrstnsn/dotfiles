@@ -2,8 +2,11 @@
 
 {
   overlays = [
-    (self: super: {
+    (final: prev: {
       inherit myPkgs;
+      vimPlugins = prev.vimPlugins // {
+        blink-cmp = myPkgs.blink-cmp-fixed; # temp workaround
+      };
     })
 
     (final: prev: {

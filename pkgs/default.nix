@@ -3,6 +3,7 @@ with pkgs;
 {
   myPkgs = {
     aeroTrafficControl = callPackage ./aetc.nix { };
+    blink-cmp-fixed = callPackage ./blink-cmp-fixed.nix { };
     sketchybar = import ./sketchybar { inherit pkgs nixpkgs; };
     appleFonts = import ./apple-fonts { inherit pkgs; };
     pyenv-nix-install = inputs.pyenv-nix-install.packages.${system}.default;
