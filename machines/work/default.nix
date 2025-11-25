@@ -39,7 +39,7 @@ in
     direnv.enable = true;
     dotnet = {
       enable = true;
-      sdks = [ "8.0" "9.0" ];
+      sdks = [ "8.0" "9.0" "10.0" ];
     };
     fish.enable = true;
     nodejs.enable = true;

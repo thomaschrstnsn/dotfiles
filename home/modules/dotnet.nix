@@ -8,6 +8,7 @@ let
     "7.0" = sdk_7_0;
     "8.0" = sdk_8_0;
     "9.0" = sdk_9_0;
+    "10.0" = sdk_10_0;
   });
 
   # https://github.com/NixOS/nixpkgs/blob/master/pkgs/development/compilers/dotnet/default.nix
