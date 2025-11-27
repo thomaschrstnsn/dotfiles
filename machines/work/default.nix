@@ -111,6 +111,7 @@ in
       enable = true;
       extraBrews = [
         "Azure/kubelogin/kubelogin"
+        "sst/tap/opencode"
       ];
       extraCasks = [
         "arc"
@@ -120,12 +121,12 @@ in
         "jetbrains-toolbox"
         "logseq"
         "meetingbar"
-        "opencode"
         "rancher"
         "webcatalog"
       ];
       extraTaps = [
         "Azure/kubelogin"
+        "sst/tap" #opencode
       ];
     };
     skhd = {
