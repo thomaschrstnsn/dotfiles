@@ -45,7 +45,7 @@ in
         filter.recents = "--sort created- --created-after 'last two weeks'";
         alias = {
           # new change from head, fetch origin, abandon empty changes from head to main@origin, rebase onto main@origin
-          fetch_and_prune = "jj des automatic && jj new -m automatic && jj git fetch && jj abandon 'trunk()::@ & empty()' && jj rebase -d 'trunk()'";
+          fetch_and_prune = ''jj des "automatic before $hostname" && jj new -m "automatic after $hostname" && jj git fetch && jj abandon "trunk()::@ & empty()" && jj rebase -d "trunk()"'';
           # fetch and prune, move our bookmark (if needed) and push
           sync = "zk fetch_and_prune && jj tug ; jj git push";
           daily = ''zk new --no-input "$ZK_NOTEBOOK_DIR/journal/daily"'';
