@@ -68,6 +68,10 @@ in
       terminal = "ghostty";
       keyboard = "keychron-keychron-q11";
     };
+    rust = {
+      enable = true;
+      linker = "mold";
+    };
     lazyvim = {
       colorscheme = "everforest";
       enable = true;
