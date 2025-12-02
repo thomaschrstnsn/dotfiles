@@ -168,7 +168,7 @@ in
             set -g @dracula-show-powerline true
             set -g @dracula-show-battery false
             set -g @dracula-show-left-icon session
-            set -g @dracula-time-format "%Y-%m-%d %H:%M"
+            set -g @dracula-time-format "W%V %Y-%m-%d %H:%M"
           '';
         })
         (mkIf (cfg.theme == "catppuccin")
@@ -183,7 +183,7 @@ in
                 set -g @catppuccin_window_status_enable "yes"
                 set -g @catppuccin_window_status_icon_enable "yes"
                 set -g @catppuccin_status_modules_right "${modules_right}"
-                set -g @catppuccin_date_time "W%W %Y-%m-%d %H:%M"
+                set -g @catppuccin_date_time "W%V %Y-%m-%d %H:%M"
               '';
             }
           ))
