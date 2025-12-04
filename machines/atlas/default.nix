@@ -96,6 +96,7 @@ in
     wine64
 
     inputs.nix-citizen.packages.${system}.star-citizen
+    # inputs.nix-citizen.packages.${system}.star-citizen-umu
   ];
 
   inherit system;
