@@ -167,6 +167,8 @@ in
     jack.enable = true;
   };
 
+  hardware.enableRedistributableFirmware = true;
+
   hardware.bluetooth = {
     enable = true;
     powerOnBoot = true;
