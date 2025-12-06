@@ -17,12 +17,12 @@ let
 
   kulala-http-grammar = pkgs.tree-sitter.buildGrammar {
     language = "kulala_http";
-    version = "6b6e1c8b538cce6654cfc5fb3e4a3acfa316ce57";
+    version = "5.3.3 ";
     src = pkgs.fetchFromGitHub {
       owner = "mistweaverco";
       repo = "kulala.nvim";
-      rev = "6b6e1c8b538cce6654cfc5fb3e4a3acfa316ce57";
-      sha256 = "07sgyqnlsm0zgxfg5ir3kmxbhy53h7bw14hiylvixdbp1x3xhn3h";
+      rev = "ab3effad17d5dbb4d5d34b6289fa4dc97155045c";
+      sha256 = "sha256-40grZKIl74sbk3L+VJpuvPQqajY3CGeLv8eKbo4wIZU";
     };
     location = "lua/tree-sitter";
     generate = false;
