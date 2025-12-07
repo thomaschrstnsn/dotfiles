@@ -148,6 +148,11 @@
     extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   };
 
+  services.timekpr = {
+    enable = true;
+    adminUsers = [ "thomas" ];
+  };
+
   # Enable sound with pipewire.
   services.pulseaudio.enable = false;
 
