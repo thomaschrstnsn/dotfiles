@@ -9,15 +9,22 @@ let
     dracula = "#44475a";
     catppuccin = "#1e1e2e";
     rose-pine = "#191724";
+    powerkit = "#2a2b3d";
   }."${cfg.theme}";
-  disabledBg = "#d20f39";
+  defaultDisabled = "#d20f39";
+  disabledBg = {
+    dracula = defaultDisabled;
+    catppucin = defaultDisabled;
+    rose-pine = defaultDisabled;
+    powerkit = "#ff6b85";
+  }."${cfg.theme}";
 in
 {
   options.tc.tmux = with types; {
     enable = mkEnableOption "tmux";
     disableAutoStarting = mkEnableOption "no autostart";
     theme = mkOption {
-      type = enum [ "catppuccin" "dracula" "rose-pine" ];
+      type = enum [ "catppuccin" "dracula" "rose-pine" "powerkit" ];
       default = "catppuccin";
       description = "theme for tmux";
     };
@@ -213,6 +220,43 @@ in
               '';
             }
           ))
+        (mkIf (cfg.theme == "powerkit")
+          {
+            plugin = mkTmuxPlugin {
+              pluginName = "powerkit";
+              version = "v3.8.0";
+              rtpFilePath = "tmux-powerkit.tmux";
+              src = pkgs.fetchFromGitHub {
+                owner = "fabioluciano";
+                repo = "tmux-powerkit";
+                rev = "9d5bfdaabf2a03e05d8ae11f1065f694d15df0d5";
+                hash = "sha256-QhCUQDmt+Ur6KakrycJ4uvnIZzTHGkG/f01vslFxR5w";
+              };
+              meta = {
+                homepage = "https://github.com/fabioluciano/tmux-powerkit/";
+                description = "A powerful, modular tmux status bar framework with 33+ built-in plugins for displaying system information, development tools, security monitoring, and media status. Ships with beautiful themes including Tokyo Night and Kiribyte.";
+                license = lib.licenses.mit;
+              };
+            };
+            extraConfig = ''
+              # Theme selection
+              set -g @powerkit_theme 'kiribyte'
+
+              # Auto-detect OS icon
+              set -g @powerkit_session_icon 'auto'
+
+              # Enable plugins
+              set -g @powerkit_plugins 'battery,cpu,memory,network,ping,weather,datetime'
+
+              set -g @powerkit_plugin_datetime_format 'iso'
+              set -g @powerkit_plugin_datetime_show_week 'true'
+
+              set -g @powerkit_plugin_weather_location 'Silkeborg'
+
+            '';
+
+          }
+        )
       ];
     };
 

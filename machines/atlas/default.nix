@@ -60,7 +60,7 @@ in
     tmux = {
       enable = true;
       remote = false;
-      theme = "rose-pine";
+      theme = "powerkit";
       cliptool = "wl-copy";
     };
     hyprland = {
