@@ -248,11 +248,10 @@ in
               # Enable plugins
               set -g @powerkit_plugins 'battery,cpu,memory,network,ping,weather,datetime'
 
-              set -g @powerkit_plugin_datetime_format 'iso'
-              set -g @powerkit_plugin_datetime_show_week 'true'
+              set -g @powerkit_plugin_datetime_format 'W%V %Y-%m-%d %H:%M'
+              set -g @powerkit_plugin_datetime_show_week 'false'
 
-              set -g @powerkit_plugin_weather_location 'Silkeborg'
-
+              set -g @powerkit_plugin_weather_location '56.1561952,9.5313956'
             '';
 
           }
