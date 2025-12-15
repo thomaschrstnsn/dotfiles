@@ -328,7 +328,7 @@ in
 
           device = [
             {
-              name = "thomas'-pegefelt";
+              name = "thomas’-pegefelt-(gamle)";
               sensitivity = 0.4;
               natural_scroll = true;
             }
