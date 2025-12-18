@@ -121,7 +121,7 @@ in
       enable = true;
       # https://docs.atuin.sh/configuration/config/
       settings = {
-        filter_mode_shell_up_key_binding = "directory";
+        filter_mode_shell_up_key_binding = "session";
         filter_mode = "global";
         search_mode_shell_up_key_binding = "fuzzy";
         search_mode = "fuzzy";
