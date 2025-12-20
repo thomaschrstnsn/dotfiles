@@ -21,7 +21,7 @@ in
     direnv.enable = true;
     ssh = {
       enable = true;
-      hosts = [ "rpi4" "enix" "rsync.net" ];
+      hosts = [ "rpi4" "cyrus" "enix" "rsync.net" ];
       _1password = {
         enableAgent = true;
         keys = [
