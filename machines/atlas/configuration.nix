@@ -205,7 +205,10 @@ in
     sudo.u2fAuth = true;
   };
 
-  networking.hostName = "atlas"; # Define your hostname.
+  networking = {
+    useNetworkd = true; # faster boot
+    dhcpcd.enable = false;
+  };
 
   system.stateVersion = "24.05"; # Did you read the comment?
 }
