@@ -169,8 +169,6 @@
 
   services.openssh.enable = true;
 
-  time.hardwareClockInLocalTime = true;
-
   system.stateVersion = "24.05"; # Did you read the comment?
 }
 
