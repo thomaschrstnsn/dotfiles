@@ -78,7 +78,6 @@ in
   services.printing.enable = true;
 
   programs.hyprland.enable = true;
-  # programs.hyprland.package = inputs.hyprland.packages."{$pkgs.system}".hyprland;
 
   hardware.graphics = {
     enable = true;
@@ -88,8 +87,10 @@ in
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia = {
     modesetting.enable = true;
-    open = true;
     powerManagement.enable = true;
+    open = true;
+    nvidiaSettings = true;
+    package = config.boot.kernelPackages.nvidiaPackages.latest;
   };
 
   programs.steam.enable = true;
