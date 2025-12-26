@@ -140,9 +140,7 @@ in
               "closest_bookmark(to)" = "heads(::to & bookmarks())";
               "closest_pushable(to)" = ''heads(::to & mutable() & ~description(exact:"") & (~empty() | merges()))'';
             };
-            git = {
-              push-new-bookmarks = true;
-            };
+            remotes.origin = { auto-track-bookmarks = "glob:*"; };
             # https://zerowidth.com/2025/jj-tips-and-tricks/#hunk-wise-style
             merge-tools.gitpatch = {
               program = "sh";
