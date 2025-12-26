@@ -153,6 +153,7 @@ in
             "lint.lua".source = ./lazy/plugins/lint.lua;
             "lualine.lua".source = ./lazy/plugins/lualine.lua;
             "multicursor.lua".source = ./lazy/plugins/multicursor.lua;
+            "mini-pairs.lua".source = ./lazy/plugins/mini-pairs.lua;
             "oil.lua".source = ./lazy/plugins/oil.lua;
             "rust.lua".source = ./lazy/plugins/rust.lua;
             "smartyank.lua".source = ./lazy/plugins/smartyank.lua;
