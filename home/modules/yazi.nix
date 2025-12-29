@@ -41,7 +41,7 @@ in
         log = {
           enabled = false;
         };
-        manager = {
+        mgr = {
           show_hidden = true;
           sort_by = "mtime";
           sort_dir_first = true;
@@ -62,7 +62,7 @@ in
         require("git"):setup()
       '';
       keymap = {
-        manager.prepend_keymap = [
+        mgr.prepend_keymap = [
           { run = "plugin jump-to-char"; on = [ "f" ]; }
           { run = "plugin smart-enter"; on = [ "l" ]; }
           { run = "plugin smart-enter"; on = [ "<Enter>" ]; }
