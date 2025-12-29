@@ -71,7 +71,7 @@ in
           sshKeys.personal.signing._1passwordId
         ];
       };
-      hosts = [ "rpi4" "aero-nix" "enix" "rsync.net" "mft-az" ];
+      hosts = [ "rpi4" "cyrus" "enix" "rsync.net" "mft-az" ];
       includes = [ "personal_config" ];
       publicKeys = {
         "github-mft.pub" = sshKeys.mft.access.publicKey;
