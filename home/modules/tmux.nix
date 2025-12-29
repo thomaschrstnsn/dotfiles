@@ -14,7 +14,7 @@ let
   defaultDisabled = "#d20f39";
   disabledBg = {
     dracula = defaultDisabled;
-    catppucin = defaultDisabled;
+    catppuccin = defaultDisabled;
     rose-pine = defaultDisabled;
     powerkit = "#ff6b85";
   }."${cfg.theme}";
