@@ -66,8 +66,8 @@ in
           rose-pine-src = pkgs.fetchFromGitHub {
             owner = "rose-pine";
             repo = "tm-theme";
-            rev = "c4cab0c431f55a3c4f9897407b7bdad363bbb862";
-            sha256 = "sha256-maQp4QTJOlK24eid7mUsoS7kc8P0gerKcbvNaxO8Mic";
+            rev = "417d201beb5f0964faded5448147c252ff12c4ae";
+            sha256 = "sha256-aNDOqY81FLFQ6bvsTiYgPyS5lJrqZnFMpvpTCSNyY0Y";
           };
         in
         {
