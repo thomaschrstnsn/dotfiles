@@ -4,18 +4,6 @@ with lib;
 let
   cfg = config.tc.shell;
   mkIfList = cond: xs: if cond then xs else [ ];
-
-  detect = pkgs.rustPlatform.buildRustPackage rec {
-    pname = "detect";
-    version = "0.3.0";
-    src = pkgs.fetchCrate {
-      inherit pname;
-      inherit version;
-      sha256 = "sha256-Q8YHQbNXFXnBBmsPwZ/4v7VFQvG3lwnOuhSKUyHctUA=";
-    };
-    cargoHash = "sha256-hAjFnpOgb31yQWVFFNGP0E8kT6G6OhB90kfkJsQtaWg";
-    doCheck = false; # tests are broken on nix for now - I trust the pipeline
-  };
 in
 {
   options.tc.shell = with types; {
