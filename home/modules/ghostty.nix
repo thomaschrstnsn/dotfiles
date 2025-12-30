@@ -50,6 +50,8 @@ in
       description = "shaders to enable";
       default = [ "cursor_blaze_tapered" "underwater" "mnoise" ];
     };
+
+    maximized = mkEnableOption "start maximized" // { default = true; };
   };
 
   config = mkIf cfg.enable {
@@ -68,8 +70,7 @@ in
           cursor-style-blink = true;
           font-size = cfg.font.size;
           initial-window = true;
-          macos-icon = "retro";
-          macos-option-as-alt = true;
+          maximize = cfg.maximized;
           macos-titlebar-style = "hidden";
           macos-window-shadow = false;
           minimum-contrast = 1.1;
