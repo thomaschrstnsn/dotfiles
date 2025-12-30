@@ -25,6 +25,18 @@ in
       enable = true;
       publicKeyFile = "~/.ssh/github-personal.pub";
     };
+    ghostty = {
+      enable = true;
+      font.size = 13;
+      windowBackgroundOpacity = 0.95;
+      lightAndDarkMode.enable = false;
+      package = inputs.ghostty.packages.${system}.default;
+      shaders = [ "cursor_blaze_tapered" ];
+    };
+    rust = {
+      enable = true;
+      linker = "mold";
+    };
     tmux = {
       enable = true;
       remote = true;
@@ -52,6 +64,7 @@ in
       };
     }];
   extraPackages = pkgs: with pkgs; [
+    devenv
     spotify
     qt5.qtwayland
     # webcord-vencord
