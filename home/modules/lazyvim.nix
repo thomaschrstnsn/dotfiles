@@ -4,14 +4,18 @@ with lib;
 let
   cfg = config.tc.lazyvim;
 
-  fromGitHub = owner: repo: version: rev: pkgs.vimUtils.buildVimPlugin {
-    pname = "${lib.strings.sanitizeDerivationName repo}";
-    inherit version;
-    src = builtins.fetchGit {
-      url = "https://github.com/${owner}/${repo}.git";
-      inherit rev;
-    };
-  };
+  fromGitHub = owner: repo: version: rev: fromGitHub' owner repo version rev { };
+  fromGitHubNoCheck = owner: repo: version: rev: fromGitHub' owner repo version rev { doCheck = false; };
+  fromGitHub' = owner: repo: version: rev: extra: pkgs.vimUtils.buildVimPlugin
+    ({
+      pname = "${lib.strings.sanitizeDerivationName repo}";
+      inherit version;
+      src = builtins.fetchGit
+        {
+          url = "https://github.com/${owner}/${repo}.git";
+          inherit rev;
+        };
+    } // extra);
 
   mkIfList = cond: xs: if cond then xs else [ ];
 
@@ -127,7 +131,8 @@ in
             autolist-nvim
             image-nvim
             img-clip-nvim
-            zk-nvim
+            # zk-nvim
+            (fromGitHubNoCheck "zk-org" "zk-nvim" "v0.4.6" "8df80d0dc2d66e53b08740361a600746a6e4edcf") # workaround for failing requirecheck
           ])
           (mkIfList cfg.lang.typescript.enable [
             nvim-vtsls
