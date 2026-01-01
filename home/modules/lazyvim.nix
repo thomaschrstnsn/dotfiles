@@ -159,7 +159,6 @@ in
             "multicursor.lua".source = ./lazy/plugins/multicursor.lua;
             "mini-pairs.lua".source = ./lazy/plugins/mini-pairs.lua;
             "oil.lua".source = ./lazy/plugins/oil.lua;
-            "rust.lua".source = ./lazy/plugins/rust.lua;
             "smartyank.lua".source = ./lazy/plugins/smartyank.lua;
             "snacks.lua".source = ./lazy/plugins/snacks.lua;
             "spider.lua".source = ./lazy/plugins/spider.lua;
@@ -175,6 +174,7 @@ in
                 ''{ import = "lazyvim.plugins.extras.coding.mini-surround" },''
                 ''{ import = "lazyvim.plugins.extras.editor.inc-rename" },''
                 ''{ import = "lazyvim.plugins.extras.lang.toml" },''
+                ''{ import = "lazyvim.plugins.extras.lang.rust" },''
                 ''{ import = "lazyvim.plugins.extras.lang.docker" },''
                 "}"
               ]);
