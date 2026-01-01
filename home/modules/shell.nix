@@ -83,15 +83,15 @@ in
           };
           rose-pine-moon = {
             src = rose-pine-src;
-            file = "dist/themes/rose-pine-moon.tmTheme";
+            file = "dist/rose-pine-moon.tmTheme";
           };
           rose-pine-dawn = {
             src = rose-pine-src;
-            file = "dist/themes/rose-pine-dawn.tmTheme";
+            file = "dist/rose-pine-dawn.tmTheme";
           };
           rose-pine = {
             src = rose-pine-src;
-            file = "dist/themes/rose-pine.tmTheme";
+            file = "dist/rose-pine.tmTheme";
           };
         };
     };
