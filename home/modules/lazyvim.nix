@@ -129,7 +129,6 @@ in
           ])
           (mkIfList cfg.lang.markdown.zk.enable [
             autolist-nvim
-            image-nvim
             img-clip-nvim
             # zk-nvim
             (fromGitHubNoCheck "zk-org" "zk-nvim" "v0.4.6" "8df80d0dc2d66e53b08740361a600746a6e4edcf") # workaround for failing requirecheck

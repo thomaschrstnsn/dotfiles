@@ -296,16 +296,7 @@ return {
 		end,
 	},
 	{
-		"3rd/image.nvim",
-		build = false, -- so that it doesn't build the rock https://github.com/3rd/image.nvim/issues/91#issuecomment-2453430239
-		opts = {
-			processor = "magick_cli",
-			integrations = {
-				markdown = {
-					only_render_image_at_cursor = true,
-				},
-			},
-		},
+		"folke/snacks.nvim",
 		init = function()
 			-- https://linkarzu.com/posts/neovim/images-neovim/#tips-and-tricks
 			vim.keymap.set("n", "<leader>io", function()
@@ -348,6 +339,13 @@ return {
 				end
 			end, { desc = "(macOS) Open image under cursor in Preview" })
 		end,
+		---@type snacks.Config
+		opts = {
+			image = {
+				enabled = true,
+				enable_in_markdown = true,
+			},
+		},
 	},
 	{
 		"HakonHarnes/img-clip.nvim",
