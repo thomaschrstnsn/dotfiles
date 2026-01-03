@@ -1,6 +1,6 @@
 { pkgs }:
 
-let version = "0.3.0";
+let version = "0.4.0";
 in
 pkgs.rustPlatform.buildRustPackage {
   pname = "aero-traffic-control";
@@ -10,10 +10,10 @@ pkgs.rustPlatform.buildRustPackage {
     owner = "thomaschrstnsn";
     repo = "aero-traffic-control";
     rev = "v${version}";
-    hash = "sha256-/x8O+dLmOs/tyD7wpD6xWnDhWak2Es4UM/hMG03Xkxs";
+    hash = "sha256-P4ni0PxfQx80gK3jilc+qQrDllDJYh9DJ3YvUhmcByE";
   };
 
-  cargoHash = "sha256-v4tC7U/fLJx1YkJtANSsmeeWOFkAKp6IQD6tenlt1Vc";
+  cargoHash = "sha256-H85JRBEZ7Zg6PyEYO4Q0w4SMPaVPTsl065xZW+B5row";
 
   meta = with pkgs.lib; {
     description = "A CLI tool for intelligent window management using AeroSpace";

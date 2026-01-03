@@ -18,7 +18,7 @@ let
   switchToApp = onlySwitchIfOpen: app:
     {
       open = ''open -a "${app}"'';
-      aetc = ''${pkgs.myPkgs.aeroTrafficControl}/bin/aero-traffic-control "${app}"'';
+      aetc = ''${pkgs.myPkgs.aeroTrafficControl}/bin/aero-traffic-control ${if onlySwitchIfOpen then "--no-open" else ""} "${app}"'';
       switchToApp = ''${scripts}/switchToApp.sh "${windowNameForApp app}" "${if onlySwitchIfOpen then "" else app}"'';
     }."${cfg.opener}";
   mkAppShortcut = (onlySwitchIfOpen: shortcut: app: "${shortcut} : ${switchToApp onlySwitchIfOpen app}");

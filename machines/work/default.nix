@@ -139,11 +139,13 @@ in
         "hyper - c" = "Microsoft Teams";
         "hyper - g" = "ChatGPT";
         "hyper - i" = "Microsoft Outlook";
-        "hyper - r" = "Rider";
         "hyper - u" = "Logseq";
         "hyper - z" = "Spotify";
         "hyper - p" = "todoist";
         "hyper - v" = "Azure VPN Client";
+      };
+      extraAppShortcutsOnlySwitch = {
+        "hyper - r" = "Rider";
       };
       extraShortcuts = { };
       prefixShortcuts = {
