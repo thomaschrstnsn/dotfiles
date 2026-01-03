@@ -70,6 +70,8 @@ in
         set-option -g set-clipboard on
         set-option -g detach-on-destroy off
 
+        set -g renumber-windows on       # No gaps after closing windows
+
         bind-key x kill-pane # skip "kill-pane 1? (y/n)" prompt
 
         # https://github.com/samoshkin/tmux-config/blob/af2efd9561f41f30c51c9deeeab9451308c4086b/tmux/yank.sh
