@@ -2,42 +2,13 @@
 with lib;
 
 let
-  # keyed by the app name (file in /Applications sans the .app) and contains the app name on windows
-  windowNames = {
-    "Visual Studio Code" = "Code";
-    "iTerm" = "iTerm2";
-  };
-
-  windowNameForApp = app:
-    if hasAttr app windowNames
-    then getAttr app windowNames
-    else app;
-
   cfg = config.tc.skhd;
-  yabaiCfg = config.tc.yabai;
-  switchToApp = onlySwitchIfOpen: app:
-    {
-      open = ''open -a "${app}"'';
-      aetc = ''${pkgs.myPkgs.aeroTrafficControl}/bin/aero-traffic-control ${if onlySwitchIfOpen then "--no-open" else ""} "${app}"'';
-      switchToApp = ''${scripts}/switchToApp.sh "${windowNameForApp app}" "${if onlySwitchIfOpen then "" else app}"'';
-    }."${cfg.opener}";
-  mkAppShortcut = (onlySwitchIfOpen: shortcut: app: "${shortcut} : ${switchToApp onlySwitchIfOpen app}");
-  mkShortcut = (shortcut: cmd: "${shortcut} : ${cmd}");
+
+  switchToApp = onlySwitchIfOpen: app: ''${pkgs.myPkgs.aeroTrafficControl}/bin/aero-traffic-control ${if onlySwitchIfOpen then "--no-open" else ""} "${app}"'';
+  mkAppShortcut = onlySwitchIfOpen: shortcut: app: "${shortcut} : ${switchToApp onlySwitchIfOpen app}";
+  mkShortcut = shortcut: cmd: "${shortcut} : ${cmd}";
 
   mkPrefixShortcut = (prefix: shortcut: command: "${prefix} < ${shortcut} : ${command}");
-
-  toWmPrefixConfig = wmPrefixShortcut: shortcuts:
-    concatStringsSep "\n"
-      ([
-        "# wmprefix"
-        (":: default" + (optionalString (cfg.prefixShortcuts.commands.off != null) " : ${cfg.prefixShortcuts.commands.off}"))
-        (":: wmprefix " + (optionalString (cfg.prefixShortcuts.commands.on != null) " : ${cfg.prefixShortcuts.commands.on}"))
-        "${wmPrefixShortcut} ; wmprefix"
-        "wmprefix < ${wmPrefixShortcut} ; default"
-        "wmprefix < escape ; default"
-      ] ++ (attrValues (mapAttrs (mkPrefixShortcut "wmprefix") shortcuts))
-      ++ [ "" ]
-      );
 
   mkCfgPrefixAppShortcut = (shortcut: app: (mkPrefixShortcut "cfgprefix" shortcut "skhd -k escape ; ${switchToApp false app}"));
   mkCfgPrefixShortcut = (shortcut: command: (mkPrefixShortcut "cfgprefix" shortcut "skhd -k escape ; ${command}"));
@@ -60,13 +31,6 @@ let
 
   scripts = ./skhd;
 
-  resize = rec {
-    pixels = "50";
-    left = "yabai -m window --resize left:-${pixels}:0; yabai -m window --resize right:-${pixels}:0";
-    right = "yabai -m window --resize right:${pixels}:0; yabai -m window --resize left:${pixels}:0;";
-    down = "yabai -m window --resize top:0:${pixels}; yabai -m window --resize bottom:0:${pixels}";
-    up = "yabai -m window --resize bottom:0:-${pixels}; yabai -m window --resize top:0:-${pixels}";
-  };
 in
 {
   options.tc.skhd = with types; {
@@ -85,11 +49,6 @@ in
       description = "Which app to use for the code shortcut";
       type = str;
       default = "Visual Studio Code";
-    };
-    opener = mkOption {
-      type = enum [ "open" "aetc" "switchToApp.sh" ];
-      description = "command to use for opening/switching to apps";
-      default = "open";
     };
     extraAppShortcuts = mkOption {
       description = "Extra shortcuts to open apps";
@@ -164,77 +123,7 @@ in
       enable = true;
       # https://github.com/koekeishiya/skhd/issues/1
       skhdConfig =
-        if yabaiCfg.enable then ''
-          hyper - q : ${scripts}/moveWindowToDisplayAndFollowFocus.sh left
-          hyper - w : ${scripts}/moveWindowToDisplayAndFollowFocus.sh right
-          # hyper - a : yabai -m display --focus prev || yabai -m display --focus last
-          # hyper - s : yabai -m display --focus next || yabai -m display --focus first
-
-          hyper - o : ${scripts}/moveWindowToSpaceOnSameDisplay.sh prev
-          hyper - p : ${scripts}/moveWindowToSpaceOnSameDisplay.sh next
-          hyper - tab : ${scripts}/moveWindowToFirstEmptySpaceOnSameDisplay.sh
-
-          cmd - 0x32 : ${scripts}/cycleApp.sh
-
-          hyper - return : ${scripts}/toggleLayoutOnCurrentSpace.sh
-
-          hyper - 0x0A : yabai -m space --toggle show-desktop # button left of 1
-          hyper - e : yabai -m space --toggle mission-control
-
-          hyper - 1 : ${scripts}/focusFirstWindowInSpace.sh 1
-          hyper - 2 : ${scripts}/focusFirstWindowInSpace.sh 2
-          hyper - 3 : ${scripts}/focusFirstWindowInSpace.sh 3
-          hyper - 4 : ${scripts}/focusFirstWindowInSpace.sh 4
-          hyper - 5 : ${scripts}/focusFirstWindowInSpace.sh 5
-          hyper - 6 : ${scripts}/focusFirstWindowInSpace.sh 6
-          hyper - 7 : ${scripts}/focusFirstWindowInSpace.sh 7
-          hyper - 8 : ${scripts}/focusFirstWindowInSpace.sh 8
-
-          hyper - h : yabai -m window --focus west
-          hyper - l : yabai -m window --focus east
-          hyper - j : yabai -m window --focus south
-          hyper - k : yabai -m window --focus north
-
-          hyper - m : yabai -m window --toggle native-fullscreen
-          hyper - f : yabai -m window --toggle zoom-fullscreen
-
-          hyper - left  : ${resize.left}
-          hyper - right : ${resize.right}
-          hyper - down  : ${resize.down}
-          hyper - up    : ${resize.up}
-
         ''
-        + (toWmPrefixConfig "hyper - space" {
-          f = "yabai -m window --toggle float; yabai -m window --grid 4:4:1:1:2:2"; # float/unfloat
-          q = "yabai -m space --rotate 90";
-          w = "yabai -m space --rotate 270";
-          s = "yabai -m window --toggle split";
-
-          h = "yabai -m window --focus west";
-          l = "yabai -m window --focus east";
-          j = "yabai -m window --focus north";
-          k = "yabai -m window --focus south";
-
-          "shift - h" = "yabai -m window --swap west";
-          "shift - l" = "yabai -m window --swap east";
-          "shift - j" = "yabai -m window --swap north";
-          "shift - k" = "yabai -m window --swap south";
-
-          n = "${scripts}/yabaiCycleCounterClockwise.sh";
-          m = "${scripts}/yabaiCycleClockwise.sh";
-
-          up = "yabai -m window --warp north";
-          down = "yabai -m window --warp south";
-          left = "yabai -m window --warp west";
-          right = "yabai -m window --warp east";
-
-          "shift - left" = resize.left;
-          "shift - right" = resize.right;
-          "shift - down" = resize.down;
-          "shift - up" = resize.up;
-        })
-        else ""
-          + ''
           lctrl - up   : skhd -k "pageup"
           lctrl - down : skhd -k "pagedown"
 
@@ -245,13 +134,13 @@ in
           hyper - t : ${(switchToApp false) cfg.terminal}
           hyper - x : ${(switchToApp false) "Finder"}
         ''
-          + concatStringsSep "\n" (attrValues (mapAttrs mkShortcut cfg.extraShortcuts))
-          + "\n"
-          + concatStringsSep "\n" (attrValues (mapAttrs (mkAppShortcut false) cfg.extraAppShortcuts))
-          + "\n"
-          + concatStringsSep "\n" (attrValues (mapAttrs (mkAppShortcut true) cfg.extraAppShortcutsOnlySwitch))
-          + "\n"
-          + toCfgPrefixConfig cfg.prefixShortcuts
+        + concatStringsSep "\n" (attrValues (mapAttrs mkShortcut cfg.extraShortcuts))
+        + "\n"
+        + concatStringsSep "\n" (attrValues (mapAttrs (mkAppShortcut false) cfg.extraAppShortcuts))
+        + "\n"
+        + concatStringsSep "\n" (attrValues (mapAttrs (mkAppShortcut true) cfg.extraAppShortcutsOnlySwitch))
+        + "\n"
+        + toCfgPrefixConfig cfg.prefixShortcuts
       ;
     };
   };

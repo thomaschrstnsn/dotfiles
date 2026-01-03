@@ -134,7 +134,6 @@ in
       enable = true;
       browser = "Arc";
       terminal = "ghostty";
-      opener = "aetc";
       extraAppShortcuts = {
         "hyper - c" = "Microsoft Teams";
         "hyper - g" = "ChatGPT";
