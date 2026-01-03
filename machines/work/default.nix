@@ -129,6 +129,7 @@ in
         "sst/tap" #opencode
       ];
     };
+    mermaidCli.enable = true;
     skhd = {
       enable = true;
       browser = "Arc";

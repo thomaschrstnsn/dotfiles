@@ -7,6 +7,7 @@
     ./homebrew.nix
     ./ice.nix
     ./jankyborders.nix
+    ./mermaid-cli.nix
     ./osx.nix
     ./sketchybar.nix
     ./skhd.nix

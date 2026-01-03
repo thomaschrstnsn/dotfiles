@@ -215,6 +215,7 @@ in
             markdownlint-cli2
           ])
           (mkIfList cfg.lang.markdown.zk.enable [ imagemagick ])
+          (mkIfList (cfg.lang.markdown.zk.enable && pkgs.stdenv.isLinux) [ mermaid-cli ]) # aarch64-darwin needs wrapper for unpackaged chrome, see ../../darwin/mermaid-cli.nix
           (mkIfList (cfg.lang.markdown.zk.enable && pkgs.stdenv.isDarwin) [ pngpaste ])
           (mkIfList cfg.lang.json.enable [ vscode-langservers-extracted ])
           (mkIfList cfg.lang.typescript.enable [ typescript-language-server ])
