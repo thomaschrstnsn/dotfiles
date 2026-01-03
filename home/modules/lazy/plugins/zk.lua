@@ -298,6 +298,10 @@ return {
 	{
 		"folke/snacks.nvim",
 		init = function()
+			vim.keymap.set("n", "<leader>ik", function()
+				Snacks.image.hover()
+			end, { desc = "hover image" })
+
 			-- https://linkarzu.com/posts/neovim/images-neovim/#tips-and-tricks
 			vim.keymap.set("n", "<leader>io", function()
 				local function get_image_path()
@@ -343,7 +347,10 @@ return {
 		opts = {
 			image = {
 				enabled = true,
-				enable_in_markdown = true,
+				doc = { enabled = true },
+				convert = {
+					notify = true, -- show a notification on error
+				},
 			},
 		},
 	},
