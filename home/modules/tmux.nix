@@ -18,6 +18,13 @@ let
     rose-pine = defaultDisabled;
     powerkit = "#ff6b85";
   }."${cfg.theme}";
+
+  tmuxFilePicker = pkgs.fetchFromGitHub {
+    owner = "raine";
+    repo = "tmux-file-picker";
+    rev = "0473f7abe87b95bc008e1cbfd16578e9cee93565";
+    hash = "sha256-Uz+88f3RG7dBangOg0RLQxuE9f49TpMOcQkTtauzPQU";
+  };
 in
 {
   options.tc.tmux = with types; {
@@ -39,6 +46,21 @@ in
 
   config = mkIf cfg.enable {
 
+    # install grealpath = coreutils/bin/realpath, needed for tmux-file-picker on macOS
+    home.packages = mkIf pkgs.stdenv.isDarwin (
+      let
+        grealpath = pkgs.runCommand "grealpath" { } ''
+                mkdir -p $out/bin
+                cat > $out/bin/grealpath <<EOF
+          #!/bin/sh
+          exec ${pkgs.coreutils}/bin/realpath "\$@"
+          EOF
+          chmod +x $out/bin/grealpath
+        '';
+      in
+      [ grealpath ]
+    );
+
     xdg.configFile."tmux/${remoteConfigFile}".text = ''
       # set-option -g status-position bottom
     '';
@@ -58,7 +80,7 @@ in
         bind -n S-Enter send-keys Escape "[13;2u"
         bind -n C-Enter send-keys Escape "[13;5u"
 
-        # image.nvim
+        # image support
         set -gq allow-passthrough on
         set -g visual-activity off
 
@@ -150,6 +172,9 @@ in
 
         # default-command was set to 'reattach-to-user-namespace -l /bin/sh' for some unknown reason
         set -g default-command ""
+
+        bind C-f display-popup -E "${tmuxFilePicker}/tmux-file-picker -g"
+        bind C-d display-popup -E "${tmuxFilePicker}/tmux-file-picker -g -d"
 
         bind-key "C-k" display-popup -E -w 40% "sesh connect \"$(
           sesh list -i | gum filter --limit 1 --no-sort --placeholder 'Pick a sesh' --height 50 --prompt='⚡'
