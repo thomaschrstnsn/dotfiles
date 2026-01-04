@@ -144,7 +144,7 @@ in
         "hyper - v" = "Azure VPN Client";
       };
       extraAppShortcutsOnlySwitch = {
-        "hyper - r" = "Rider";
+        "hyper - r" = "JetBrains Rider";
       };
       extraShortcuts = { };
       prefixShortcuts = {
