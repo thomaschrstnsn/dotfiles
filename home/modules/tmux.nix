@@ -176,11 +176,17 @@ in
         bind C-f display-popup -E "${tmuxFilePicker}/tmux-file-picker -g"
         bind C-d display-popup -E "${tmuxFilePicker}/tmux-file-picker -g -d"
 
+        # popup
+        set -g  @popup-autostart on
+        set -gF @popup-id-format "{popup_name}"
+        bind C-p run "#{@popup-toggle} -Ed'#{pane_current_path}' -w90% -h90% --name=process_info btm"
+
         bind-key "C-k" display-popup -E -w 40% "sesh connect \"$(
           sesh list -i | gum filter --limit 1 --no-sort --placeholder 'Pick a sesh' --height 50 --prompt='⚡'
           )\""
       '';
       plugins = with pkgs.tmuxPlugins; [
+        tmux-toggle-popup
         vim-tmux-navigator
         extrakto # https://github.com/laktak/extrakto
         sensible
