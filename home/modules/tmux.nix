@@ -167,6 +167,8 @@ in
           set status-bg '${enabledBg}' \;\
           refresh-client -S
 
+        bind-key -T root F11 set-option -g status
+
         # toggle between two sessions
         bind -T prefix \\ switch-client -l
 
