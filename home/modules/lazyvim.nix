@@ -107,7 +107,6 @@ in
             oil-nvim
             rustaceanvim
             nvim-spider
-            nvim-treesitter-context
             mini-surround
             (fromGitHub "ibhagwan" "smartyank.nvim" "2024nov10" "0a4554a4ea4cad73dab0a15e559f2128ca03c7b2")
             undotree
@@ -162,7 +161,6 @@ in
             "smartyank.lua".source = ./lazy/plugins/smartyank.lua;
             "snacks.lua".source = ./lazy/plugins/snacks.lua;
             "spider.lua".source = ./lazy/plugins/spider.lua;
-            "treesitter-context.lua".source = ./lazy/plugins/treesitter-context.lua;
             "extras.lua".text = concatStringsSep "\n"
               (filter (s: s != "") [
                 "return {"
