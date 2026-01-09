@@ -1,23 +1,32 @@
 {
   description = "User Config";
   inputs = {
-    nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1.*.tar.gz";
-    nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
-    determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
+    nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1.*";
+    nixos-wsl = {
+      url = "github:nix-community/NixOS-WSL/main";
+      inputs.nixpkgs.follows = "nixpkgs";
+
+    };
+    determinate = {
+      url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     home-manager = {
-      url = "https://flakehub.com/f/nix-community/home-manager/0.1.*.tar.gz";
+      url = "https://flakehub.com/f/nix-community/home-manager/0.1";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     darwin = {
-      url = "github:LnL7/nix-darwin";
+      url = "github:LnL7/nix-darwin/";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     agenix = {
       url = "https://flakehub.com/f/ryantm/agenix/0.14.*.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.darwin.follows = "darwin";
+      inputs.home-manager.follows = "home-manager";
     };
 
     nixos-hardware = {
@@ -31,14 +40,24 @@
 
     ghostty = {
       url = "github:ghostty-org/ghostty";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
     };
 
     starship-jj = {
       url = "gitlab:lanastara_foss/starship-jj";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nixpkgs-python.url = "github:cachix/nixpkgs-python";
-    pyenv-nix-install.url = "github:sirno/pyenv-nix-install";
+    nixpkgs-python = {
+      url = "github:cachix/nixpkgs-python";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    pyenv-nix-install = {
+      url = "github:sirno/pyenv-nix-install";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs-python.follows = "nixpkgs-python";
+    };
 
     zen-browser = {
       url = "github:youwen5/zen-browser-flake";
@@ -46,9 +65,15 @@
     };
 
     # gaming
-    nix-citizen.url = "github:LovingMelody/nix-citizen";
-    nix-gaming.url = "github:fufexan/nix-gaming";
-    nix-citizen.inputs.nix-gaming.follows = "nix-gaming";
+    nix-citizen = {
+      url = "github:LovingMelody/nix-citizen";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nix-gaming.follows = "nix-gaming";
+    };
+    nix-gaming = {
+      url = "github:fufexan/nix-gaming";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
