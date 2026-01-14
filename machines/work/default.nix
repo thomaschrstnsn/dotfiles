@@ -111,7 +111,6 @@ in
       enable = true;
       extraBrews = [
         "Azure/kubelogin/kubelogin"
-        "sst/tap/opencode"
       ];
       extraCasks = [
         "arc"
@@ -126,7 +125,6 @@ in
       ];
       extraTaps = [
         "Azure/kubelogin"
-        "sst/tap" #opencode
       ];
     };
     mermaidCli.enable = true;
@@ -160,7 +158,7 @@ in
     bacon
     devenv
     natscli
-    # opencode
+    opencode
     myPkgs.github-copilot-cli
     # kubernetes tools
     kubectl
