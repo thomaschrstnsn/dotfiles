@@ -81,8 +81,6 @@ in
       enable = true;
       extraBrews = [
         "exiv2"
-        "graelo/tap/pumas"
-        "sst/tap/opencode"
       ];
       extraCasks = [
         "arc"
@@ -92,8 +90,6 @@ in
         "karabiner-elements"
       ];
       extraTaps = [
-        "graelo/tap" # pumas
-        "sst/tap" #opencode
       ];
     };
     jankyborders.enable = true;
@@ -102,7 +98,6 @@ in
       browser = "Arc";
       terminal = "ghostty";
       extraAppShortcuts = {
-        "hyper - r" = "Rider";
         "hyper - z" = "Spotify";
         "hyper - p" = "todoist";
       };
@@ -118,6 +113,7 @@ in
 
   extraPackages = pkgs: with pkgs; [
     devenv
+    opencode
     lnav
   ];
 
