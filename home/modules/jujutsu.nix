@@ -18,8 +18,6 @@ let
     jk = "jjui";
   };
 
-  popupWithSession = cmd: ''"tmux -L popup new-session 'tmux set status off; ${cmd}; tmux kill-session'"'';
-
   mkIfList = cond: xs: if cond then xs else [ ];
   alternativeConfigType = with types; submodule {
     options = {
@@ -107,9 +105,9 @@ in
 
     programs = {
       tmux.extraConfig = ''
-        bind-key "C-j" display-popup -E -w 95% -h 95% ${popupWithSession "jjui"}
-        bind-key "C-l" display-popup -E -x R -h 99% ${popupWithSession "jj log --color=always | less -R"}
-        bind-key "l" display-popup -E -x R -h 99% ${popupWithSession "jj log --color=always -r :: | less -R"}
+        bind-key "C-j" display-popup -E -w 95% -h 95% jjui
+        bind-key "C-l" display-popup -E -x R -h 99% "jj log --color=always | less -R"
+        bind-key "l" display-popup -E -x R -h 99% "jj log --color=always -r :: | less -R"
       '';
 
       jujutsu = mkMerge [{
