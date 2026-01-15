@@ -18,18 +18,15 @@ in
     programs.fish = {
       functions = mkMerge [{
         ai = ''string join " " $argv | fabric -p ai'';
-        fabric-describe-pattern = ''
-          set -l pattern $argv[1]
-          if test -z "$pattern"
-              echo "Usage: fabric-describe-pattern <pattern>"
-              return 1
+        fabric-pattern = ''
+          set -l patterns_dir "$HOME/.config/fabric/patterns"
+          if not test -d "$patterns_dir"
+            echo "Patterns directory not found: $patterns_dir"
+            return 1
           end
-          set -l pattern_file "$HOME/.config/fabric/patterns/$pattern/system.md"
-          if test -f "$pattern_file"
-              cat "$pattern_file"
-          else
-              echo "Pattern '$pattern' not found at '$pattern_file'"
-              return 1
+          set -l pattern (ls "$patterns_dir" | fzf --preview "cat '$patterns_dir'/{}/system.md")
+          if test -n "$pattern"
+            bat "$patterns_dir/$pattern/system.md"
           end
         '';
       }
@@ -43,22 +40,6 @@ in
             jj diff --git -r $rev | fabric -p summarize_git_diff
           '';
         })];
-      completions = {
-        fabric-describe-pattern = ''
-          function __fish_fabric_patterns
-              set -l patterns_dir "$HOME/.config/fabric/patterns"
-              if test -d "$patterns_dir"
-                  for path in "$patterns_dir"/*/
-                      if test -d "$path"
-                          basename "$path"
-                      end
-                  end
-              end
-          end
-          complete -c fabric-describe-pattern -f -a "(__fish_fabric_patterns)"
-        '';
-      };
-
     };
 
     xdg.configFile."fish/completions/fabric.fish" = { source = "${pkgs.fabric-ai}/share/fish/vendor_completions.d/fabric.fish"; };
