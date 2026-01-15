@@ -69,6 +69,7 @@ in
     tmux = {
       enable = true;
       theme = "powerkit";
+      aiAgent.enable = true;
     };
   }];
 
