@@ -4,6 +4,18 @@ with lib;
 let
   cfg = config.tc.fabric;
   jjCfg = config.tc.jj;
+
+  jj-ai-describe = pkgs.writeShellApplication {
+    name = "jj-ai-describe";
+    runtimeInputs = with pkgs; [ jujutsu fabric-ai ];
+    text = ''
+      if [ $# -ne 1 ]; then
+        echo "Usage: jj-ai-describe <revision>"
+        exit 1
+      fi
+      jj diff --git -r "$1" | fabric -p summarize_git_diff
+    '';
+  };
 in
 {
   options.tc.fabric = with types; {
@@ -13,10 +25,10 @@ in
   config = mkIf cfg.enable {
     programs.fabric-ai.enable = true;
 
-    home.packages = with pkgs; [ yt-dlp ];
+    home.packages = with pkgs; [ yt-dlp ] ++ lib.optional jjCfg.enable jj-ai-describe;
 
     programs.fish = {
-      functions = mkMerge [{
+      functions = {
         ai = ''string join " " $argv | fabric -p ai'';
         fabric-pattern = ''
           set -l patterns_dir "$HOME/.config/fabric/patterns"
@@ -29,17 +41,7 @@ in
             bat "$patterns_dir/$pattern/system.md"
           end
         '';
-      }
-        (mkIf jjCfg.enable {
-          jj-ai-describe = ''
-            set -l rev $argv[1]
-            if test -z "$rev"
-                echo "Usage: jj-ai-describe <revision>"
-                return 1
-            end
-            jj diff --git -r $rev | fabric -p summarize_git_diff
-          '';
-        })];
+      };
     };
 
     xdg.configFile."fish/completions/fabric.fish" = { source = "${pkgs.fabric-ai}/share/fish/vendor_completions.d/fabric.fish"; };

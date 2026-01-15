@@ -1,4 +1,11 @@
+local generating = false
+
 local function generate_description()
+	if generating then
+		Snacks.notify("Already generating...", { level = "warn", title = "jj-ai-describe" })
+		return
+	end
+
 	local bufnr = vim.api.nvim_get_current_buf()
 	local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
 
@@ -15,34 +22,55 @@ local function generate_description()
 	end
 
 	if not change_id then
-		vim.api.nvim_echo({ { "Error: Could not find 'JJ: Change ID:'.", "ErrorMsg" } }, false, {})
+		Snacks.notify("Could not find 'JJ: Change ID:'", { level = "error", title = "jj-ai-describe" })
 		return
 	end
 
-	local command = "jj-ai-describe " .. vim.fn.shellescape(change_id)
-	local script_output = vim.fn.system(command)
+	generating = true
+	local notif_id = "jj-ai-describe-progress"
+	Snacks.notify("Generating description...", {
+		id = notif_id,
+		title = "jj-ai-describe",
+		timeout = false,
+	})
 
-	if vim.v.shell_error ~= 0 then
-		local errmsg = "Error running command '" .. command .. "': " .. script_output
-		vim.api.nvim_echo({ { errmsg, "ErrorMsg" } }, false, {})
-		return
-	end
+	vim.system({ "jj-ai-describe", change_id }, { text = true }, function(result)
+		vim.schedule(function()
+			generating = false
+			Snacks.notifier.hide(notif_id)
 
-	-- Split the script output into a table of lines.
-	-- The last argument `true` keeps trailing empty lines if any.
-	local new_lines = vim.split(script_output, "\n", { plain = true, trimempty = false })
+			if not vim.api.nvim_buf_is_valid(bufnr) then
+				Snacks.notify("Buffer no longer valid", { level = "warn", title = "jj-ai-describe" })
+				return
+			end
 
-	-- If the script output ends with a newline, vim.split will produce an extra empty string at the end.
-	-- We remove it to avoid an extra blank line at the bottom of the file.
-	if new_lines[#new_lines] == "" then
-		table.remove(new_lines)
-	end
+			if result.code ~= 0 then
+				local err_output = result.stderr ~= "" and result.stderr or result.stdout
+				Snacks.notify(err_output, {
+					title = "jj-ai-describe failed",
+					level = "error",
+					timeout = false,
+				})
+				return
+			end
 
-	for _, line in ipairs(jj_lines) do
-		table.insert(new_lines, line)
-	end
+			-- Split the script output into a table of lines.
+			local new_lines = vim.split(result.stdout, "\n", { plain = true, trimempty = false })
 
-	vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, new_lines)
+			-- If the script output ends with a newline, vim.split will produce an extra empty string at the end.
+			-- We remove it to avoid an extra blank line at the bottom of the file.
+			if new_lines[#new_lines] == "" then
+				table.remove(new_lines)
+			end
+
+			for _, line in ipairs(jj_lines) do
+				table.insert(new_lines, line)
+			end
+
+			vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, new_lines)
+			Snacks.notify("Description generated", { title = "jj-ai-describe" })
+		end)
+	end)
 end
 
 vim.api.nvim_create_user_command("JjGenerateChangeDesc", generate_description, {
