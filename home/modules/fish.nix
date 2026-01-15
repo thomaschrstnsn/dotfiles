@@ -46,6 +46,15 @@ in
 
       plugins = with pkgs.fishPlugins; [
         { name = "foreign-env"; src = foreign-env.src; }
+        {
+          name = "fifc";
+          src = pkgs.fetchFromGitHub {
+            owner = "gazorby";
+            repo = "fifc";
+            rev = "a01650cd432becdc6e36feeff5e8d657bd7ee84a";
+            hash = "sha256-Ynb0Yd5EMoz7tXwqF8NNKqCGbzTZn/CwLsZRQXIAVp4=";
+          };
+        }
       ];
 
       shellAliases = mkMerge [
