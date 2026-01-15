@@ -13,5 +13,9 @@ in
     programs.fabric-ai.enable = true;
 
     home.packages = with pkgs; [ yt-dlp ];
+
+    programs.fish.functions = {
+      ai = ''string join " " $argv | fabric -p ai'';
+    };
   };
 }
