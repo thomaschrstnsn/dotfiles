@@ -3,6 +3,7 @@ with lib;
 
 let
   cfg = config.tc.fabric;
+  jjCfg = config.tc.jj;
 in
 {
   options.tc.fabric = with types; {
@@ -15,12 +16,12 @@ in
     home.packages = with pkgs; [ yt-dlp ];
 
     programs.fish = {
-      functions = {
+      functions = mkMerge [{
         ai = ''string join " " $argv | fabric -p ai'';
         fabric-describe-pattern = ''
           set -l pattern $argv[1]
           if test -z "$pattern"
-              echo "Usage: fabric <pattern>"
+              echo "Usage: fabric-describe-pattern <pattern>"
               return 1
           end
           set -l pattern_file "$HOME/.config/fabric/patterns/$pattern/system.md"
@@ -31,7 +32,17 @@ in
               return 1
           end
         '';
-      };
+      }
+        (mkIf jjCfg.enable {
+          jj-ai-describe = ''
+            set -l rev $argv[1]
+            if test -z "$rev"
+                echo "Usage: jj-ai-describe <revision>"
+                return 1
+            end
+            jj diff --git -r $rev | fabric -p summarize_git_diff
+          '';
+        })];
       completions = {
         fabric-describe-pattern = ''
           function __fish_fabric_patterns
