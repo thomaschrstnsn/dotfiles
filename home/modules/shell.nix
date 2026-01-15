@@ -34,20 +34,18 @@ in
       detect
       dust
       dua # disk usage analyzer - `$ dua i`
+      dysk
       lazydocker
       fd
       file
       jq
       just
       wget
-    ] ++ mkIfList pkgs.stdenv.isLinux [ dysk ];
-
-    home.shellAliases = mkMerge [
-      { tree = "eza --tree"; }
-      (mkIf pkgs.stdenv.isLinux {
-        df = "dysk";
-      })
     ];
+
+    home.shellAliases = { tree = "eza --tree"; };
+
+    programs.fish.shellAbbrs = { df = "dysk"; };
 
     programs.eza = {
       enable = true;
