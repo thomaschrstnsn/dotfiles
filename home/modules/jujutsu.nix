@@ -48,6 +48,19 @@ let
       };
     };
   };
+
+  jjPrDiff = pkgs.writeShellApplication {
+    name = "jj-pr-diff";
+    runtimeInputs = with pkgs; [ jujutsu ];
+    text = ''
+      if [ $# -ne 1 ]; then
+        echo "Usage: jj-pr-diff <revision>"
+        exit 1
+      fi
+      jj diff --from "heads(::closest_bookmark($1) & ::trunk())" --to "closest_bookmark($1)" --git
+    '';
+  };
+
 in
 {
   options.tc.jj = with types; {
@@ -98,6 +111,7 @@ in
     home.packages = with pkgs;
       [
         jjui
+        jjPrDiff
       ]
       ++ mkIfList cfg.mergiraf.enable [ mergiraf ]
       ++ mkIfList cfg.difftastic.enable [ difftastic ]
