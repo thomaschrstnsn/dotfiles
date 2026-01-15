@@ -17,5 +17,8 @@ in
     programs.fish.functions = {
       ai = ''string join " " $argv | fabric -p ai'';
     };
+
+    xdg.configFile."fish/completions/fabric.fish" = { source = "${pkgs.fabric-ai}/share/fish/vendor_completions.d/fabric.fish"; };
   };
 }
+
