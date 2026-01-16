@@ -29,6 +29,22 @@
       };
     })
 
+    (final: prev: {
+      jjui = prev.jjui.overrideAttrs
+        (_: {
+          version = "v0.9.10-0.20260114214806-087db7f97555";
+          vendorHash = "sha256-jte0g+aUiGNARLi8DyfsX6wYYJnodHnILzmid6KvMiA=";
+
+          src = prev.fetchFromGitHub
+            {
+              owner = "thomaschrstnsn";
+              repo = "jjui";
+              rev = "087db7f9755507e94299b9f564ff68f5d32c7388";
+              hash = "sha256-5nxdP6OT7Sz3EwgBz3n2AfaUDYfs3FMV9ozkvIOpw5M=";
+            };
+        });
+    })
+
     # left as an example of how to make an override
     # (final: prev: {
     #   ## 0.12.4 has an annoying issue with tmux TERM definition

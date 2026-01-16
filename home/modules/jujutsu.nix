@@ -279,6 +279,7 @@ in
                 revision_command = [ "show" "-r" "$change_id" "--tool" "delta" ];
                 file_command = [ "diff" "-r" "$change_id" "--tool" "delta" "$file" ];
               };
+              split.no_edit = true;
               custom_commands = {
                 "split gitpatch" = {
                   args = [ "split" "--tool" "gitpatch" "-r" "$change_id" "$file" ];
