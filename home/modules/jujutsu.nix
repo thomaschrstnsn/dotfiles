@@ -53,11 +53,14 @@ let
     name = "jj-pr-diff";
     runtimeInputs = with pkgs; [ jujutsu ];
     text = ''
-      if [ $# -ne 1 ]; then
-        echo "Usage: jj-pr-diff <revision>"
+      if [ $# -ne 2 ]; then
+        echo "Usage: jj-pr-diff <revision> <base>"
+        echo "<base> can in typical cases be 'trunk()' (i.e. when not merging into another branch)"
+        echo "shows the git diff of changes from revision to base"
         exit 1
       fi
-      jj diff --from "heads(::closest_bookmark($1) & ::trunk())" --to "closest_bookmark($1)" --git
+      REV=$1
+      jj diff --from "heads(::$REV & ::trunk())" --to "$REV" --git
     '';
   };
 
