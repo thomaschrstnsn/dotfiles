@@ -10,5 +10,6 @@
     ./osx.nix
     ./sketchybar.nix
     ./skhd.nix
+    ./sleepwatcher.nix
   ];
 }

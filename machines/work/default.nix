@@ -152,6 +152,10 @@ in
         };
       };
     };
+    sleepwatcher = {
+      enable = true;
+      bluetooth = true;
+    };
   };
 
   extraPackages = pkgs: with pkgs; [
