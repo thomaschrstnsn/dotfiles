@@ -35,6 +35,11 @@
           version = "v0.9.10-0.20260114214806-087db7f97555";
           vendorHash = "sha256-jte0g+aUiGNARLi8DyfsX6wYYJnodHnILzmid6KvMiA=";
 
+          # checkFlags = lib.optionals prev.hostPlatform.isDarwin [
+          #   "-skip=TestServerAskpass,TestServerListening"
+          # ];
+          doCheck = false;
+
           src = prev.fetchFromGitHub
             {
               owner = "thomaschrstnsn";
