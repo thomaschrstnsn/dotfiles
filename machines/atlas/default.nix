@@ -33,6 +33,7 @@ in
         "github-personal.pub" = sshKeys.personal.access.publicKey;
       };
     };
+    fabric.enable = true;
     fish.enable = true;
     ghostty = {
       enable = true;
@@ -62,6 +63,7 @@ in
       remote = false;
       theme = "powerkit";
       cliptool = "wl-copy";
+      aiAgent.enable = true;
     };
     hyprland = {
       enable = true;
@@ -87,6 +89,7 @@ in
     devenv
     logseq
     lnav
+    opencode
     spotify
     todoist-electron
     qt5.qtwayland
