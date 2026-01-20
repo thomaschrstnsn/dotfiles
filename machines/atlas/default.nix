@@ -116,6 +116,7 @@ in
     base = {
       imports =
         [
+          ./dms-shell.nix
           ./hardware.nix
           ./configuration.nix
         ];

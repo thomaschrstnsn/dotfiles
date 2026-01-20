@@ -2,6 +2,8 @@
 with lib; with builtins;
 
 let
+  mkIfList = cond: xs: if cond then xs else [ ];
+
   cfg = config.tc.hyprland;
 
   gentle-down = pkgs.writeShellApplication {
@@ -44,6 +46,8 @@ in
       description = "which keyboard device to use (hyprctl devices)";
       example = "kanata";
     };
+
+    hyprpanel.enable = mkEnableOption "start hyprpanel";
   };
   config = mkIf cfg.enable
     {
@@ -52,25 +56,29 @@ in
       # check up on font installation nixos vs home-manager: https://nixos.wiki/wiki/Fonts
       # fonts.packages = with pkgs; [];
 
-      home.packages = with pkgs; [
-        myPkgs.appleFonts.sf-pro
-        bemoji # emoji picker
-        clipse # clipboard history
-        nerd-fonts.jetbrains-mono
-        noto-fonts
-        font-awesome
-        gentle-down
-        hyprpanel
-        hyprshot
-        jq # for scripts
-        libnotify
-        overskride # bluetooth
-        pavucontrol
-        pulseaudio
-        python312Packages.gpustat # hyprpanel
-        wl-clipboard
-        wtype # dep for bemoji
-      ];
+      home.packages = with pkgs; (concatLists [
+        [
+          myPkgs.appleFonts.sf-pro
+          bemoji # emoji picker
+          clipse # clipboard history
+          nerd-fonts.jetbrains-mono
+          noto-fonts
+          font-awesome
+          gentle-down
+          hyprshot
+          jq # for scripts
+          libnotify
+          overskride # bluetooth
+          pavucontrol
+          pulseaudio
+          wl-clipboard
+          wtype # dep for bemoji
+        ]
+        (mkIfList cfg.hyprpanel.enable [
+          hyprpanel
+          python312Packages.gpustat
+        ])
+      ]);
 
       dconf = {
         enable = true;
@@ -260,19 +268,21 @@ in
             "XCURSOR_SIZE,${builtins.toString cursor.size}"
           ];
           # debug.disable_logs = false;
-          exec-once = [
-            "hyprctl setcursor Bibata-Modern-Classic 32"
-            "sleep 5 && blueman-applet"
-            "hyprlock"
-            "clipse -listen"
-            "${pkgs.hyprpanel}/bin/hyprpanel"
-            "[workspace name:t silent] ${terminal.executable cfg.terminal}"
-            "[workspace name:b silent] zen"
-            # "[workspace name:u silent] logseq"
-            "[workspace name:p silent] todoist-electron"
-            "[workspace name:p silent] 1password"
-            "[workspace name:c silent] ${webapp.starter "icloud-calendar"}"
-            "[workspace name:m silent] spotify"
+          exec-once = concatLists [
+            [
+              "hyprctl setcursor Bibata-Modern-Classic 32"
+              "sleep 5 && blueman-applet"
+              "hyprlock"
+              "clipse -listen"
+              "[workspace name:t silent] ${terminal.executable cfg.terminal}"
+              "[workspace name:b silent] zen"
+              # "[workspace name:u silent] logseq"
+              "[workspace name:p silent] todoist-electron"
+              "[workspace name:p silent] 1password"
+              "[workspace name:c silent] ${webapp.starter "icloud-calendar"}"
+              "[workspace name:m silent] spotify"
+            ]
+            (mkIfList cfg.hyprpanel.enable [ "${pkgs.hyprpanel}/bin/hyprpanel" ])
           ];
 
           workspace = [
@@ -408,9 +418,11 @@ in
                 "CTRL+SUPER, q, exec, pidof hyprlock || hyprlock"
                 "SHIFT+SUPER, 4, exec, hyprshot -m region --clipboard-only"
                 "SHIFT+SUPER, 3, exec, hyprshot -m window --clipboard-only"
+              ]
+              (mkIfList cfg.hyprpanel.enable [
                 "CTRL, Escape, exec, ${pkgs.hyprpanel}/bin/hyprpanel t verification"
                 "CTRL+SHIFT, Escape, exec, ${pkgs.hyprpanel}/bin/hyprpanel t powerdropdownmenu"
-              ]
+              ])
               # mediakeys
               [
                 ", XF86AudioRaiseVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ +10%"
