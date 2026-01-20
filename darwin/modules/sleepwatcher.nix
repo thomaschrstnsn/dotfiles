@@ -9,32 +9,35 @@ let
 
   sleeper = pkgs.writeShellApplication {
     name = "sleep-command";
-    runtimeInputs = optionals cfg.bluetooth [ pkgs.blueutil ];
-    text = ''
-      echo "Going to sleep at $(${dateCmd})" >> ~/sleep-wake.log
-    '' + (if cfg.bluetooth
-    then ''
-      ${pkgs.blueutil}/bin/blueutil --power 0
-    ''
-    else "");
+    text = concatStringsSep "\n" (
+      [ ''echo "Going to sleep at $(${dateCmd})" >> ~/sleep-wake.log'' ]
+      ++ optionals cfg.bluetooth.powerOffOnSleep [ ''${pkgs.blueutil}/bin/blueutil --power 0'' ]
+      ++ (map (addr: ''${pkgs.blueutil}/bin/blueutil --disconnect ${addr}'') cfg.bluetooth.autoConnectDevices)
+    );
   };
   waker = pkgs.writeShellApplication {
     name = "wake-command";
-    runtimeInputs = optionals cfg.bluetooth [ pkgs.blueutil ];
-    text = ''
-      echo "Waking up at $(${dateCmd})" >> ~/sleep-wake.log
-    '' + (if cfg.bluetooth
-    then ''
-      ${pkgs.blueutil}/bin/blueutil --power 1
-    ''
-    else "");
+    text = concatStringsSep "\n" (
+      [ ''echo "Waking up at $(${dateCmd})" >> ~/sleep-wake.log '' ]
+      ++ optionals cfg.bluetooth.powerOnOnWake [ ''${pkgs.blueutil}/bin/blueutil --power 1'' ]
+      ++ (map (addr: ''${pkgs.blueutil}/bin/blueutil --connect ${addr}'') cfg.bluetooth.autoConnectDevices)
+    );
   };
 in
 {
-  options.tc.sleepwatcher = {
+  options.tc.sleepwatcher = with types; {
     enable = mkEnableOption "sleepwatcher";
 
-    bluetooth = mkEnableOption "turn off/on bluetooth on sleep/wake";
+    bluetooth = {
+      powerOffOnSleep = mkEnableOption "turn off bluetooth on sleep";
+      powerOnOnWake = mkEnableOption "turn on bluetooth on wake";
+      autoConnectDevices = mkOption {
+        type = listOf str;
+        description = "devices to automatically disconnect on sleep and reconnect on wake";
+        example = [ "c8-bc-c8-fc-fe-fc" ];
+        default = [ ];
+      };
+    };
   };
 
   config = mkIf cfg.enable {

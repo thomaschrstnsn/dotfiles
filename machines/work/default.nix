@@ -154,7 +154,9 @@ in
     };
     sleepwatcher = {
       enable = true;
-      bluetooth = true;
+      bluetooth = {
+        autoConnectDevices = [ "c8-bc-c8-fc-fe-fc" ];
+      };
     };
   };
 
