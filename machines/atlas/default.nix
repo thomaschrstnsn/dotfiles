@@ -69,6 +69,7 @@ in
       enable = true;
       terminal = "ghostty";
       keyboard = "keychron-keychron-q11";
+      dmsShell.enable = true;
     };
     rust = {
       enable = true;

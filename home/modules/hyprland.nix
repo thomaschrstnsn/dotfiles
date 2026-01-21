@@ -48,6 +48,7 @@ in
     };
 
     hyprpanel.enable = mkEnableOption "start hyprpanel";
+    dmsShell.enable = mkEnableOption "support dms-shell";
   };
   config = mkIf cfg.enable
     {
@@ -422,6 +423,9 @@ in
               (mkIfList cfg.hyprpanel.enable [
                 "CTRL, Escape, exec, ${pkgs.hyprpanel}/bin/hyprpanel t verification"
                 "CTRL+SHIFT, Escape, exec, ${pkgs.hyprpanel}/bin/hyprpanel t powerdropdownmenu"
+              ])
+              (mkIfList cfg.dmsShell.enable [
+                "CTRL, Escape, exec, ${pkgs.dms-shell}/bin/dms ipc call powermenu toggle"
               ])
               # mediakeys
               [
