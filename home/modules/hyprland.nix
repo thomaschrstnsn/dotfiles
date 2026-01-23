@@ -304,19 +304,19 @@ in
             [
               ## inspired by https://github.com/basecamp/omarchy/blob/master/default/hypr/windows.conf
               # Float and center settings and previews
-              "float, class:^(${settingsAndPreviews})$"
-              "size 1024 768, class:^(${settingsAndPreviews})$"
-              "center, class:^(${settingsAndPreviews})$"
+              "float on, match:class ^(${settingsAndPreviews})$"
+              "size 1024 768, match:class ^(${settingsAndPreviews})$"
+              "center on, match:class ^(${settingsAndPreviews})$"
 
               # Float and center file pickers
-              "float, class:xdg-desktop-portal-gtk, title:^(${filePickers})"
-              "center, class:xdg-desktop-portal-gtk, title:^(${filePickers})"
+              "float on, match:class xdg-desktop-portal-gtk, match:title ^(${filePickers})"
+              "center on, match:class xdg-desktop-portal-gtk, match:title ^(${filePickers})"
 
               # Float Steam windows, except primary
-              "float,class:steam"
-              "tile,class:steam,title:Steam"
+              "float on, center on, match:class steam"
+              "tile on, match:class steam, match:title Steam"
 
-              "tile,class:^(path of building.exe)"
+              "tile on, match:class ^(path of building.exe)"
             ];
 
           windowrulev2 = [
