@@ -78,6 +78,7 @@ in
     lazyvim = {
       colorscheme = "tokyonight";
       enable = true;
+      gh.enable = true;
       lang = {
         python.enable = true;
         markdown.enable = true;
