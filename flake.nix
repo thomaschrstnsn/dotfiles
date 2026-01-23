@@ -24,8 +24,8 @@
       url = "https://flakehub.com/f/NixOS/nixos-hardware/0.1.*.tar.gz";
     };
 
-    LazyVim = {
-      url = "github:matadaniel/LazyVim-module";
+    lazyvim = {
+      url = "github:pfassina/lazyvim-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -205,7 +205,7 @@
                   packages = extraPackages pkgs;
                 };
             }
-            inputs.LazyVim.homeManagerModules.default
+            inputs.lazyvim.homeManagerModules.default
             ./home/modules
           ];
           inherit pkgs;

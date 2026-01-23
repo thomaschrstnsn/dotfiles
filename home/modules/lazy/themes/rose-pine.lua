@@ -8,7 +8,6 @@ return {
 				styles = {
 					bold = true,
 					italic = true,
-					transparency = true,
 				},
 
 				highlight_groups = {

@@ -76,7 +76,7 @@ in
       linker = "mold";
     };
     lazyvim = {
-      colorscheme = "everforest";
+      colorscheme = "tokyonight";
       enable = true;
       lang = {
         python.enable = true;
