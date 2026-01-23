@@ -11,7 +11,7 @@ let
       everforest = readFile ./lazy/themes/everforest.lua;
       kanagawa = readFile ./lazy/themes/kanagawa.lua;
       rose-pine = readFile ./lazy/themes/rose-pine.lua;
-      tokyonight = "";
+      tokyonight = readFile ./lazy/themes/tokyonight.lua;
     };
   };
 in
