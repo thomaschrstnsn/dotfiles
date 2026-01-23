@@ -34,7 +34,6 @@ return {
                 ░         ░░░▓▓▓░            ░▒▒█▓░    ░    ░░▒░                
                              ░░▒▓▒▒▒▒▒  ░░░▒▒▒▒▒░░    ░    ░ ░░                 
                              ░  ░▒▒███▓▒▒▒▒▒▒▒    ░   ░  ░░░▒▓                  
- ░                                                                          
           ]],
 				},
 
@@ -43,12 +42,12 @@ return {
 					{
 						pane = 2,
 						{
-							section = "keys",
-							gap = 1,
+							section = "startup",
 							padding = 4,
 						},
 						{
-							section = "startup",
+							section = "keys",
+							gap = 1,
 						},
 					},
 				},
