@@ -41,7 +41,7 @@ in
       font.family = "Maple Mono NF";
       windowBackgroundOpacity = 0.7;
       lightAndDarkMode.enable = false;
-      package = inputs.ghostty.packages.${system}.default;
+      # package = inputs.ghostty.packages.${system}.default;
       shaders = [ "cursor_blaze_tapered" ];
     };
     git = {
