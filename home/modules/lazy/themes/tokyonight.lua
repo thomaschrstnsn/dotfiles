@@ -5,13 +5,18 @@ return {
 		priority = 1000,
 		opts = { style = "storm" },
 		config = function()
-			vim.cmd("colorscheme tokyonight-storm")
+			vim.api.nvim_create_autocmd("User", {
+				pattern = "VeryLazy",
+				callback = function()
+					vim.cmd([[colorscheme tokyonight-storm]])
+				end,
+			})
 		end,
 	},
 	{
 		"LazyVim/LazyVim",
 		opts = {
-			colorscheme = "tokyonight-storm",
+			colorscheme = "tokyonight",
 		},
 	},
 }
