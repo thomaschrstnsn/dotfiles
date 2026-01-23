@@ -95,6 +95,7 @@ in
             statix
             stylua
             taplo
+            tree-sitter
           ]
           (mkIfList cfg.lang.markdown.enable [
             marksman
