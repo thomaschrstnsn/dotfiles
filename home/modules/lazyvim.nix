@@ -56,6 +56,7 @@ in
             Blink.enable = true;
             mini-surround.enable = true;
           };
+          dap = { core.enable = true; };
           editor = {
             inc-rename.enable = true;
             refactoring.enable = true;
@@ -70,15 +71,15 @@ in
             rust.enable = true;
             toml.enable = true;
             typescript.enable = cfg.lang.typescript.enable;
+            yaml.enable = true;
           };
           lsp = { none-ls.enable = true; };
+          test = { core.enable = true; };
           ui = { Treesitter-context.enable = true; };
           util = { rest.enable = cfg.util.rest.enable; };
         };
         # TODO:
         # - csharp/dotnet? https://www.reddit.com/r/dotnet/comments/1keiv1m/comment/mqp6yag/
-        # - dap
-        # - neotest
         configFiles = ./lazy/lua;
         plugins = {
           colorscheme = colorschemes.lua."${cfg.colorscheme}";
