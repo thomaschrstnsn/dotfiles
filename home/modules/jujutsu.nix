@@ -81,8 +81,6 @@ in
       default = "thomas@chrstnsn.dk";
     };
 
-    starship.enable = mkEnableOption "Enable starship-jj integration";
-
     mergiraf.enable = mkEnableOption "mergiraf support" // { default = true; };
 
     difftastic.enable = mkEnableOption "Setup difftastic as diff tool (not default tool)" // { default = true; };
@@ -216,14 +214,6 @@ in
           settings.git.ssh-command = [ "ssh" "-i" cfg.publicKeyFile "-o" "IdentitiesOnly=yes" ];
         })];
 
-      starship.settings.custom.jj = mkIf cfg.starship.enable {
-        ## TODO: it seems we need to write the default config for it to work (0.3.2)
-        ## ❯ /nix/store/ikxy2k01l8wnbdssc6l59v5ighzdc161-starship-jj-0.3.2/bin/starship-jj starship config default > "/Users/tfc/Library/Application Support/starship-jj/starship-jj.toml
-        command = ''${pkgs.myPkgs.starship-jj}/bin/starship-jj --ignore-working-copy starship prompt'';
-        format = "[$symbol](blue bold) $output ";
-        symbol = "󱗆 ";
-        when = "jj root --ignore-working-copy";
-      };
       fish.shellAbbrs = mkIf preferFishAbbreviations abbrevationsAndAliases;
     };
 

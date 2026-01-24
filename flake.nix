@@ -44,11 +44,6 @@
       inputs.home-manager.follows = "home-manager";
     };
 
-    starship-jj = {
-      url = "gitlab:lanastara_foss/starship-jj";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     nixpkgs-python = {
       url = "github:cachix/nixpkgs-python";
       inputs.nixpkgs.follows = "nixpkgs";
