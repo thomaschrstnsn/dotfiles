@@ -120,7 +120,7 @@ in
 
           background = [
             {
-              path = "~/.wallpaper/wide/wallhaven-m3kggk_3840x2160.png";
+              path = "~/Pictures/WallDiscovery/wallhaven.cc/lqkr2q.jpeg";
               blur_passes = 3;
               contrast = 0.9;
               brightness = 0.8;
