@@ -4,13 +4,6 @@
   overlays = [
     (final: prev: {
       inherit myPkgs;
-      vimPlugins = prev.vimPlugins // {
-        kulala-nvim = prev.vimPlugins.kulala-nvim.overrideAttrs (oldAttrs: {
-          patches = (oldAttrs.patches or [ ]) ++ [
-            ./kulala-treesitter.patch # path to your patch file
-          ];
-        });
-      };
     })
 
     (final: prev: {
