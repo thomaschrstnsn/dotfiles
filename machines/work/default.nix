@@ -41,6 +41,7 @@ in
       enable = true;
       sdks = [ "8.0" "9.0" "10.0" ];
     };
+    fabric.enable = true;
     fish.enable = true;
     nodejs.enable = true;
     git = {
