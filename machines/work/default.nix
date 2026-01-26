@@ -82,7 +82,7 @@ in
     python.enable = true;
     rust.enable = true;
     lazyvim = {
-      colorscheme = "everforest";
+      colorscheme = "tokyonight";
       enable = true;
       copilot.enable = true;
       gh.enable = true;
