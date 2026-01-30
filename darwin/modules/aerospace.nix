@@ -63,6 +63,7 @@ in
       settings = {
         on-focused-monitor-changed = [ "move-mouse monitor-lazy-center" ];
         on-focus-changed = [ "move-mouse window-lazy-center" ];
+        accordion-padding = 0;
         gaps = {
           inner = {
             horizontal = 2;
