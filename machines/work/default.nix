@@ -119,7 +119,6 @@ in
         "ghostty"
         "istat-menus@6"
         "jetbrains-toolbox"
-        "logseq"
         "meetingbar"
         "rancher"
         "webcatalog"
@@ -137,7 +136,6 @@ in
         "hyper - c" = "Microsoft Teams";
         "hyper - g" = "ChatGPT";
         "hyper - i" = "Microsoft Outlook";
-        "hyper - u" = "Logseq";
         "hyper - z" = "Spotify";
         "hyper - p" = "todoist";
         "hyper - v" = "Azure VPN Client";
