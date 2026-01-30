@@ -166,6 +166,7 @@ in
   extraPackages = pkgs: with pkgs; [
     bacon
     devenv
+    kitty
     natscli
     opencode
     myPkgs.github-copilot-cli
