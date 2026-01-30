@@ -14,8 +14,8 @@ in
       enable = true;
       active_color = "0xffe1e3e4";
       inactive_color = "0xff494d64";
-      blur_radius = 3.0;
-      width = 2.0;
+      blur_radius = 5.0;
+      width = 4.0;
     };
   };
 }
