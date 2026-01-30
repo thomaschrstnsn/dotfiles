@@ -96,7 +96,7 @@ in
     ideavim.enable = true;
     tmux = {
       enable = true;
-      theme = "powerkit";
+      theme = "rose-pine";
       aiAgent.enable = true;
     };
   }];
