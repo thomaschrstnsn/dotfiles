@@ -121,10 +121,12 @@ in
         "jetbrains-toolbox"
         "meetingbar"
         "rancher"
+        "vpnstatus"
         "webcatalog"
       ];
       extraTaps = [
         "Azure/kubelogin"
+        "timac/vpnstatus"
       ];
     };
     mermaidCli.enable = true;
