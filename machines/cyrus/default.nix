@@ -30,7 +30,7 @@ in
       font.size = 13;
       windowBackgroundOpacity = 0.95;
       lightAndDarkMode.enable = false;
-      package = inputs.ghostty.packages.${system}.default;
+      # package = inputs.ghostty.packages.${system}.default;
       shaders = [ "cursor_blaze_tapered" ];
     };
     rust = {
@@ -59,7 +59,7 @@ in
         font.size = 13;
         windowBackgroundOpacity = 0.95;
         lightAndDarkMode.enable = false;
-        package = inputs.ghostty.packages.${system}.default;
+        # package = inputs.ghostty.packages.${system}.default;
         shaders = [ "cursor_blaze_tapered" ];
       };
     }];
