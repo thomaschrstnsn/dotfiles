@@ -36,6 +36,7 @@ in
   extraPackages = pkgs: with pkgs; [
     devenv
     lnav
+    natscli
   ];
 
   system = "x86_64-linux";
