@@ -20,14 +20,35 @@ in
       type = enum [ "tokyo-night" "rose-pine" "rose-pine-dawn" "rose-pine-moon" ];
       default = "rose-pine";
     };
+
+    starship.theme = mkOption {
+      type = enum [ "default" "jetpack" ];
+      description = "starship.rs theme to use";
+      default = "default";
+    };
   };
 
   config = mkIf cfg.enable {
 
-    programs.starship = {
-      enable = true;
-      settings = builtins.fromTOML (builtins.readFile starship/jetpack.toml);
-    };
+    programs.starship =
+      let
+        settings = {
+          default = {
+            aws = {
+              format = "on $symbol ($profile) ($style)";
+              symbol = "";
+            };
+            directory = {
+              truncation_symbol = "…/";
+            };
+          };
+          jetpack = builtins.fromTOML (builtins.readFile starship/jetpack.toml);
+        }."${cfg.starship.theme}";
+      in
+      {
+        enable = true;
+        inherit settings;
+      };
 
     home.packages = with pkgs; [
       bottom
