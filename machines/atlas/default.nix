@@ -91,6 +91,7 @@ in
     devenv
     logseq
     lnav
+    mermaid-cli
     opencode
     spotify
     todoist-electron
@@ -99,6 +100,8 @@ in
     vesktop
     myPkgs.zen-browser
     wine64
+
+    kitty
 
     inputs.nix-citizen.packages.${system}.star-citizen
     # inputs.nix-citizen.packages.${system}.star-citizen-umu
