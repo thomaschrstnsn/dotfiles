@@ -47,8 +47,16 @@ in
       example = "kanata";
     };
 
+    clipboard = mkOption {
+      type = enum [ "clipse" "dms" ];
+      description = "which clipboard manager to employ";
+      default = "dms";
+    };
+
     hyprpanel.enable = mkEnableOption "start hyprpanel";
-    dmsShell.enable = mkEnableOption "support dms-shell";
+    dmsShell = {
+      enable = mkEnableOption "support dms-shell";
+    };
   };
   config = mkIf cfg.enable
     {
@@ -61,7 +69,6 @@ in
         [
           myPkgs.appleFonts.sf-pro
           bemoji # emoji picker
-          clipse # clipboard history
           nerd-fonts.jetbrains-mono
           noto-fonts
           font-awesome
@@ -79,6 +86,7 @@ in
           hyprpanel
           python312Packages.gpustat
         ])
+        (mkIfList (cfg.clipboard == "clipse") [ clipse ])
       ]);
 
       dconf = {
@@ -274,7 +282,6 @@ in
               "hyprctl setcursor Bibata-Modern-Classic 32"
               "sleep 5 && blueman-applet"
               "hyprlock"
-              "clipse -listen"
               "[workspace name:t silent] ${terminal.executable cfg.terminal}"
               "[workspace name:b silent] zen"
               # "[workspace name:u silent] logseq"
@@ -284,6 +291,7 @@ in
               "[workspace name:m silent] spotify"
             ]
             (mkIfList cfg.hyprpanel.enable [ "${pkgs.hyprpanel}/bin/hyprpanel" ])
+            (mkIfList (cfg.clipboard == "clipse") [ "clipse -listen" ])
           ];
 
           workspace = [
@@ -319,11 +327,16 @@ in
               "tile on, match:class ^(path of building.exe)"
             ];
 
-          windowrulev2 = [
-            "float,class:(${clipseClass})" # ensure you have a floating window class set if you want this behavior
-            "size 622 652,class:(${clipseClass})" # set the size of the window as necessary
-            "idleinhibit fullscreen, class:.*" # idle inhibit whenever something is fullscreen (possible workaround for regression: https://github.com/hyprwm/Hyprland/issues/9170 )
-            "focusonactivate, class:(zen)" # should allow zen to take focus
+          # TODO: investigate these
+          windowrulev2 = concatLists [
+            [
+              "idleinhibit fullscreen, class:.*" # idle inhibit whenever something is fullscreen (possible workaround for regression: https://github.com/hyprwm/Hyprland/issues/9170 )
+              "focusonactivate, class:(zen)" # should allow zen to take focus
+            ]
+            (mkIfList (cfg.clipboard == "clipse") [
+              "float,class:(${clipseClass})" # ensure you have a floating window class set if you want this behavior
+              "size 622 652,class:(${clipseClass})" # set the size of the window as necessary
+            ])
           ];
 
           # https://wiki.hyprland.org/Configuring/Uncommon-tips--tricks/
@@ -456,20 +469,28 @@ in
               [
                 "$hyper, b, focuswindow, initialtitle:Zen Browser"
               ]
-              [
-                # copy/paste using super
-                "SUPER, C, exec, ${./hypr/copy_unless_term.sh}"
-                "SUPER, V, exec, ${./hypr/paste_unless_term.sh}"
-                "SUPER, Z, exec, ${./hypr/undo_unless_term.sh}"
-                "SUPER+SHIFT, C, exec, ${terminal.starter cfg.terminal {class = clipseClass; command = "clipse";}}"
-                # "ALT, comma, exec, <reserved for giphy picker>"
-                "ALT, period, exec, bemoji -t"
+              (
+                let
+                  clipboardCmd = {
+                    clipse = "${terminal.starter cfg.terminal {class = clipseClass; command = "clipse";}}";
+                    dms = "dms ipc call clipboard toggle";
+                  }."${cfg.clipboard}";
+                in
+                [
+                  # copy/paste using super
+                  "SUPER, C, exec, ${./hypr/copy_unless_term.sh}"
+                  "SUPER, V, exec, ${./hypr/paste_unless_term.sh}"
+                  "SUPER, Z, exec, ${./hypr/undo_unless_term.sh}"
+                  "SUPER+SHIFT, C, exec, ${clipboardCmd}"
+                  # "ALT, comma, exec, <reserved for giphy picker>"
+                  "ALT, period, exec, bemoji -t"
 
-                # toggle kb_layout
-                "ALT, Space, exec, ${./hypr/toggle_kb_layout.sh} ${cfg.keyboard}"
+                  # toggle kb_layout
+                  "ALT, Space, exec, ${./hypr/toggle_kb_layout.sh} ${cfg.keyboard}"
 
-                "SUPER, Tab, focuscurrentorlast"
-              ]
+                  "SUPER, Tab, focuscurrentorlast"
+                ]
+              )
               [
                 ''$hyper, grave, exec, hyprctl reload'' # reload config, bring back monitors
                 ''$hyper, 1, exec, hyprctl keyword monitor "DP-2, disable"'' # disable first monitor
