@@ -309,35 +309,33 @@ in
               filePickers = builtins.concatStringsSep "|"
                 [ "Open.*Files?" "Save.*Files?" "All Files" "Save" ];
             in
-            [
-              ## inspired by https://github.com/basecamp/omarchy/blob/master/default/hypr/windows.conf
-              # Float and center settings and previews
-              "float on, match:class ^(${settingsAndPreviews})$"
-              "size 1024 768, match:class ^(${settingsAndPreviews})$"
-              "center on, match:class ^(${settingsAndPreviews})$"
+            concatLists [
+              [
+                ## inspired by https://github.com/basecamp/omarchy/blob/master/default/hypr/windows.conf
+                # Float and center settings and previews
+                "float on, match:class ^(${settingsAndPreviews})$"
+                "size 1024 768, match:class ^(${settingsAndPreviews})$"
+                "center on, match:class ^(${settingsAndPreviews})$"
 
-              # Float and center file pickers
-              "float on, match:class xdg-desktop-portal-gtk, match:title ^(${filePickers})"
-              "center on, match:class xdg-desktop-portal-gtk, match:title ^(${filePickers})"
+                # Float and center file pickers
+                "float on, match:class xdg-desktop-portal-gtk, match:title ^(${filePickers})"
+                "center on, match:class xdg-desktop-portal-gtk, match:title ^(${filePickers})"
 
-              # Float Steam windows, except primary
-              "float on, center on, match:class steam"
-              "tile on, match:class steam, match:title Steam"
+                # Float Steam windows, except primary
+                "float on, center on, match:class steam"
+                "tile on, match:class steam, match:title Steam"
 
-              "tile on, match:class ^(path of building.exe)"
+                "tile on, match:class ^(path of building.exe)"
+              ]
+              [
+                "idle_inhibit fullscreen, match:class .*" # idle inhibit whenever something is fullscreen (possible workaround for regression: https://github.com/hyprwm/Hyprland/issues/9170 )
+                "focus_on_activate on, match:class zen" # should allow zen to take focus
+              ]
+              (mkIfList (cfg.clipboard == "clipse") [
+                "float,match:class ${clipseClass}" # ensure you have a floating window class set if you want this behavior
+                "size 622 652,match:class ${clipseClass}" # set the size of the window as necessary
+              ])
             ];
-
-          # TODO: investigate these
-          windowrulev2 = concatLists [
-            [
-              "idleinhibit fullscreen, class:.*" # idle inhibit whenever something is fullscreen (possible workaround for regression: https://github.com/hyprwm/Hyprland/issues/9170 )
-              "focusonactivate, class:(zen)" # should allow zen to take focus
-            ]
-            (mkIfList (cfg.clipboard == "clipse") [
-              "float,class:(${clipseClass})" # ensure you have a floating window class set if you want this behavior
-              "size 622 652,class:(${clipseClass})" # set the size of the window as necessary
-            ])
-          ];
 
           # https://wiki.hyprland.org/Configuring/Uncommon-tips--tricks/
           input = {
@@ -419,84 +417,86 @@ in
 
           bind =
             let
-              workspaceChars = stringToCharacters ("123456789" + "qwertyuiop" + "zxcvbnm");
+              workspaceChars = stringToCharacters
+                ("123456789" + "qwertyuiop" + "zxcvbnm");
               repeatBind = bind: keys: (map (k: (replaceStrings [ "$KEY" ] [ "${k}" ] bind)) keys);
               appShortcuts = mod: keyToWindow: mapAttrsToList (key: window: "${mod}, ${key}, focuswindow, class:${window}") keyToWindow;
             in
-            concatLists [
+            concatLists
               [
-                "SUPER, Return, exec, ${terminal.executable cfg.terminal}"
-                "SUPER, Space, exec, pgrep wofi || wofi --show run"
-                "$hyper, f, fullscreen, 0"
-                "SHIFT+SUPER, f, togglefloating"
-                "CTRL+SUPER, q, exec, pidof hyprlock || hyprlock"
-                "SHIFT+SUPER, 4, exec, hyprshot -m region --clipboard-only"
-                "SHIFT+SUPER, 3, exec, hyprshot -m window --clipboard-only"
-              ]
-              (mkIfList cfg.hyprpanel.enable [
-                "CTRL, Escape, exec, ${pkgs.hyprpanel}/bin/hyprpanel t verification"
-                "CTRL+SHIFT, Escape, exec, ${pkgs.hyprpanel}/bin/hyprpanel t powerdropdownmenu"
-              ])
-              (mkIfList cfg.dmsShell.enable [
-                "CTRL, Escape, exec, ${pkgs.dms-shell}/bin/dms ipc call powermenu toggle"
-              ])
-              # mediakeys
-              [
-                ", XF86AudioRaiseVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ +10%"
-                ", XF86AudioLowerVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ -10%"
-                ", XF86AudioMute, exec, pactl set-sink-mute @DEFAULT_SINK@ toggle"
-                ", XF86AudioMicMute, exec, pactl set-source-mute @DEFAULT_SOURCE@ toggle"
-              ]
-              (repeatBind "ALT, $KEY, workspace, name:$KEY" workspaceChars)
-              (repeatBind "SHIFT + ALT, $KEY, movetoworkspace, name:$KEY" workspaceChars)
-              (repeatBind "CTRL + ALT, $KEY, movetoworkspacesilent, name:$KEY" workspaceChars)
-              [
-                "alt, h, movefocus, l"
-                "alt, j, movefocus, d"
-                "alt, k, movefocus, u"
-                "alt, l, movefocus, r"
-
-                "$hyper, q, movecurrentworkspacetomonitor, l"
-                "$hyper, w, movecurrentworkspacetomonitor, r"
-              ]
-              (appShortcuts "$hyper" {
-                t = terminal.class cfg.terminal;
-                # u = "Logseq";
-                p = "Todoist";
-                # g = webapp.class "claude";
-                # c = webapp.class "icloud-calendar";
-              })
-              [
-                "$hyper, b, focuswindow, initialtitle:Zen Browser"
-              ]
-              (
-                let
-                  clipboardCmd = {
-                    clipse = "${terminal.starter cfg.terminal {class = clipseClass; command = "clipse";}}";
-                    dms = "dms ipc call clipboard toggle";
-                  }."${cfg.clipboard}";
-                in
                 [
-                  # copy/paste using super
-                  "SUPER, C, exec, ${./hypr/copy_unless_term.sh}"
-                  "SUPER, V, exec, ${./hypr/paste_unless_term.sh}"
-                  "SUPER, Z, exec, ${./hypr/undo_unless_term.sh}"
-                  "SUPER+SHIFT, C, exec, ${clipboardCmd}"
-                  # "ALT, comma, exec, <reserved for giphy picker>"
-                  "ALT, period, exec, bemoji -t"
-
-                  # toggle kb_layout
-                  "ALT, Space, exec, ${./hypr/toggle_kb_layout.sh} ${cfg.keyboard}"
-
-                  "SUPER, Tab, focuscurrentorlast"
+                  "SUPER, Return, exec, ${terminal.executable cfg.terminal}"
+                  "SUPER, Space, exec, pgrep wofi || wofi --show run"
+                  "$hyper, f, fullscreen, 0"
+                  "SHIFT+SUPER, f, togglefloating"
+                  "CTRL+SUPER, q, exec, pidof hyprlock || hyprlock"
+                  "SHIFT+SUPER, 4, exec, hyprshot -m region --clipboard-only"
+                  "SHIFT+SUPER, 3, exec, hyprshot -m window --clipboard-only"
                 ]
-              )
-              [
-                ''$hyper, grave, exec, hyprctl reload'' # reload config, bring back monitors
-                ''$hyper, 1, exec, hyprctl keyword monitor "DP-2, disable"'' # disable first monitor
-                ''$hyper, 2, exec, hyprctl keyword monitor "HDMI-A-1, disable"'' # disable second monitor
-              ]
-            ];
+                (mkIfList cfg.hyprpanel.enable [
+                  "CTRL, Escape, exec, ${pkgs.hyprpanel}/bin/hyprpanel t verification"
+                  "CTRL+SHIFT, Escape, exec, ${pkgs.hyprpanel}/bin/hyprpanel t powerdropdownmenu"
+                ])
+                (mkIfList cfg.dmsShell.enable [
+                  "CTRL, Escape, exec, ${pkgs.dms-shell}/bin/dms ipc call powermenu toggle"
+                ])
+                # mediakeys
+                [
+                  ", XF86AudioRaiseVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ +10%"
+                  ", XF86AudioLowerVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ -10%"
+                  ", XF86AudioMute, exec, pactl set-sink-mute @DEFAULT_SINK@ toggle"
+                  ", XF86AudioMicMute, exec, pactl set-source-mute @DEFAULT_SOURCE@ toggle"
+                ]
+                (repeatBind "ALT, $KEY, workspace, name:$KEY" workspaceChars)
+                (repeatBind "SHIFT + ALT, $KEY, movetoworkspace, name:$KEY" workspaceChars)
+                (repeatBind "CTRL + ALT, $KEY, movetoworkspacesilent, name:$KEY" workspaceChars)
+                [
+                  "alt, h, movefocus, l"
+                  "alt, j, movefocus, d"
+                  "alt, k, movefocus, u"
+                  "alt, l, movefocus, r"
+
+                  "$hyper, q, movecurrentworkspacetomonitor, l"
+                  "$hyper, w, movecurrentworkspacetomonitor, r"
+                ]
+                (appShortcuts "$hyper" {
+                  t = terminal.class cfg.terminal;
+                  # u = "Logseq";
+                  p = "Todoist";
+                  # g = webapp.class "claude";
+                  # c = webapp.class "icloud-calendar";
+                })
+                [
+                  "$hyper, b, focuswindow, initialtitle:Zen Browser"
+                ]
+                (
+                  let
+                    clipboardCmd = {
+                      clipse = "${terminal.starter cfg.terminal {class = clipseClass; command = "clipse";}}";
+                      dms = "dms ipc call clipboard toggle";
+                    }."${cfg.clipboard}";
+                  in
+                  [
+                    # copy/paste using super
+                    "SUPER, C, exec, ${./hypr/copy_unless_term.sh}"
+                    "SUPER, V, exec, ${./hypr/paste_unless_term.sh}"
+                    "SUPER, Z, exec, ${./hypr/undo_unless_term.sh}"
+                    "SUPER+SHIFT, C, exec, ${clipboardCmd}"
+                    # "ALT, comma, exec, <reserved for giphy picker>"
+                    "ALT, period, exec, bemoji -t"
+
+                    # toggle kb_layout
+                    "ALT, Space, exec, ${./hypr/toggle_kb_layout.sh} ${cfg.keyboard}"
+
+                    "SUPER, Tab, focuscurrentorlast"
+                  ]
+                )
+                [
+                  ''$hyper, grave, exec, hyprctl reload'' # reload config, bring back monitors
+                  ''$hyper, 1, exec, hyprctl keyword monitor "DP-2, disable"'' # disable first monitor
+                  ''$hyper, 2, exec, hyprctl keyword monitor "HDMI-A-1, disable"'' # disable second monitor
+                ]
+              ];
 
           # https://wiki.hyprland.org/Configuring/Monitors/#rotating
           monitor = [
