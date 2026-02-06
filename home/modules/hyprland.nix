@@ -57,6 +57,8 @@ in
     dmsShell = {
       enable = mkEnableOption "support dms-shell";
     };
+
+    hyprfocus.enable = mkEnableOption "use hyprfocus" // { default = true; };
   };
   config = mkIf cfg.enable
     {
@@ -87,6 +89,7 @@ in
           python312Packages.gpustat
         ])
         (mkIfList (cfg.clipboard == "clipse") [ clipse ])
+        (mkIfList cfg.hyprfocus.enable [ myPkgs.hyprfocus ])
       ]);
 
       dconf = {
@@ -459,16 +462,22 @@ in
                   "$hyper, q, movecurrentworkspacetomonitor, l"
                   "$hyper, w, movecurrentworkspacetomonitor, r"
                 ]
-                (appShortcuts "$hyper" {
-                  t = terminal.class cfg.terminal;
-                  # u = "Logseq";
-                  p = "Todoist";
-                  # g = webapp.class "claude";
-                  # c = webapp.class "icloud-calendar";
-                })
-                [
-                  "$hyper, b, focuswindow, initialtitle:Zen Browser"
-                ]
+                (if cfg.hyprfocus.enable then [
+                  ''$hyper, b, exec, ${pkgs.myPkgs.hyprfocus}/bin/hyprfocus initial-title "Zen Browser" start zen''
+                  ''$hyper, t, exec, ${pkgs.myPkgs.hyprfocus}/bin/hyprfocus initial-class ${terminal.class cfg.terminal} start "${terminal.executable cfg.terminal}"''
+                  ''$hyper, p, exec, ${pkgs.myPkgs.hyprfocus}/bin/hyprfocus initial-class "Todoist" start todoist-electron''
+                ] else
+                  (appShortcuts "$hyper" {
+                    t = terminal.class cfg.terminal;
+                    # u = "Logseq";
+                    p = "Todoist";
+                    # g = webapp.class "claude";
+                    # c = webapp.class "icloud-calendar";
+                  }) ++
+                  [
+                    "$hyper, b, focuswindow, initialtitle:Zen Browser"
+                  ]
+                )
                 (
                   let
                     clipboardCmd = {
