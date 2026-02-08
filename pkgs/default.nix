@@ -8,6 +8,7 @@ with pkgs;
     hyprfocus = callPackage ./hyprfocus.nix { };
     pyenv-nix-install = inputs.pyenv-nix-install.packages.${system}.default;
     sketchybar = import ./sketchybar { inherit pkgs nixpkgs; };
+    timekpr-collector = callPackage ./timekpr-collector.nix { };
     zen-browser = inputs.zen-browser.packages."${system}".default;
   };
 }
