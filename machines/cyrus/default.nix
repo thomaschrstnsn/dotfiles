@@ -82,6 +82,10 @@ in
         groups = [ "wheel" "docker" "gamemode" ];
         defaultShell = "fish";
       };
+
+      services.timekpr-collector = {
+        enable = true;
+      };
     };
     base = {
       imports =
