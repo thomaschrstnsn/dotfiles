@@ -3,6 +3,7 @@
 {
   imports = [
     ./cloudflared.nix
+    ./screentime-web.nix
     ./timekpr-collector.nix
   ];
 }

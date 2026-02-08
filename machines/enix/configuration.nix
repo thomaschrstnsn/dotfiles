@@ -31,6 +31,7 @@
     3210 # grafana poolmonitor
     5432 # postgres
     2283 # immich
+    6767 # screentime-web
   ];
 
   environment.systemPackages = with pkgs; [

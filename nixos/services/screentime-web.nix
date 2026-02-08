@@ -5,35 +5,35 @@ with lib;
 # Inspired by: https://mdleom.com/blog/2021/06/15/cloudflare-argo-nixos/
 
 let
-  cfg = config.tc.services.timekpr-collector;
+  cfg = config.tc.services.screentime-web;
 in
 {
-  options.tc.services.timekpr-collector = {
-    enable = mkEnableOption "timekpr-collector service (dbus to nats)";
+  options.tc.services.screentime-web = {
+    enable = mkEnableOption "screentime-web service (nats to http)";
   };
 
   config = mkIf cfg.enable {
 
     users = {
-      users.tkcol = {
+      users.stweb = {
         isSystemUser = true;
-        group = "tkcol";
+        group = "stweb";
       };
 
-      groups = { tkcol = { }; };
+      groups = { stweb = { }; };
 
     };
 
-    systemd.services.timekpr-collector = {
-      description = "timekpr-collector service";
+    systemd.services.screentime-web = {
+      description = "screentime-web service";
       after = [ "network-online.target" ];
       wants = [ "network-online.target" ]; # systemd-networkd-wait-online.service
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
-        ExecStart = "${pkgs.myPkgs.timekpr-collector}/bin/timekpr-dbus-demo";
+        ExecStart = "${pkgs.myPkgs.screentime-web}/bin/timekpr-web --nats-url 192.168.1.163:4222 --bind 0.0.0.0:6767";
         Type = "simple";
-        User = "tkcol";
-        Group = "tkcol";
+        User = "stweb";
+        Group = "stweb";
         Restart = "on-failure";
         RestartSec = "5s";
         NoNewPrivileges = true;

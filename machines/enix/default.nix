@@ -49,6 +49,7 @@ in
         groups = [ "wheel" "docker" "navidrome" ];
         defaultShell = "fish";
       };
+      services.screentime-web.enable = true;
     };
     base = {
       imports =
