@@ -30,7 +30,7 @@ in
       wants = [ "network-online.target" ]; # systemd-networkd-wait-online.service
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
-        ExecStart = "${pkgs.myPkgs.screentime-web}/bin/timekpr-web --nats-url 192.168.1.163:4222 --bind 0.0.0.0:6767";
+        ExecStart = "${pkgs.myPkgs.screentime-web}/bin/screentime-web --nats-url 192.168.1.163:4222 --bind 0.0.0.0:6767";
         Type = "simple";
         User = "stweb";
         Group = "stweb";

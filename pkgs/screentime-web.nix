@@ -9,11 +9,11 @@ pkgs.rustPlatform.buildRustPackage {
   src = pkgs.fetchFromGitHub {
     owner = "thomaschrstnsn";
     repo = "screentime-web";
-    rev = "b907a5a7e82bda7ff853e5bfc550b19d1edfbb2e";
-    hash = "sha256-oekTHHC51J/g9BKe11g9+v8JfT/GMhka57lOb5po6VY=";
+    rev = "f1e4db1045481cb032a3d3652ffb25d4fd8eec10";
+    hash = "sha256-E12VaP/aH8CGQxBwNQIIqG+3rqjk1Wg+O/7ZgSHG7Ys";
   };
 
-  cargoHash = "sha256-842TsuUIG/RlIz7Yi76xSEjl/4fG73Z3qfOoQ/k8Yek";
+  cargoHash = "sha256-URE4Jt6E0kzOworZj2SnPFlfW4Wo17jje0psWkMbKoc";
 
   meta = with pkgs.lib; {
     description = "screentime-web";
