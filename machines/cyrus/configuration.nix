@@ -150,7 +150,7 @@
 
   services.timekpr = {
     enable = true;
-    adminUsers = [ "thomas" ];
+    adminUsers = [ "thomas" "tkcol" ];
   };
 
   # Enable sound with pipewire.
