@@ -84,13 +84,20 @@ in
           };
         };
         "mft-az" =
+          let
+            az_options = {
+              forwardAgent = false;
+              identitiesOnly = true;
+              identityAgent = "none";
+              user = "tfc-admin@mft-energy.com";
+              certificateFile = "/Users/tfc/.ssh/az_ssh_config/all_ips/id_rsa.pub-aadcert.pub";
+              identityFile = "/Users/tfc/.ssh/az_ssh_config/all_ips/id_rsa";
+            };
+          in
           {
-            "10.100.*.*" =
-              {
-                identityAgent = "none";
-                identitiesOnly = true;
-                forwardAgent = false;
-              };
+            "10.100.*.*" = az_options;
+            "lazertrader-dev" = az_options // { hostname = "10.100.128.4"; };
+            "lazertrader-prod" = az_options // { hostname = "10.100.0.5"; };
           };
       };
 
@@ -113,7 +120,7 @@ in
             { "*" = withAgent { }; }
           ];
 
-          includes = cfg.includes;
+          inherit (cfg) includes;
         };
       }
       (mkIf cfg._1password.enableAgent (
