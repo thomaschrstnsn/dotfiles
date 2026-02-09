@@ -48,6 +48,12 @@
       url = "github:cachix/nixpkgs-python";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    noctalia = {
+      url = "github:noctalia-dev/noctalia-shell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     pyenv-nix-install = {
       url = "github:sirno/pyenv-nix-install";
       inputs.nixpkgs.follows = "nixpkgs";

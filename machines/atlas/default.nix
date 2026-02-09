@@ -69,7 +69,7 @@ in
       enable = true;
       terminal = "ghostty";
       keyboard = "keychron-keychron-q11";
-      dmsShell.enable = true;
+      shell = "noctalia";
     };
     rust = {
       enable = true;
@@ -121,7 +121,20 @@ in
     base = {
       imports =
         [
-          ./dms-shell.nix
+          # ./dms-shell.nix
+          {
+            # noctalia stuff
+            environment.systemPackages = [
+              inputs.noctalia.packages.${system}.default
+            ];
+            home-manager.users.thomas = {
+
+              imports = [
+                inputs.noctalia.homeModules.default
+              ];
+            };
+          }
+          ./noctalia.nix
           ./hardware.nix
           ./configuration.nix
         ];

@@ -6,10 +6,6 @@ let
 
   cfg = config.tc.hyprland;
 
-  gentle-down = pkgs.writeShellApplication {
-    name = "gentle-down";
-    text = readFile ./hypr/gentle_down.sh;
-  };
   cursor.size = 32;
 
   clipseClass = "name.savedra1.clipse";
@@ -53,9 +49,9 @@ in
       default = "dms";
     };
 
-    hyprpanel.enable = mkEnableOption "start hyprpanel";
-    dmsShell = {
-      enable = mkEnableOption "support dms-shell";
+    shell = mkOption {
+      type = nullOr (enum [ "hyprpanel" "dms" "noctalia" ]);
+      description = "which desktop shell to setup";
     };
 
     hyprfocus.enable = mkEnableOption "use hyprfocus" // { default = true; };
@@ -74,7 +70,6 @@ in
           nerd-fonts.jetbrains-mono
           noto-fonts
           font-awesome
-          gentle-down
           hyprshot
           jq # for scripts
           libnotify
@@ -85,7 +80,7 @@ in
           wl-clipboard
           wtype # dep for bemoji
         ]
-        (mkIfList cfg.hyprpanel.enable [
+        (mkIfList (cfg.shell == "hyprpanel") [
           hyprpanel
           python312Packages.gpustat
         ])
@@ -294,7 +289,7 @@ in
               "[workspace name:c silent] ${webapp.starter "icloud-calendar"}"
               "[workspace name:m silent] spotify"
             ]
-            (mkIfList cfg.hyprpanel.enable [ "${pkgs.hyprpanel}/bin/hyprpanel" ])
+            (mkIfList (cfg.shell == "hyprpanel") [ "${pkgs.hyprpanel}/bin/hyprpanel" ])
             (mkIfList (cfg.clipboard == "clipse") [ "clipse -listen" ])
           ];
 
@@ -437,11 +432,11 @@ in
                   "SHIFT+SUPER, 4, exec, hyprshot -m region --clipboard-only"
                   "SHIFT+SUPER, 3, exec, hyprshot -m window --clipboard-only"
                 ]
-                (mkIfList cfg.hyprpanel.enable [
+                (mkIfList (cfg.shell == "hyprpanel") [
                   "CTRL, Escape, exec, ${pkgs.hyprpanel}/bin/hyprpanel t verification"
                   "CTRL+SHIFT, Escape, exec, ${pkgs.hyprpanel}/bin/hyprpanel t powerdropdownmenu"
                 ])
-                (mkIfList cfg.dmsShell.enable [
+                (mkIfList (cfg.shell == "dms") [
                   "CTRL, Escape, exec, ${pkgs.dms-shell}/bin/dms ipc call powermenu toggle"
                 ])
                 # mediakeys

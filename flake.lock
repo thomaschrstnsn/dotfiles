@@ -597,6 +597,26 @@
         "url": "https://flakehub.com/f/NixOS/nixpkgs/0.1.%2A"
       }
     },
+    "noctalia": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1770663741,
+        "narHash": "sha256-WbvQaDozCrJSWCTuAmVFZLJeOtiOjCatBjUmQHipiIQ=",
+        "owner": "noctalia-dev",
+        "repo": "noctalia-shell",
+        "rev": "8b43787ef55f4742c241c33a6b4bd90525e85016",
+        "type": "github"
+      },
+      "original": {
+        "owner": "noctalia-dev",
+        "repo": "noctalia-shell",
+        "type": "github"
+      }
+    },
     "pyenv-nix-install": {
       "inputs": {
         "flake-utils": "flake-utils_3",
@@ -635,6 +655,7 @@
         "nixos-wsl": "nixos-wsl",
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-python": "nixpkgs-python",
+        "noctalia": "noctalia",
         "pyenv-nix-install": "pyenv-nix-install",
         "zen-browser": "zen-browser"
       }
