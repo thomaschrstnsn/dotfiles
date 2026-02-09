@@ -279,7 +279,6 @@ in
           exec-once = concatLists [
             [
               "hyprctl setcursor Bibata-Modern-Classic 32"
-              "sleep 5 && blueman-applet"
               "hyprlock"
               "[workspace name:t silent] ${terminal.executable cfg.terminal}"
               "[workspace name:b silent] zen"
@@ -331,7 +330,7 @@ in
                 "focus_on_activate on, match:class zen" # should allow zen to take focus
               ]
               (mkIfList (cfg.clipboard == "clipse") [
-                "float,match:class ${clipseClass}" # ensure you have a floating window class set if you want this behavior
+                "float on,match:class ${clipseClass}" # ensure you have a floating window class set if you want this behavior
                 "size 622 652,match:class ${clipseClass}" # set the size of the window as necessary
               ])
             ];
@@ -356,7 +355,8 @@ in
           ];
 
           decoration = {
-            rounding = 16;
+            rounding = 20;
+            rounding_power = 2;
 
             # Change transparency of focused and unfocused windows
             active_opacity = 1.0;
@@ -372,7 +372,7 @@ in
             blur = {
               enabled = true;
               size = 3;
-              passes = 1;
+              passes = 2;
               vibrancy = 0.1696;
             };
           };
@@ -438,6 +438,9 @@ in
                 ])
                 (mkIfList (cfg.shell == "dms") [
                   "CTRL, Escape, exec, ${pkgs.dms-shell}/bin/dms ipc call powermenu toggle"
+                ])
+                (mkIfList (cfg.shell == "noctalia") [
+                  "CTRL, Escape, exec, noctalia-shell ipc call sessionMenu toggle"
                 ])
                 # mediakeys
                 [

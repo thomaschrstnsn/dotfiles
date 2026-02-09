@@ -70,6 +70,7 @@ in
       terminal = "ghostty";
       keyboard = "keychron-keychron-q11";
       shell = "noctalia";
+      clipboard = "clipse";
     };
     rust = {
       enable = true;
