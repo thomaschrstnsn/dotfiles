@@ -29,6 +29,12 @@ in
       after = [ "network-online.target" ];
       wants = [ "network-online.target" ]; # systemd-networkd-wait-online.service
       wantedBy = [ "multi-user.target" ];
+
+      environment = {
+        CF_ACCESS_TEAM = "chrstnsn";
+        CF_ACCESS_AUD = "dc7601a2fd567cb444c9903776b771765ecb853bdcde878c3f136be1534c7de5";
+      };
+
       serviceConfig = {
         ExecStart = "${pkgs.myPkgs.screentime-web}/bin/screentime-web --nats-url 192.168.1.163:4222 --bind 0.0.0.0:6767";
         Type = "simple";
