@@ -61,7 +61,7 @@ in
     tmux = {
       enable = true;
       remote = false;
-      theme = "powerkit";
+      theme = "rose-pine";
       cliptool = "wl-copy";
       aiAgent.enable = true;
     };
@@ -76,7 +76,6 @@ in
       linker = "mold";
     };
     lazyvim = {
-      colorscheme = "tokyonight";
       enable = true;
       gh.enable = true;
       lang = {
