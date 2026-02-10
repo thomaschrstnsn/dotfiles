@@ -1,4 +1,4 @@
-{ _ }:
+{ ... }:
 {
   home-manager.users.thomas = {
     programs.noctalia-shell = {
