@@ -282,10 +282,9 @@ in
               "hyprlock"
               "[workspace name:t silent] ${terminal.executable cfg.terminal}"
               "[workspace name:b silent] zen"
-              # "[workspace name:u silent] logseq"
               "[workspace name:p silent] todoist-electron"
               "[workspace name:p silent] 1password"
-              "[workspace name:c silent] ${webapp.starter "icloud-calendar"}"
+              # "[workspace name:c silent] ${webapp.starter "icloud-calendar"}"
               "[workspace name:m silent] spotify"
             ]
             (mkIfList (cfg.shell == "hyprpanel") [ "${pkgs.hyprpanel}/bin/hyprpanel" ])
