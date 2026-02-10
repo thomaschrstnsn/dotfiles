@@ -127,7 +127,6 @@ in
               inputs.noctalia.packages.${system}.default
             ];
             home-manager.users.thomas = {
-
               imports = [
                 inputs.noctalia.homeModules.default
               ];
