@@ -79,6 +79,7 @@ in
           jq # for scripts
           libnotify
           overskride # bluetooth
+          openhue-cli
           pavucontrol
           pulseaudio
           wl-clipboard
