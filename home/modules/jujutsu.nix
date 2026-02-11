@@ -64,6 +64,11 @@ let
     '';
   };
 
+  jjPr = pkgs.writeShellApplication {
+    name = "jj-pr";
+    text = readFile ./jj/jj-pr.sh;
+  };
+
 in
 {
   options.tc.jj = with types; {
@@ -113,6 +118,7 @@ in
       [
         jjui
         jjPrDiff
+        jjPr
       ]
       ++ mkIfList cfg.mergiraf.enable [ mergiraf ]
       ++ mkIfList cfg.difftastic.enable [ difftastic ]
@@ -145,6 +151,8 @@ in
               log-recent = [ "log" "-r" "default(8) & recent()" ];
               tug = [ "bookmark" "move" "--from" "closest_bookmark(@-)" "--to" "closest_pushable(@-)" ];
               nb = [ "bookmark" "create" "-r" "@-" ];
+              pr = [ "util" "exec" "--" "jj-pr" ];
+              pr-diff = [ "util" "exec" "--" "jj-pr-diff" ];
             };
             revset-aliases = {
               "recent()" = ''committer_date(after:"3 months ago")'';
