@@ -83,7 +83,7 @@ in
         defaultShell = "fish";
       };
 
-      services.timekpr-collector = {
+      services.screentime-collector = {
         enable = true;
       };
     };

@@ -2,38 +2,36 @@
 
 with lib;
 
-# Inspired by: https://mdleom.com/blog/2021/06/15/cloudflare-argo-nixos/
-
 let
-  cfg = config.tc.services.timekpr-collector;
+  cfg = config.tc.services.screentime-collector;
 in
 {
-  options.tc.services.timekpr-collector = {
-    enable = mkEnableOption "timekpr-collector service (dbus to nats)";
+  options.tc.services.screentime-collector = {
+    enable = mkEnableOption "screentime-collector service (dbus to nats)";
   };
 
   config = mkIf cfg.enable {
 
     users = {
-      users.tkcol = {
+      users.stcol = {
         isSystemUser = true;
-        group = "tkcol";
+        group = "stcol";
       };
 
-      groups = { tkcol = { }; };
+      groups = { stcol = { }; };
 
     };
 
-    systemd.services.timekpr-collector = {
-      description = "timekpr-collector service";
+    systemd.services.screentime-collector = {
+      description = "screentime-collector service";
       after = [ "network-online.target" ];
       wants = [ "network-online.target" ]; # systemd-networkd-wait-online.service
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
-        ExecStart = "${pkgs.myPkgs.timekpr-collector}/bin/timekpr-dbus-demo";
+        ExecStart = "${pkgs.myPkgs.screentime-collector}/bin/screentime-collector -n nats://enix.local:4222 -u conrad --hostname cyrus";
         Type = "simple";
-        User = "tkcol";
-        Group = "tkcol";
+        User = "stcol";
+        Group = "stcol";
         Restart = "on-failure";
         RestartSec = "5s";
         NoNewPrivileges = true;
@@ -44,9 +42,6 @@ in
         ProtectHome = true;
         ProtectSystem = "full";
       };
-      # restartTriggers = [
-      #   cfg.configFile
-      # ];
     };
   };
 }
