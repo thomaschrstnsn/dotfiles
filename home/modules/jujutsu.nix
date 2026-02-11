@@ -291,6 +291,10 @@ in
                   args = [ "diff" "--tool" "delta" "-r" "$change_id" "--color" "always" ];
                   show = "diff";
                 };
+                "create pr" = {
+                  key = [ "ctrl+p" ];
+                  lua = readFile ./jj/jj-pr.lua;
+                };
                 "resolve vscode" = {
                   key = [ "V" ];
                   args = [ "resolve" "--tool" "vscode" ];
