@@ -60,7 +60,7 @@ in
       };
     };
     lazyvim = {
-      colorscheme = "everforest";
+      colorscheme = "rose-pine";
       enable = true;
       lang.markdown.zk.enable = true;
       gh.enable = true;
@@ -68,7 +68,7 @@ in
     ideavim.enable = true;
     tmux = {
       enable = true;
-      theme = "powerkit";
+      theme = "rose-pine";
       aiAgent.enable = true;
     };
   }];
