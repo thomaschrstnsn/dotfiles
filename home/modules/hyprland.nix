@@ -323,6 +323,7 @@ in
                 "tile on, match:class steam, match:title Steam"
 
                 "tile on, match:class ^(path of building.exe)"
+                "tile on, match:class ^(path of building-poe2.exe)"
               ]
               [
                 "idle_inhibit fullscreen, match:class .*" # idle inhibit whenever something is fullscreen (possible workaround for regression: https://github.com/hyprwm/Hyprland/issues/9170 )
