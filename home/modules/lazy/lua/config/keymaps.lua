@@ -39,29 +39,12 @@ map(
 -- in a new *scratch* JSON buffer (no file, wiped on hide, no swap).
 -- kind: nil -> horizontal split (:new), 'v' -> vertical split (:vnew)
 -- jq_args: e.g. { '-S', '.' } (default), or { '-c', '.' } for compact
-local function jq_selection_to_new(kind, jq_args)
-	-- 1) Capture exact visual selection (handles charwise & linewise)
-	local s = vim.fn.getpos("'<") -- {buf, lnum, col, off}
-	local e = vim.fn.getpos("'>")
-
-	-- Ensure start <= end even if selection was made backwards
-	if s[2] > e[2] or (s[2] == e[2] and s[3] > e[3]) then
-		s, e = e, s
-	end
-
-	local lines = vim.api.nvim_buf_get_lines(0, s[2] - 1, e[2], false)
+local function jq_selection_to_new(bufnr, line1, line2, kind, jq_args)
+	-- 1) Grab lines directly from the range (line1/line2 are 1-based, inclusive)
+	local lines = vim.api.nvim_buf_get_lines(bufnr, line1 - 1, line2, false)
 	if #lines == 0 then
 		vim.notify("No selection", vim.log.levels.WARN)
 		return
-	end
-
-	if #lines == 1 then
-		-- single-line selection: slice from s.col..e.col
-		lines[1] = string.sub(lines[1], s[3], e[3])
-	else
-		-- multi-line selection: trim first & last lines to columns
-		lines[1] = string.sub(lines[1], s[3])
-		lines[#lines] = string.sub(lines[#lines], 1, e[3])
 	end
 	local input = table.concat(lines, "\n")
 
@@ -105,36 +88,31 @@ local function jq_selection_to_new(kind, jq_args)
 	vim.bo.modifiable = false
 end
 
-map("x", "<leader>j", function()
-	jq_selection_to_new("v")
-end, { silent = true, desc = "Filter visual selection through jq → new json buffer" })
+vim.api.nvim_create_user_command("JqToNew", function(opts)
+	jq_selection_to_new(vim.api.nvim_get_current_buf(), opts.line1, opts.line2, "v")
+end, { range = true })
+
+map(
+	"x",
+	"<leader>j",
+	":'<,'>JqToNew<cr>",
+	{ silent = true, desc = "Filter visual selection through jq → new json buffer" }
+)
 
 -- Pretty-print Rust Debug output via rustfmt and show it in a new scratch buffer.
 -- Works on visual selection that looks like {:?} output (struct/enum literals, arrays, etc).
 -- kind: nil => :new (horizontal), 'v' => :vnew (vertical)
 -- opts.edition: Rust edition for rustfmt (default '2021')
 -- opts.extra_args: extra rustfmt args, e.g. { '--config', 'max_width=100' }
-local function rust_debugfmt_selection_to_new(kind, opts)
+local function rust_debugfmt_selection_to_new(bufnr, line1, line2, kind, opts)
 	opts = opts or {}
 	local edition = opts.edition or "2021"
 
-	-- 1) Get exact visual selection (charwise/linewise; either direction)
-	local s = vim.fn.getpos("'<")
-	local e = vim.fn.getpos("'>")
-	if s[2] > e[2] or (s[2] == e[2] and s[3] > e[3]) then
-		s, e = e, s
-	end
-
-	local lines = vim.api.nvim_buf_get_lines(0, s[2] - 1, e[2], false)
+	-- 1) Get lines directly from the range (line1/line2 are 1-based, inclusive)
+	local lines = vim.api.nvim_buf_get_lines(bufnr, line1 - 1, line2, false)
 	if #lines == 0 then
 		vim.notify("No selection", vim.log.levels.WARN)
 		return
-	end
-	if #lines == 1 then
-		lines[1] = string.sub(lines[1], s[3], e[3])
-	else
-		lines[1] = string.sub(lines[1], s[3])
-		lines[#lines] = string.sub(lines[#lines], 1, e[3])
 	end
 	local input = table.concat(lines, "\n")
 
@@ -247,6 +225,13 @@ local function rust_debugfmt_selection_to_new(kind, opts)
 	vim.bo.modifiable = false
 end
 
-vim.keymap.set("x", "<leader>rd", function()
-	rust_debugfmt_selection_to_new("v", { edition = "2021" })
-end, { silent = true, desc = "Pretty-print Rust Debug output → new scratch buffer" })
+vim.api.nvim_create_user_command("RustDebugFmtToNew", function(opts)
+	rust_debugfmt_selection_to_new(vim.api.nvim_get_current_buf(), opts.line1, opts.line2, "v", { edition = "2021" })
+end, { range = true })
+
+vim.keymap.set(
+	"x",
+	"<leader>rd",
+	":'<,'>RustDebugFmtToNew<cr>",
+	{ silent = true, desc = "Pretty-print Rust Debug output → new scratch buffer" }
+)
