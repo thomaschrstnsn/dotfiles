@@ -122,6 +122,13 @@ in
       changeDirWidgetCommand = "fd --type d";
     };
 
+    programs.nh = {
+      enable = true;
+      clean = {
+        enable = true;
+      };
+    };
+
     programs.htop.enable = true;
 
     programs.btop = {
