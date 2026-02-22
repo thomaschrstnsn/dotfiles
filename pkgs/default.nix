@@ -8,7 +8,6 @@ with pkgs;
     hyprfocus = callPackage ./hyprfocus.nix { };
     pyenv-nix-install = inputs.pyenv-nix-install.packages.${system}.default;
     screentime-web = callPackage ./screentime-web.nix { };
-    sketchybar = import ./sketchybar { inherit pkgs nixpkgs; };
     screentime-collector = callPackage ./screentime-collector.nix { };
     zen-browser = inputs.zen-browser.packages."${system}".default;
   };
