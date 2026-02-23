@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, lib, ... }:
 
 with lib;
 
@@ -28,30 +28,27 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.interactiveShellInit = ''
-      eval "$(${config.homebrew.brewPrefix}/brew shellenv)"
-    '';
+    homebrew = {
+      enable = true;
+      onActivation.autoUpdate = true;
+      onActivation.cleanup = "zap";
+      global.brewfile = true;
 
-    homebrew.enable = true;
-    homebrew.onActivation.autoUpdate = true;
-    homebrew.onActivation.cleanup = "zap";
-    homebrew.global.brewfile = true;
-    homebrew.global.lockfiles = true;
+      masApps = { };
 
-    homebrew.masApps = { };
+      taps = [
+      ] ++ cfg.extraTaps;
 
-    homebrew.taps = [
-    ] ++ cfg.extraTaps;
+      brews = cfg.extraBrews;
 
-    homebrew.brews = cfg.extraBrews;
-
-    homebrew.casks = [
-      "1password"
-      "1password-cli"
-      "numi"
-      "raycast"
-      "spotify"
-      "visual-studio-code"
-    ] ++ cfg.extraCasks;
+      casks = [
+        "1password"
+        "1password-cli"
+        "numi"
+        "raycast"
+        "spotify"
+        "visual-studio-code"
+      ] ++ cfg.extraCasks;
+    };
   };
 }
