@@ -150,7 +150,6 @@
               system.primaryUser = config.user.name;
             }
 
-            ./darwin/services
             ./darwin/modules
           ] ++ extraModules;
         };
