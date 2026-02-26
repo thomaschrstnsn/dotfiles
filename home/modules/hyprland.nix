@@ -382,7 +382,17 @@ in
             resize_on_border = true;
             gaps_in = 5;
             gaps_out = 5;
+
+            layout = "master";
           };
+
+          master = {
+            mfact = 0.5;
+            orientation = "center";
+            slave_count_for_center_master = 0;
+            center_master_fallback = "right";
+          };
+
           cursor.inactive_timeout = 3;
 
           misc = {
@@ -508,8 +518,8 @@ in
 
           # https://wiki.hyprland.org/Configuring/Monitors/#rotating
           monitor = [
-            "DP-3, 2560x1440@165, 0x0, 1"
-            "HDMI-A-1, 2560x1440@60, 2560x-100, 1, transform, 1"
+            # "HDMI-A-1, 5120x1440@240, 0x0, 1, vrr, 1, bitdepth, 10"
+            "HDMI-A-1, 5120x1440@240, 0x0, 1, bitdepth, 10"
             ", preferred, auto, 1"
           ];
         };
