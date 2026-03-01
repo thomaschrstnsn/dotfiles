@@ -1,4 +1,4 @@
-{ pkgs, system, lib, myPkgs }:
+{ pkgs, system, lib, myPkgs, inputs ? { } }:
 
 {
   overlays = [
@@ -36,5 +36,7 @@
     #     };
     #   });
     # })
+  ] ++ lib.optionals (inputs ? komorebi) [
+    inputs.komorebi.overlays.default
   ];
 }

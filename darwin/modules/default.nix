@@ -6,6 +6,7 @@
     ./fonts.nix
     ./homebrew.nix
     ./jankyborders.nix
+    ./komorebi.nix
     ./mermaid-cli.nix
     ./osx.nix
     ./skhd.nix

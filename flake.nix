@@ -65,6 +65,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    komorebi = {
+      url = "github:LGUG2Z/komorebi-for-mac";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # gaming
     nix-citizen = {
       url = "github:LovingMelody/nix-citizen";
@@ -146,6 +151,10 @@
                 useUserPackages = true;
               };
             }
+
+            # komorebi tiling window manager for macOS
+            inputs.komorebi.darwinModules.default
+
             {
               system.primaryUser = config.user.name;
             }
@@ -259,7 +268,7 @@
           }) myPkgs;
 
           inherit (import ./overlays {
-            inherit system lib myPkgs;
+            inherit system lib myPkgs inputs;
             pkgs = pkgsWithoutOverlays; # Use the base pkgs
           }) overlays;
 
