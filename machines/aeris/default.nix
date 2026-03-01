@@ -75,8 +75,16 @@ in
 
   darwin = {
     aerospace = {
-      enable = true;
+      enable = false;
       hideMenuBar = true;
+    };
+    komorebi = {
+      enable = true;
+      bar.enable = false;
+      gaps.inner = 4;
+      # Optional: customize
+      # bar.monitors = [ 0 1 ];  # bars on multiple monitors
+      # bar.font.family = "Maple Mono NF";
     };
     homebrew = {
       enable = true;
@@ -93,7 +101,7 @@ in
       extraTaps = [
       ];
     };
-    jankyborders.enable = true;
+    jankyborders.enable = false;
     skhd = {
       enable = true;
       browser = "Arc";
