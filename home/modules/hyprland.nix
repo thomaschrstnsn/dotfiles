@@ -26,6 +26,8 @@ let
     starter = app: "${pkgs.gtk3}/bin/gtk-launch ${app}.desktop";
     # class = app: "webapp-${app}";
   };
+
+  mainMonitor = "HDMI-A-1";
 in
 {
   options.tc.hyprland = with types; {
@@ -237,27 +239,6 @@ in
         };
       };
 
-      services.hyprpaper = {
-        enable = true;
-        settings = {
-          # https://wallhaven.cc/
-          # ├── portrait
-          # │   ├── wallhaven-9dp961_2160x3840.png
-          # │   ├── wallhaven-m3k8jk_1311x1900.png
-          # │   └── wallhaven-yxrgjx_1440x2560.png
-          # └── wide
-          #     ├── wallhaven-m3kggk_3840x2160.png
-          #     ├── wallhaven-rrl8rw_3840x2160.png
-          #     └── wallhaven-yxp6zl_3840x2160.png
-          preload = [ "~/.wallpaper/wide/wallhaven-m3kggk_3840x2160.png" "~/.wallpaper/portrait/wallhaven-9dp961_2160x3840.png" ];
-          wallpaper = [
-            "DP-2,~/.wallpaper/wide/wallhaven-m3kggk_3840x2160.png"
-            "HDMI-A-1,~/.wallpaper/portrait/wallhaven-9dp961_2160x3840.png"
-          ];
-
-        };
-      };
-
       wayland.windowManager.hyprland = {
         enable = true;
 
@@ -291,13 +272,14 @@ in
             (mkIfList (cfg.clipboard == "clipse") [ "clipse -listen" ])
           ];
 
+
           workspace = [
-            "name:t, monitor:DP-2, default:true, persistent:true"
-            "name:u, monitor:HDMI-A-1, default:true, persistent:true"
-            "name:b, monitor:DP-2, persistent:true"
-            "name:p, monitor:DP-2, persistent:true"
-            "name:c, monitor:DP-2, persistent:true"
-            "name:m, monitor:DP-2, persistent:true"
+            "name:t, monitor:${mainMonitor}, default:true, persistent:true"
+            "name:u, monitor:${mainMonitor}, persistent:true"
+            "name:b, monitor:${mainMonitor}, persistent:true"
+            "name:p, monitor:${mainMonitor}, persistent:true"
+            "name:c, monitor:${mainMonitor}, persistent:true"
+            "name:m, monitor:${mainMonitor}, persistent:true"
           ];
           windowrule =
             let
@@ -510,16 +492,16 @@ in
                   ]
                 )
                 [
-                  ''$hyper, grave, exec, hyprctl reload'' # reload config, bring back monitors
-                  ''$hyper, 1, exec, hyprctl keyword monitor "DP-2, disable"'' # disable first monitor
-                  ''$hyper, 2, exec, hyprctl keyword monitor "HDMI-A-1, disable"'' # disable second monitor
+                  # ''$hyper, grave, exec, hyprctl reload'' # reload config, bring back monitors
+                  # ''$hyper, 1, exec, hyprctl keyword monitor "DP-2, disable"'' # disable first monitor
+                  # ''$hyper, 2, exec, hyprctl keyword monitor "HDMI-A-1, disable"'' # disable second monitor
                 ]
               ];
 
           # https://wiki.hyprland.org/Configuring/Monitors/#rotating
           monitor = [
             # "HDMI-A-1, 5120x1440@240, 0x0, 1, vrr, 1, bitdepth, 10"
-            "HDMI-A-1, 5120x1440@240, 0x0, 1, bitdepth, 10"
+            "${mainMonitor}, 5120x1440@240, 0x0, 1, bitdepth, 10"
             ", preferred, auto, 1"
           ];
         };
