@@ -136,7 +136,7 @@ in
       terminal = "ghostty";
       extraAppShortcuts = {
         "hyper - c" = "Microsoft Teams";
-        "hyper - g" = "ChatGPT";
+        "hyper - g" = "Claude";
         "hyper - i" = "Microsoft Outlook";
         "hyper - z" = "Spotify";
         "hyper - p" = "todoist";
