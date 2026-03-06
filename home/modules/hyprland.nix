@@ -301,7 +301,7 @@ in
                 "center on, match:class xdg-desktop-portal-gtk, match:title ^(${filePickers})"
 
                 # Float Steam windows, except primary
-                "float on, center on, match:class steam"
+                "float on, match:class steam"
                 "tile on, match:class steam, match:title Steam"
 
                 "tile on, match:class ^(path of building.exe)"
