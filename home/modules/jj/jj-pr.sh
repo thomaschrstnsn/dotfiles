@@ -37,5 +37,13 @@ echo title "$TITLE"
 
 gum confirm "create the pr?" || exit 1
 
-# jj-pr-diff "$REV" | fabric -p write_pull-request | gh pr create -B "$TRUNK" --body-file - -H "$BRANCH" --title "$TITLE" -w
-gh pr create -B "$TRUNK" -H "$BRANCH" --title "$TITLE" -w
+BODY_ARGS=()
+if command -v jj-ai-pr-describe &>/dev/null && gum confirm "generate AI description?" --default=true; then
+  echo "Generating PR description..."
+  BODY_FILE=$(mktemp /tmp/jj-pr-body-XXXXXX.md)
+  trap 'rm -f "$BODY_FILE"' EXIT
+  jj-ai-pr-describe "$REV" > "$BODY_FILE"
+  BODY_ARGS=(--body-file "$BODY_FILE")
+fi
+
+gh pr create -B "$TRUNK" -H "$BRANCH" --title "$TITLE" "${BODY_ARGS[@]}" -w
