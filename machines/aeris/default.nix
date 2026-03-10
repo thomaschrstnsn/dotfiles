@@ -18,7 +18,10 @@ in
       enable = true;
       sdks = [ "8.0" "9.0" ];
     };
-    fabric.enable = true;
+    fabric = {
+      enable = true;
+      aiBackend = "claude";
+    };
     fish.enable = true;
     git = {
       enable = true;

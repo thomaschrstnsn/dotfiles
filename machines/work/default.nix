@@ -41,7 +41,10 @@ in
       enable = true;
       sdks = [ "8.0" "9.0" "10.0" ];
     };
-    fabric.enable = true;
+    fabric = {
+      enable = true;
+      aiBackend = "opencode";
+    };
     fish.enable = true;
     nodejs.enable = true;
     git = {
