@@ -12,14 +12,14 @@ echo creating PR from revision
 jj log -r "$REV" -G
 echo
 
-BRANCH=$(jj log -T "self.local_bookmarks()" -G -r "$REV")
+BRANCH=$(jj log -T "self.local_bookmarks()" --no-graph --color=never -r "$REV")
 if [ -z "$BRANCH" ]; then
   gum log -l error Revision is without local bookmark, cannot create PR
   exit 1
 fi
 echo local bookmark/branch "$BRANCH"
 
-SYNCED=$(jj log -T 'self.local_bookmarks().any(|bm| bm.synced()) && self.remote_bookmarks().any(|bm| bm.synced())' -G -r "$REV")
+SYNCED=$(jj log -T 'self.local_bookmarks().any(|bm| bm.synced()) && self.remote_bookmarks().any(|bm| bm.synced())' --no-graph --color=never -r "$REV")
 
 if [ "$SYNCED" = "true" ]; then
   echo ✅ bookmark is synced with remote
@@ -28,7 +28,11 @@ else
   gum confirm "bookmark does not appear to be synced/pushed, continue anyways?" --negative="Stop" --affirmative="Ignore issue" --default=false || exit 1
 fi
 
-TRUNK=$(jj log -T 'self.local_bookmarks()' -G -r 'trunk()')
+# trunk() may have multiple bookmarks; prefer main/master, otherwise take the first
+TRUNK=$(jj log -T 'self.local_bookmarks().map(|b| b.name() ++ "\n")' --no-graph --color=never -r 'trunk()' \
+  | grep -m1 -E '^(main|master)$' \
+  || jj log -T 'self.local_bookmarks().map(|b| b.name() ++ "\n")' --no-graph --color=never -r 'trunk()' \
+  | grep -m1 .)
 
 echo trunk "$TRUNK"
 

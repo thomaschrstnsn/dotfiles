@@ -59,7 +59,11 @@ let
         exit 1
       fi
       REV=$1
-      TRUNK=$(jj log -T 'self.local_bookmarks()' -r 'trunk()')
+      # trunk() may have multiple bookmarks; prefer main/master, otherwise take the first
+      TRUNK=$(jj log -T 'self.local_bookmarks().map(|b| b.name() ++ "\n")' --no-graph --color=never -r 'trunk()' \
+        | grep -m1 -E '^(main|master)$' \
+        || jj log -T 'self.local_bookmarks().map(|b| b.name() ++ "\n")' --no-graph --color=never -r 'trunk()' \
+        | grep -m1 .)
       ${lib.optionalString (cfg.aiBackend == "fabric") ''
         jj diff --from "heads(::$REV & ::$TRUNK)" --to "$REV" --git | fabric -p write_pull-request
       ''}
