@@ -261,6 +261,7 @@ in
             [
               "hyprctl setcursor Bibata-Modern-Classic 32"
               "hyprlock"
+              "${./hypr/layout_watcher.sh}"
               "[workspace name:t silent] ${terminal.executable cfg.terminal}"
               "[workspace name:b silent] zen"
               "[workspace name:p silent] todoist-electron"
