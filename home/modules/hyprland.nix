@@ -488,6 +488,9 @@ in
                     # toggle kb_layout
                     "ALT, Space, exec, ${./hypr/toggle_kb_layout.sh} ${cfg.keyboard}"
 
+                    # toggle layout
+                    "ALT, slash, exec, ${./hypr/toggle_layout.sh}"
+
                     "SUPER, Tab, focuscurrentorlast"
                   ]
                 )
