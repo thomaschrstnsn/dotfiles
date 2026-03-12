@@ -450,6 +450,11 @@ in
                   "alt, k, movefocus, u"
                   "alt, l, movefocus, r"
 
+                  "alt shift, h, swapwindow, l"
+                  "alt shift, j, swapwindow, d"
+                  "alt shift, k, swapwindow, u"
+                  "alt shift, l, swapwindow, r"
+
                   "$hyper, q, movecurrentworkspacetomonitor, l"
                   "$hyper, w, movecurrentworkspacetomonitor, r"
                 ]
