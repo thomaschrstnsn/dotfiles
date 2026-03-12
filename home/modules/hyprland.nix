@@ -277,7 +277,7 @@ in
             "name:t, monitor:${mainMonitor}, default:true, persistent:true"
             "name:u, monitor:${mainMonitor}, persistent:true"
             "name:b, monitor:${mainMonitor}, persistent:true"
-            "name:p, monitor:${mainMonitor}, persistent:true"
+            "name:p, monitor:${mainMonitor}, persistent:true, layout:dwindle"
             "name:c, monitor:${mainMonitor}, persistent:true"
             "name:m, monitor:${mainMonitor}, persistent:true"
           ];
