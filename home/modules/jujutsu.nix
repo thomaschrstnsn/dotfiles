@@ -280,38 +280,36 @@ in
                 revision_command = [ "show" "-r" "$change_id" "--tool" "delta" ];
                 file_command = [ "diff" "-r" "$change_id" "--tool" "delta" "$file" ];
               };
-              custom_commands = {
-                "split gitpatch" = {
-                  args = [ "split" "--tool" "gitpatch" "-r" "$change_id" "$file" ];
-                  key = [ "ctrl+s" ];
-                  show = "interactive";
-                };
-                "show diff" = {
-                  key = [ "U" ];
-                  args = [ "diff" "--tool" "delta" "-r" "$change_id" "--color" "always" ];
-                  show = "diff";
-                };
-                "create pr" = {
-                  key = [ "ctrl+p" ];
+              actions = [
+                {
+                  name = "show-diff";
+                  lua = ''
+                    local out = jj("diff", "--tool", "delta", "-r", context.change_id(), "--color", "always")
+                    diff.show(out)
+                  '';
+                }
+                {
+                  name = "create-pr";
                   lua = readFile ./jj/jj-pr.lua;
-                };
-                "resolve vscode" = {
-                  key = [ "V" ];
-                  args = [ "resolve" "--tool" "vscode" ];
-                  show = "interactive";
-                };
-                tug = {
-                  key = [ "t" ];
-                  args = [
-                    "bookmark"
-                    "move"
-                    "--from"
-                    "closest_bookmark($change_id)"
-                    "--to"
-                    "closest_pushable($change_id)"
-                  ];
-                };
-              };
+                }
+                {
+                  name = "resolve-vscode";
+                  lua = ''jj_interactive("resolve", "--tool", "vscode")'';
+                }
+                {
+                  name = "tug";
+                  lua = ''
+                    jj_async("bookmark", "move", "--from", "closest_bookmark(" .. context.change_id() .. ")", "--to", "closest_pushable(" .. context.change_id() .. ")")
+                    revisions.refresh()
+                  '';
+                }
+              ];
+              bindings = [
+                { action = "show-diff"; key = "U"; scope = "revisions"; desc = "show diff"; }
+                { action = "create-pr"; key = "ctrl+p"; scope = "revisions"; desc = "create pr"; }
+                { action = "resolve-vscode"; key = "V"; scope = "revisions"; desc = "resolve vscode"; }
+                { action = "tug"; key = "t"; scope = "revisions"; desc = "tug"; }
+              ];
             };
           };
         }
