@@ -180,6 +180,7 @@ in
 
   extraPackages = pkgs: with pkgs; [
     bacon
+    claude-code
     devenv
     kitty
     natscli
