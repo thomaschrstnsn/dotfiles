@@ -112,7 +112,10 @@ in
     tmux = {
       enable = true;
       theme = "rose-pine";
-      aiAgent.enable = true;
+      aiAgent = {
+        enable = true;
+        agentExec = "claude";
+      };
     };
   }];
 

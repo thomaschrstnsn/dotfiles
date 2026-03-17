@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# agent exec
+AGENT_EXEC="$1"
+
 # Get current session ID for per-session storage
 current_session=$(tmux display-message -p "#{session_id}")
 agent_var="@agent_pane_${current_session}"
@@ -64,4 +67,4 @@ new_pane_id=$(tmux display-message -p "#{pane_id}")
 new_window_id=$(tmux display-message -p "#{window_id}")
 tmux set -g "$agent_var" "$new_pane_id:$new_window_id"
 
-tmux send-keys -t "$new_pane_id" "opencode" Enter
+tmux send-keys -t "$new_pane_id" "$AGENT_EXEC" Enter

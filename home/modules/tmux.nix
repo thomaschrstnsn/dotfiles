@@ -41,7 +41,14 @@ in
       default = "auto";
       description = "override the extrakto_clip_tool";
     };
-    aiAgent.enable = mkEnableOption "tmux ai agent integration";
+    aiAgent = {
+      enable = mkEnableOption "tmux ai agent integration";
+      agentExec = mkOption {
+        type = enum [ "opencode" "claude" ];
+        default = "opencode";
+        description = "agent executable to launch in agent pane";
+      };
+    };
   };
 
   config = mkIf cfg.enable {
@@ -64,6 +71,7 @@ in
     xdg.configFile."tmux/${remoteConfigFile}".text = ''
       # set-option -g status-position bottom
     '';
+
     programs.tmux = {
       enable = true;
       clock24 = true;
@@ -145,7 +153,7 @@ in
 
         ${if cfg.aiAgent.enable then ''
           # AI Agent integration
-          bind-key a run-shell ${tmux/agent-toggle.sh}
+          bind-key a run-shell "${tmux/agent-toggle.sh} ${cfg.aiAgent.agentExec}"
           '' else ""}
 
         # remote / nested session support.
