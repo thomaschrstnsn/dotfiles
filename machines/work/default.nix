@@ -128,9 +128,7 @@ in
     jankyborders.enable = true;
     homebrew = {
       enable = true;
-      extraBrews = [
-        "Azure/kubelogin/kubelogin"
-      ];
+      extraBrews = [ ];
       extraCasks = [
         "arc"
         "chatgpt"
@@ -143,7 +141,6 @@ in
         "webcatalog"
       ];
       extraTaps = [
-        "Azure/kubelogin"
         "timac/vpnstatus"
       ];
     };
@@ -192,7 +189,7 @@ in
     # kubernetes tools
     kubectl
     k9s
-    # kubelogin
+    kubelogin
   ];
 
   system = "aarch64-darwin";
