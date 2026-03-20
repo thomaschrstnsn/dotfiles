@@ -114,7 +114,7 @@ in
       theme = "rose-pine";
       aiAgent = {
         enable = true;
-        agentExec = "claude";
+        agentExec = "opencode";
       };
     };
   }];
