@@ -19,9 +19,8 @@ let
 
     "com.todoist.mac.Todoist" = "P";
 
-    "com.mitchellh.ghostty" = "T";
-
-    "com.electron.logseq" = "U";
+    # "com.mitchellh.ghostty" = "T";
+    # "com.electron.logseq" = "U";
   };
 
   workspaceBinds = ws: {
