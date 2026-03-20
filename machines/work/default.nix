@@ -137,6 +137,7 @@ in
         "jetbrains-toolbox"
         "meetingbar"
         "rancher"
+        "shottr"
         "vpnstatus"
         "webcatalog"
       ];
