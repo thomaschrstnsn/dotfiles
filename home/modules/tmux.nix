@@ -322,23 +322,54 @@ in
 
     programs.fish = {
       interactiveShellInit = lib.mkOrder 5000 (if cfg.disableAutoStarting then "" else ''
+        # disable the tmux.fish plugin autostart — we handle it ourselves with sesh
+        set fish_tmux_autostart false
+        set -q fish_tmux_autostarted; or set -gx fish_tmux_autostarted false
         set fish_tmux_autoquit false
-        set fish_tmux_autostart_once true
-        set fish_tmux_autoconnect false
 
-        if test -n "$SSH_CONNECTION"; and test -z "$TMUX";
-          echo "fish: autostarting tmux"
+        if test -n "$SSH_CONNECTION"; and test -z "$TMUX"
           set fish_tmux_autoquit true
 
           # ssh agent forwarding
           set fish_tmux_ssh_auth_sock /tmp/ssh-agent-${usercfg.username}-tmux
-          if test -S $SSH_AUTH_SOCK;
+          if test -S $SSH_AUTH_SOCK
             echo "fish: forwarding ssh agent"
             ln -sf $SSH_AUTH_SOCK $fish_tmux_ssh_auth_sock
           end
           set -gx SSH_AUTH_SOCK $fish_tmux_ssh_auth_sock
         end
-        set fish_tmux_autostart true
+
+        # sesh-integrated tmux autostart
+        if test -z "$TMUX" \
+            && test -z "$INSIDE_EMACS" && test -z "$EMACS" \
+            && test -z "$VIM" && test -z "$NVIM" \
+            && test -z "$INTELLIJ_ENVIRONMENT_READER" \
+            && test -z "$VSCODE_RESOLVING_ENVIRONMENT" \
+            && test "$TERM_PROGRAM" != vscode \
+            && test "$TERM_PROGRAM" != zed \
+            && test "$TERMINAL_EMULATOR" != JetBrains-JediTerm \
+            && test "$fish_tmux_autostarted" != true
+
+          set -gx fish_tmux_autostarted true
+
+          if command tmux list-sessions 2>/dev/null | command grep -q .
+            # existing sessions — let user pick via sesh
+            set selected (sesh list -i | gum filter --limit 1 --no-sort --placeholder 'Pick a sesh' --height 50 --prompt='⚡')
+            if test -n "$selected"
+              sesh connect "$selected"
+            else
+              # user cancelled — create new default session
+              command tmux new-session
+            end
+          else
+            # no sessions — create new default session
+            command tmux new-session
+          end
+
+          if test "$fish_tmux_autoquit" = true
+            kill $fish_pid
+          end
+        end
       '');
       plugins = [
         {
