@@ -38,7 +38,7 @@ in
     azure.enable = true;
     direnv.enable = true;
     dotnet = {
-      enable = false; # disabled per an update that built the world for 22 mins...
+      enable = true; # disabled per an update that built the world for 22 mins...
       # dotnet-stage0-vmr>   [06.30.52.15] Building windowsdesktop...done
       # dotnet-stage0-vmr>   New artifact(s) after building windowsdesktop:
       # dotnet-stage0-vmr>     -> Microsoft.WindowsDesktop.App.Internal/10.0.3-servicing.26075.103
@@ -51,7 +51,11 @@ in
       # dotnet-stage0-vmr>   DirSize After CleanupRepo windowsdesktop
       # dotnet-stage0-vmr>   Filesystem      Size  Used Avail Use% Mounted on
       # dotnet-stage0-vmr>   /dev/disk3s7    461G  401G   60G  88% /nix
-      sdks = [ "8.0" "9.0" "10.0" ];
+      sdks = [
+        "8.0"
+        "9.0"
+        # "10.0" 
+      ];
     };
     fabric = {
       enable = true;
