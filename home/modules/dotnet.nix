@@ -12,8 +12,8 @@ let
   });
 
   # https://github.com/NixOS/nixpkgs/blob/master/pkgs/development/compilers/dotnet/default.nix
-  combinedDotnet = with pkgs; with dotnetCorePackages;
-    combinePackages (map (sdk: getAttr sdk lookup) cfg.sdks);
+  combinedDotnet = mkIf (cfg.sdks != [ ]) (with pkgs; with dotnetCorePackages;
+    combinePackages (map (sdk: getAttr sdk lookup) cfg.sdks));
 in
 {
   options.tc.dotnet = {
@@ -31,41 +31,52 @@ in
       combinedDotnet
       fd
     ];
+    programs = {
+      zsh = {
+        oh-my-zsh.plugins = [ "dotnet" ];
 
-    programs.zsh.oh-my-zsh.plugins = [ "dotnet" ];
+        shellAliases = {
+          rider = ''open -na "Rider.app" --args "$@"''; # https://www.jetbrains.com/help/rider/Working_with_the_IDE_Features_from_Command_Line.html#10c968a9
+          r = "rider $(fd --type f --glob '*.{sln,??proj}' | fzf)";
+        };
 
-    programs.zsh.shellAliases = {
-      rider = ''open -na "Rider.app" --args "$@"''; # https://www.jetbrains.com/help/rider/Working_with_the_IDE_Features_from_Command_Line.html#10c968a9
-      r = "rider $(fd --type f --glob '*.{sln,??proj}' | fzf)";
+        initContent = ''
+          export PATH=$PATH:~/.dotnet/tools
+
+          _fzf_complete_rider() {
+            _fzf_complete --multi --reverse -- "$@" < <(
+              fd --type f --glob '*.{sln,??proj}'
+            )
+          }
+
+          export ASPNETCORE_ENVIRONMENT="Development"
+        '' + (if cfg.sdks != [ ] then ''
+          # https://discourse.nixos.org/t/dotnet-maui-workload/20370/24
+          export DOTNET_PATH="${combinedDotnet}/bin/dotnet"
+          export DOTNET_ROOT="${combinedDotnet}/share/dotnet"
+        '' else ''
+          export PATH=/usr/local/share/dotnet:$PATH
+        '');
+      };
+      fish = {
+        shellAliases = {
+          rider = ''open -na "Rider.app" --args $args''; # https://www.jetbrains.com/help/rider/Working_with_the_IDE_Features_from_Command_Line.html#10c968a9
+          r = "rider $(fd --type f --glob '*.{sln,??proj}' | fzf)";
+        };
+
+        interactiveShellInit = ''
+          set PATH $PATH ~/.dotnet/tools
+
+          set ASPNETCORE_ENVIRONMENT Development
+
+        '' + (if cfg.sdks != [ ] then ''
+          # https://discourse.nixos.org/t/dotnet-maui-workload/20370/24
+          set DOTNET_PATH "${combinedDotnet}/bin/dotnet"
+          set DOTNET_ROOT "${combinedDotnet}/share/dotnet"
+        '' else ''
+          fish_add_path /usr/local/share/dotnet
+        '');
+      };
     };
-
-    programs.fish.shellAliases = {
-      rider = ''open -na "Rider.app" --args $args''; # https://www.jetbrains.com/help/rider/Working_with_the_IDE_Features_from_Command_Line.html#10c968a9
-      r = "rider $(fd --type f --glob '*.{sln,??proj}' | fzf)";
-    };
-
-    programs.fish.interactiveShellInit = ''
-      set PATH $PATH ~/.dotnet/tools
-
-      set ASPNETCORE_ENVIRONMENT Development
-
-      # https://discourse.nixos.org/t/dotnet-maui-workload/20370/24
-      set DOTNET_PATH "${combinedDotnet}/bin/dotnet"
-      set DOTNET_ROOT "${combinedDotnet}/share/dotnet"
-    '';
-
-    programs.zsh.initContent = ''
-      export PATH=$PATH:~/.dotnet/tools
-
-      _fzf_complete_rider() {
-        _fzf_complete --multi --reverse -- "$@" < <(
-          fd --type f --glob '*.{sln,??proj}'
-        )
-      }
-
-      export ASPNETCORE_ENVIRONMENT="Development"
-      export DOTNET_PATH="${combinedDotnet}/bin/dotnet"
-      export DOTNET_ROOT="${combinedDotnet}/share/dotnet"
-    '';
   };
 }

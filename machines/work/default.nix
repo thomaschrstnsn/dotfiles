@@ -39,23 +39,7 @@ in
     direnv.enable = true;
     dotnet = {
       enable = true; # disabled per an update that built the world for 22 mins...
-      # dotnet-stage0-vmr>   [06.30.52.15] Building windowsdesktop...done
-      # dotnet-stage0-vmr>   New artifact(s) after building windowsdesktop:
-      # dotnet-stage0-vmr>     -> Microsoft.WindowsDesktop.App.Internal/10.0.3-servicing.26075.103
-      # dotnet-stage0-vmr>     -> Microsoft.WindowsDesktop.App.Ref/10.0.3
-      # dotnet-stage0-vmr>     -> WindowsDesktop/10.0.3-servicing.26075.103/productVersion.txt
-      # dotnet-stage0-vmr>     -> WindowsDesktop/10.0.3-servicing.26075.103/windowsdesktop-productVersion.txt
-      # dotnet-stage0-vmr>   DirSize After Building windowsdesktop
-      # dotnet-stage0-vmr>   Filesystem      Size  Used Avail Use% Mounted on
-      # dotnet-stage0-vmr>   /dev/disk3s7    461G  401G   60G  88% /nix
-      # dotnet-stage0-vmr>   DirSize After CleanupRepo windowsdesktop
-      # dotnet-stage0-vmr>   Filesystem      Size  Used Avail Use% Mounted on
-      # dotnet-stage0-vmr>   /dev/disk3s7    461G  401G   60G  88% /nix
-      sdks = [
-        "8.0"
-        "9.0"
-        # "10.0" 
-      ];
+      sdks = [ ]; # empty to install outside nix
     };
     fabric = {
       enable = true;
@@ -69,7 +53,7 @@ in
     } // { inherit (vcs) alternativeConfigs; } // vcs.primaryConfig;
     ghostty = {
       enable = true;
-      font.size = 14;
+      font.size = 16;
       font.family = "Maple Mono NF";
       windowBackgroundOpacity = 0.90;
       package = null;
@@ -184,6 +168,7 @@ in
   };
 
   extraPackages = pkgs: with pkgs; [
+    azure-functions-core-tools
     bacon
     claude-code
     devenv
