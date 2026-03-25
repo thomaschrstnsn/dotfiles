@@ -48,6 +48,21 @@
     '';
   };
 
+  # Increase file descriptor limits to prevent "Too many open files" during Nix builds
+  launchd.daemons.limit-maxfiles = {
+    serviceConfig = {
+      Label = "limit.maxfiles";
+      ProgramArguments = [
+        "launchctl"
+        "limit"
+        "maxfiles"
+        "524288"
+        "524288"
+      ];
+      RunAtLoad = true;
+    };
+  };
+
   # todo: enable Accessibility > Display > Reduce Motion 
   # system.defaults.universalaccess.reduceMotion = 1;
 }

@@ -29,6 +29,8 @@ in
 
       interactiveShellInit = lib.mkOrder 1000 (
         ''
+          ulimit -n 524288 2>/dev/null
+
           set PATH $PATH ~/bin
 
           fish_config theme choose "ayu Mirage"
