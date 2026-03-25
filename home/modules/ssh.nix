@@ -97,7 +97,7 @@ in
           {
             "10.100.*.*" = az_options;
             "lazertrader-dev" = az_options // { hostname = "10.100.128.4"; };
-            "rusty-worker-lnx-d-01" = az_options // { hostname = "10.100.128.5"; };
+            "rusty-worker-lnx-d-01" = az_options // { hostname = "10.100.128.7"; };
             "lazertrader-prod-old" = az_options // { hostname = "10.100.0.5"; };
             "lazertrader-prod" = az_options // { hostname = "10.100.0.8"; };
           };
