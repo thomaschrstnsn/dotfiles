@@ -214,7 +214,7 @@ in
         enable = true;
         settings = {
           general = {
-            lock_cmd = "pidof hyprlock || hyprlock";
+            lock_cmd = "pidof hyprlock || env WLR_EGL_NO_MODIFIERS=1 hyprlock";
             before_sleep_cmd = "loginctl lock-session";
             after_sleep_cmd = "hyprctl dispatch dpms on";
             ignore_dbus_inhibit = false;
@@ -421,7 +421,7 @@ in
                   "SUPER, Space, exec, pgrep wofi || wofi --show run"
                   "$hyper, f, fullscreen, 0"
                   "SHIFT+SUPER, f, togglefloating"
-                  "CTRL+SUPER, q, exec, pidof hyprlock || hyprlock"
+                  "CTRL+SUPER, q, exec, pidof hyprlock || env WLR_EGL_NO_MODIFIERS=1 hyprlock"
                   "SHIFT+SUPER, 4, exec, hyprshot -m region --clipboard-only"
                   "SHIFT+SUPER, 3, exec, hyprshot -m window --clipboard-only"
                 ]
