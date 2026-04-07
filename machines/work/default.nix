@@ -136,7 +136,6 @@ in
         "azure/functions"
       ];
     };
-    mermaidCli.enable = true;
     skhd = {
       enable = true;
       browser = "Arc";
