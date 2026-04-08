@@ -47,6 +47,11 @@ in
       lazyvim = {
         enable = true;
         installCoreDependencies = false;
+        treesitterParsers = with pkgs.vimPlugins.nvim-treesitter-parsers;
+          [
+            graphql
+            http
+          ];
         extras = {
           ai = {
             copilot.enable = cfg.copilot.enable;
