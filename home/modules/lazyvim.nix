@@ -70,6 +70,9 @@ in
           formatting = {
             prettier.enable = cfg.lang.typescript.enable;
           };
+          linting = {
+            eslint.enable = cfg.lang.typescript.enable;
+          };
           lang = {
             docker.enable = true;
             json.enable = cfg.lang.json.enable;
