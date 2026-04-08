@@ -67,6 +67,9 @@ in
             refactoring.enable = true;
             Snacks_picker.enable = true;
           };
+          formatting = {
+            prettier.enable = cfg.lang.typescript.enable;
+          };
           lang = {
             docker.enable = true;
             json.enable = cfg.lang.json.enable;
