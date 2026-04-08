@@ -306,7 +306,7 @@ in
               ];
               bindings = [
                 { action = "show-diff"; key = "U"; scope = "revisions"; desc = "show diff"; }
-                { action = "create-pr"; key = "ctrl+p"; scope = "revisions"; desc = "create pr"; }
+                { action = "create-pr"; key = "P"; scope = "revisions"; desc = "create pr"; }
                 { action = "resolve-vscode"; key = "V"; scope = "revisions"; desc = "resolve vscode"; }
                 { action = "tug"; key = "t"; scope = "revisions"; desc = "tug"; }
               ];
