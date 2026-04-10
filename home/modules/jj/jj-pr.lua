@@ -58,4 +58,3 @@ if confirm ~= "Create PR" then
 end
 -- Create the PR using gh CLI
 exec_shell("gh pr create -B " .. trunk .. " -H " .. branch .. ' --title "' .. title .. '" -w')
-flash("PR created for " .. branch)
