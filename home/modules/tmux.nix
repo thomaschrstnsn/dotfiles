@@ -129,9 +129,14 @@ in
         bind k select-pane -U
         bind l select-pane -R
 
-        bind m select-pane -m
-        bind M select-pane -M
-        bind < join-pane
+        # Cut pane (select pane) for pasting later
+        bind -n C-x select-pane -m
+        # Paste pane next to current
+        bind -n C-v join-pane
+        # move window
+        bind C-m display-popup -E -w 40% -h 40% -b rounded 'tmux move-window -t "$(tmux list-sessions -F "#{session_name}" | fzf)"'
+        # break pane into a new window
+        bind C-b break-pane
 
         bind Space last-window
         bind C-Space last-window
