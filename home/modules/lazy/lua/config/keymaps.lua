@@ -235,3 +235,18 @@ vim.keymap.set(
 	":'<,'>RustDebugFmtToNew<cr>",
 	{ silent = true, desc = "Pretty-print Rust Debug output → new scratch buffer" }
 )
+
+-- lua/config/keymaps.lua
+Snacks.toggle({
+	name = "Copilot Completion",
+	get = function()
+		return not require("copilot.client").is_disabled()
+	end,
+	set = function(state)
+		if state then
+			require("copilot.command").enable()
+		else
+			require("copilot.command").disable()
+		end
+	end,
+}):map("<leader>cp")
