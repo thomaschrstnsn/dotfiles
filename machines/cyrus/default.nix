@@ -70,6 +70,8 @@ in
     # webcord-vencord
     vesktop
     wine64
+
+    vacuum-tube
   ];
 
   system = system;
