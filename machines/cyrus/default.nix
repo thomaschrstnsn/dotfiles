@@ -94,6 +94,15 @@ in
         [
           ./hardware.nix
           ./configuration.nix
+
+          {
+            home-manager.users.thomas = {
+              services.udiskie = {
+                enable = true;
+                tray = "auto"; # Shows a tray icon for ejecting
+              };
+            };
+          }
         ];
     };
   };

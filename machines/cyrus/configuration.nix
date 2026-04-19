@@ -153,6 +153,11 @@
     adminUsers = [ "thomas" "stcol" ];
   };
 
+  # automount disks
+  services.udisks2.enable = true;
+
+
+
   # Enable sound with pipewire.
   services.pulseaudio.enable = false;
 
