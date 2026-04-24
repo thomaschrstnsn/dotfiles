@@ -160,7 +160,7 @@ in
         "* merge=mergiraf"
       ];
 
-      ignores = [ "*~" "*.swp" ".DS_Store" ".bacon-locations" ];
+      ignores = [ "*~" "*.swp" ".DS_Store" ".bacon-locations" ".claude/settings.local.json" ];
 
       includes = mapAttrsToList
         (path: altCfg: {
