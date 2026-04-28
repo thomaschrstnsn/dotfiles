@@ -43,7 +43,6 @@ in
 
       casks = [
         "1password"
-        "1password-cli"
         "numi"
         "raycast"
         "spotify"
