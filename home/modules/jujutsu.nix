@@ -260,8 +260,8 @@ in
         jjuiThemes = pkgs.fetchFromGitHub {
           owner = "vic";
           repo = "tinted-jjui";
-          rev = "a10b1c36b2cdd4a549fe1bc4065b4297d8e8e6e8";
-          sha256 = "sha256-ytkFF5QGTHFjS2dc33APzScjv66p1p60/wbfPgn8+ok";
+          rev = "9ec47f18af319ef0dff45b94b654de492ee24a61";
+          sha256 = "sha256-iPo7zAsd57NR5kXUdtNG06ziQti9XkI/3TisZ9eYmQw";
         };
 
       in
