@@ -14,10 +14,6 @@ in
       homedir = "/Users/${username}";
     };
     direnv.enable = true;
-    dotnet = {
-      enable = true;
-      sdks = [ "8.0" "9.0" ];
-    };
     fabric = {
       enable = true;
       aiBackend = "claude";
