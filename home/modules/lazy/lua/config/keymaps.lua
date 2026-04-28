@@ -1,7 +1,7 @@
 local map = vim.keymap.set
 
 map("n", "<leader><leader>", "<cmd>w<cr><esc>", { desc = "Save File" })
-map("n", "-", "<cmd>Oil<cr>", { desc = "Open Oil file-browser" })
+map("n", "-", "<cmd>Oil --float<cr>", { desc = "Open Oil file-browser" })
 map("n", "H", function()
 	vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
 end, { desc = "Toggle inlay hints" })
