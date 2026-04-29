@@ -205,6 +205,11 @@ in
     sudo.u2fAuth = true;
   };
 
+  programs.yubikey-touch-detector = {
+    enable = true;
+    libnotify = true;
+  };
+
   system.stateVersion = "24.05"; # Did you read the comment?
 }
 
