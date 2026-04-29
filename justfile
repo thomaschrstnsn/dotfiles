@@ -1,4 +1,6 @@
 alias a := apply
+alias f := format
+alias fmt := format
 alias switch := apply
 alias b := build
 alias c := check
@@ -17,6 +19,9 @@ build *args:
 
 check *args:
   nix run github:DeterminateSystems/flake-checker {{args}}
+
+format mode="check":
+  nix run nixpkgs#nixpkgs-fmt -- {{if mode == "check" { "--check" } else { "" } }} .
 
 clean TARGET="all":
   nh clean {{TARGET}}

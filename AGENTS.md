@@ -15,7 +15,8 @@
 ## Code Style Guidelines
 
 - **Nix**: Use `with lib;` imports, `mkOption`/`mkEnableOption` for options, `mkIf` for conditionals
-- **Formatting**: All Nix code must be formatted with `nixpkgs-fmt` before committing
+- **Formatting**: All Nix code must be formatted with `nixpkgs-fmt` before committing.
+  Format can be checked by `just format check` and `just format update` will make any needed changes.
 - **Indentation**: 2 spaces for Nix, 4 spaces for Lua, tabs for shell scripts
 - **Naming**: kebab-case for files, camelCase for Nix attributes, snake_case for shell variables
 - **Imports**: Group by type - stdlib, nixpkgs, local modules
@@ -31,4 +32,3 @@
 - `nixos/modules/` - NixOS system configurations
 - `machines/` - Per-machine configurations
 - `pkgs/` - Custom package definitions
-
