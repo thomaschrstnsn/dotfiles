@@ -95,7 +95,6 @@ in
             };
           in
           {
-            "10.100.*.*" = az_options;
             "lazertrader-dev" = az_options // { hostname = "10.100.128.4"; };
             "rusty-worker-lnx-d-01" = az_options // { hostname = "10.100.128.7"; };
             "lazertrader-prod-old" = az_options // { hostname = "10.100.0.5"; };
@@ -154,6 +153,21 @@ in
             (name: content: lib.nameValuePair ".ssh/${name}" { text = content; })
             cfg.publicKeys;
       }
+      (mkIf (builtins.elem "mft-az" cfg.hosts) {
+        home.file."bin/az-sshconfig.sh" = {
+          source = ./azure/az-sshconfig.sh;
+          executable = true;
+        };
+        programs.ssh.extraConfig =
+          let
+            azHosts = "10.100.*.*";
+            script = "${config.home.homeDirectory}/bin/az-sshconfig.sh";
+          in
+          ''
+            Match host "${azHosts}" exec "${script} > /dev/null"
+              IdentityFile ~/.ssh/az_ssh_config/all_ips/id_rsa
+          '';
+      })
     ]
   );
 }
