@@ -203,6 +203,12 @@ return {
 						desc = "Surround selection with code fence",
 					})
 
+					vim.keymap.set("n", "<leader>ns", function()
+						Snacks.terminal(
+							"zk sync || { echo; read -rp 'Press enter to close...'; }",
+							{ win = { position = "float" } }
+						)
+					end, { buffer = true, desc = "Zk: Sync" })
 					vim.keymap.set("n", "<leader>nb", "<cmd>ZkBacklinks<CR>", { buffer = true, desc = "Zk: Backlinks" })
 					vim.keymap.set("n", "<leader>nl", "<cmd>ZkLinks<CR>", { buffer = true, desc = "Zk: Links" })
 					vim.keymap.set("n", "<leader>nt", "<cmd>ZkTags<CR>", { buffer = true, desc = "Zk: Tags" })
