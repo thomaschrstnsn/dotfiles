@@ -196,7 +196,7 @@ in
         set -gF @popup-id-format "{popup_name}"
         bind C-p run "#{@popup-toggle} -Ed'#{pane_current_path}' -w90% -h90% --name=process_info btm"
 
-        bind-key "C-k" display-popup -E -w 40% "sesh connect \"$(
+        bind-key "C-," display-popup -E -w 40% "sesh connect \"$(
           sesh list -i | gum filter --limit 1 --no-sort --placeholder 'Pick a sesh' --height 50 --prompt='⚡'
           )\""
       '';
