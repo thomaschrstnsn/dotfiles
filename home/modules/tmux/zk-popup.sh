@@ -3,7 +3,10 @@
 ZK_SESSION="zk_personal"
 
 # Don't open a popup when already inside the zk_personal session (i.e. inside the popup)
-[ "$(tmux display-message -p '#{session_name}')" = "$ZK_SESSION" ] && exit 0
+if [ "$(tmux display-message -p '#{session_name}')" = "$ZK_SESSION" ]; then
+  tmux detach-client -s "$ZK_SESSION"
+  exit 0
+fi
 
 stored_value=$(tmux show -gqv "@zk_pane")
 
@@ -45,6 +48,11 @@ fi
 
 # Hide the status bar — zk_personal is never viewed directly, no chrome needed
 tmux set-option -t "$ZK_SESSION" status off
+
+# Select the zk window so attach-session opens at the right place
+zk_window_id=$(tmux show -gqv "@zk_pane")
+zk_window_id="${zk_window_id#*:}"
+[ -n "$zk_window_id" ] && tmux select-window -t "$zk_window_id" 2>/dev/null
 
 # Show the zk_personal session in a popup — press d to close, pane stays parked
 tmux display-popup -E -w 90% -h 90% "tmux attach-session -t $ZK_SESSION"

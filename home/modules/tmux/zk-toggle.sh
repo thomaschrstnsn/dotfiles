@@ -2,6 +2,12 @@
 
 ZK_SESSION="zk_personal"
 
+# If the popup is currently open, close it instead
+if tmux list-clients -t "$ZK_SESSION" 2>/dev/null | grep -q .; then
+  tmux detach-client -s "$ZK_SESSION"
+  exit 0
+fi
+
 stored_value=$(tmux show -gqv "@zk_pane")
 
 if [ -n "$stored_value" ]; then
