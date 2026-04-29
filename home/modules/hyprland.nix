@@ -100,7 +100,7 @@ in
         style = readFile ./wofi/style.css;
       };
 
-      gtk = {
+      gtk = rec {
         enable = true;
         gtk3.extraConfig.gtk-application-prefer-dark-theme = 1;
 
@@ -116,6 +116,8 @@ in
           name = "Adwaita-dark";
           package = pkgs.gnome-themes-extra;
         };
+
+        gtk4.theme = theme;
       };
 
       programs.hyprlock = {

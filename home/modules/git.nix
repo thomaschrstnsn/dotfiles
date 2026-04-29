@@ -103,6 +103,7 @@ in
 
     programs.git = {
       enable = true;
+      signing.format = "openpgp";
       settings = mkMerge [{
         user.name = cfg.userName;
         user.email = cfg.userEmail;
