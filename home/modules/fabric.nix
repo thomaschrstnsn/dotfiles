@@ -22,8 +22,8 @@ let
     name = "jj-ai-describe";
     runtimeInputs = with pkgs;
       [ jujutsu ]
-      ++ lib.optional (cfg.aiBackend == "fabric")  fabric-ai
-      ++ lib.optional (cfg.aiBackend == "claude")  claude-code
+      ++ lib.optional (cfg.aiBackend == "fabric") fabric-ai
+      ++ lib.optional (cfg.aiBackend == "claude") claude-code
       ++ lib.optional (cfg.aiBackend == "opencode") opencode;
     text = ''
       if [ $# -ne 1 ]; then
@@ -50,8 +50,8 @@ let
     name = "jj-ai-pr-describe";
     runtimeInputs = with pkgs;
       [ jujutsu ]
-      ++ lib.optional (cfg.aiBackend == "fabric")  fabric-ai
-      ++ lib.optional (cfg.aiBackend == "claude")  claude-code
+      ++ lib.optional (cfg.aiBackend == "fabric") fabric-ai
+      ++ lib.optional (cfg.aiBackend == "claude") claude-code
       ++ lib.optional (cfg.aiBackend == "opencode") opencode;
     text = ''
       if [ $# -ne 1 ]; then
