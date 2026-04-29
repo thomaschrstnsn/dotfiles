@@ -64,6 +64,7 @@ in
           keybind = [
             # "shift+enter=csi:13;2u"
             "ctrl+enter=unbind" # fullscreen on linux
+            "ctrl+,=unbind" # edit config on linux
           ];
           background-blur = true;
           background-opacity = cfg.windowBackgroundOpacity;
