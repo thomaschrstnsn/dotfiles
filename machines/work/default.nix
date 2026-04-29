@@ -177,7 +177,6 @@ in
     kitty
     natscli
     opencode
-    myPkgs.github-copilot-cli
     # kubernetes tools
     kubectl
     k9s
