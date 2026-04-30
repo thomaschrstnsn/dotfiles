@@ -18,4 +18,4 @@ jobs:
         name: thomaschrstnsn
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
     - name: Build NixOS configuration
-      run: ./build.sh nixos '${{ matrix.configuration }}'
+      run: nix run nixpkgs#nh -- os build . -H '${{ matrix.configuration }}'

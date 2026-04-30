@@ -15,4 +15,4 @@ jobs:
         name: thomaschrstnsn
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
     - name: Build Darwin configuration
-      run: ./build.sh darwin aeris
+      run: nix run nixpkgs#nh -- darwin build . -H aeris
