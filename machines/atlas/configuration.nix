@@ -90,7 +90,8 @@ in
     powerManagement.enable = true;
     open = true;
     nvidiaSettings = true;
-    package = config.boot.kernelPackages.nvidiaPackages.latest;
+    # package = config.boot.kernelPackages.nvidiaPackages.latest;
+    package = pkgs.linuxPackages.nvidiaPackages.legacy_580;
   };
 
   programs.steam.enable = true;
