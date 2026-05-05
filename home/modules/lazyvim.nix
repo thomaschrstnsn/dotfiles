@@ -58,14 +58,14 @@ in
             copilot-chat.enable = cfg.copilot.enable;
           };
           coding = {
-            Blink.enable = true;
+            blink.enable = true;
             mini-surround.enable = true;
           };
           dap = { core.enable = true; };
           editor = {
             inc-rename.enable = true;
             refactoring.enable = true;
-            Snacks_picker.enable = true;
+            snacks-picker.enable = true;
           };
           formatting = {
             prettier.enable = cfg.lang.typescript.enable;
@@ -86,7 +86,7 @@ in
           };
           lsp = { none-ls.enable = true; };
           test = { core.enable = true; };
-          ui = { Treesitter-context.enable = true; };
+          ui = { treesitter-context.enable = true; };
           util = { rest.enable = cfg.util.rest.enable; };
         };
         # TODO:
