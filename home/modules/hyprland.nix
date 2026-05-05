@@ -273,6 +273,7 @@ in
             ]
             (mkIfList (cfg.shell == "hyprpanel") [ "${pkgs.hyprpanel}/bin/hyprpanel" ])
             (mkIfList (cfg.clipboard == "clipse") [ "clipse -listen" ])
+            (mkIfList (cfg.shell == "noctalia") [ "noctalia-shell" ])
           ];
 
 
