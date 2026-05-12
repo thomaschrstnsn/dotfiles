@@ -70,6 +70,10 @@ in
 
     xdg.configFile."tmux/${remoteConfigFile}".text = ''
       # set-option -g status-position bottom
+      # c-, seems broken through one tmux session to another
+      bind-key "C-k" display-popup -E -w 40% "sesh connect \"$(
+        sesh list -i | gum filter --limit 1 --no-sort --placeholder 'Pick a sesh' --height 50 --prompt='⚡'
+        )\""
     '';
 
     programs.tmux = {
