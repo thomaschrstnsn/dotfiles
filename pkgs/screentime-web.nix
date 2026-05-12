@@ -1,6 +1,6 @@
 { pkgs }:
 
-let version = "0.2.0";
+let version = "0.2.1";
 in
 pkgs.rustPlatform.buildRustPackage {
   pname = "screentime-web";
@@ -9,11 +9,11 @@ pkgs.rustPlatform.buildRustPackage {
   src = pkgs.fetchFromGitHub {
     owner = "thomaschrstnsn";
     repo = "screentime-web";
-    rev = "af43ca7649af846a2e36a657b1f9cf5e93db9624";
-    hash = "sha256-epdpuSHmghJUOu1raC94jJgJ+8m18Ll/S+li4uEDVPE=";
+    rev = "590fcc0aca73494de759a05d9822d71cc95cdddf";
+    hash = "sha256-VeorvlYId5XCU+gUKAIezmyX/6kiUpj0QdtkfLYP9JA";
   };
 
-  cargoHash = "sha256-2qs/95iv4C5I9oKpJ8/1wQVRWnkg3ffvc3ZrVtchOvI";
+  cargoHash = "sha256-+fdT/Aeio+cW/xHrJJ1DS0gEGX5/bUe9k+HFarn1qTs";
 
   meta = with pkgs.lib; {
     description = "screentime-web";
