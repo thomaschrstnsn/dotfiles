@@ -7,9 +7,6 @@ let
     gpgVia1Password.key = sshKeys.personal.signing.publicKey;
     publicKeyFile = "~/.ssh/github-personal.pub";
   };
-  logseq = {
-    publicKeyFile = "~/.ssh/logseq-personal-deploy_ed25519";
-  };
   zkPersonal = {
     publicKeyFile = "~/.ssh/zk.personal-deploy-key_ed25519";
   };
@@ -24,7 +21,6 @@ let
     alternativeConfigs = {
       "~/dotfiles/" = personal;
       "~/personal/" = personal;
-      "~/logseq.personal/" = logseq;
       "~/zk.personal/" = zkPersonal;
     };
   };

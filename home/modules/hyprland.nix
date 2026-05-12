@@ -469,7 +469,6 @@ in
                 ] else
                   (appShortcuts "$hyper" {
                     t = terminal.class cfg.terminal;
-                    # u = "Logseq";
                     p = "Todoist";
                     # g = webapp.class "claude";
                     # c = webapp.class "icloud-calendar";

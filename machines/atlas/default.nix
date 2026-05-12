@@ -92,7 +92,6 @@ in
   }];
   extraPackages = pkgs: with pkgs; [
     devenv
-    logseq
     lnav
     mermaid-cli
     opencode
