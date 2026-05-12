@@ -75,14 +75,36 @@ in
             eslint.enable = cfg.lang.typescript.enable;
           };
           lang = {
-            docker.enable = cfg.lang.docker.enable;
-            json.enable = cfg.lang.json.enable;
+            docker = {
+              enable = cfg.lang.docker.enable;
+              installDependencies = true;
+            };
+            json = {
+              enable = cfg.lang.json.enable;
+              installDependencies = true;
+            };
             nix.enable = true;
-            markdown.enable = cfg.lang.markdown.enable;
-            python.enable = cfg.lang.python.enable;
+            markdown = {
+              enable = cfg.lang.markdown.enable;
+              installDependencies = true;
+            };
+            python = {
+              enable = cfg.lang.python.enable;
+              installDependencies = true;
+            };
             rust.enable = true;
-            toml.enable = true;
-            typescript.enable = cfg.lang.typescript.enable;
+            toml = {
+              enable = true;
+              installDependencies = true;
+            };
+            typescript = {
+              enable = cfg.lang.typescript.enable;
+              vtsls = {
+                enable = cfg.lang.typescript.enable;
+                installDependencies = true;
+              };
+              installDependencies = true;
+            };
             yaml.enable = true;
           };
           lsp = { none-ls.enable = true; };
@@ -106,19 +128,11 @@ in
             shellcheck
             statix
             stylua
-            taplo
             tree-sitter
           ]
-          (mkIfList cfg.lang.docker.enable [ hadolint ])
-          (mkIfList cfg.lang.json.enable [ vscode-langservers-extracted ])
-          (mkIfList cfg.lang.markdown.enable [
-            marksman
-            markdownlint-cli2
-          ])
-          (mkIfList cfg.lang.markdown.zk.enable [ imagemagick ])
-          (mkIfList cfg.lang.markdown.zk.enable [ mermaid-cli ])
+          (mkIfList cfg.lang.markdown.enable [ marksman ])
+          (mkIfList cfg.lang.markdown.zk.enable [ imagemagick mermaid-cli ])
           (mkIfList (cfg.lang.markdown.zk.enable && pkgs.stdenv.isDarwin) [ pngpaste ])
-          (mkIfList cfg.lang.typescript.enable [ typescript-language-server vtsls ])
         ];
 
       };
