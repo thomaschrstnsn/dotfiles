@@ -21,12 +21,13 @@ in
     copilot.enable = mkEnableOption "copilot";
     gh.enable = mkEnableOption "gh (github cli) integation";
     lang = {
-      python.enable = mkEnableOption "python";
+      docker.enable = mkEnableOption "docker" // { default = true; };
       json.enable = mkEnableOption "json" // { default = true; };
       markdown.enable = mkEnableOption "markdown" // { default = true; };
       markdown.zk = {
         enable = mkEnableOption "Full markdown notes taking with zk";
       };
+      python.enable = mkEnableOption "python";
       typescript.enable = mkEnableOption "typescript";
     };
     util.rest.enable = mkEnableOption "rest client" // { default = true; };
@@ -74,7 +75,7 @@ in
             eslint.enable = cfg.lang.typescript.enable;
           };
           lang = {
-            docker.enable = true;
+            docker.enable = cfg.lang.docker.enable;
             json.enable = cfg.lang.json.enable;
             nix.enable = true;
             markdown.enable = cfg.lang.markdown.enable;
@@ -108,6 +109,8 @@ in
             taplo
             tree-sitter
           ]
+          (mkIfList cfg.lang.docker.enable [ hadolint ])
+          (mkIfList cfg.lang.json.enable [ vscode-langservers-extracted ])
           (mkIfList cfg.lang.markdown.enable [
             marksman
             markdownlint-cli2
@@ -115,7 +118,6 @@ in
           (mkIfList cfg.lang.markdown.zk.enable [ imagemagick ])
           (mkIfList cfg.lang.markdown.zk.enable [ mermaid-cli ])
           (mkIfList (cfg.lang.markdown.zk.enable && pkgs.stdenv.isDarwin) [ pngpaste ])
-          (mkIfList cfg.lang.json.enable [ vscode-langservers-extracted ])
           (mkIfList cfg.lang.typescript.enable [ typescript-language-server vtsls ])
         ];
 
