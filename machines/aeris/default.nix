@@ -61,7 +61,10 @@ in
     lazyvim = {
       colorscheme = "rose-pine";
       enable = true;
-      lang.markdown.zk.enable = true;
+      lang = {
+        docker.enable = false;
+        markdown.zk.enable = true;
+      };
       gh.enable = true;
     };
     ideavim.enable = true;
