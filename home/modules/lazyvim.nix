@@ -20,6 +20,7 @@ in
     enable = mkEnableOption "lazyvim";
     copilot.enable = mkEnableOption "copilot";
     gh.enable = mkEnableOption "gh (github cli) integation";
+    _99.enable = mkEnableOption "primeagen/99 tradcoding plugin";
     lang = {
       docker.enable = mkEnableOption "docker" // { default = true; };
       json.enable = mkEnableOption "json" // { default = true; };
@@ -115,9 +116,11 @@ in
         # TODO:
         # - csharp/dotnet? https://www.reddit.com/r/dotnet/comments/1keiv1m/comment/mqp6yag/
         configFiles = ./lazy/lua;
-        plugins = {
-          colorscheme = colorschemes.lua."${cfg.colorscheme}";
-        };
+        plugins = mkMerge [
+          { colorscheme = colorschemes.lua."${cfg.colorscheme}"; }
+          (mkIf cfg._99.enable { "99" = readFile ./lazy/optional_plugins/99.lua; })
+          (mkIf cfg.lang.markdown.zk.enable { "zk" = readFile ./lazy/optional_plugins/zk.lua; })
+        ];
 
         extraPackages = with pkgs; concatLists [
           [
