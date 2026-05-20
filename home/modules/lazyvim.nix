@@ -21,6 +21,9 @@ in
     copilot.enable = mkEnableOption "copilot";
     gh.enable = mkEnableOption "gh (github cli) integation";
     _99.enable = mkEnableOption "primeagen/99 tradcoding plugin";
+    extras = {
+      claudecode.enable = mkEnableOption "claudecode.nvim agent integration";
+    };
     lang = {
       docker.enable = mkEnableOption "docker" // { default = true; };
       json.enable = mkEnableOption "json" // { default = true; };
@@ -58,6 +61,7 @@ in
           ai = {
             copilot.enable = cfg.copilot.enable;
             copilot-chat.enable = cfg.copilot.enable;
+            claudecode.enable = cfg.extras.claudecode.enable;
           };
           coding = {
             blink.enable = true;
@@ -120,6 +124,7 @@ in
           { colorscheme = colorschemes.lua."${cfg.colorscheme}"; }
           (mkIf cfg._99.enable { "99" = readFile ./lazy/optional_plugins/99.lua; })
           (mkIf cfg.lang.markdown.zk.enable { "zk" = readFile ./lazy/optional_plugins/zk.lua; })
+          (mkIf cfg.extras.claudecode.enable { "claudecode" = readFile ./lazy/optional_plugins/claudecode.lua; })
         ];
 
         extraPackages = with pkgs; concatLists [
