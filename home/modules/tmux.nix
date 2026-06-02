@@ -88,9 +88,9 @@ in
         set -g default-terminal "tmux-256color"
         set -ag terminal-overrides ",xterm-256color:RGB"
 
-        # pass through shift+enter and ctrl+enter
-        bind -n S-Enter send-keys Escape "[13;2u"
-        bind -n C-Enter send-keys Escape "[13;5u"
+        # forward modifier+Enter (and other extended keys) via CSI u to focused app
+        set -s extended-keys always
+        set -as terminal-features '*:extkeys'
 
         # image support
         set -gq allow-passthrough on
