@@ -32,6 +32,9 @@ in
       enable = true;
       onActivation.autoUpdate = true;
       onActivation.cleanup = "zap";
+      # Homebrew >=5.x refuses `brew bundle install --cleanup` non-interactively
+      # without an explicit force flag; authorize the zap cleanup to run unattended.
+      onActivation.extraFlags = [ "--force-cleanup" ];
       global.brewfile = true;
 
       masApps = { };
