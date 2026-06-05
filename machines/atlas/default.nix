@@ -33,9 +33,8 @@ in
         "github-personal.pub" = sshKeys.personal.access.publicKey;
       };
     };
-    fabric = {
-      enable = true;
-      aiBackend = "claude";
+    ai = {
+      backend = "claude";
     };
     fish.enable = true;
     ghostty = {

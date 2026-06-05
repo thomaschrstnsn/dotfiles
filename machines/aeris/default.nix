@@ -14,9 +14,8 @@ in
       homedir = "/Users/${username}";
     };
     direnv.enable = true;
-    fabric = {
-      enable = true;
-      aiBackend = "claude";
+    ai = {
+      backend = "claude";
     };
     fish.enable = true;
     git = {

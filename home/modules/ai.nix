@@ -2,7 +2,7 @@
 with lib;
 
 let
-  cfg = config.tc.fabric;
+  cfg = config.tc.ai;
   jjCfg = config.tc.jj;
 
   commitPrompt = ''
@@ -22,21 +22,17 @@ let
     name = "jj-ai-describe";
     runtimeInputs = with pkgs;
       [ jujutsu ]
-      ++ lib.optional (cfg.aiBackend == "fabric") fabric-ai
-      ++ lib.optional (cfg.aiBackend == "claude") claude-code
-      ++ lib.optional (cfg.aiBackend == "opencode") opencode;
+      ++ lib.optional (cfg.backend == "claude") claude-code
+      ++ lib.optional (cfg.backend == "opencode") opencode;
     text = ''
       if [ $# -ne 1 ]; then
         echo "Usage: jj-ai-describe <revision>"
         exit 1
       fi
-      ${lib.optionalString (cfg.aiBackend == "fabric") ''
-        jj diff --git -r "$1" | fabric -p summarize_git_diff
-      ''}
-      ${lib.optionalString (cfg.aiBackend == "claude") ''
+      ${lib.optionalString (cfg.backend == "claude") ''
         jj diff --git -r "$1" | claude -p --system-prompt ${lib.escapeShellArg commitPrompt} --tools "" --dangerously-skip-permissions
       ''}
-      ${lib.optionalString (cfg.aiBackend == "opencode") ''
+      ${lib.optionalString (cfg.backend == "opencode") ''
         DIFF=$(jj diff --git -r "$1")
         TMPFILE=$(mktemp /tmp/jj-diff-XXXXXX.patch)
         trap 'rm -f "$TMPFILE"' EXIT
@@ -50,9 +46,9 @@ let
     name = "jj-ai-pr-describe";
     runtimeInputs = with pkgs;
       [ jujutsu ]
-      ++ lib.optional (cfg.aiBackend == "fabric") fabric-ai
-      ++ lib.optional (cfg.aiBackend == "claude") claude-code
-      ++ lib.optional (cfg.aiBackend == "opencode") opencode;
+      ++ lib.optional (cfg.backend == "fabric") fabric-ai
+      ++ lib.optional (cfg.backend == "claude") claude-code
+      ++ lib.optional (cfg.backend == "opencode") opencode;
     text = ''
       if [ $# -ne 1 ]; then
         echo "Usage: jj-ai-pr-describe <revision>"
@@ -64,14 +60,11 @@ let
         | grep -m1 -E '^(main|master)$' \
         || jj log -T 'self.local_bookmarks().map(|b| b.name() ++ "\n")' --no-graph --color=never -r 'trunk()' \
         | grep -m1 .)
-      ${lib.optionalString (cfg.aiBackend == "fabric") ''
-        jj diff --from "heads(::$REV & ::$TRUNK)" --to "$REV" --git | fabric -p write_pull-request
-      ''}
-      ${lib.optionalString (cfg.aiBackend == "claude") ''
+      ${lib.optionalString (cfg.backend == "claude") ''
         jj diff --from "heads(::$REV & ::$TRUNK)" --to "$REV" --git \
           | claude -p --system-prompt ${lib.escapeShellArg prPrompt} --tools "" --dangerously-skip-permissions
       ''}
-      ${lib.optionalString (cfg.aiBackend == "opencode") ''
+      ${lib.optionalString (cfg.backend == "opencode") ''
         DIFF=$(jj diff --from "heads(::$REV & ::$TRUNK)" --to "$REV" --git)
         TMPFILE=$(mktemp /tmp/jj-pr-diff-XXXXXX.patch)
         trap 'rm -f "$TMPFILE"' EXIT
@@ -82,39 +75,16 @@ let
   };
 in
 {
-  options.tc.fabric = with types; {
-    enable = mkEnableOption "fabric-ai";
+  options.tc.ai = with types; {
+    enable = mkEnableOption "ai" // { default = true; };
 
-    aiBackend = mkOption {
-      type = types.enum [ "fabric" "claude" "opencode" ];
-      default = "fabric";
-      description = "AI backend used by jj-ai-describe for commit message generation.";
+    backend = mkOption {
+      type = types.enum [ "claude" "opencode" ];
+      description = "AI backend used by CLI tools";
     };
   };
 
   config = mkIf cfg.enable {
-    programs.fabric-ai.enable = true;
-
-    home.packages = with pkgs; [ yt-dlp ]
-      ++ lib.optionals jjCfg.enable [ jj-ai-describe jj-ai-pr-describe ];
-
-    programs.fish = {
-      functions = {
-        ai = ''string join " " $argv | fabric -p ai'';
-        fabric-pattern = ''
-          set -l patterns_dir "$HOME/.config/fabric/patterns"
-          if not test -d "$patterns_dir"
-            echo "Patterns directory not found: $patterns_dir"
-            return 1
-          end
-          set -l pattern (ls "$patterns_dir" | fzf --preview "cat '$patterns_dir'/{}/system.md")
-          if test -n "$pattern"
-            bat "$patterns_dir/$pattern/system.md"
-          end
-        '';
-      };
-    };
-
-    xdg.configFile."fish/completions/fabric.fish" = { source = "${pkgs.fabric-ai}/share/fish/vendor_completions.d/fabric.fish"; };
+    home.packages = lib.optionals jjCfg.enable [ jj-ai-describe jj-ai-pr-describe ];
   };
 }

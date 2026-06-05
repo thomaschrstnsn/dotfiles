@@ -2,12 +2,12 @@
 
 {
   imports = [
+    ./ai.nix
     ./aws.nix
     ./azure.nix
     ./desktop.nix
     ./direnv.nix
     ./dotnet.nix
-    ./fabric.nix
     ./fish.nix
     ./git.nix
     ./ghostty.nix
