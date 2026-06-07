@@ -469,7 +469,7 @@
     "location": "top_right",
     "lowUrgencyDuration": 3,
     "monitors": [
-      "DP-3"
+      "HDMI-A-1"
     ],
     "normalUrgencyDuration": 8,
     "overlayLayer": true,
@@ -500,7 +500,7 @@
     ],
     "location": "bottom",
     "monitors": [
-      "DP-3"
+      "HDMI-A-1"
     ],
     "overlayLayer": true
   },
