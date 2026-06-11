@@ -88,9 +88,13 @@ in
         set -g default-terminal "tmux-256color"
         set -ag terminal-overrides ",xterm-256color:RGB"
 
-        # forward modifier+Enter (and other extended keys) via CSI u to focused app
-        set -s extended-keys always
-        set -as terminal-features '*:extkeys'
+        # forward modifier+Enter (and other extended keys) via CSI u to focused app.
+        # NB: `on` (negotiated), not `always` (unconditional). `always` makes tmux
+        # rewrite the entire escape stream and mangles Ghostty's XTVERSION DCS reply,
+        # leaking "ghostty 1.2.0" into neovim. csi-u format + xterm*-only scope.
+        set -s extended-keys on
+        set -s extended-keys-format csi-u
+        set -as terminal-features 'xterm*:extkeys'
 
         # image support
         set -gq allow-passthrough on
