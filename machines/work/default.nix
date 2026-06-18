@@ -172,6 +172,7 @@ in
     azure-functions-core-tools
     bacon
     claude-code
+    cmake
     devenv
     kitty
     natscli
