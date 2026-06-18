@@ -115,9 +115,6 @@ in
     jankyborders.enable = true;
     homebrew = {
       enable = true;
-      extraBrews = [
-        "azure/functions/azure-functions-core-tools@4"
-      ];
       extraCasks = [
         "arc"
         "chatgpt"
@@ -132,7 +129,6 @@ in
       ];
       extraTaps = [
         "timac/vpnstatus"
-        "azure/functions"
       ];
     };
     skhd = {
