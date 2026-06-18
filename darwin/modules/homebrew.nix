@@ -39,8 +39,9 @@ in
 
       masApps = { };
 
-      taps = [
-      ] ++ cfg.extraTaps;
+      # Any tap added here is non-official; trust it so Homebrew >=6.0 `brew bundle`
+      # will load its formulae/casks during non-interactive activation (Tap Trust).
+      taps = map (name: { inherit name; trusted = true; }) cfg.extraTaps;
 
       brews = cfg.extraBrews;
 
