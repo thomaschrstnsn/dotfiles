@@ -157,6 +157,7 @@ in
             revset-aliases = {
               "recent()" = ''committer_date(after:"3 months ago")'';
               "default(n)" = "present(@) | ancestors(immutable_heads().., n) | present(trunk())";
+              "overview()" = ''@ | trunk() | trunk()..(bookmarks() & mutable())'';
               # for tug: https://github.com/jj-vcs/jj/discussions/5568#discussioncomment-13034102
               "closest_bookmark(to)" = "heads(::to & bookmarks())";
               "closest_pushable(to)" = ''heads(::to & mutable() & ~description(exact:"") & (~empty() | merges()))'';
