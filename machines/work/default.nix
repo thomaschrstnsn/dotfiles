@@ -170,6 +170,7 @@ in
     claude-code
     cmake
     devenv
+    duckdb
     kitty
     natscli
     opencode
