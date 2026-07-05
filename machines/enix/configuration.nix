@@ -26,6 +26,8 @@
 
   powerManagement.powertop.enable = true;
 
+  networking.nameservers = [ "192.168.1.1" ]; # dont rely on pihole eg. when doing maintenance
+
   networking.firewall.allowedTCPPorts = [
     3000 # poolmonitor for local testing
     3210 # grafana poolmonitor
