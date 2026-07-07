@@ -10,6 +10,7 @@ in
       homedir = "/home/thomas";
     };
     direnv.enable = true;
+    ai.enable = false;
     ssh = {
       enable = true;
       publicKeys = {
