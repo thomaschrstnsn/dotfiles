@@ -126,8 +126,10 @@ in
         "shottr"
         "vpnstatus"
         "webcatalog"
+        "whatcable"
       ];
       extraTaps = [
+        "darrylmorley/whatcable"
         "timac/vpnstatus"
       ];
     };
