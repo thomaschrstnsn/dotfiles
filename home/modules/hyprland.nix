@@ -27,6 +27,15 @@ let
     # class = app: "webapp-${app}";
   };
 
+  hyprlockFix = pkgs.writeShellApplication {
+    name = "hyprlock-fix";
+    text = ''
+      hyprctl --instance 0 'keyword misc:allow_session_lock_restore 1'
+      killall -9 hyprlock
+      hyprctl --instance 0 'dispatch exec hyprlock'
+    '';
+  };
+
   mainMonitor = "HDMI-A-1";
 in
 {
@@ -67,6 +76,7 @@ in
 
       home.packages = with pkgs; (concatLists [
         [
+          hyprlockFix
           myPkgs.appleFonts.sf-pro
           bemoji # emoji picker
           nerd-fonts.jetbrains-mono
