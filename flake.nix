@@ -80,6 +80,11 @@
       url = "github:fufexan/nix-gaming";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    claude-code = {
+      url = "github:sadjow/claude-code-nix?ref=latest";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =

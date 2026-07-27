@@ -1,4 +1,4 @@
-{ sshKeys, ... }:
+{ sshKeys, inputs, ... }:
 let
   username = "tfc";
   personal = {
@@ -169,7 +169,7 @@ in
   extraPackages = pkgs: with pkgs; [
     azure-functions-core-tools
     bacon
-    claude-code
+    inputs.claude-code.packages.${stdenv.hostPlatform.system}.claude-code
     cmake
     devenv
     duckdb
