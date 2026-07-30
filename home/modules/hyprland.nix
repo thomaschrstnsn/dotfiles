@@ -31,7 +31,7 @@ let
     name = "hyprlock-fix";
     text = ''
       hyprctl --instance 0 'keyword misc:allow_session_lock_restore 1'
-      killall -9 hyprlock
+      pkill -9 hyprlock
       hyprctl --instance 0 'dispatch exec hyprlock'
     '';
   };
