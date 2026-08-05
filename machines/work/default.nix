@@ -176,6 +176,7 @@ in
     kitty
     natscli
     opencode
+    inputs.tuicr.packages.${stdenv.hostPlatform.system}.default
     # kubernetes tools
     kubectl
     k9s

@@ -85,6 +85,11 @@
       url = "github:sadjow/claude-code-nix?ref=latest";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    tuicr = {
+      url = "github:agavra/tuicr";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
