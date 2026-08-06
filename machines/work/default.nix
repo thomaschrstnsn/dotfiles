@@ -1,6 +1,7 @@
 { sshKeys, inputs, ... }:
 let
   username = "tfc";
+  system = "aarch64-darwin";
   personal = {
     userEmail = "thomas@chrstnsn.dk";
     userName = "Thomas Christensen";
@@ -104,6 +105,10 @@ in
         agentExec = "claude";
       };
     };
+    tuicr = {
+      enable = true;
+      package = inputs.tuicr.packages.${system}.default;
+    };
   }];
 
   darwin = {
@@ -176,12 +181,11 @@ in
     kitty
     natscli
     opencode
-    inputs.tuicr.packages.${stdenv.hostPlatform.system}.default
     # kubernetes tools
     kubectl
     k9s
     kubelogin
   ];
 
-  system = "aarch64-darwin";
+  inherit system;
 }
