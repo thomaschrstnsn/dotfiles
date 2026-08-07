@@ -117,9 +117,10 @@ in
 
     programs.fzf = {
       enable = true;
-      fileWidgetCommand = "fd --type f --type d --type symlink";
+      fileWidget.command = "fd --type f --type d --type symlink";
       defaultCommand = "fd --type f";
-      changeDirWidgetCommand = "fd --type d";
+      changeDirWidget.command = "fd --type d";
+      historyWidget.command = "";
     };
 
     programs.nh = {
