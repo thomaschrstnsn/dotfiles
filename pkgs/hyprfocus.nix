@@ -9,11 +9,11 @@ pkgs.rustPlatform.buildRustPackage {
   src = pkgs.fetchFromGitHub {
     owner = "thomaschrstnsn";
     repo = "hyprfocus";
-    rev = "53b63fbab6bfeebd3ed57da2b5ff72f8c2a510d6";
-    hash = "sha256-5NppSuktTl/D8ag0uyBzAnkn1WHokEIS4gwKen1eNN8=";
+    rev = "65511a6e09f23a72c235065e0d1cb56041e14f5c";
+    hash = "sha256-BM31v24H8kC8rjG+Ri4C9AS0y5McrNUiRJ7n8fk2x4g";
   };
 
-  cargoHash = "sha256-vk0kxc5jWjq80DYbTpz+kPu6c7ObBkgXDQu6KM2orT8";
+  cargoHash = "sha256-TFSiDr7xT5Hc5ch1T14pdjoWSRoOk5yWP6EfkfA7PMs";
 
   meta = with pkgs.lib; {
     description = "hyprland focus helper";
