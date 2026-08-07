@@ -9,6 +9,6 @@ then
 	echo "term"
 else
 	echo "not term"
-	hyprctl dispatch sendshortcut CTRL, Z, activewindow
+	hyprctl dispatch 'hl.dsp.send_shortcut({ mods = "CTRL", key = "Z", window = "activewindow" })'
 fi
 

@@ -7,9 +7,9 @@ echo active "$activeWindow"
 if [[ "$activeWindow" == "org.wezfurlong.wezterm" || "$activeWindow" == "com.mitchellh.ghostty" ]];
 then
 	echo "term"
-	hyprctl dispatch sendshortcut CTRL+SHIFT,  V, activewindow
+	hyprctl dispatch 'hl.dsp.send_shortcut({ mods = "CTRL+SHIFT", key = "V", window = "activewindow" })'
 else
 	echo "not term"
-	hyprctl dispatch sendshortcut CTRL, V, activewindow
+	hyprctl dispatch 'hl.dsp.send_shortcut({ mods = "CTRL", key = "V", window = "activewindow" })'
 fi
 
