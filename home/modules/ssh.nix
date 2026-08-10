@@ -43,62 +43,62 @@ in
         if cfg._1password.enableAgent
         then
           matchBlock // {
-            forwardAgent = true;
-            identityAgent = ''"${agentPath "~"}"'';
+            ForwardAgent = true;
+            IdentityAgent = ''"${agentPath "~"}"'';
           }
         else matchBlock;
       knownHosts = {
         "rpi4" = {
           "rpi4" = withAgent {
-            hostname = "192.168.1.40";
-            user = "pi";
+            HostName = "192.168.1.40";
+            User = "pi";
           };
           "ssh.chrstnsn.dk" = withAgent {
-            user = "pi";
-            proxyCommand = "${pkgs.cloudflared}/bin/cloudflared access ssh --hostname %h";
+            User = "pi";
+            ProxyCommand = "${pkgs.cloudflared}/bin/cloudflared access ssh --hostname %h";
           };
         };
         "aero-nix" = {
           "aero-nix" = withAgent {
-            user = "thomas";
-            hostname = "192.168.1.193";
+            User = "thomas";
+            HostName = "192.168.1.193";
           };
         };
         "enix" = {
           "enix" = withAgent {
-            user = "thomas";
-            hostname = "192.168.1.163";
+            User = "thomas";
+            HostName = "192.168.1.163";
           };
           "enix.chrstnsn.dk" = withAgent {
-            user = "thomas";
-            proxyCommand = "${pkgs.cloudflared}/bin/cloudflared access ssh --hostname %h";
+            User = "thomas";
+            ProxyCommand = "${pkgs.cloudflared}/bin/cloudflared access ssh --hostname %h";
           };
         };
         cyrus = {
-          cyrus = withAgent { user = "thomas"; hostname = "192.168.1.142"; };
+          cyrus = withAgent { User = "thomas"; HostName = "192.168.1.142"; };
         };
         "rsync.net" = {
           "rsync.net" = withAgent {
-            user = "zh4414";
-            hostname = "zh4414.rsync.net";
+            User = "zh4414";
+            HostName = "zh4414.rsync.net";
           };
         };
         "mft-az" =
           let
             az_options = {
-              forwardAgent = false;
-              identitiesOnly = true;
-              identityAgent = "none";
-              user = "tfc-admin@mft-energy.com";
-              certificateFile = "/Users/tfc/.ssh/az_ssh_config/all_ips/id_rsa.pub-aadcert.pub";
-              identityFile = "/Users/tfc/.ssh/az_ssh_config/all_ips/id_rsa";
+              ForwardAgent = false;
+              IdentitiesOnly = true;
+              IdentityAgent = "none";
+              User = "tfc-admin@mft-energy.com";
+              CertificateFile = "/Users/tfc/.ssh/az_ssh_config/all_ips/id_rsa.pub-aadcert.pub";
+              IdentityFile = "/Users/tfc/.ssh/az_ssh_config/all_ips/id_rsa";
             };
           in
           {
-            "lazertrader-dev" = az_options // { hostname = "10.100.128.4"; };
-            "rusty-worker-lnx-d-01" = az_options // { hostname = "10.100.128.7"; };
-            "lazertrader-prod-old" = az_options // { hostname = "10.100.0.5"; };
-            "lazertrader-prod" = az_options // { hostname = "10.100.0.8"; };
+            "lazertrader-dev" = az_options // { HostName = "10.100.128.4"; };
+            "rusty-worker-lnx-d-01" = az_options // { HostName = "10.100.128.7"; };
+            "lazertrader-prod-old" = az_options // { HostName = "10.100.0.5"; };
+            "lazertrader-prod" = az_options // { HostName = "10.100.0.8"; };
           };
       };
 
@@ -116,7 +116,7 @@ in
           enable = true;
           enableDefaultConfig = false;
 
-          matchBlocks = mkMerge [
+          settings = mkMerge [
             (hostsToMatchblocks cfg.hosts)
             { "*" = withAgent { }; }
           ];
@@ -158,15 +158,18 @@ in
           source = ./azure/az-sshconfig.sh;
           executable = true;
         };
-        programs.ssh.extraConfig =
+        # Must come after every Host block: `Match host` compares against the
+        # hostname *after* HostName substitution, so the 10.100.*.* pattern only
+        # matches `lazertrader-prod` and friends once their HostName has been seen.
+        programs.ssh.settings.az-match =
           let
             azHosts = "10.100.*.*";
             script = "${config.home.homeDirectory}/bin/az-sshconfig.sh";
           in
-          ''
-            Match host "${azHosts}" exec "${script} > /dev/null"
-              IdentityFile ~/.ssh/az_ssh_config/all_ips/id_rsa
-          '';
+          lib.hm.dag.entryAfter (attrNames (hostsToMatchblocks cfg.hosts)) {
+            header = ''Match host "${azHosts}" exec "${script} > /dev/null"'';
+            IdentityFile = "~/.ssh/az_ssh_config/all_ips/id_rsa";
+          };
       })
     ]
   );
