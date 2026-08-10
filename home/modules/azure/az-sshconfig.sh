@@ -5,6 +5,7 @@ CERT_FILE=~/.ssh/az_ssh_config/all_ips/id_rsa.pub-aadcert.pub
 BUFFER_SECONDS=300  # 5-minute buffer before expiry
 
 refresh_keys() {
+    rm ~/.ssh/az-sshconfig
     rm -rf ~/.ssh/az_ssh_config/*
     az ssh config --ip \* --file ~/.ssh/az-sshconfig
 }
