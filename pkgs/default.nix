@@ -8,6 +8,7 @@ with pkgs;
     pyenv-nix-install = inputs.pyenv-nix-install.packages.${system}.default;
     screentime-web = callPackage ./screentime-web.nix { };
     screentime-collector = callPackage ./screentime-collector.nix { };
+    tmuxPaneBorderType = callPackage ./tmux-pane-border-type.nix { };
     zen-browser = inputs.zen-browser.packages."${system}".default;
   };
 }

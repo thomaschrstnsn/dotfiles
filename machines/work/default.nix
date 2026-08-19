@@ -100,6 +100,8 @@ in
     tmux = {
       enable = true;
       theme = "rose-pine";
+      useUnstable = true;
+      paneBorderType = "separate";
       aiAgent = {
         enable = true;
         agentExec = "claude";

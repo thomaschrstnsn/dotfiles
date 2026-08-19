@@ -36,6 +36,24 @@ in
       description = "theme for tmux";
     };
     remote = mkEnableOption "is remote machine";
+    useUnstable = mkEnableOption "tmux built from master + PR #5433 (adds pane-border-type)";
+    package = mkOption {
+      type = nullOr package;
+      default = if cfg.useUnstable then pkgs.myPkgs.tmuxPaneBorderType else pkgs.tmux;
+      defaultText = literalExpression "pkgs.tmux";
+      example = literalExpression "pkgs.myPkgs.tmuxPaneBorderType";
+      description = "tmux package to use";
+    };
+    paneBorderType = mkOption {
+      type = nullOr (enum [ "joined" "separate" "separate-active" ]);
+      default = null;
+      example = "separate";
+      description = ''
+        How pane borders are drawn (tmux window option `pane-border-type`).
+        Requires a tmux with https://github.com/tmux/tmux/pull/5433, i.e.
+        `tc.tmux.useUnstable = true`. null leaves it unset.
+      '';
+    };
     cliptool = mkOption {
       type = str;
       default = "auto";
@@ -78,6 +96,7 @@ in
 
     programs.tmux = {
       enable = true;
+      package = cfg.package;
       clock24 = true;
       baseIndex = 1;
       keyMode = "vi";
@@ -109,6 +128,11 @@ in
         set-option -g detach-on-destroy off
 
         set -g renumber-windows on       # No gaps after closing windows
+
+        ${optionalString (cfg.paneBorderType != null) ''
+        # https://github.com/tmux/tmux/pull/5433 — -q so stock tmux ignores it silently
+        set -wgq pane-border-type ${cfg.paneBorderType}
+        ''}
 
         bind-key x kill-pane # skip "kill-pane 1? (y/n)" prompt
 
