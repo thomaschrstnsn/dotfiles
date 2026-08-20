@@ -32,9 +32,8 @@ let
   hyprlockFix = pkgs.writeShellApplication {
     name = "hyprlock-fix";
     text = ''
-      hyprctl --instance 0 'keyword misc:allow_session_lock_restore 1'
       pkill -9 hyprlock
-      hyprctl --instance 0 dispatch 'hl.dsp.exec_cmd("hyprlock")'
+      hyprctl --instance 0 eval 'hl.clear_crashed_lockscreen()'
     '';
   };
 
