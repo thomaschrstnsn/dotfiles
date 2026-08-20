@@ -180,6 +180,7 @@ in
     cmake
     devenv
     duckdb
+    gcx
     kitty
     natscli
     opencode
