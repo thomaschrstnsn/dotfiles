@@ -153,6 +153,9 @@ in
         search_mode_shell_up_key_binding = "fuzzy";
         search_mode = "fuzzy";
         style = "compact";
+        tmux = {
+          enabled = true;
+        };
       };
     };
   };

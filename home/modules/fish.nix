@@ -27,24 +27,33 @@ in
         take = ''mkdir -p $argv && cd $argv'';
       };
 
-      interactiveShellInit = lib.mkOrder 1000 (
-        ''
-          ulimit -n 524288 2>/dev/null
+      interactiveShellInit = lib.mkMerge [
+        (lib.mkOrder 1000 (
+          ''
+            ulimit -n 524288 2>/dev/null
 
-          set PATH $PATH ~/bin
+            set PATH $PATH ~/bin
 
-          fish_config theme choose "ayu Mirage"
-          set fish_greeting ""
+            fish_config theme choose "ayu Mirage"
+            set fish_greeting ""
 
-          functions --erase lt # conflict with lt tool
+            functions --erase lt # conflict with lt tool
 
-          if test -f ~/.env
-            fenv source ~/.env
-          end
+            if test -f ~/.env
+              fenv source ~/.env
+            end
 
-          set -g fish_key_bindings fish_vi_key_bindings
-        ''
-      );
+            set -g fish_key_bindings fish_vi_key_bindings
+          ''
+        ))
+        # HM pregenerates atuin's fish init in the build sandbox without our
+        # config.toml, baking in ATUIN_TMUX_POPUP=false which overrides
+        # [tmux] enabled=true at runtime. Re-enable after it loads; harmless
+        # outside tmux (atuin checks $TMUX itself).
+        (lib.mkOrder 1200 ''
+          set -gx ATUIN_TMUX_POPUP true
+        '')
+      ];
 
       plugins = with pkgs.fishPlugins; [
         { name = "foreign-env"; src = foreign-env.src; }
@@ -65,6 +74,8 @@ in
         "..." = "cd ../..";
       };
     };
+
+    programs.atuin.enableFishIntegration = true;
   };
 }
 
