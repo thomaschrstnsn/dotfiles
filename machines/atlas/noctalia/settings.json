@@ -516,7 +516,7 @@
     "powerOptions": [
       {
         "action": "lock",
-        "command": "hyprlock",
+        "command": "",
         "countdownEnabled": true,
         "enabled": true,
         "keybind": "L"

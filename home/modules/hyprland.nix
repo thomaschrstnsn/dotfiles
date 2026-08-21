@@ -12,6 +12,13 @@ let
 
   clipseClass = "name.savedra1.clipse";
 
+  lockCmd = {
+    hyprlock = "pidof hyprlock || env WLR_EGL_NO_MODIFIERS=1 hyprlock";
+    noctalia = "noctalia-shell ipc call lockScreen lock";
+  }.${cfg.lockscreen};
+
+  useHyprlock = cfg.lockscreen == "hyprlock";
+
   terminal = {
     executable = term: term;
     class = term: {
@@ -90,6 +97,12 @@ in
       default = "dms";
     };
 
+    lockscreen = mkOption {
+      type = enum [ "hyprlock" "noctalia" ];
+      description = "which lockscreen to use";
+      default = "hyprlock";
+    };
+
     shell = mkOption {
       type = nullOr (enum [ "hyprpanel" "dms" "noctalia" ]);
       description = "which desktop shell to setup";
@@ -106,7 +119,6 @@ in
 
       home.packages = with pkgs; (concatLists [
         [
-          hyprlockFix
           myPkgs.appleFonts.sf-pro
           bemoji # emoji picker
           nerd-fonts.jetbrains-mono
@@ -127,6 +139,7 @@ in
           python312Packages.gpustat
         ])
         (mkIfList (cfg.clipboard == "clipse") [ clipse ])
+        (mkIfList useHyprlock [ hyprlockFix ])
         (mkIfList cfg.hyprfocus.enable [ myPkgs.hyprfocus ])
       ]);
 
@@ -160,7 +173,7 @@ in
         gtk4.theme = theme;
       };
 
-      programs.hyprlock = {
+      programs.hyprlock = mkIf useHyprlock {
         enable = true;
         settings = {
           # based on https://github.com/MrVivekRajan/Hyprlock-Styles/blob/main/Style-3/hyprlock.conf
@@ -256,7 +269,7 @@ in
         enable = true;
         settings = {
           general = {
-            lock_cmd = "pidof hyprlock || env WLR_EGL_NO_MODIFIERS=1 hyprlock";
+            lock_cmd = lockCmd;
             before_sleep_cmd = "loginctl lock-session";
             after_sleep_cmd = "hyprctl dispatch 'hl.dsp.dpms({ action = \"on\" })'";
             ignore_dbus_inhibit = false;
@@ -381,7 +394,7 @@ in
               (mkLuaInline ''
                 function()
                   hl.exec_cmd("hyprctl setcursor Bibata-Modern-Classic 32")
-                  hl.exec_cmd("hyprlock")
+                  hl.exec_cmd("${lockCmd}")
                   hl.exec_cmd("${./hypr/layout_watcher.sh}")
                   hl.exec_cmd(terminal, { workspace = "name:t silent" })
                   hl.exec_cmd("zen", { workspace = "name:b silent" })
@@ -502,7 +515,7 @@ in
                   { _args = [ "SUPER + Space" (mkLuaInline ''hl.dsp.exec_cmd("pgrep wofi || wofi --show run")'') ]; }
                   { _args = [ (mkLuaInline ''hyper .. " + f"'') (mkLuaInline "hl.dsp.window.fullscreen()") ]; }
                   { _args = [ "SHIFT + SUPER + f" (mkLuaInline "hl.dsp.window.float()") ]; }
-                  { _args = [ "CTRL + SUPER + q" (mkLuaInline ''hl.dsp.exec_cmd("pidof hyprlock || env WLR_EGL_NO_MODIFIERS=1 hyprlock")'') ]; }
+                  { _args = [ "CTRL + SUPER + q" (mkLuaInline ''hl.dsp.exec_cmd("${lockCmd}")'') ]; }
                   { _args = [ "SHIFT + SUPER + 4" (mkLuaInline ''hl.dsp.exec_cmd("hyprshot -m region --clipboard-only")'') ]; }
                   { _args = [ "SHIFT + SUPER + 3" (mkLuaInline ''hl.dsp.exec_cmd("hyprshot -m window --clipboard-only")'') ]; }
                 ]
