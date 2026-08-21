@@ -28,7 +28,8 @@ else
 fi
 
 # Apply the new layout to the current workspace via global layout switch
-hyprctl keyword general:layout "$NEW_LAYOUT"
+# hyprctl keyword is unsupported with the Lua config parser (Hyprland >= 0.55)
+hyprctl eval "hl.config({ general = { layout = '$NEW_LAYOUT' } })" > /dev/null
 
 # Save the new state so the daemon knows what to do when we switch back to this workspace
 echo "$NEW_LAYOUT" > "$STATE_FILE"

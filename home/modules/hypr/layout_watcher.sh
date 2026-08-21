@@ -23,7 +23,8 @@ apply_layout() {
     fi
 
     # Dispatch to update global layout
-    hyprctl keyword general:layout "$target_layout" > /dev/null
+    # hyprctl keyword is unsupported with the Lua config parser (Hyprland >= 0.55)
+    hyprctl eval "hl.config({ general = { layout = '$target_layout' } })" > /dev/null
 }
 
 # Listen to the Hyprland socket for workspace change events
