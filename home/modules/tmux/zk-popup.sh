@@ -52,7 +52,13 @@ tmux set-option -t "$ZK_SESSION" status off
 # Select the zk window so attach-session opens at the right place
 zk_window_id=$(tmux show -gqv "@zk_pane")
 zk_window_id="${zk_window_id#*:}"
-[ -n "$zk_window_id" ] && tmux select-window -t "$zk_window_id" 2>/dev/null
+if [ -n "$zk_window_id" ]; then
+  tmux select-window -t "$zk_window_id" 2>/dev/null
+  # The popup draws its own border; pane-border-type separate/separate-active would
+  # draw a second one around the lone pane inside it. Set per invocation — break-pane
+  # and first launch both make a new window. -q so stock tmux ignores it silently.
+  tmux set-option -wq -t "$zk_window_id" pane-border-type joined 2>/dev/null
+fi
 
 # Show the zk_personal session in a popup — press d to close, pane stays parked
 tmux display-popup -E -w 90% -h 90% "tmux attach-session -t $ZK_SESSION"
