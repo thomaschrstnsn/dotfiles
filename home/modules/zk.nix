@@ -78,7 +78,7 @@ in
 
     programs.tmux.extraConfig = mkIf cfg.enable ''
       bind n run-shell ${tmux/zk-toggle.sh}
-      bind C-n run-shell ${tmux/zk-popup.sh}
+      bind C-n run-shell ${tmux/zk-zoom.sh}
     '';
 
     home.sessionVariables = mkIf cfg.enable {

@@ -2,11 +2,13 @@
 
 ZK_SESSION="zk_personal"
 
-# If the popup is currently open, close it instead
-if tmux list-clients -t "$ZK_SESSION" 2>/dev/null | grep -q .; then
-  tmux detach-client -s "$ZK_SESSION"
-  exit 0
-fi
+# zk-zoom.sh may have left this window zoomed on the zk pane; either branch
+# below has to start from an unzoomed window
+unzoom() {
+  if [ "$(tmux display-message -p '#{window_zoomed_flag}')" = "1" ]; then
+    tmux resize-pane -Z
+  fi
+}
 
 stored_value=$(tmux show -gqv "@zk_pane")
 
@@ -21,6 +23,7 @@ fi
 # Check if pane exists in current window
 if [ -n "$pane_id" ] && tmux list-panes -F "#{pane_id}" | grep -q "^$pane_id$"; then
   # Pane is in current window - HIDE it by moving to dedicated session
+  unzoom
 
   # Ensure zk_personal session exists
   if ! tmux has-session -t "$ZK_SESSION" 2>/dev/null; then
@@ -36,6 +39,7 @@ if [ -n "$pane_id" ] && tmux list-panes -F "#{pane_id}" | grep -q "^$pane_id$"; 
 fi
 
 # Pane is not in current window - SHOW it
+unzoom
 
 # Check if stored pane exists in the expected window
 pane_valid=false
