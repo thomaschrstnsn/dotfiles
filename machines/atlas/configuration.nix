@@ -116,7 +116,7 @@ in
     mangohud
     protonup-ng
 
-    # lutris # disabled on 2026-05-05 update (openldap-2.6.13-i686-linux build issue)
+    lutris
     heroic
 
     usbutils
