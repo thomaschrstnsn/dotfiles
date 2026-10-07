@@ -139,6 +139,8 @@ in
             tree-sitter
           ]
           (mkIfList cfg.lang.markdown.enable [ marksman ])
+          # lazyvim-nix only installs ruff for lang.python; LazyVim's python LSP is pyright
+          (mkIfList cfg.lang.python.enable [ pyright ])
           (mkIfList cfg.lang.markdown.zk.enable [ imagemagick mermaid-cli ])
           (mkIfList (cfg.lang.markdown.zk.enable && pkgs.stdenv.hostPlatform.isDarwin) [ pngpaste ])
           (mkIfList cfg.lang.typescript.enable [ prettier ])
