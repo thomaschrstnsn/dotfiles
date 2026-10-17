@@ -105,7 +105,7 @@ in
 
     kitty
 
-    inputs.nix-citizen.packages.${system}.star-citizen
+    # inputs.nix-citizen.packages.${system}.star-citizen
     # inputs.nix-citizen.packages.${system}.star-citizen-umu
   ];
 
