@@ -19,6 +19,16 @@ let
 
   useHyprlock = cfg.lockscreen == "hyprlock";
 
+  launcherCmd = {
+    wofi = "pgrep wofi || wofi --show run";
+    noctalia = "noctalia msg panel-toggle launcher";
+  }.${cfg.launcher};
+
+  screenshotCmd = {
+    hyprshot = "hyprshot -m region --clipboard-only";
+    noctalia = "noctalia msg screenshot-region";
+  }.${cfg.screenshot};
+
   terminal = {
     executable = term: term;
     class = term: {
@@ -92,20 +102,32 @@ in
     };
 
     clipboard = mkOption {
-      type = enum [ "clipse" ];
+      type = enum [ "clipse" "noctalia" ];
       description = "which clipboard manager to employ";
-      default = "clipse";
+      default = if cfg.shell == "noctalia" then "noctalia" else "clipse";
     };
 
     lockscreen = mkOption {
       type = enum [ "hyprlock" "noctalia" ];
       description = "which lockscreen to use";
-      default = "hyprlock";
+      default = if cfg.shell == "noctalia" then "noctalia" else "hyprlock";
     };
 
     shell = mkOption {
       type = nullOr (enum [ "hyprpanel" "noctalia" ]);
       description = "which desktop shell to setup";
+    };
+
+    launcher = mkOption {
+      type = enum [ "wofi" "noctalia" ];
+      description = "which launcher to setup";
+      default = if cfg.shell == "noctalia" then "noctalia" else "wofi";
+    };
+
+    screenshot = mkOption {
+      type = enum [ "hyprshot" "noctalia" ];
+      description = "which screenshot tool to use";
+      default = if cfg.shell == "noctalia" then "noctalia" else "hyprshot";
     };
 
     hyprfocus.enable = mkEnableOption "use hyprfocus" // { default = true; };
@@ -124,7 +146,6 @@ in
           nerd-fonts.jetbrains-mono
           noto-fonts
           font-awesome
-          hyprshot
           jq # for scripts
           libnotify
           overskride # bluetooth
@@ -139,6 +160,7 @@ in
           python312Packages.gpustat
         ])
         (mkIfList (cfg.clipboard == "clipse") [ clipse ])
+        (mkIfList (cfg.screenshot == "hyprshot") [ hyprshot ])
         (mkIfList useHyprlock [ hyprlockFix ])
         (mkIfList cfg.hyprfocus.enable [ myPkgs.hyprfocus ])
       ]);
@@ -148,7 +170,7 @@ in
         settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
       };
 
-      programs.wofi = {
+      programs.wofi = mkIf (cfg.launcher == "wofi") {
         enable = true;
         style = readFile ./wofi/style.css;
       };
@@ -498,6 +520,7 @@ in
             let
               clipboardCmd = {
                 clipse = "${terminal.starter cfg.terminal {class = clipseClass; command = "clipse";}}";
+                noctalia = "noctalia msg panel-toggle clipboard";
               }."${cfg.clipboard}";
             in
             concatLists
@@ -511,19 +534,18 @@ in
                 [{ _args = [ "SUPER + mouse:272" (mkLuaInline "hl.dsp.window.drag()") { mouse = true; } ]; }]
                 [
                   { _args = [ "SUPER + Return" (mkLuaInline "hl.dsp.exec_cmd(terminal)") ]; }
-                  { _args = [ "SUPER + Space" (mkLuaInline ''hl.dsp.exec_cmd("pgrep wofi || wofi --show run")'') ]; }
+                  { _args = [ "SUPER + Space" (mkLuaInline ''hl.dsp.exec_cmd("${launcherCmd}")'') ]; }
                   { _args = [ (mkLuaInline ''hyper .. " + f"'') (mkLuaInline "hl.dsp.window.fullscreen()") ]; }
                   { _args = [ "SHIFT + SUPER + f" (mkLuaInline "hl.dsp.window.float()") ]; }
+                  { _args = [ "SHIFT + SUPER + 4" (mkLuaInline ''hl.dsp.exec_cmd("${screenshotCmd}")'') ]; }
                   { _args = [ "CTRL + SUPER + q" (mkLuaInline ''hl.dsp.exec_cmd("${lockCmd}")'') ]; }
-                  { _args = [ "SHIFT + SUPER + 4" (mkLuaInline ''hl.dsp.exec_cmd("hyprshot -m region --clipboard-only")'') ]; }
-                  { _args = [ "SHIFT + SUPER + 3" (mkLuaInline ''hl.dsp.exec_cmd("hyprshot -m window --clipboard-only")'') ]; }
                 ]
                 (mkIfList (cfg.shell == "hyprpanel") [
                   { _args = [ "CTRL + Escape" (mkLuaInline ''hl.dsp.exec_cmd("${pkgs.hyprpanel}/bin/hyprpanel t verification")'') ]; }
                   { _args = [ "CTRL + SHIFT + Escape" (mkLuaInline ''hl.dsp.exec_cmd("${pkgs.hyprpanel}/bin/hyprpanel t powerdropdownmenu")'') ]; }
                 ])
                 (mkIfList (cfg.shell == "noctalia") [
-                  { _args = [ "CTRL + Escape" (mkLuaInline ''hl.dsp.exec_cmd("noctalia-shell ipc call sessionMenu toggle")'') ]; }
+                  { _args = [ "CTRL + Escape" (mkLuaInline ''hl.dsp.exec_cmd("noctalia msg panel-toggle session")'') ]; }
                 ])
                 # mediakeys
                 [
