@@ -1,10 +1,10 @@
 { ... }:
 {
   home-manager.users.thomas = {
-    programs.noctalia-shell = {
+    programs.noctalia = {
       enable = true;
-      # noctalia-shell ipc call state all | jq .settings
-      settings = builtins.fromJSON (builtins.readFile ./noctalia/settings.json);
+      # noctalia config export > machines/atlas/noctalia/config.toml
+      settings = builtins.readFile ./noctalia/config.toml;
     };
   };
 }
