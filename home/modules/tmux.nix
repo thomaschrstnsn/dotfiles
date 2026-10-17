@@ -72,7 +72,7 @@ in
   config = mkIf cfg.enable {
 
     # install grealpath = coreutils/bin/realpath, needed for tmux-file-picker on macOS
-    home.packages = mkIf pkgs.stdenv.isDarwin (
+    home.packages = mkIf pkgs.stdenv.hostPlatform.isDarwin (
       let
         grealpath = pkgs.runCommand "grealpath" { } ''
                 mkdir -p $out/bin

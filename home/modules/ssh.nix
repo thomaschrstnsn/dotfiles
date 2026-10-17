@@ -4,7 +4,7 @@ with lib;
 let
   cfg = config.tc.ssh;
   agentPath = homePart:
-    if pkgs.stdenv.isDarwin then
+    if pkgs.stdenv.hostPlatform.isDarwin then
       "${homePart}/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
     else
       "${homePart}/.1password/agent.sock";
@@ -137,10 +137,10 @@ in
         in
         {
           programs.zsh.initContent = lib.mkOrder 550 ''
-            export SSH_AUTH_SOCK="${agentPath (if pkgs.stdenv.isDarwin then "/Users/$USER" else "/home/$USER")}";
+            export SSH_AUTH_SOCK="${agentPath (if pkgs.stdenv.hostPlatform.isDarwin then "/Users/$USER" else "/home/$USER")}";
           '';
           programs.fish.interactiveShellInit = lib.mkOrder 550 ''
-            set SSH_AUTH_SOCK "${agentPath (if pkgs.stdenv.isDarwin then "/Users/$USER" else "/home/$USER")}";
+            set SSH_AUTH_SOCK "${agentPath (if pkgs.stdenv.hostPlatform.isDarwin then "/Users/$USER" else "/home/$USER")}";
           '';
           home.file = {
             ".config/1Password/ssh/agent.toml".text = generateSshKeyLines cfg._1password.keys;

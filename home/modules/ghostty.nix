@@ -82,7 +82,7 @@ in
             if cfg.lightAndDarkMode.enable
             then "light:Rose Pine Dawn,dark:Rose Pine"
             else "Rose Pine";
-          window-decoration = if pkgs.stdenv.isDarwin then "auto" else "none"; # needs to be auto on macos for rounded corners
+          window-decoration = if pkgs.stdenv.hostPlatform.isDarwin then "auto" else "none"; # needs to be auto on macos for rounded corners
           window-padding-color = "extend";
         }
         (mkIf (cfg.font.family != null)

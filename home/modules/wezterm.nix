@@ -50,7 +50,7 @@ in
         defaultText = literalExpression "pkgs.wezterm";
         description = "The Wezterm package to install.";
       };
-      autoDarkMode = mkEnableOption "Use theme that matches appearance (auto light/dark mode)" // { default = pkgs.stdenv.isDarwin; };
+      autoDarkMode = mkEnableOption "Use theme that matches appearance (auto light/dark mode)" // { default = pkgs.stdenv.hostPlatform.isDarwin; };
       windowBackgroundOpacity = mkOption {
         type = types.number;
         description = "background opacity";

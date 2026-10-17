@@ -140,7 +140,7 @@ in
           ]
           (mkIfList cfg.lang.markdown.enable [ marksman ])
           (mkIfList cfg.lang.markdown.zk.enable [ imagemagick mermaid-cli ])
-          (mkIfList (cfg.lang.markdown.zk.enable && pkgs.stdenv.isDarwin) [ pngpaste ])
+          (mkIfList (cfg.lang.markdown.zk.enable && pkgs.stdenv.hostPlatform.isDarwin) [ pngpaste ])
           (mkIfList cfg.lang.typescript.enable [ prettier ])
         ];
 

@@ -29,7 +29,7 @@ in
         export PATH=$PATH:~/.cargo/bin
       '';
     }
-    (mkIf (pkgs.stdenv.isDarwin == false)
+    (mkIf (pkgs.stdenv.hostPlatform.isDarwin == false)
       {
         home.packages = with pkgs; [ (linkerPkg cfg.linker) clang ];
         home.file = {
