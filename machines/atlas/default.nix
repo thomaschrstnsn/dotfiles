@@ -123,7 +123,6 @@ in
     base = {
       imports =
         [
-          # ./dms-shell.nix
           {
             # noctalia stuff
             environment.systemPackages = [

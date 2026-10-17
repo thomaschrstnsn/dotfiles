@@ -92,9 +92,9 @@ in
     };
 
     clipboard = mkOption {
-      type = enum [ "clipse" "dms" ];
+      type = enum [ "clipse" ];
       description = "which clipboard manager to employ";
-      default = "dms";
+      default = "clipse";
     };
 
     lockscreen = mkOption {
@@ -104,7 +104,7 @@ in
     };
 
     shell = mkOption {
-      type = nullOr (enum [ "hyprpanel" "dms" "noctalia" ]);
+      type = nullOr (enum [ "hyprpanel" "noctalia" ]);
       description = "which desktop shell to setup";
     };
 
@@ -498,7 +498,6 @@ in
             let
               clipboardCmd = {
                 clipse = "${terminal.starter cfg.terminal {class = clipseClass; command = "clipse";}}";
-                dms = "dms ipc call clipboard toggle";
               }."${cfg.clipboard}";
             in
             concatLists
@@ -522,9 +521,6 @@ in
                 (mkIfList (cfg.shell == "hyprpanel") [
                   { _args = [ "CTRL + Escape" (mkLuaInline ''hl.dsp.exec_cmd("${pkgs.hyprpanel}/bin/hyprpanel t verification")'') ]; }
                   { _args = [ "CTRL + SHIFT + Escape" (mkLuaInline ''hl.dsp.exec_cmd("${pkgs.hyprpanel}/bin/hyprpanel t powerdropdownmenu")'') ]; }
-                ])
-                (mkIfList (cfg.shell == "dms") [
-                  { _args = [ "CTRL + Escape" (mkLuaInline ''hl.dsp.exec_cmd("${pkgs.dms-shell}/bin/dms ipc call powermenu toggle")'') ]; }
                 ])
                 (mkIfList (cfg.shell == "noctalia") [
                   { _args = [ "CTRL + Escape" (mkLuaInline ''hl.dsp.exec_cmd("noctalia-shell ipc call sessionMenu toggle")'') ]; }
