@@ -425,7 +425,7 @@ in
                   hl.exec_cmd("spotify", { workspace = "name:m silent" })
                   ${if cfg.shell == "hyprpanel" then ''hl.exec_cmd("${pkgs.hyprpanel}/bin/hyprpanel")'' else ""}
                   ${if cfg.clipboard == "clipse" then ''hl.exec_cmd("clipse -listen")'' else ""}
-                  ${if cfg.shell == "noctalia" then ''hl.exec_cmd("noctalia-shell")'' else ""}
+                  ${if cfg.shell == "noctalia" then ''hl.exec_cmd("noctalia")'' else ""}
                 end
               '')
             ];
