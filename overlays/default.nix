@@ -22,6 +22,30 @@
       };
     })
 
+    # atuin 18.23 fails on macOS; pin to last known good
+    (final: prev: {
+      atuin = prev.atuin.overrideAttrs (finalAttrs: _: {
+        version = "18.18.0";
+
+        src = prev.fetchFromGitHub {
+          owner = "atuinsh";
+          repo = "atuin";
+          tag = "v${finalAttrs.version}";
+          hash = "sha256-o20MwzWItvKcUIwrfxY60v2jqLnqLRbQ9lIevQWgVPI=";
+        };
+
+        cargoDeps = prev.rustPlatform.fetchCargoVendor {
+          inherit (finalAttrs) pname version src;
+          hash = "sha256-IoOIpcobVcmQBzDiSsT3WvVW6UiRpZ6NWE0GlzDLlYk=";
+        };
+
+        buildFeatures = [ "ai" "client" "clipboard" "daemon" "hex" "sync" ];
+        cargoBuildFeatures = [ "ai" "client" "clipboard" "daemon" "hex" "sync" ];
+        # 18.23's checkFlags/e2e test setup doesn't match 18.18
+        doCheck = false;
+      });
+    })
+
     # left as an example of how to make an override
     # (final: prev: {
     #   ## 0.12.4 has an annoying issue with tmux TERM definition
