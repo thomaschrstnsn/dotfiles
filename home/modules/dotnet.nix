@@ -11,9 +11,11 @@ let
     "10.0" = sdk_10_0;
   });
 
+  hasSdks = cfg.sdks != [ ];
+
   # https://github.com/NixOS/nixpkgs/blob/master/pkgs/development/compilers/dotnet/default.nix
-  combinedDotnet = mkIf (cfg.sdks != [ ]) (with pkgs; with dotnetCorePackages;
-    combinePackages (map (sdk: getAttr sdk lookup) cfg.sdks));
+  combinedDotnet = with pkgs; with dotnetCorePackages;
+    combinePackages (map (sdk: getAttr sdk lookup) cfg.sdks);
 in
 {
   options.tc.dotnet = {
@@ -27,10 +29,9 @@ in
   };
 
   config = mkIf cfg.enable {
-    home.packages = with pkgs; [
-      combinedDotnet
+    home.packages = (with pkgs; [
       fd
-    ];
+    ]) ++ optional hasSdks combinedDotnet;
     programs = {
       zsh = {
         oh-my-zsh.plugins = [ "dotnet" ];
@@ -50,7 +51,7 @@ in
           }
 
           export ASPNETCORE_ENVIRONMENT="Development"
-        '' + (if cfg.sdks != [ ] then ''
+        '' + (if hasSdks then ''
           # https://discourse.nixos.org/t/dotnet-maui-workload/20370/24
           export DOTNET_PATH="${combinedDotnet}/bin/dotnet"
           export DOTNET_ROOT="${combinedDotnet}/share/dotnet"
@@ -69,7 +70,7 @@ in
 
           set ASPNETCORE_ENVIRONMENT Development
 
-        '' + (if cfg.sdks != [ ] then ''
+        '' + (if hasSdks then ''
           # https://discourse.nixos.org/t/dotnet-maui-workload/20370/24
           set DOTNET_PATH "${combinedDotnet}/bin/dotnet"
           set DOTNET_ROOT "${combinedDotnet}/share/dotnet"

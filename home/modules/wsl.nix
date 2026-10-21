@@ -10,8 +10,9 @@ in
   };
 
   config = mkIf cfg.enable {
+    # wslu was discontinued and removed from nixpkgs (2026-04-08)
     home.packages = with pkgs; [
-      wslu
+      wsl-open
     ];
 
     programs.zsh.initContent = ''
