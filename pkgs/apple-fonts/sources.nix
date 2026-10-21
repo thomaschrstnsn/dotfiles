@@ -2,12 +2,12 @@
   sf-pro = {
     url =
       "https://devimages-cdn.apple.com/design/resources/download/SF-Pro.dmg";
-    hash = "sha256-Lk14U5iLc03BrzO5IdjUwORADqwxKSSg6rS3OlH9aa4";
+    hash = "sha256-loqzuLH5LC2K9h6waA9cIiTE541ZuYa/AEUCp/wBKRg=";
   };
   sf-compact = {
     url =
       "https://devimages-cdn.apple.com/design/resources/download/SF-Compact.dmg";
-    hash = "sha256-PlraM6SwH8sTxnVBo6Lqt9B6tAZDC//VCPwr/PNcnlk=";
+    hash = "sha256-wdDjROut1m62LwP4I3hMzknxeH9WVj+wmPygH8VUE1w=";
   };
   sf-mono = {
     url =
