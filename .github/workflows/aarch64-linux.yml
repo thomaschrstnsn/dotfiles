@@ -1,0 +1,22 @@
+name: "aarch64 Linux"
+on:
+  pull_request:
+  push:
+jobs:
+  build-configuration:
+    runs-on: ubuntu-24.04-arm64
+    strategy:
+      fail-fast: false
+      matrix:
+        configuration: [nixos-raspi-4]
+    steps:
+    - uses: actions/checkout@v7
+    - name: Install Nix
+      uses: DeterminateSystems/nix-installer-action@v23
+    - name: Install Cachix
+      uses: cachix/cachix-action@v17
+      with:
+        name: thomaschrstnsn
+        authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+    - name: Build NixOS configuration
+      run: nix run nixpkgs#nh -- os build . -H '${{ matrix.configuration }}'
