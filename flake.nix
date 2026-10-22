@@ -30,7 +30,10 @@
     };
 
     nixos-hardware = {
-      url = "https://flakehub.com/f/NixOS/nixos-hardware/0.1.*.tar.gz";
+      # flakehub's index lags behind GitHub: the 0.1.* release still points at
+      # a revision using the linux-rpi kernel series that nixpkgs removed.
+      url = "github:NixOS/nixos-hardware";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     lazyvim = {
