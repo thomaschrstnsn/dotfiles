@@ -123,6 +123,8 @@ in
 
     gparted
     ntfs3g
+
+    proton-vpn
   ];
 
   environment.sessionVariables = {
@@ -184,6 +186,14 @@ in
   services.blueman.enable = true;
 
   services.openssh.enable = true;
+
+  # Proton VPN: the official app manages its connections through NetworkManager
+  networking.networkmanager.enable = true;
+  # WireGuard traffic fails the strict reverse path check
+  networking.firewall.checkReversePath = "loose";
+  # Proton VPN stores its session in the Secret Service keyring
+  services.gnome.gnome-keyring.enable = true;
+  security.pam.services.greetd.enableGnomeKeyring = true;
 
   services.kanata = {
     enable = false;
