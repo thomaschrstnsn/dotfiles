@@ -93,6 +93,7 @@ in
     lnav
     mermaid-cli
     opencode
+    inputs.claude-code.packages.${stdenv.hostPlatform.system}.claude-code
     spotify
     todoist-electron
     qt5.qtwayland
