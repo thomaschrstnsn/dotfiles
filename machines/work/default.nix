@@ -128,16 +128,13 @@ in
         "ghostty"
         "istat-menus@6"
         "jetbrains-toolbox"
-        "meetingbar"
         "rancher"
         "shottr"
-        "vpnstatus"
         "webcatalog"
         "whatcable"
       ];
       extraTaps = [
         "darrylmorley/whatcable"
-        "timac/vpnstatus"
       ];
     };
     skhd = {
