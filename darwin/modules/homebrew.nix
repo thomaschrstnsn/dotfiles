@@ -37,6 +37,10 @@ in
       onActivation.extraFlags = [ "--force-cleanup" ];
       global.brewfile = true;
 
+      # put the homebrew prefix (bin, sbin, completions) on the shells' PATH
+      enableFishIntegration = true;
+      enableZshIntegration = true;
+
       masApps = { };
 
       # Any tap added here is non-official; trust it so Homebrew >=6.0 `brew bundle`
