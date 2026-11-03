@@ -38,9 +38,6 @@ in
       enable = true; # disabled per an update that built the world for 22 mins...
       sdks = [ ]; # empty to install outside nix
     };
-    ai = {
-      backend = "claude";
-    };
     fish.enable = true;
     nodejs.enable = true;
     git = {

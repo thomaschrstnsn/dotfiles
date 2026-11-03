@@ -33,9 +33,6 @@ in
         "github-personal.pub" = sshKeys.personal.access.publicKey;
       };
     };
-    ai = {
-      backend = "claude";
-    };
     fish.enable = true;
     ghostty = {
       enable = true;

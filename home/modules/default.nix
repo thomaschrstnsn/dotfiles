@@ -2,7 +2,6 @@
 
 {
   imports = [
-    ./ai.nix
     ./aws.nix
     ./azure.nix
     ./desktop.nix
