@@ -102,13 +102,9 @@
 
   services.openssh.enable = true;
 
-  services.kanata = {
+  tc.kanata = {
     enable = true;
-    keyboards.internal = {
-      devices = [ "/dev/input/by-id/usb-Apple_Inc._Apple_Internal_Keyboard___Trackpad_DQ63223LKPCF94RAGBD-if01-event-kbd" ];
-      config = builtins.readFile ./kanata.kbd;
-      extraDefCfg = "process-unmapped-keys yes";
-    };
+    devices = [ "/dev/input/by-id/usb-Apple_Inc._Apple_Internal_Keyboard___Trackpad_DQ63223LKPCF94RAGBD-if01-event-kbd" ];
   };
 
   system.stateVersion = "22.05"; # Did you read the comment?

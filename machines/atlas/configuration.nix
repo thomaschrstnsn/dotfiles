@@ -195,13 +195,9 @@ in
   services.gnome.gnome-keyring.enable = true;
   security.pam.services.greetd.enableGnomeKeyring = true;
 
-  services.kanata = {
-    enable = false;
-    keyboards.internal = {
-      devices = [ "/dev/input/by-id/usb-Keychron_Keychron_Q11-event-kbd" ];
-      config = builtins.readFile ./kanata.kbd;
-      extraDefCfg = "process-unmapped-keys yes";
-    };
+  tc.kanata = {
+    enable = true;
+    devices = [ "/dev/input/by-id/usb-Keychron_Keychron_Q11-event-kbd" ];
   };
 
   security.pam.u2f = {

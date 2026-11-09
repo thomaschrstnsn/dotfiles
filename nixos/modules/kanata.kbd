@@ -1,0 +1,48 @@
+;; macOS-like keyboard: caps is esc/hyper, Cmd and Option drive text navigation.
+;; Cmd and Option still act as plain Super/Alt for the compositor; holding them
+;; additionally activates a layer that rewrites the arrow keys.
+
+(defsrc
+	caps lmet rmet lalt
+	left right up down
+	[ ] bspc
+	)
+
+(deflayer default
+	@cap @cmd @cmd @opt
+	left right up down
+	[ ] bspc
+	)
+
+;; held Cmd: unmod (lmet rmet) releases Super only, so a held Shift extends a selection
+(deflayer cmd
+	_ _ _ _
+	@bol @eol @top @bot
+	@back @fwd _
+	)
+
+;; held Option: word movement / deletion
+(deflayer opt
+	_ _ _ _
+	@wl @wr _ _
+	_ _ @wbs
+	)
+
+(defalias
+	hyper (multi lalt lshift lmet lctl)
+	cap (tap-hold-press 200 200 esc @hyper)
+
+	cmd (multi lmet (layer-while-held cmd))
+	opt (multi lalt (layer-while-held opt))
+
+	bol (unmod (lmet rmet) home)
+	eol (unmod (lmet rmet) end)
+	top (unmod (lmet rmet) lctl home)
+	bot (unmod (lmet rmet) lctl end)
+	back (unmod (lmet rmet) lalt left)
+	fwd (unmod (lmet rmet) lalt right)
+
+	wl (unmod (lalt) lctl left)
+	wr (unmod (lalt) lctl right)
+	wbs (unmod (lalt) lctl bspc)
+	)

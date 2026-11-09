@@ -595,9 +595,11 @@ in
                 )
                 [
                   # copy/paste using super
-                  { _args = [ "SUPER + C" (mkLuaInline ''hl.dsp.exec_cmd("${./hypr/copy_unless_term.sh}")'') ]; }
-                  { _args = [ "SUPER + V" (mkLuaInline ''hl.dsp.exec_cmd("${./hypr/paste_unless_term.sh}")'') ]; }
-                  { _args = [ "SUPER + Z" (mkLuaInline ''hl.dsp.exec_cmd("${./hypr/undo_unless_term.sh}")'') ]; }
+                  { _args = [ "SUPER + C" (mkLuaInline ''hl.dsp.exec_cmd("${./hypr/send_unless_term.sh} CTRL C CTRL+SHIFT")'') ]; }
+                  { _args = [ "SUPER + V" (mkLuaInline ''hl.dsp.exec_cmd("${./hypr/send_unless_term.sh} CTRL V CTRL+SHIFT")'') ]; }
+                  { _args = [ "SUPER + X" (mkLuaInline ''hl.dsp.exec_cmd("${./hypr/send_unless_term.sh} CTRL X")'') ]; }
+                  { _args = [ "SUPER + A" (mkLuaInline ''hl.dsp.exec_cmd("${./hypr/send_unless_term.sh} CTRL A")'') ]; }
+                  { _args = [ "SUPER + Z" (mkLuaInline ''hl.dsp.exec_cmd("${./hypr/send_unless_term.sh} CTRL Z")'') ]; }
                   { _args = [ "SUPER + SHIFT + C" (mkLuaInline ''hl.dsp.exec_cmd("${clipboardCmd}")'') ]; }
                   # "ALT, comma, exec, <reserved for giphy picker>"
                   { _args = [ "ALT + period" (mkLuaInline ''hl.dsp.exec_cmd("bemoji -t")'') ]; }

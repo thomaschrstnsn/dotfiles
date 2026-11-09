@@ -67,7 +67,7 @@ in
     hyprland = {
       enable = true;
       terminal = "ghostty";
-      keyboard = "keychron-keychron-q11";
+      keyboard = "kanata";
       shell = "noctalia";
     };
     rust = {
