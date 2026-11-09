@@ -53,8 +53,8 @@ in
         };
         plugin = {
           prepend_fetchers = [
-            { id = "git"; name = "*"; run = "git"; }
-            { id = "git"; name = "*/"; run = "git"; }
+            { group = "git"; url = "*"; run = "git"; }
+            { group = "git"; url = "*/"; run = "git"; }
           ];
         };
       };
