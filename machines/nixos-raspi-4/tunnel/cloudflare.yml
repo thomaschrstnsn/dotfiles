@@ -28,5 +28,8 @@ ingress:
 
   - hostname: enix.chrstnsn.dk
     service: ssh://192.168.1.163:22
-    
+
+  - hostname: screen.chrstnsn.dk
+    service: http://192.168.1.163:6767
+
   - service: http_status:404
