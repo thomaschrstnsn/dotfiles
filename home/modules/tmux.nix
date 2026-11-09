@@ -54,6 +54,16 @@ let
     	fi
     fi
   '';
+  # prompt for /journal-claude args, run it headless and page the result (q closes the popup)
+  journalClaude = pkgs.writeShellScript "journal-claude-popup" ''
+    set -e
+    input="$(${pkgs.gum}/bin/gum input --placeholder "/journal-claude args (empty = today)" --prompt "📓 ")"
+    out="$(mktemp)"
+    trap 'rm -f "$out"' EXIT
+    ${pkgs.gum}/bin/gum spin --title "Running /journal-claude $input..." -- \
+    	sh -c 'claude "/journal-claude $1" --print >"$2" 2>&1' _ "$input" "$out" || true
+    ${pkgs.less}/bin/less -R "$out"
+  '';
 in
 {
   options.tc.tmux = with types; {
@@ -246,10 +256,11 @@ in
         ${optionalString cfg.partyHud.enable ''
         # party-hud: the plugin binds single prefix keys (loaded above); move toggle/next under a `prefix a` table
         unbind C-t
-        bind a switch-client -T party
         bind -T party a run-shell -b "${partyToggleFocus} '#{window_id}'"
         bind -T party n run-shell -b "${partyCmd} --next"
         ''}
+        bind a switch-client -T party
+        bind -T party j display-popup -E -w 80% -h 80% -T " journal-claude " "${journalClaude}"
 
         bind-key "C-," display-popup -E -w 40% "sesh connect \"$(
           sesh list -i | gum filter --limit 1 --no-sort --placeholder 'Pick a sesh' --height 50 --prompt='⚡'
