@@ -152,7 +152,7 @@
 
   services.timekpr = {
     enable = true;
-    adminUsers = [ "thomas" "stcol" ];
+    adminUsers = [ "thomas" ];
   };
 
   # automount disks

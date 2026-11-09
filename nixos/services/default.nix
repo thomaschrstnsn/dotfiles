@@ -4,6 +4,6 @@
   imports = [
     ./cloudflared.nix
     ./screentime-web.nix
-    ./screentime-collector.nix
+    ./nats.nix
   ];
 }

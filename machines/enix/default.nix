@@ -50,6 +50,7 @@ in
         defaultShell = "fish";
       };
       services.screentime-web.enable = true;
+      services.nats.enable = true;
     };
     base = {
       imports =

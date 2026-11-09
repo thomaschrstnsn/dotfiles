@@ -84,16 +84,21 @@ in
         groups = [ "wheel" "docker" "gamemode" ];
         defaultShell = "fish";
       };
-
-      services.screentime-collector = {
-        enable = true;
-      };
     };
     base = {
       imports =
         [
           ./hardware.nix
           ./configuration.nix
+
+          inputs.screentime-collector.nixosModules.default
+          {
+            services.screentime-collector = {
+              enable = true;
+              natsUrl = "nats://enix.local:4222";
+              monitoredUsers = [ "conrad" ];
+            };
+          }
 
           {
             home-manager.users.thomas = {

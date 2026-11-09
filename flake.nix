@@ -98,6 +98,11 @@
       url = "github:thomaschrstnsn/screentime-web";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    screentime-collector = {
+      url = "github:thomaschrstnsn/screentime-collector";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
