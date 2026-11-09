@@ -43,14 +43,19 @@ let
     '';
   };
   partyCmd = "${pkgs.python3}/bin/python3 ${partyHud}/share/tmux-plugins/party-hud/party.py";
-  # toggle the sidebars; when they open, focus the sidebar in the given window ($1)
+  # toggle the sidebars; when they open, focus the sidebar in the given window ($1).
+  # A one-shot hook hands focus back to the previous pane on the first window/session switch,
+  # so returning to this window doesn't land in the sidebar.
   partyToggleFocus = pkgs.writeShellScript "party-toggle-focus" ''
     set -e
     ${partyCmd} --toggle
     if [[ "$(tmux show-option -gqv @party_sidebar_on)" == "1" ]]; then
     	pane="$(tmux list-panes -t "$1" -F '#{pane_id} #{@party_sidebar}' | awk '$2 == "1" { print $1; exit }')"
+    	prev="$(tmux display-message -p -t "$1" '#{pane_id}')"
     	if [[ -n "$pane" ]]; then
     		tmux select-pane -t "$pane"
+    		restore="select-pane -t $prev ; set-hook -gu 'session-window-changed[91]' ; set-hook -gu 'client-session-changed[91]'"
+    		tmux set-hook -g 'session-window-changed[91]' "$restore" \; set-hook -g 'client-session-changed[91]' "$restore"
     	fi
     fi
   '';
