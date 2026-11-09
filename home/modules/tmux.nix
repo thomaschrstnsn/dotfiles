@@ -25,6 +25,35 @@ let
     rev = "0473f7abe87b95bc008e1cbfd16578e9cee93565";
     hash = "sha256-Uz+88f3RG7dBangOg0RLQxuE9f49TpMOcQkTtauzPQU";
   };
+
+  # https://github.com/mangow314/party-hud — needs python >= 3.10 (macOS system python3 is 3.9)
+  partyHud = pkgs.tmuxPlugins.mkTmuxPlugin {
+    pluginName = "party-hud";
+    version = "unstable-2026-11-08";
+    rtpFilePath = "party.tmux";
+    src = pkgs.fetchFromGitHub {
+      owner = "mangow314";
+      repo = "party-hud";
+      rev = "088d6a32820e0745218a3d25d442f118355eb9d2";
+      hash = "sha256-pTZf3NiyXVxh6/5T/0YrSAGpDhWM/pKarwUvjBDNxfk=";
+    };
+    postPatch = ''
+      substituteInPlace party.tmux \
+        --replace-fail 'party="python3 ' 'party="${pkgs.python3}/bin/python3 '
+    '';
+  };
+  partyCmd = "${pkgs.python3}/bin/python3 ${partyHud}/share/tmux-plugins/party-hud/party.py";
+  # toggle the sidebars; when they open, focus the sidebar in the given window ($1)
+  partyToggleFocus = pkgs.writeShellScript "party-toggle-focus" ''
+    set -e
+    ${partyCmd} --toggle
+    if [[ "$(tmux show-option -gqv @party_sidebar_on)" == "1" ]]; then
+    	pane="$(tmux list-panes -t "$1" -F '#{pane_id} #{@party_sidebar}' | awk '$2 == "1" { print $1; exit }')"
+    	if [[ -n "$pane" ]]; then
+    		tmux select-pane -t "$pane"
+    	fi
+    fi
+  '';
 in
 {
   options.tc.tmux = with types; {
@@ -54,6 +83,7 @@ in
         `tc.tmux.useUnstable = true`. null leaves it unset.
       '';
     };
+    partyHud.enable = mkEnableOption "party-hud (https://github.com/mangow314/party-hud)";
     cliptool = mkOption {
       type = str;
       default = "auto";
@@ -213,6 +243,14 @@ in
         set -gF @popup-id-format "{popup_name}"
         bind C-p run "#{@popup-toggle} -Ed'#{pane_current_path}' -w90% -h90% --name=process_info btm"
 
+        ${optionalString cfg.partyHud.enable ''
+        # party-hud: the plugin binds single prefix keys (loaded above); move toggle/next under a `prefix a` table
+        unbind C-t
+        bind a switch-client -T party
+        bind -T party a run-shell -b "${partyToggleFocus} '#{window_id}'"
+        bind -T party n run-shell -b "${partyCmd} --next"
+        ''}
+
         bind-key "C-," display-popup -E -w 40% "sesh connect \"$(
           sesh list -i | gum filter --limit 1 --no-sort --placeholder 'Pick a sesh' --height 50 --prompt='⚡'
           )\""
@@ -222,6 +260,12 @@ in
         vim-tmux-navigator
         extrakto # https://github.com/laktak/extrakto
         sensible
+        (mkIf cfg.partyHud.enable {
+          plugin = partyHud;
+          extraConfig = ''
+            set -g @party_key_popup 'C-a'
+          '';
+        })
         {
           plugin = fuzzback; # https://github.com/roosta/tmux-fuzzback
           extraConfig = ''

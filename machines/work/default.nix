@@ -99,6 +99,7 @@ in
       theme = "rose-pine";
       useUnstable = true;
       paneBorderType = "separate";
+      partyHud.enable = true;
     };
     tuicr = {
       enable = true;
