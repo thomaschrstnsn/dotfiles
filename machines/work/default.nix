@@ -84,6 +84,7 @@ in
       gh.enable = true;
       extras = {
         claudecode.enable = true;
+        octo.enable = true;
       };
       lang = {
         python.enable = true;

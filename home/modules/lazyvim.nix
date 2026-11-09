@@ -22,6 +22,7 @@ in
     gh.enable = mkEnableOption "gh (github cli) integation";
     extras = {
       claudecode.enable = mkEnableOption "claudecode.nvim agent integration";
+      octo.enable = mkEnableOption "octo.nvim GitHub PR reviews (jj-aware :OctoReviewPr)";
     };
     lang = {
       docker.enable = mkEnableOption "docker" // { default = true; };
@@ -51,11 +52,20 @@ in
       lazyvim = {
         enable = true;
         installCoreDependencies = false;
-        treesitterParsers = with pkgs.vimPlugins.nvim-treesitter-parsers;
+        treesitterParsers = with pkgs.vimPlugins.nvim-treesitter-parsers; concatLists [
           [
             graphql
             http
-          ];
+          ]
+          # the octo extra imports LazyVim's lang.git extra
+          (mkIfList cfg.extras.octo.enable [
+            git_config
+            gitcommit
+            git_rebase
+            gitignore
+            gitattributes
+          ])
+        ];
         extras = {
           ai = {
             copilot.enable = cfg.copilot.enable;
@@ -114,7 +124,10 @@ in
           lsp = { none-ls.enable = true; };
           test = { core.enable = true; };
           ui = { treesitter-context.enable = true; };
-          util = { rest.enable = cfg.util.rest.enable; };
+          util = {
+            octo.enable = cfg.extras.octo.enable;
+            rest.enable = cfg.util.rest.enable;
+          };
         };
         # TODO:
         # - csharp/dotnet? https://www.reddit.com/r/dotnet/comments/1keiv1m/comment/mqp6yag/
@@ -123,6 +136,7 @@ in
           { colorscheme = colorschemes.lua."${cfg.colorscheme}"; }
           (mkIf cfg.lang.markdown.zk.enable { "zk" = readFile ./lazy/optional_plugins/zk.lua; })
           (mkIf cfg.extras.claudecode.enable { "claudecode" = readFile ./lazy/optional_plugins/claudecode.lua; })
+          (mkIf cfg.extras.octo.enable { "octo" = readFile ./lazy/optional_plugins/octo.lua; })
         ];
 
         extraPackages = with pkgs; concatLists [
@@ -160,7 +174,7 @@ in
           ripgrep
           fzf
         ]
-        (mkIfList cfg.gh.enable [
+        (mkIfList (cfg.gh.enable || cfg.extras.octo.enable) [
           gh
         ])
       ];
