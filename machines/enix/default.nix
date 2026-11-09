@@ -10,7 +10,6 @@ in
       homedir = "/home/thomas";
     };
     direnv.enable = true;
-    ai.enable = false;
     jj = {
       enable = true;
       publicKeyFile = "~/.ssh/github-personal.pub";
