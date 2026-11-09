@@ -67,7 +67,6 @@ in
     tmux = {
       enable = true;
       theme = "rose-pine";
-      aiAgent.enable = true;
     };
   }];
 

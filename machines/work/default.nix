@@ -99,10 +99,6 @@ in
       theme = "rose-pine";
       useUnstable = true;
       paneBorderType = "separate";
-      aiAgent = {
-        enable = true;
-        agentExec = "claude";
-      };
     };
     tuicr = {
       enable = true;
