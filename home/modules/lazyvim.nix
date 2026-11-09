@@ -20,7 +20,6 @@ in
     enable = mkEnableOption "lazyvim";
     copilot.enable = mkEnableOption "copilot";
     gh.enable = mkEnableOption "gh (github cli) integation";
-    _99.enable = mkEnableOption "primeagen/99 tradcoding plugin";
     extras = {
       claudecode.enable = mkEnableOption "claudecode.nvim agent integration";
     };
@@ -122,7 +121,6 @@ in
         configFiles = ./lazy/lua;
         plugins = mkMerge [
           { colorscheme = colorschemes.lua."${cfg.colorscheme}"; }
-          (mkIf cfg._99.enable { "99" = readFile ./lazy/optional_plugins/99.lua; })
           (mkIf cfg.lang.markdown.zk.enable { "zk" = readFile ./lazy/optional_plugins/zk.lua; })
           (mkIf cfg.extras.claudecode.enable { "claudecode" = readFile ./lazy/optional_plugins/claudecode.lua; })
         ];

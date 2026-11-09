@@ -82,7 +82,6 @@ in
       enable = true;
       copilot.enable = true;
       gh.enable = true;
-      _99.enable = true;
       extras = {
         claudecode.enable = true;
       };
