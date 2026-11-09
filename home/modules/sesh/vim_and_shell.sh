@@ -1,3 +1,5 @@
 #! /usr/bin/env bash
-tmux new-window -n neovim nvim
-tmux new-window -n shell
+# sesh runs this inside the session's first window, so reuse it for neovim
+tmux new-window -d -n shell
+tmux rename-window neovim
+exec nvim
