@@ -876,6 +876,7 @@
         "nixpkgs-python": "nixpkgs-python",
         "noctalia": "noctalia",
         "pyenv-nix-install": "pyenv-nix-install",
+        "screentime-web": "screentime-web",
         "tuicr": "tuicr",
         "zen-browser": "zen-browser"
       }
@@ -915,6 +916,26 @@
       "original": {
         "owner": "oxalica",
         "repo": "rust-overlay",
+        "type": "github"
+      }
+    },
+    "screentime-web": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1794240798,
+        "narHash": "sha256-vgR1GaMQPKnPmrAGBZxnEdo5qkLNBnQBin8rED2OBoQ=",
+        "owner": "thomaschrstnsn",
+        "repo": "screentime-web",
+        "rev": "39833fd6d5a0d2ffa4fcac00d6f01afd62fe72fe",
+        "type": "github"
+      },
+      "original": {
+        "owner": "thomaschrstnsn",
+        "repo": "screentime-web",
         "type": "github"
       }
     },

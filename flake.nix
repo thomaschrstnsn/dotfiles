@@ -93,6 +93,11 @@
       url = "github:agavra/tuicr";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    screentime-web = {
+      url = "github:thomaschrstnsn/screentime-web";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
