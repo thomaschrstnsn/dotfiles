@@ -62,6 +62,7 @@ in
       remote = false;
       theme = "rose-pine";
       cliptool = "wl-copy";
+      partyHud.enable = true;
     };
     hyprland = {
       enable = true;
