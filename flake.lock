@@ -876,8 +876,7 @@
         "nixpkgs-python": "nixpkgs-python",
         "noctalia": "noctalia",
         "pyenv-nix-install": "pyenv-nix-install",
-        "screentime-collector": "screentime-collector",
-        "screentime-web": "screentime-web",
+        "screentime": "screentime",
         "tuicr": "tuicr",
         "zen-browser": "zen-browser"
       }
@@ -920,43 +919,23 @@
         "type": "github"
       }
     },
-    "screentime-collector": {
+    "screentime": {
       "inputs": {
         "nixpkgs": [
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1794256287,
-        "narHash": "sha256-ag/KYCFCgXVmd9TcXMeqviNVOKimqzz7CyliPrsFdGU=",
+        "lastModified": 1794428212,
+        "narHash": "sha256-EGr058LgyZ6+7Jkdl0ac9tkLHIPpx8IEmfvZ1j0UPhk=",
         "owner": "thomaschrstnsn",
-        "repo": "screentime-collector",
-        "rev": "0bda5975bba8d7ef70845b7eafa51b2618bc3292",
+        "repo": "screentime",
+        "rev": "e074b242d2fa2bdea3d080e26f050a3f31dfea9e",
         "type": "github"
       },
       "original": {
         "owner": "thomaschrstnsn",
-        "repo": "screentime-collector",
-        "type": "github"
-      }
-    },
-    "screentime-web": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1794256688,
-        "narHash": "sha256-o3ghIXRx+tpqWZjNlag1Y85cj34o1cL2Rjou/U/hte4=",
-        "owner": "thomaschrstnsn",
-        "repo": "screentime-web",
-        "rev": "890a9069138378e8da4a788738f40b4239489590",
-        "type": "github"
-      },
-      "original": {
-        "owner": "thomaschrstnsn",
-        "repo": "screentime-web",
+        "repo": "screentime",
         "type": "github"
       }
     },

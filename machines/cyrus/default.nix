@@ -91,7 +91,7 @@ in
           ./hardware.nix
           ./configuration.nix
 
-          inputs.screentime-collector.nixosModules.default
+          inputs.screentime.nixosModules.collector
           {
             services.screentime-collector = {
               enable = true;

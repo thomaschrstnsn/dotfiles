@@ -94,13 +94,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    screentime-web = {
-      url = "github:thomaschrstnsn/screentime-web";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    screentime-collector = {
-      url = "github:thomaschrstnsn/screentime-collector";
+    screentime = {
+      url = "github:thomaschrstnsn/screentime";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
