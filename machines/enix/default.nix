@@ -1,4 +1,4 @@
-{ sshKeys, ... }:
+{ inputs, sshKeys, ... }:
 
 let
   username = "thomas";
@@ -49,7 +49,6 @@ in
         groups = [ "wheel" "docker" "navidrome" ];
         defaultShell = "fish";
       };
-      services.screentime-web.enable = true;
       services.nats.enable = true;
     };
     base = {
@@ -57,6 +56,20 @@ in
         [
           ./hardware.nix
           ./configuration.nix
+
+          inputs.screentime.nixosModules.web
+          {
+            services.screentime-web = {
+              enable = true;
+              natsUrl = "nats://localhost:4222";
+              listenAddress = "0.0.0.0"; # the cloudflare tunnel on rpi4 reaches it over the LAN
+              openFirewall = true;
+              cloudflareAccess = {
+                team = "chrstnsn";
+                aud = "dc7601a2fd567cb444c9903776b771765ecb853bdcde878c3f136be1534c7de5";
+              };
+            };
+          }
         ];
     };
   };
