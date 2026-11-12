@@ -28,13 +28,11 @@ show_week_numbers = true
 [desktop_widgets]
 schema_version = 2
 widget_order = [
-    "desktop-widget-0000000000000001",
     "desktop-widget-0000000000000002",
     "desktop-widget-0000000000000003",
-    "desktop-widget-0000000000000004",
     "desktop-widget-0000000000000005",
-    "desktop-widget-0000000000000006",
-    "desktop-widget-0000000000000007"
+    "desktop-widget-0000000000000007",
+    "desktop-widget-0000000000000008"
 ]
 
     [desktop_widgets.grid]
@@ -76,10 +74,10 @@ widget_order = [
         stat2 = "cpu_temp"
 
     [desktop_widgets.widget.desktop-widget-0000000000000003]
-    box_height = 256.0
-    box_width = 496.0
-    cx = 360.0
-    cy = 720.0
+    box_height = 272.0
+    box_width = 384.0
+    cx = 304.0
+    cy = 680.0
     output = "HDMI-A-1"
     placement_height = 1440.0
     placement_width = 5120.0
@@ -88,7 +86,7 @@ widget_order = [
 
         [desktop_widgets.widget.desktop-widget-0000000000000003.settings]
         background = false
-        forecast_days = 1
+        forecast_days = 2
         show_forecast = true
 
     [desktop_widgets.widget.desktop-widget-0000000000000004]
@@ -158,6 +156,25 @@ widget_order = [
         show_label = true
         stat = "gpu_usage"
         stat2 = "gpu_temp"
+
+    [desktop_widgets.widget.desktop-widget-0000000000000008]
+    box_height = 160.0
+    box_width = 672.0
+    cx = 672.0
+    cy = 432.0
+    output = "HDMI-A-1"
+    placement_height = 1440.0
+    placement_width = 5120.0
+    rotation = -0.0
+    type = "sysmon"
+
+        [desktop_widgets.widget.desktop-widget-0000000000000008.settings]
+        background = false
+        display = "graph"
+        shadow = true
+        show_label = true
+        stat = "net_rx"
+        stat2 = "net_tx"
 
 [location]
 auto_locate = true
