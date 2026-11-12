@@ -30,6 +30,18 @@ clean TARGET="all":
 update *args:
   nix flake update --commit-lock-file {{args}}
 
+# List the flake's direct inputs (the names `update` accepts)
+inputs:
+  @nix flake metadata --json | jq -r '.locks.nodes[.locks.root].inputs | keys[]'
+
+# Pick inputs to update with fzf (tab to multi-select)
+update-select:
+  #!/usr/bin/env bash
+  set -euo pipefail
+  selected=$(just inputs | fzf -m --prompt="update> ") || exit 0
+  [[ -n "$selected" ]] || exit 0
+  just update $selected
+
 prefetch-from-github OWNER REPO *args:
   nix run nixpkgs#nix-prefetch-github -- --nix {{OWNER}} {{REPO}} {{args}}
 
