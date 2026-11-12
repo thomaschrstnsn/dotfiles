@@ -7,7 +7,7 @@ center = [ "media" ]
 end = [ "tray", "clipboard", "bluetooth", "group:g1", "volume", "notifications", "session", "keyboard_layout", "clock" ]
 font_family = "SF Pro Rounded"
 font_weight = 600
-start = [ "control-center", "launcher" ]
+start = [ "control-center", "launcher", "caffeine" ]
 
     [[bar.default.capsule_group]]
     accordion = false
