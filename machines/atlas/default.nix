@@ -115,22 +115,15 @@ in
         groups = [ "wheel" "docker" "gamemode" "networkmanager" ];
         defaultShell = "fish";
       };
+      noctalia = {
+        enable = true;
+        # noctalia config export > machines/atlas/noctalia/config.toml
+        configFile = ./noctalia/config.toml;
+      };
     };
     base = {
       imports =
         [
-          {
-            # noctalia stuff
-            environment.systemPackages = [
-              inputs.noctalia.packages.${system}.default
-            ];
-            home-manager.users.thomas = {
-              imports = [
-                inputs.noctalia.homeModules.default
-              ];
-            };
-          }
-          ./noctalia.nix
           ./hardware.nix
           ./configuration.nix
         ];
