@@ -161,6 +161,22 @@ in
         TimeoutStopSec = 10;
       };
     };
+
+    # The USB controller can fail to resume, which resets the BT chip under a
+    # still-running bluetoothd and leaves it unable to connect devices.
+    services.bluetooth-restart-on-resume =
+      let
+        sleepTargets = [ "suspend.target" "hibernate.target" "hybrid-sleep.target" "suspend-then-hibernate.target" ];
+      in
+      {
+        description = "Restart bluetooth after resume";
+        after = sleepTargets;
+        wantedBy = sleepTargets;
+        serviceConfig = {
+          Type = "oneshot";
+          ExecStart = "${pkgs.systemd}/bin/systemctl restart bluetooth.service";
+        };
+      };
   };
 
   services.pipewire = {
