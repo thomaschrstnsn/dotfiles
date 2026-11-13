@@ -190,12 +190,12 @@ in
         (mkIf (sshConfig._1password.enableAgent && cfg.gpgVia1Password.enable)
           {
             settings = {
-              git.sign-on-push = true;
+              revsets.git-sign-on-push = "~signed() & mine()";
               signing = {
                 inherit (cfg.gpgVia1Password) key;
                 backend = "ssh";
                 backends.ssh.program = config.programs.git.settings.gpg.ssh.program;
-                behavior = "own";
+                behavior = "drop";
               };
             };
           })
