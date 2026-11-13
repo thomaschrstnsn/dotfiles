@@ -522,6 +522,26 @@
         "url": "https://flakehub.com/f/nix-community/home-manager/0.1"
       }
     },
+    "hyprfocus": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1794603703,
+        "narHash": "sha256-8V/z6TZilqGmUDC6ukqwa11BgKtpKSx8BNoDdaXfUUQ=",
+        "owner": "thomaschrstnsn",
+        "repo": "hyprfocus",
+        "rev": "0cf7b2219381484ff19a8b07dd8012f175cadf6e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "thomaschrstnsn",
+        "repo": "hyprfocus",
+        "type": "github"
+      }
+    },
     "komorebi": {
       "inputs": {
         "crane": "crane",
@@ -866,6 +886,7 @@
         "determinate": "determinate",
         "ghostty": "ghostty",
         "home-manager": "home-manager",
+        "hyprfocus": "hyprfocus",
         "komorebi": "komorebi",
         "lazyvim": "lazyvim",
         "nix-citizen": "nix-citizen",

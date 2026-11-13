@@ -68,6 +68,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    hyprfocus = {
+      url = "github:thomaschrstnsn/hyprfocus";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     komorebi = {
       url = "github:LGUG2Z/komorebi-for-mac";
       inputs.nixpkgs.follows = "nixpkgs";
