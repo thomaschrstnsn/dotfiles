@@ -99,6 +99,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    lig = {
+      url = "github:KevenGoncalves/lig";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     screentime = {
       url = "github:thomaschrstnsn/screentime";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -263,6 +268,7 @@
                 };
             }
             inputs.lazyvim.homeManagerModules.default
+            inputs.lig.homeModules.default
             ./home/modules
           ];
           inherit pkgs;

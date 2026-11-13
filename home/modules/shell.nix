@@ -1,4 +1,4 @@
-{ pkgs, config, lib, ... }:
+{ pkgs, config, options, lib, ... }:
 with lib;
 
 let
@@ -25,6 +25,15 @@ in
       type = enum [ "default" "jetpack" ];
       description = "starship.rs theme to use";
       default = "default";
+    };
+
+    lig = {
+      enable = mkEnableOption "lig - IDE-style autocomplete for the terminal";
+      settings = mkOption {
+        description = "lig settings, written to ~/.config/lig/config.toml (`lig config` lists options)";
+        type = attrs;
+        default = { };
+      };
     };
   };
 
@@ -128,6 +137,13 @@ in
       clean = {
         enable = true;
       };
+    };
+
+    programs.lig = mkIf cfg.lig.enable {
+      enable = true;
+      # upstream test `detects_tty_descriptors` needs a real tty, unavailable in the nix sandbox
+      package = options.programs.lig.package.default.overrideAttrs { doCheck = false; };
+      inherit (cfg.lig) settings;
     };
 
     programs.htop.enable = true;
