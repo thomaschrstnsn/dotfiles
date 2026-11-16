@@ -174,7 +174,6 @@ in
     gcx
     kitty
     natscli
-    opencode
     # kubernetes tools
     kubectl
     k9s
