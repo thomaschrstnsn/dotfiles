@@ -158,9 +158,9 @@ in
     sleepwatcher = {
       enable = true;
       bluetooth = {
-        # autoConnectDevices = [ "c8-bc-c8-fc-fe-fc" ];
-        powerOffOnSleep = true;
-        powerOnOnWake = true;
+        autoConnectDevices = [ "c8-bc-c8-fc-fe-fc" ];
+        # powerOffOnSleep = true;
+        # powerOnOnWake = true;
       };
     };
   };
