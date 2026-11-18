@@ -6,11 +6,20 @@ let
   cfg = config.tc.sleepwatcher;
 
   dateCmd = ''date +"%Y-%m-%dT%H:%M:%S"'';
+  logFile = "$HOME/sleep-wake.log";
+
+  # Send all output (stdout + stderr) of the script to the log, and trace each
+  # command so it is visible what ran even when it prints nothing.
+  logPreamble = header: [
+    ''exec >> "${logFile}" 2>&1''
+    ''echo "${header} at $(${dateCmd})"''
+    "set -x"
+  ];
 
   sleeper = pkgs.writeShellApplication {
     name = "sleep-command";
     text = concatStringsSep "\n" (
-      [ ''echo "Going to sleep at $(${dateCmd})" >> ~/sleep-wake.log'' ]
+      (logPreamble "Going to sleep")
       ++ optionals cfg.bluetooth.powerOffOnSleep [ ''${pkgs.blueutil}/bin/blueutil --power 0'' ]
       ++ (map (addr: ''${pkgs.blueutil}/bin/blueutil --disconnect ${addr}'') cfg.bluetooth.autoConnectDevices)
     );
@@ -18,7 +27,7 @@ let
   waker = pkgs.writeShellApplication {
     name = "wake-command";
     text = concatStringsSep "\n" (
-      [ ''echo "Waking up at $(${dateCmd})" >> ~/sleep-wake.log '' ]
+      (logPreamble "Waking up")
       ++ optionals cfg.bluetooth.powerOnOnWake [ ''${pkgs.blueutil}/bin/blueutil --power 1'' ]
       ++ (map (addr: ''${pkgs.blueutil}/bin/blueutil --connect ${addr}'') cfg.bluetooth.autoConnectDevices)
     );
