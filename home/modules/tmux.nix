@@ -4,6 +4,7 @@ with lib;
 let
   cfg = config.tc.tmux;
   usercfg = config.tc.user;
+  ligEnabled = config.tc.shell.lig.enable;
   remoteConfigFile = "tmux.remote.conf";
   enabledBg = {
     dracula = "#44475a";
@@ -215,6 +216,13 @@ in
         set-option -g detach-on-destroy off
 
         set -g renumber-windows on       # No gaps after closing windows
+
+        ${optionalString ligEnabled ''
+        # default format, except lig panes: lig mirrors the app on its inner pty in its argv, but
+        # on macOS #{pane_current_command} is the kernel's process name (fixed at exec), so it
+        # stays "lig". fish inside lig publishes the running command as @lig_cmd (see below).
+        set -g automatic-rename-format '#{?pane_in_mode,[tmux],#{?#{==:#{pane_current_command},lig},#{?@lig_cmd,#{@lig_cmd},lig},#{pane_current_command}}}#{?pane_dead,[dead],}'
+        ''}
 
         ${optionalString (cfg.paneBorderType != null) ''
         # https://github.com/tmux/tmux/pull/5433 — -q so stock tmux ignores it silently
@@ -472,56 +480,74 @@ in
     '');
 
     programs.fish = {
-      interactiveShellInit = lib.mkOrder 5000 (if cfg.disableAutoStarting then "" else ''
-        # disable the tmux.fish plugin autostart — we handle it ourselves with sesh
-        set fish_tmux_autostart false
-        set -q fish_tmux_autostarted; or set -gx fish_tmux_autostarted false
-        set fish_tmux_autoquit false
-
-        if test -n "$SSH_CONNECTION"; and test -z "$TMUX"
-          set fish_tmux_autoquit true
-
-          # ssh agent forwarding
-          set fish_tmux_ssh_auth_sock /tmp/ssh-agent-${usercfg.username}-tmux
-          if test -S $SSH_AUTH_SOCK
-            echo "fish: forwarding ssh agent"
-            ln -sf $SSH_AUTH_SOCK $fish_tmux_ssh_auth_sock
+      interactiveShellInit = lib.mkMerge [
+        # in a lig pane, tmux only sees `lig` (see automatic-rename-format): publish the running
+        # command as the pane option @lig_cmd instead
+        (mkIf ligEnabled ''
+          if set -q TMUX_PANE; and test -n "$LIG_TTY"; and test "$LIG_TTY" = (tty)
+            function __lig_tmux_cmd --on-event fish_preexec
+              # first word, skipping `VAR=value` prefixes
+              set -l cmd (string split -n ' ' -- $argv[1] | string match -rv '^\w+=')[1]
+              test -n "$cmd"; or return
+              command tmux set -p -t $TMUX_PANE @lig_cmd (path basename -- $cmd) 2>/dev/null
+            end
+            function __lig_tmux_shell --on-event fish_postexec
+              command tmux set -p -t $TMUX_PANE @lig_cmd fish 2>/dev/null
+            end
+            command tmux set -p -t $TMUX_PANE @lig_cmd fish 2>/dev/null
           end
-          set -gx SSH_AUTH_SOCK $fish_tmux_ssh_auth_sock
-        end
+        '')
+        (lib.mkOrder 5000 (if cfg.disableAutoStarting then "" else ''
+          # disable the tmux.fish plugin autostart — we handle it ourselves with sesh
+          set fish_tmux_autostart false
+          set -q fish_tmux_autostarted; or set -gx fish_tmux_autostarted false
+          set fish_tmux_autoquit false
 
-        # sesh-integrated tmux autostart
-        if test -z "$TMUX" \
-            && test -z "$INSIDE_EMACS" && test -z "$EMACS" \
-            && test -z "$VIM" && test -z "$NVIM" \
-            && test -z "$INTELLIJ_ENVIRONMENT_READER" \
-            && test -z "$VSCODE_RESOLVING_ENVIRONMENT" \
-            && test "$TERM_PROGRAM" != vscode \
-            && test "$TERM_PROGRAM" != zed \
-            && test "$TERMINAL_EMULATOR" != JetBrains-JediTerm \
-            && test "$fish_tmux_autostarted" != true
+          if test -n "$SSH_CONNECTION"; and test -z "$TMUX"
+            set fish_tmux_autoquit true
 
-          set -gx fish_tmux_autostarted true
+            # ssh agent forwarding
+            set fish_tmux_ssh_auth_sock /tmp/ssh-agent-${usercfg.username}-tmux
+            if test -S $SSH_AUTH_SOCK
+              echo "fish: forwarding ssh agent"
+              ln -sf $SSH_AUTH_SOCK $fish_tmux_ssh_auth_sock
+            end
+            set -gx SSH_AUTH_SOCK $fish_tmux_ssh_auth_sock
+          end
 
-          if command tmux list-sessions 2>/dev/null | command grep -q .
-            # existing sessions — let user pick via sesh
-            set selected (sesh list -i | gum filter --limit 1 --no-sort --placeholder 'Pick a sesh' --height 50 --prompt='⚡')
-            if test -n "$selected"
-              sesh connect "$selected"
+          # sesh-integrated tmux autostart
+          if test -z "$TMUX" \
+              && test -z "$INSIDE_EMACS" && test -z "$EMACS" \
+              && test -z "$VIM" && test -z "$NVIM" \
+              && test -z "$INTELLIJ_ENVIRONMENT_READER" \
+              && test -z "$VSCODE_RESOLVING_ENVIRONMENT" \
+              && test "$TERM_PROGRAM" != vscode \
+              && test "$TERM_PROGRAM" != zed \
+              && test "$TERMINAL_EMULATOR" != JetBrains-JediTerm \
+              && test "$fish_tmux_autostarted" != true
+
+            set -gx fish_tmux_autostarted true
+
+            if command tmux list-sessions 2>/dev/null | command grep -q .
+              # existing sessions — let user pick via sesh
+              set selected (sesh list -i | gum filter --limit 1 --no-sort --placeholder 'Pick a sesh' --height 50 --prompt='⚡')
+              if test -n "$selected"
+                sesh connect "$selected"
+              else
+                # user cancelled — create new default session
+                command tmux new-session
+              end
             else
-              # user cancelled — create new default session
+              # no sessions — create new default session
               command tmux new-session
             end
-          else
-            # no sessions — create new default session
-            command tmux new-session
-          end
 
-          if test "$fish_tmux_autoquit" = true
-            kill $fish_pid
+            if test "$fish_tmux_autoquit" = true
+              kill $fish_pid
+            end
           end
-        end
-      '');
+        ''))
+      ];
       plugins = [
         {
           name = "tmux";
