@@ -5,7 +5,6 @@ alias switch := apply
 alias b := build
 alias c := check
 alias u := update
-alias brd := build-raspi-docker
 
 _nh := if os() == "macos" { "nh darwin" } else { "nh os" }
 
@@ -51,33 +50,55 @@ needs-manual-update:
 disk-usage:
   nix run nixpkgs#nix-du -- -s=500MB | nix shell nixpkgs#graphviz --command dot -Tsvg -o disk-usage.svg
 
-# Build one or more attributes of a nixos config inside Docker (native on Apple
-# Silicon) and push their closures to the thomaschrstnsn cachix cache.
-#   HOST  = nixosConfigurations.<HOST>              (default nixos-raspi-4)
-#   ATTRS = space-separated attr paths under it, e.g.
-#             config.system.build.toplevel       (default; the whole system)
-#             config.boot.kernelPackages.kernel   (just the RPi kernel)
-# Build just the kernel:  just brd nixos-raspi-4 config.boot.kernelPackages.kernel
-# Requires CACHIX_AUTH_TOKEN (a cachix *write* token) in the environment.
-build-raspi-docker HOST="nixos-raspi-4" ATTRS="config.system.build.toplevel":
+_builder_ssh_config := env("HOME") / ".cache/raspi-builder/ssh_config"
+
+# Reachable over ssh as `raspi-builder` (127.0.0.1:2222), with its store on the
+# raspi-nix-store docker volume. Your ssh-agent keys are authorized for root.
+# Start (if needed) a persistent aarch64-linux Nix builder container
+raspi-builder-up:
   #!/usr/bin/env bash
   set -euo pipefail
-  : "${CACHIX_AUTH_TOKEN:?set CACHIX_AUTH_TOKEN to a cachix write token for 'thomaschrstnsn'}"
-  docker run --rm \
-    -e CACHIX_AUTH_TOKEN \
-    -v raspi-nix-store:/nix \
-    -v "{{justfile_directory()}}:/workspace" \
-    -w /workspace \
-    nixos/nix:latest \
-    sh -eu -c '
-      printf "%s\n" \
-        "experimental-features = nix-command flakes" \
-        "extra-substituters = https://nix-community.cachix.org https://thomaschrstnsn.cachix.org" \
-        "extra-trusted-public-keys = nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= thomaschrstnsn.cachix.org-1:jPfgdkADpT48y0uP/E3fPKCJuHHDe/JpRJrfyEYdxPA=" \
-        >> /etc/nix/nix.conf
-      printf "[safe]\n\tdirectory = *\n" > /root/.gitconfig
-      set --
-      for a in {{ATTRS}}; do set -- "$@" "/workspace#nixosConfigurations.{{HOST}}.$a^*"; done
-      nix build "$@" --print-out-paths --no-link \
-        | nix run nixpkgs#cachix -- push thomaschrstnsn
-    '
+  mkdir -p "$(dirname "{{_builder_ssh_config}}")"
+  printf '%s\n' \
+    "Host raspi-builder" \
+    "  HostName 127.0.0.1" \
+    "  Port 2222" \
+    "  User root" \
+    "  StrictHostKeyChecking no" \
+    "  UserKnownHostsFile /dev/null" \
+    "  LogLevel ERROR" \
+    "  ServerAliveInterval 15" \
+    "Match all" \
+    "Include ~/.ssh/config" \
+    > "{{_builder_ssh_config}}"
+  if [[ "$(docker inspect -f '{{{{.State.Running}}' raspi-builder 2>/dev/null)" != "true" ]]; then
+    docker rm -f raspi-builder >/dev/null 2>&1 || true
+    keys="$(ssh-add -L)" || { echo "no keys in ssh-agent" >&2; exit 1; }
+    docker run -d --name raspi-builder \
+      -e AUTHORIZED_KEYS="$keys" \
+      -p 127.0.0.1:2222:22 \
+      -v raspi-nix-store:/nix \
+      -v "{{justfile_directory()}}/machines/nixos-raspi-4/docker-builder.sh:/entrypoint.sh:ro" \
+      nixos/nix:latest \
+      sh /entrypoint.sh >/dev/null
+  fi
+  for _ in $(seq 1 120); do
+    ssh -F "{{_builder_ssh_config}}" -o ConnectTimeout=2 raspi-builder true 2>/dev/null && exit 0
+    sleep 2
+  done
+  echo "raspi-builder did not come up; see: docker logs raspi-builder" >&2
+  exit 1
+
+# Stop and remove the builder container (the Nix store volume is kept)
+raspi-builder-down:
+  docker rm -f raspi-builder
+
+#   ACTION = switch | boot | test | build
+# e.g. just deploy-raspi            (switch nixos-raspi-4 on rpi4)
+#      just deploy-raspi boot nixos-raspi-4 rpi4 --show-trace
+# NH_NO_SYSTEMD_RUN: nh 4.5 wraps activation in `systemd-run --wait --verbose`,
+# which on the Pi fails with "Failed to start transient service unit: Transport
+# endpoint is not connected"; run switch-to-configuration directly instead.
+# Build HOST in the docker builder and deploy it to TARGET over ssh with nh
+deploy-raspi ACTION="switch" HOST="nixos-raspi-4" TARGET="rpi4" *args: raspi-builder-up
+  NH_NO_SYSTEMD_RUN=1 NH_SSHOPTS="-F {{_builder_ssh_config}}" nh os {{ACTION}} . -H {{HOST}} --build-host raspi-builder --target-host {{TARGET}} {{args}}
