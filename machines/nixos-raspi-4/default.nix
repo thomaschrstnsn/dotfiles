@@ -26,9 +26,16 @@ in
         "github-personal.pub" = sshKeys.personal.access.publicKey;
       };
     };
+    fish.enable = true;
     tmux = {
       enable = true;
       remote = true;
+      vtmux = {
+        enable = true;
+        paneInactiveBlend = "fg=bg/25,bg=bg/25";
+        kittyKeys = true;
+        inbandResize = true;
+      };
     };
     lazyvim.enable = true;
     yazi.enable = false;
@@ -44,6 +51,7 @@ in
       user = {
         name = username;
         groups = [ "wheel" "docker" ];
+        defaultShell = "fish";
       };
       networking.hostname = "nixos-raspi-4";
     };
