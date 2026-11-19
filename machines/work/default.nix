@@ -97,8 +97,14 @@ in
     tmux = {
       enable = true;
       theme = "rose-pine";
-      useUnstable = true;
-      paneBorderType = "separate";
+      vtmux = {
+        enable = true;
+        paneInactiveBlend = "fg=bg/25,bg=bg/25";
+        kittyKeys = true;
+        notifications = true;
+        inbandResize = true;
+        graphics = true;
+      };
       partyHud.enable = true;
     };
     tuicr = {

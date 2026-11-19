@@ -69,6 +69,23 @@ let
     	sh -c 'claude "/journal-claude $1" --print >"$2" 2>&1' _ "$input" "$out" || true
     ${pkgs.less}/bin/less -R "$out"
   '';
+  # prefix-r under vtmux: move the server onto the current binary (sessions survive), then
+  # reload the config. vtmux-upgrade refuses to run inside a command list or a run-shell job,
+  # so detach from the job and let it exit before upgrading. The profile path (not a store
+  # path) resolves to the newest vtmux after `just apply`.
+  vtmuxUpgradeAndReload = pkgs.writeShellScript "vtmux-upgrade-and-reload" ''
+    tmux="${config.home.profileDirectory}/bin/tmux"
+    (
+    	sleep 0.3
+    	if err="$("$tmux" vtmux-upgrade -b "$tmux" 2>&1)"; then
+    		msg="upgraded vtmux ($("$tmux" display -p '#{vtmux_version}')), reloaded config"
+    	else
+    		msg="vtmux-upgrade failed: $err; reloaded config"
+    	fi
+    	"$tmux" source ~/.config/tmux/tmux.conf
+    	"$tmux" display "$msg"
+    ) >/dev/null 2>&1 </dev/null &
+  '';
 in
 {
   options.tc.tmux = with types; {
@@ -81,11 +98,40 @@ in
     };
     remote = mkEnableOption "is remote machine";
     useUnstable = mkEnableOption "tmux built from master + PR #5433 (adds pane-border-type)";
+    vtmux = {
+      enable = mkEnableOption "vtmux (https://github.com/martintrojer/vtmux) as tmux";
+      # vtmux-only options, see https://github.com/martintrojer/vtmux/blob/main/docs/PAPERCUTS.md
+      paneInactiveBlend = mkOption {
+        type = nullOr str;
+        default = null;
+        example = "fg=bg/25,bg=bg/25";
+        description = "`vtmux-pane-inactive-blend`: blend every cell of inactive panes toward these colours. null leaves it unset.";
+      };
+      paneActiveBlend = mkOption {
+        type = nullOr str;
+        default = null;
+        example = "fg=bg/10,bg=bg/10";
+        description = "`vtmux-pane-active-blend`: as paneInactiveBlend, for the active pane. null leaves it unset.";
+      };
+      kittyKeys = mkEnableOption "`vtmux-kitty-keys`: kitty keyboard protocol for programs that ask (Shift+Enter, C-i vs Tab, Esc vs Alt)";
+      notifications = mkEnableOption "`vtmux-notifications`: forward OSC 9/777 desktop notifications to Ghostty clients";
+      inbandResize = mkEnableOption "`vtmux-inband-resize`: in-band resize reports (mode 2048) for programs that ask";
+      graphics = mkEnableOption "`vtmux-graphics`: kitty graphics for Ghostty clients without allow-passthrough";
+      graphicsLimit = mkOption {
+        type = nullOr ints.positive;
+        default = null;
+        example = 512;
+        description = "`vtmux-graphics-limit` in MB (vtmux default 256). null leaves it unset.";
+      };
+    };
     package = mkOption {
       type = nullOr package;
-      default = if cfg.useUnstable then pkgs.myPkgs.tmuxPaneBorderType else pkgs.tmux;
+      default =
+        if cfg.vtmux.enable then pkgs.myPkgs.vtmux
+        else if cfg.useUnstable then pkgs.myPkgs.tmuxPaneBorderType
+        else pkgs.tmux;
       defaultText = literalExpression "pkgs.tmux";
-      example = literalExpression "pkgs.myPkgs.tmuxPaneBorderType";
+      example = literalExpression "pkgs.myPkgs.vtmux";
       description = "tmux package to use";
     };
     paneBorderType = mkOption {
@@ -107,6 +153,10 @@ in
   };
 
   config = mkIf cfg.enable {
+    assertions = [{
+      assertion = !(cfg.vtmux.enable && cfg.useUnstable);
+      message = "tc.tmux: vtmux and useUnstable are mutually exclusive";
+    }];
 
     # install grealpath = coreutils/bin/realpath, needed for tmux-file-picker on macOS
     home.packages = mkIf pkgs.stdenv.hostPlatform.isDarwin (
@@ -171,6 +221,23 @@ in
         set -wgq pane-border-type ${cfg.paneBorderType}
         ''}
 
+        ${optionalString cfg.vtmux.enable (
+          let
+            onOff = b: if b then "on" else "off";
+            vt = cfg.vtmux;
+          in
+          ''
+          # vtmux-only options
+          set -s vtmux-kitty-keys ${onOff vt.kittyKeys}
+          set -s vtmux-notifications ${onOff vt.notifications}
+          set -s vtmux-inband-resize ${onOff vt.inbandResize}
+          set -s vtmux-graphics ${onOff vt.graphics}
+          ${optionalString (vt.graphicsLimit != null) "set -s vtmux-graphics-limit ${toString vt.graphicsLimit}"}
+          ${optionalString (vt.paneInactiveBlend != null) "set -g vtmux-pane-inactive-blend '${vt.paneInactiveBlend}'"}
+          ${optionalString (vt.paneActiveBlend != null) "set -g vtmux-pane-active-blend '${vt.paneActiveBlend}'"}
+          ''
+        )}
+
         bind-key x kill-pane # skip "kill-pane 1? (y/n)" prompt
 
         # https://github.com/samoshkin/tmux-config/blob/af2efd9561f41f30c51c9deeeab9451308c4086b/tmux/yank.sh
@@ -190,7 +257,9 @@ in
         set -g @extrakto_clip_tool ${cfg.cliptool}
 
         unbind r
-        bind r 'source ~/.config/tmux/tmux.conf; display "reloaded config"'
+        ${if cfg.vtmux.enable
+          then "bind r run-shell -b ${vtmuxUpgradeAndReload}"
+          else ''bind r 'source ~/.config/tmux/tmux.conf; display "reloaded config"' ''}
 
         # Vim style pane selection
         bind h select-pane -L
