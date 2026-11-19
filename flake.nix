@@ -73,6 +73,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    aero-traffic-control = {
+      url = "github:thomaschrstnsn/aero-traffic-control";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     komorebi = {
       url = "github:LGUG2Z/komorebi-for-mac";
       inputs.nixpkgs.follows = "nixpkgs";

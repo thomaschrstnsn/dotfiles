@@ -2,7 +2,7 @@
 with pkgs;
 {
   myPkgs = {
-    aeroTrafficControl = callPackage ./aetc.nix { };
+    aeroTrafficControl = inputs.aero-traffic-control.packages.${system}.default;
     appleFonts = import ./apple-fonts { inherit pkgs; };
     hyprfocus = inputs.hyprfocus.packages.${system}.default;
     pyenv-nix-install = inputs.pyenv-nix-install.packages.${system}.default;

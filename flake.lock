@@ -1,5 +1,25 @@
 {
   "nodes": {
+    "aero-traffic-control": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1795098975,
+        "narHash": "sha256-L8fc2o73jMmj5UqhBCDXcA2WFkCYjrslcU8w7667+EQ=",
+        "owner": "thomaschrstnsn",
+        "repo": "aero-traffic-control",
+        "rev": "9de377cd551f9a59c3af4794d2aeff6bbf2bd9af",
+        "type": "github"
+      },
+      "original": {
+        "owner": "thomaschrstnsn",
+        "repo": "aero-traffic-control",
+        "type": "github"
+      }
+    },
     "agenix": {
       "inputs": {
         "darwin": [
@@ -900,6 +920,7 @@
     },
     "root": {
       "inputs": {
+        "aero-traffic-control": "aero-traffic-control",
         "agenix": "agenix",
         "claude-code": "claude-code",
         "darwin": "darwin",
