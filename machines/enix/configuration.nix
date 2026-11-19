@@ -36,6 +36,7 @@
   ];
 
   environment.systemPackages = with pkgs; [
+    dix # used by `nh os` to diff against this host when deploying remotely
     docker-compose
     rclone
   ];

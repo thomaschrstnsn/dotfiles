@@ -30,6 +30,12 @@ in
       enable = true;
       remote = true;
       theme = "rose-pine";
+      vtmux = {
+        enable = true;
+        paneInactiveBlend = "fg=bg/25,bg=bg/25";
+        kittyKeys = true;
+        inbandResize = true;
+      };
     };
     lazyvim.enable = true;
   }];
