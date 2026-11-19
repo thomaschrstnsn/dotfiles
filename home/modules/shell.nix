@@ -143,7 +143,8 @@ in
       enable = true;
       # upstream test `detects_tty_descriptors` needs a real tty, unavailable in the nix sandbox
       package = options.programs.lig.package.default.overrideAttrs { doCheck = false; };
-      inherit (cfg.lig) settings;
+      # "shell": for commands without a lig spec, ask fish's own completions before parsing --help
+      settings = recursiveUpdate { behavior.completers = [ "shell" ]; } cfg.lig.settings;
     };
 
     programs.htop.enable = true;

@@ -77,6 +77,7 @@ in
     };
     python.enable = true;
     rust.enable = true;
+    shell.lig.enable = true;
     lazyvim = {
       colorscheme = "rose-pine";
       enable = true;
