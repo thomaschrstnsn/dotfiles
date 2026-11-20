@@ -24,8 +24,13 @@ in
       };
       family = mkOption {
         type = nullOr str;
-        description = "font-family in terminal";
+        description = ''
+          font-family in terminal. Installed system fonts include
+          "Maple Mono NF" and "Sarasa Term SC" (see pkgs/sarasa.nix to
+          add other Sarasa variants).
+        '';
         default = null;
+        example = "Sarasa Term SC";
       };
     };
 

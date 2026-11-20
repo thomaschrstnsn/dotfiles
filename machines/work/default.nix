@@ -46,8 +46,8 @@ in
     } // { inherit (vcs) alternativeConfigs; } // vcs.primaryConfig;
     ghostty = {
       enable = true;
-      font.size = 16;
-      font.family = "Maple Mono NF";
+      font.size = 15;
+      font.family = "Sarasa Term SC";
       windowBackgroundOpacity = 0.90;
       package = null;
       shaders = [ "cursor_blaze_tapered" ];
