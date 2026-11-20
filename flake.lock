@@ -989,11 +989,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1794430602,
-        "narHash": "sha256-puud19gvkOyTyPCARzdp3p+5n6whqO1/A9eJ28pgdvw=",
+        "lastModified": 1795157196,
+        "narHash": "sha256-LBOcdGl/wB5LohpI5MSbLNc9RCiZpa9K80IHHYNNbD0=",
         "owner": "thomaschrstnsn",
         "repo": "screentime",
-        "rev": "da74acd9a2174857166c4813d9187e965bfe79b4",
+        "rev": "ece3e6939db607dda8cda9ddde3d3c4c16632fee",
         "type": "github"
       },
       "original": {
