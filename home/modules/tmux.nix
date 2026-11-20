@@ -87,6 +87,18 @@ let
     	"$tmux" display "$msg"
     ) >/dev/null 2>&1 </dev/null &
   '';
+  # toggle-popup starts the popup's client as `exec tmux -S <popup-socket> ... >/dev/null`.
+  # tmux's client draws on its terminal, but vtmux's client draws on stdout, so under vtmux
+  # the popup only shows a cursor. Drop the redirect there.
+  togglePopup =
+    if cfg.vtmux.enable then
+      pkgs.tmuxPlugins.tmux-toggle-popup.overrideAttrs
+        (old: {
+          postPatch = (old.postPatch or "") + ''
+            substituteInPlace src/toggle.sh --replace-fail '")>/dev/null"' '")"'
+          '';
+        })
+    else pkgs.tmuxPlugins.tmux-toggle-popup;
 in
 {
   options.tc.tmux = with types; {
@@ -349,7 +361,7 @@ in
           )\""
       '';
       plugins = with pkgs.tmuxPlugins; [
-        tmux-toggle-popup
+        togglePopup
         vim-tmux-navigator
         extrakto # https://github.com/laktak/extrakto
         sensible
