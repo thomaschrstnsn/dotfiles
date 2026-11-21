@@ -7,16 +7,16 @@ let
   yaziFlavors = pkgs.fetchFromGitHub {
     owner = "yazi-rs";
     repo = "flavors";
-    rev = "9276ffacbfffe1f2d0fa9df9efef07f36896c353";
-    sha256 = "sha256-1IgX6R+0lPVl0r9WcyNkrvFzG6VaWgMklyOUHrxZ4Zg";
+    rev = "38c08d8eb9ea0d28c8c911a249a08f27ba2151ac";
+    sha256 = "sha256-lITDt1QvL54u6gbJiGixPyP6lk72f3rkiNPDrUg6G8I=";
   };
 
   yaziPlugins = pkgs.fetchFromGitHub
     {
       owner = "yazi-rs";
       repo = "plugins";
-      rev = "7ca66b4103d76038a5d21c9b83766967f5028116";
-      sha256 = "sha256-G4Pqb8ct7om4UfihGr/6GoUn69HbzFVTxlulTeXZyEk";
+      rev = "1ef5fe02a6122f8f3bb47a41056aab3f4b8598bf";
+      sha256 = "sha256-Nz6AvWAiwdmH2HJ2vA3rMfbDDHSkXG20Ml6vc5yrjRM=";
     };
 in
 {

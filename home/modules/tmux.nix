@@ -23,20 +23,20 @@ let
   tmuxFilePicker = pkgs.fetchFromGitHub {
     owner = "raine";
     repo = "tmux-file-picker";
-    rev = "0473f7abe87b95bc008e1cbfd16578e9cee93565";
-    hash = "sha256-Uz+88f3RG7dBangOg0RLQxuE9f49TpMOcQkTtauzPQU";
+    rev = "5eb7493f8f9c27ecea7b204d56aaae720e890c68";
+    hash = "sha256-tvN8V9jeYlN5M/Web/KRvIGeGvWlyyn1IqdD67d544E=";
   };
 
   # https://github.com/mangow314/party-hud — needs python >= 3.10 (macOS system python3 is 3.9)
   partyHud = pkgs.tmuxPlugins.mkTmuxPlugin {
     pluginName = "party-hud";
-    version = "unstable-2026-11-08";
+    version = "unstable-2026-11-17";
     rtpFilePath = "party.tmux";
     src = pkgs.fetchFromGitHub {
       owner = "mangow314";
       repo = "party-hud";
-      rev = "088d6a32820e0745218a3d25d442f118355eb9d2";
-      hash = "sha256-pTZf3NiyXVxh6/5T/0YrSAGpDhWM/pKarwUvjBDNxfk=";
+      rev = "231b048113cb2eadff8713803b316ef9394fd475";
+      hash = "sha256-gNeI47L09n+o2BN8YsrgFOwfZE/f75RfMWH5o6N00+A=";
     };
     postPatch = ''
       substituteInPlace party.tmux \
@@ -110,7 +110,7 @@ in
       description = "theme for tmux";
     };
     remote = mkEnableOption "is remote machine";
-    useUnstable = mkEnableOption "tmux built from master + PR #5433 (adds pane-border-type)";
+    useUnstable = mkEnableOption "tmux built from master (adds pane-border-type, not yet released)";
     vtmux = {
       enable = mkEnableOption "vtmux (https://github.com/martintrojer/vtmux) as tmux";
       # vtmux-only options, see https://github.com/martintrojer/vtmux/blob/main/docs/PAPERCUTS.md
@@ -438,13 +438,13 @@ in
           {
             plugin = mkTmuxPlugin {
               pluginName = "powerkit";
-              version = "v3.8.0";
+              version = "v7.7.2";
               rtpFilePath = "tmux-powerkit.tmux";
               src = pkgs.fetchFromGitHub {
                 owner = "fabioluciano";
                 repo = "tmux-powerkit";
-                rev = "9d5bfdaabf2a03e05d8ae11f1065f694d15df0d5";
-                hash = "sha256-QhCUQDmt+Ur6KakrycJ4uvnIZzTHGkG/f01vslFxR5w";
+                rev = "03dfcab5755c40f2a07a13bcdef8315f8ec7aea2";
+                hash = "sha256-dGxDiH5Xs4mmjB3KC86JkHGK1KpCyyEUVAPdIEY3ldo=";
               };
               meta = {
                 homepage = "https://github.com/fabioluciano/tmux-powerkit/";
@@ -460,7 +460,7 @@ in
               set -g @powerkit_session_icon 'auto'
 
               # Enable plugins
-              set -g @powerkit_plugins 'battery,cpu,memory,network,ping,weather,datetime'
+              set -g @powerkit_plugins 'battery,cpu,memory,netspeed,ping,weather,datetime'
 
               set -g @powerkit_plugin_datetime_format 'W%V %Y-%m-%d %H:%M'
               set -g @powerkit_plugin_datetime_show_week 'false'

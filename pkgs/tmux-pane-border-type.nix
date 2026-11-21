@@ -1,20 +1,20 @@
 { lib, stdenv, tmux, fetchFromGitHub, jemalloc }:
 
-# tmux master + https://github.com/tmux/tmux/pull/5433, which adds the window option
-# `pane-border-type` (joined | separate | separate-active).
+# tmux master, for the window option `pane-border-type` (joined | separate | separate-active),
+# merged upstream from https://github.com/tmux/tmux/pull/5433 (13f9aa0) but not yet in a release.
 #
-# This has to be a full source swap rather than a patch on nixpkgs' tmux: the PR is
-# written against master's new scene-caching redraw (window-border.c), which does not
-# exist in 3.7b or any earlier release, so the diff only applies on master.
+# This has to be a full source swap rather than a patch on nixpkgs' tmux: the feature is
+# built on master's new scene-caching redraw (window-border.c), which does not exist in
+# 3.7b or any earlier release. Drop this once nixpkgs ships a tmux release containing it.
 tmux.overrideAttrs (prevAttrs: {
   pname = "tmux-pane-border-type";
-  version = "next-3.8-unstable-2026-08-04";
+  version = "next-3.8-unstable-2026-11-21";
 
   src = fetchFromGitHub {
-    owner = "redesigndavid";
-    repo = "tmux-1";
-    rev = "fe8f9ff526abbf141533d1f63402933065205c4c"; # feat/per-window-border, PR #5433
-    hash = "sha256-3qSBVMSf+El7lkxgGQtvcRpRYKgD2QyNz5mTzGf04Ik=";
+    owner = "tmux";
+    repo = "tmux";
+    rev = "69ca9d507cbc13ef6e1cc413bf9bff91067afc67";
+    hash = "sha256-gVDk3vZEAC8PlIrBy0CaX1MIVZuP+4NkXM4iISljm1U=";
   };
 
   # master's configure refuses to build on darwin without an explicit jemalloc choice
@@ -27,7 +27,7 @@ tmux.overrideAttrs (prevAttrs: {
   doInstallCheck = false;
 
   meta = tmux.meta // {
-    description = "Terminal multiplexer (master + PR #5433: pane-border-type)";
+    description = "Terminal multiplexer (master, for pane-border-type)";
     changelog = "https://github.com/tmux/tmux/pull/5433";
   };
 })
