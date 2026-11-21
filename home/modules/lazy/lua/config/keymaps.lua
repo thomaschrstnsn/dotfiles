@@ -2,9 +2,12 @@ local map = vim.keymap.set
 
 map("n", "<leader><leader>", "<cmd>w<cr><esc>", { desc = "Save File" })
 map("n", "-", "<cmd>Oil --float<cr>", { desc = "Open Oil file-browser" })
+-- both follow the inlay hint state so they never drift apart
 map("n", "H", function()
-	vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-end, { desc = "Toggle inlay hints" })
+	local enable = not vim.lsp.inlay_hint.is_enabled()
+	vim.lsp.inlay_hint.enable(enable)
+	vim.lsp.codelens.enable(enable)
+end, { desc = "Toggle inlay hints + code lenses" })
 
 map("n", "<leader>/", function()
 	Snacks.picker.lines()

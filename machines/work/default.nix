@@ -88,6 +88,7 @@ in
         octo.enable = true;
       };
       lang = {
+        dotnet.enable = true;
         python.enable = true;
         markdown.enable = true;
         markdown.zk.enable = true;

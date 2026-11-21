@@ -26,6 +26,12 @@ in
     };
     lang = {
       docker.enable = mkEnableOption "docker" // { default = true; };
+      dotnet = {
+        enable = mkEnableOption "C# (.NET): roslyn LSP, netcoredbg debugging, vstest";
+        # both pull a full nix dotnet-sdk (~1.2 GiB) into the closure
+        csharpier.enable = mkEnableOption "csharpier formatter (otherwise roslyn formats per .editorconfig)";
+        fsharp.enable = mkEnableOption "F# (fsautocomplete + fantomas)";
+      };
       json.enable = mkEnableOption "json" // { default = true; };
       markdown.enable = mkEnableOption "markdown" // { default = true; };
       markdown.zk = {
@@ -93,6 +99,8 @@ in
               enable = cfg.lang.docker.enable;
               installDependencies = true;
             };
+            # tools are picked in extraPackages; the extra's set drags in two nix SDKs
+            dotnet.enable = cfg.lang.dotnet.enable;
             json = {
               enable = cfg.lang.json.enable;
               installDependencies = true;
@@ -129,14 +137,13 @@ in
             rest.enable = cfg.util.rest.enable;
           };
         };
-        # TODO:
-        # - csharp/dotnet? https://www.reddit.com/r/dotnet/comments/1keiv1m/comment/mqp6yag/
         configFiles = ./lazy/lua;
         plugins = mkMerge [
           { colorscheme = colorschemes.lua."${cfg.colorscheme}"; }
           (mkIf cfg.lang.markdown.zk.enable { "zk" = readFile ./lazy/optional_plugins/zk.lua; })
           (mkIf cfg.extras.claudecode.enable { "claudecode" = readFile ./lazy/optional_plugins/claudecode.lua; })
           (mkIf cfg.extras.octo.enable { "octo" = readFile ./lazy/optional_plugins/octo.lua; })
+          (mkIf cfg.lang.dotnet.enable { "dotnet" = readFile ./lazy/optional_plugins/dotnet.lua; })
         ];
 
         extraPackages = with pkgs; concatLists [
@@ -156,16 +163,29 @@ in
           (mkIfList cfg.lang.markdown.zk.enable [ imagemagick mermaid-cli ])
           (mkIfList (cfg.lang.markdown.zk.enable && pkgs.stdenv.hostPlatform.isDarwin) [ pngpaste ])
           (mkIfList cfg.lang.typescript.enable [ prettier ])
+          # roslyn.nvim runs roslyn-ls instead of LazyVim's default OmniSharp
+          (mkIfList cfg.lang.dotnet.enable [ roslyn-ls netcoredbg ])
+          (mkIfList (cfg.lang.dotnet.enable && cfg.lang.dotnet.csharpier.enable) [ csharpier ])
+          (mkIfList (cfg.lang.dotnet.enable && cfg.lang.dotnet.fsharp.enable) [ fsautocomplete fantomas ])
         ];
 
       };
     };
+
+    # roslyn-ls, netcoredbg and neotest-vstest need a .NET SDK on PATH to load projects
+    tc.dotnet.enable = mkIf cfg.lang.dotnet.enable (mkDefault true);
 
     xdg.configFile = {
       "nvim/ftplugin/jjdescription.lua".source = ./lazy/ftplugin/jjdescription.lua;
     };
 
     home = {
+      # vim.loader keys its bytecode cache on size + mtime, and every nix store file
+      # has the same mtime, so a same-size edit to a config file keeps running stale code
+      activation.clearNvimLuaCache = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+        run rm -rf "${config.xdg.cacheHome}/nvim/luac"
+      '';
+
       packages = with pkgs; concatLists [
         [
           figlet
