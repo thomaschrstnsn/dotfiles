@@ -67,6 +67,14 @@ in
     tmux = {
       enable = true;
       theme = "rose-pine";
+      vtmux = {
+        enable = true;
+        paneInactiveBlend = "fg=bg/25,bg=bg/25";
+        kittyKeys = true;
+        notifications = true;
+        inbandResize = true;
+        graphics = true;
+      };
     };
   }];
 
@@ -111,7 +119,6 @@ in
 
   extraPackages = pkgs: with pkgs; [
     devenv
-    opencode
     lnav
   ];
 
