@@ -134,6 +134,7 @@ in
         "shottr"
         "webcatalog"
         "whatcable"
+        "zen"
       ];
       extraTaps = [
         "darrylmorley/whatcable"
@@ -141,7 +142,7 @@ in
     };
     skhd = {
       enable = true;
-      browser = "Arc";
+      browser = "Zen";
       terminal = "ghostty";
       extraAppShortcuts = {
         "hyper - c" = "Microsoft Teams";
