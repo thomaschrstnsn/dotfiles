@@ -60,6 +60,42 @@ let
     	fi
     fi
   '';
+  # https://github.com/milanglacier/multiplexer-sidebar — single stdlib-only python script
+  multiplexerSidebar = pkgs.stdenvNoCC.mkDerivation {
+    pname = "multiplexer-sidebar";
+    version = "unstable-2026-11-18";
+    src = pkgs.fetchFromGitHub {
+      owner = "milanglacier";
+      repo = "multiplexer-sidebar";
+      rev = "3825da165cf99de9e7aa2e48ec10016c0e19978e";
+      hash = "sha256-f9SDtPB3nJNItB5ApNN9sjruKW2swHq9eHp1atJzSY4=";
+    };
+    buildInputs = [ pkgs.python3 ];
+    # agents are only looked up in the process tree when the pane's command is an interpreter
+    # (node, python, ...). Under lig the pane's command is `lig`, and the nix-wrapped claude
+    # shows as `.claude-unwrapp`, so always walk the tree below the pane.
+    postPatch = ''
+      substituteInPlace multiplexer-dashboard \
+        --replace-fail 'if any(is_interpreter(pane.command) for pane in panes):' 'if panes:' \
+        --replace-fail 'if not name and procs and is_interpreter(p.command):' 'if not name and procs:'
+    '';
+    dontBuild = true;
+    installPhase = ''
+      install -Dm755 multiplexer-dashboard $out/bin/multiplexer-dashboard
+      ln -s multiplexer-dashboard $out/bin/multiplexer-sidebar
+    '';
+  };
+  # toggle a multiplexer-sidebar pane on the left of window $1 (focused when opened)
+  multiplexerSidebarToggle = pkgs.writeShellScript "multiplexer-sidebar-toggle" ''
+    set -e
+    pane="$(tmux list-panes -t "$1" -F '#{pane_id} #{@mpx_sidebar}' | awk '$2 == "1" { print $1; exit }')"
+    if [[ -n "$pane" ]]; then
+    	tmux kill-pane -t "$pane"
+    else
+    	pane="$(tmux split-window -hbf -l 32 -t "$1" -P -F '#{pane_id}' "${multiplexerSidebar}/bin/multiplexer-sidebar --sidebar")"
+    	tmux set -p -t "$pane" @mpx_sidebar 1
+    fi
+  '';
   # prompt for /journal-claude args, run it headless and page the result (q closes the popup)
   journalClaude = pkgs.writeShellScript "journal-claude-popup" ''
     set -e
@@ -157,7 +193,15 @@ in
         `tc.tmux.useUnstable = true`. null leaves it unset.
       '';
     };
-    partyHud.enable = mkEnableOption "party-hud (https://github.com/mangow314/party-hud)";
+    sidebar = mkOption {
+      type = nullOr (enum [ "party-hud" "multiplexer-sidebar" ]);
+      default = null;
+      description = ''
+        Sidebar toggled with `prefix a a` (starts hidden):
+        party-hud (https://github.com/mangow314/party-hud) or
+        multiplexer-sidebar (https://github.com/milanglacier/multiplexer-sidebar).
+      '';
+    };
     cliptool = mkOption {
       type = str;
       default = "auto";
@@ -347,11 +391,17 @@ in
         set -gF @popup-id-format "{popup_name}"
         bind C-p run "#{@popup-toggle} -Ed'#{pane_current_path}' -w90% -h90% --name=process_info btm"
 
-        ${optionalString cfg.partyHud.enable ''
+        ${optionalString (cfg.sidebar == "party-hud") ''
         # party-hud: the plugin binds single prefix keys (loaded above); move toggle/next under a `prefix a` table
         unbind C-t
         bind -T party a run-shell -b "${partyToggleFocus} '#{window_id}'"
         bind -T party n run-shell -b "${partyCmd} --next"
+        ''}
+        ${optionalString (cfg.sidebar == "multiplexer-sidebar") ''
+        # multiplexer-sidebar: `prefix a a` toggles the sidebar pane, `prefix a d` opens the dashboard
+        set -g focus-events on
+        bind -T party a run-shell -b "${multiplexerSidebarToggle} '#{window_id}'"
+        bind -T party d display-popup -E -w 80% -h 80% -d '#{pane_current_path}' "${multiplexerSidebar}/bin/multiplexer-sidebar --client '#{client_name}'"
         ''}
         bind a switch-client -T party
         bind -T party j display-popup -E -w 80% -h 80% -T " journal-claude " "${journalClaude}"
@@ -365,7 +415,7 @@ in
         vim-tmux-navigator
         extrakto # https://github.com/laktak/extrakto
         sensible
-        (mkIf cfg.partyHud.enable {
+        (mkIf (cfg.sidebar == "party-hud") {
           plugin = partyHud;
           extraConfig = ''
             set -g @party_key_popup 'C-a'

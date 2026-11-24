@@ -107,7 +107,7 @@ in
         inbandResize = true;
         graphics = true;
       };
-      partyHud.enable = true;
+      sidebar = "multiplexer-sidebar";
     };
     tuicr = {
       enable = true;
