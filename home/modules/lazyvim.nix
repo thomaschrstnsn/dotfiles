@@ -6,6 +6,19 @@ let
 
   mkIfList = cond: xs: if cond then xs else [ ];
 
+  # `review <number|github PR url>` opens nvim straight into :OctoReviewPr
+  review = pkgs.writeShellApplication {
+    name = "review";
+    text = ''
+      if [[ $# -ne 1 ]]; then
+        >&2 echo "Usage: review <number|github PR url>"
+        exit 1
+      fi
+      # wait for VeryLazy so the LazyVim UI is set up before octo opens the PR
+      exec nvim -c "autocmd User VeryLazy ++once OctoReviewPr $1"
+    '';
+  };
+
   colorschemes = {
     lua = {
       everforest = readFile ./lazy/themes/everforest.lua;
@@ -197,6 +210,7 @@ in
         (mkIfList (cfg.gh.enable || cfg.extras.octo.enable) [
           gh
         ])
+        (mkIfList cfg.extras.octo.enable [ review ])
       ];
 
       shellAliases = {
