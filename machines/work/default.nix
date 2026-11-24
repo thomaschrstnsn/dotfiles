@@ -46,7 +46,7 @@ in
     } // { inherit (vcs) alternativeConfigs; } // vcs.primaryConfig;
     ghostty = {
       enable = true;
-      font.size = 15;
+      font.size = 17;
       font.family = "Sarasa Term SC";
       windowBackgroundOpacity = 0.90;
       package = null;
