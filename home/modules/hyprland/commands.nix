@@ -6,7 +6,7 @@
 
   lockCmd = {
     hyprlock = "pidof hyprlock || env WLR_EGL_NO_MODIFIERS=1 hyprlock";
-    noctalia = "noctalia-shell ipc call lockScreen lock";
+    noctalia = "noctalia msg session lock";
   }.${cfg.lockscreen};
 
   useHyprlock = cfg.lockscreen == "hyprlock";
