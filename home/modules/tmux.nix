@@ -299,6 +299,9 @@ in
           ${optionalString (vt.graphicsLimit != null) "set -s vtmux-graphics-limit ${toString vt.graphicsLimit}"}
           ${optionalString (vt.paneInactiveBlend != null) "set -g vtmux-pane-inactive-blend '${vt.paneInactiveBlend}'"}
           ${optionalString (vt.paneActiveBlend != null) "set -g vtmux-pane-active-blend '${vt.paneActiveBlend}'"}
+          # vtmux defaults popups to bg=themedarkgrey; keep the terminal background instead
+          set -g popup-style bg=default
+          set -g popup-border-style bg=default
           ''
         )}
 
