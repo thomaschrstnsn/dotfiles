@@ -13,7 +13,7 @@ in
   options.tc.ssh = with types; {
     enable = mkEnableOption "ssh";
     hosts = mkOption {
-      type = listOf (enum [ "rpi4" "aero-nix" "cyrus" "enix" "rsync.net" "mft-az" ]);
+      type = listOf (enum [ "rpi4" "aero-nix" "atlas" "cyrus" "enix" "rsync.net" "mft-az" ]);
       default = [ ];
       description = "known hosts to add to ssh config";
     };
@@ -63,6 +63,9 @@ in
             User = "thomas";
             HostName = "192.168.1.193";
           };
+        };
+        atlas = {
+          atlas = withAgent { User = "thomas"; HostName = "192.168.1.152"; };
         };
         "enix" = {
           "enix" = withAgent {

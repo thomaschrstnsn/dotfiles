@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   imports =
@@ -13,27 +13,19 @@
     systemd-boot.configurationLimit = 10;
   };
 
-  networking.hostName = "aero-nix";
+  # broadcom_sta (wl) is the only working driver for the BCM4360 wifi, but is
+  # marked insecure in nixpkgs. (A predicate, since the flake sets
+  # permittedInsecurePackages and nixpkgs.config lists do not merge.)
+  nixpkgs.config.allowInsecurePredicate = pkg: lib.getName pkg == "broadcom-sta";
 
   networking.networkmanager.enable = true;
 
   time.timeZone = "Europe/Copenhagen";
 
-  i18n.defaultLocale = "en_DK.utf8";
+  i18n.defaultLocale = "en_DK.UTF-8";
 
-  services.xserver = {
-    enable = true;
-    layout = "gb";
-    libinput.enable = true;
-  };
-
-  services.greetd = {
-    enable = true;
-    settings.default_session = {
-      command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd sway";
-      user = "greeter";
-    };
-  };
+  services.xserver.xkb.layout = "gb";
+  services.libinput.enable = true;
 
   console = {
     keyMap = "uk";
@@ -59,45 +51,27 @@
     ];
   };
 
-  programs.sway = {
-    enable = true;
-  };
+  # Haswell (Intel HD 5000) video acceleration
+  hardware.graphics.extraPackages = with pkgs; [ intel-vaapi-driver ];
+
+  hardware.enableRedistributableFirmware = true;
 
   services.printing.enable = true;
 
-  services.dbus.enable = true;
-  xdg.portal = {
+  programs._1password.enable = true;
+  programs._1password-gui = {
     enable = true;
-    wlr.enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    polkitPolicyOwners = [ "thomas" ];
   };
 
-  # Enable sound with pipewire.
-  sound.enable = true;
-  services.pulseaudio.enable = false;
-
-  security.rtkit.enable = true;
-  security.polkit.enable = true; # needed for sway-wm
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
+  environment.etc = {
+    "1password/custom_allowed_browsers" = {
+      text = ''
+        zen
+      '';
+      mode = "0755";
+    };
   };
-
-  users.defaultUserShell = pkgs.zsh;
-  users.users.thomas = {
-    isNormalUser = true;
-    description = "thomas";
-    extraGroups = [ "networkmanager" "wheel" "video" ];
-    packages = with pkgs; [ ];
-  };
-
-  programs.light.enable = true;
-
-  nixpkgs.config.allowUnfree = true;
-
-  environment.systemPackages = with pkgs; [ ];
 
   services.openssh.enable = true;
 
@@ -107,6 +81,4 @@
   };
 
   system.stateVersion = "22.05"; # Did you read the comment?
-
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 }
