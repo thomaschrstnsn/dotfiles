@@ -30,6 +30,7 @@
     ./wezterm.nix
     ./wsl.nix
     ./yazi.nix
+    ./zen.nix
     ./zk.nix
     ./zsh.nix
   ];

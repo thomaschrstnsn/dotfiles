@@ -109,7 +109,7 @@ in
             { _args = [ (mkLuaInline ''hyper .. " + w"'') (mkLuaInline ''hl.dsp.workspace.move({ monitor = "r" })'') ]; }
           ]
           (if cfg.hyprfocus.enable then [
-            { _args = [ (mkLuaInline ''hyper .. " + b"'') (mkLuaInline ''hl.dsp.exec_cmd("${pkgs.myPkgs.hyprfocus}/bin/hyprfocus initial-title \"Zen Browser\" start zen")'') ]; }
+            { _args = [ (mkLuaInline ''hyper .. " + b"'') (mkLuaInline ''hl.dsp.exec_cmd("${pkgs.myPkgs.hyprfocus}/bin/hyprfocus initial-title \"Zen Browser\" start zen-beta")'') ]; }
             { _args = [ (mkLuaInline ''hyper .. " + t"'') (mkLuaInline ''hl.dsp.exec_cmd("${pkgs.myPkgs.hyprfocus}/bin/hyprfocus initial-class ${terminal.class cfg.terminal} start \"${terminal.executable cfg.terminal}\"")'') ]; }
             { _args = [ (mkLuaInline ''hyper .. " + p"'') (mkLuaInline ''hl.dsp.exec_cmd("${pkgs.myPkgs.hyprfocus}/bin/hyprfocus initial-class \"Todoist\" start todoist-electron")'') ]; }
           ] else

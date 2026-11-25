@@ -211,7 +211,7 @@ in
             cfg.extraWindowRules
             [
               { match = { class = ".*"; }; idle_inhibit = "fullscreen"; } # idle inhibit whenever something is fullscreen (possible workaround for regression: https://github.com/hyprwm/Hyprland/issues/9170 )
-              { match = { class = "zen"; }; focus_on_activate = true; } # should allow zen to take focus
+              { match = { class = "zen-beta"; }; focus_on_activate = true; } # should allow zen to take focus
             ]
             (mkIfList (cfg.clipboard == "clipse") [
               { match = { class = clipseClass; }; float = true; } # ensure you have a floating window class set if you want this behavior

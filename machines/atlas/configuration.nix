@@ -81,6 +81,7 @@
     "1password/custom_allowed_browsers" = {
       text = ''
         zen
+        .zen-beta-wrapped
       '';
       mode = "0755";
     };

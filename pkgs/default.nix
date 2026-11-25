@@ -9,6 +9,5 @@ with pkgs;
     sarasaTermSC = callPackage ./sarasa.nix { variant = "TermSC"; };
     tmuxPaneBorderType = callPackage ./tmux-pane-border-type.nix { };
     vtmux = callPackage ./vtmux.nix { };
-    zen-browser = inputs.zen-browser.packages."${system}".default;
   };
 }

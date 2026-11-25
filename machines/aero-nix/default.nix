@@ -82,7 +82,7 @@ in
       };
       autostartTerminalOn = "t";
       autostart = [
-        { command = "zen"; workspace = "b"; }
+        { command = "zen-beta"; workspace = "b"; }
         { command = "1password"; workspace = "p"; }
       ];
     };
@@ -95,12 +95,15 @@ in
         markdown.zk.enable = true;
       };
     };
+    zen = {
+      enable = true;
+      profilePath = "97xzokav.Default Profile";
+    };
   }];
 
   extraPackages = pkgs: with pkgs; [
     inputs.claude-code.packages.${stdenv.hostPlatform.system}.claude-code
     qt5.qtwayland
-    myPkgs.zen-browser
   ];
 
   inherit system;

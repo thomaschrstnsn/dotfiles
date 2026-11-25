@@ -13,6 +13,7 @@ in
   config = mkIf cfg.enable {
     home.packages = with pkgs; [ evince imv mpv ];
     xdg.mimeApps = {
+      enable = true;
       defaultApplications = {
         "image/png" = [ "imv.desktop" ];
         "image/jpeg" = [ "imv.desktop" ];
@@ -38,6 +39,10 @@ in
         "video/x-ogm+ogg" = [ "mpv.desktop" ];
         "video/x-theora+ogg" = [ "mpv.desktop" ];
         "application/ogg" = [ "mpv.desktop" ];
+
+        # previously registered at runtime; mimeapps.list is now read-only
+        "x-scheme-handler/discord" = [ "vesktop.desktop" ];
+        "x-scheme-handler/claude-cli" = [ "claude-code-url-handler.desktop" ];
       };
     };
   };

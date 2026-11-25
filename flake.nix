@@ -64,8 +64,9 @@
     };
 
     zen-browser = {
-      url = "github:youwen5/zen-browser-flake";
+      url = "github:0xc000022070/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
     };
 
     hyprfocus = {
@@ -274,6 +275,7 @@
             }
             inputs.lazyvim.homeManagerModules.default
             inputs.lig.homeModules.default
+            inputs.zen-browser.homeModules.beta
             ./home/modules
           ];
           inherit pkgs;

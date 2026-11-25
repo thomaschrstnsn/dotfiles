@@ -91,7 +91,7 @@ in
       vrr = 2;
       autostartTerminalOn = "t";
       autostart = [
-        { command = "zen"; workspace = "b"; }
+        { command = "zen-beta"; workspace = "b"; }
         { command = "todoist-electron"; workspace = "p"; }
         { command = "1password"; workspace = "p"; }
         { command = "spotify"; workspace = "m"; }
@@ -126,6 +126,10 @@ in
       };
     };
     webapps.enable = true;
+    zen = {
+      enable = true;
+      profilePath = "6wsoq0xs.Default Profile";
+    };
   }];
   extraPackages = pkgs: with pkgs; [
     devenv
@@ -137,7 +141,6 @@ in
     qt5.qtwayland
     # webcord-vencord
     vesktop
-    myPkgs.zen-browser
     wine64
 
     kitty
