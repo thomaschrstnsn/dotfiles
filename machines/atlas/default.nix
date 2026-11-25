@@ -37,7 +37,7 @@ in
     ghostty = {
       enable = true;
       font.size = 13;
-      font.family = "Maple Mono NF";
+      font.family = "Sarasa Term SC";
       windowBackgroundOpacity = 0.7;
       lightAndDarkMode.enable = false;
       # package = inputs.ghostty.packages.${system}.default;
@@ -59,10 +59,17 @@ in
     };
     tmux = {
       enable = true;
-      remote = false;
       theme = "rose-pine";
       cliptool = "wl-copy";
-      sidebar = "party-hud";
+      sidebar = "multiplexer-sidebar";
+      vtmux = {
+        enable = true;
+        paneInactiveBlend = "fg=bg/25,bg=bg/25";
+        kittyKeys = true;
+        notifications = true;
+        inbandResize = true;
+        graphics = true;
+      };
     };
     hyprland = {
       enable = true;
@@ -89,7 +96,6 @@ in
     devenv
     lnav
     mermaid-cli
-    opencode
     inputs.claude-code.packages.${stdenv.hostPlatform.system}.claude-code
     spotify
     todoist-electron
