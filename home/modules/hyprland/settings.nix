@@ -58,7 +58,7 @@ in
               drag_lock = true;
             } // optionalAttrs cfg.laptop.touchpad {
               natural_scroll = true;
-              "tap-to-click" = true;
+              tap_to_click = true;
             };
           } // optionalAttrs (cfg.kbVariant != "") {
             kb_variant = cfg.kbVariant;
