@@ -24,10 +24,8 @@
     ./sesh.nix
     ./shell.nix
     ./ssh.nix
-    ./sway.nix
     ./tmux.nix
     ./tuicr.nix
-    ./waybar.nix
     ./webapps.nix
     ./wezterm.nix
     ./wsl.nix
