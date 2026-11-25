@@ -101,8 +101,8 @@ in
     };
 
     effects = mkOption {
-      type = enum [ "full" "minimal" ];
-      description = "minimal disables blur, shadows and animations (for weak GPUs)";
+      type = enum [ "full" "reduced-motion" "minimal" ];
+      description = "reduced-motion disables animations; minimal also disables blur and shadows (for weak GPUs)";
       default = "full";
     };
 

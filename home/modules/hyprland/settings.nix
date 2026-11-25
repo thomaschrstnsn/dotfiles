@@ -13,6 +13,7 @@ let
   inherit (import ./commands.nix { inherit pkgs cfg; }) clipseClass lockCmd;
 
   minimalEffects = cfg.effects == "minimal";
+  noAnimations = cfg.effects != "full";
 
   cursor.size = 32;
 
@@ -120,7 +121,7 @@ in
           };
 
           binds.workspace_center_on = true;
-        } // optionalAttrs minimalEffects {
+        } // optionalAttrs noAnimations {
           animations.enabled = false;
         };
 
