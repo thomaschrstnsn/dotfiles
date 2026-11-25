@@ -59,6 +59,14 @@ in
       enable = true;
       theme = "rose-pine";
       cliptool = "wl-copy";
+      vtmux = {
+        enable = true;
+        paneInactiveBlend = "fg=bg/25,bg=bg/25";
+        kittyKeys = true;
+        notifications = true;
+        inbandResize = true;
+        graphics = true;
+      };
     };
     hyprland = {
       enable = true;
