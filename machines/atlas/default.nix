@@ -76,6 +76,40 @@ in
       terminal = "ghostty";
       keyboard = "kanata";
       shell = "noctalia";
+      mainMonitor = "HDMI-A-1";
+      monitors = [
+        # "HDMI-A-1, 5120x1440@240, 0x0, 1, vrr, 1, bitdepth, 10"
+        {
+          output = "HDMI-A-1";
+          mode = "5120x1440@240";
+          position = "0x0";
+          scale = "1";
+          bitdepth = 10;
+        }
+      ];
+      vrr = 2;
+      autostartTerminalOn = "t";
+      autostart = [
+        { command = "zen"; workspace = "b"; }
+        { command = "todoist-electron"; workspace = "p"; }
+        { command = "1password"; workspace = "p"; }
+        { command = "spotify"; workspace = "m"; }
+      ];
+      extraWindowRules = [
+        # Float Steam windows, except primary
+        { match = { class = "steam"; }; float = true; }
+        { match = { class = "steam"; title = "Steam"; }; tile = true; }
+
+        { match = { class = "^(path of building.exe)"; }; tile = true; }
+        { match = { class = "^(path of building-poe2.exe)"; }; tile = true; }
+      ];
+      devices = [
+        {
+          name = "thomas’-pegefelt-(gamle)";
+          sensitivity = 0.4;
+          natural_scroll = true;
+        }
+      ];
     };
     rust = {
       enable = true;

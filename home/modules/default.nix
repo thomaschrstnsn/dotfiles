@@ -11,7 +11,7 @@
     ./git.nix
     ./ghostty.nix
     ./home.nix
-    ./hyprland.nix
+    ./hyprland
     ./ideavim.nix
     ./jujutsu.nix
     ./lazyvim.nix
