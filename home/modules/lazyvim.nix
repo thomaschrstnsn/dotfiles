@@ -196,7 +196,9 @@ in
       # vim.loader keys its bytecode cache on size + mtime, and every nix store file
       # has the same mtime, so a same-size edit to a config file keeps running stale code
       activation.clearNvimLuaCache = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+        # recreate the dir: running nvim instances only mkdir it at startup
         run rm -rf "${config.xdg.cacheHome}/nvim/luac"
+        run mkdir -p "${config.xdg.cacheHome}/nvim/luac"
       '';
 
       packages = with pkgs; concatLists [
