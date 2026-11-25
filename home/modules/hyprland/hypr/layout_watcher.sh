@@ -3,6 +3,9 @@
 # This script listens to Hyprland IPC events and applies the correct layout
 # when switching workspaces, mimicking per-workspace layouts.
 
+# Layout for workspaces without a toggled state (first argument)
+DEFAULT_LAYOUT="${1:-master}"
+
 # Exit if socket2 is not found
 if [[ -z "$HYPRLAND_INSTANCE_SIGNATURE" ]]; then
     echo "HYPRLAND_INSTANCE_SIGNATURE is not set."
@@ -16,7 +19,7 @@ mkdir -p "$STATE_DIR"
 apply_layout() {
     local workspace="$1"
     local state_file="$STATE_DIR/$workspace"
-    local target_layout="master" # Default fallback layout
+    local target_layout="$DEFAULT_LAYOUT"
 
     if [[ -f "$state_file" ]]; then
         target_layout=$(cat "$state_file")

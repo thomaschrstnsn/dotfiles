@@ -93,7 +93,7 @@ in
             gaps_in = 5;
             gaps_out = 5;
 
-            layout = "master";
+            layout = cfg.layout;
           };
 
           master = {
@@ -143,7 +143,7 @@ in
               function()
                 hl.exec_cmd("hyprctl setcursor Bibata-Modern-Classic 32")
                 hl.exec_cmd("${lockCmd}")
-                hl.exec_cmd("${./hypr/layout_watcher.sh}")
+                hl.exec_cmd("${./hypr/layout_watcher.sh} ${cfg.layout}")
               ${autostartLines}  ${if cfg.shell == "hyprpanel" then ''hl.exec_cmd("${pkgs.hyprpanel}/bin/hyprpanel")'' else ""}
                 ${if cfg.clipboard == "clipse" then ''hl.exec_cmd("clipse -listen")'' else ""}
                 ${if cfg.shell == "noctalia" then ''hl.exec_cmd("noctalia")'' else ""}

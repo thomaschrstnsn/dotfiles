@@ -94,6 +94,12 @@ in
       default = null;
     };
 
+    layout = mkOption {
+      type = enum [ "master" "dwindle" ];
+      description = "default tiling layout (per workspace toggle with ALT + slash)";
+      default = "master";
+    };
+
     effects = mkOption {
       type = enum [ "full" "minimal" ];
       description = "minimal disables blur, shadows and animations (for weak GPUs)";
