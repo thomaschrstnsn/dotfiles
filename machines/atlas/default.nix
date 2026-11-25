@@ -155,6 +155,11 @@ in
         groups = [ "wheel" "docker" "gamemode" "networkmanager" ];
         defaultShell = "fish";
       };
+      hyprland = {
+        enable = true;
+        autologin = true;
+        bluetooth.enable = true;
+      };
       noctalia = {
         enable = true;
         # noctalia config export > machines/atlas/noctalia/config.toml

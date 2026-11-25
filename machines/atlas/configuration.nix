@@ -1,10 +1,5 @@
 { config, lib, pkgs, ... }:
 
-let
-  tuigreet = "${pkgs.tuigreet}/bin/tuigreet";
-  session = "${pkgs.hyprland}/bin/start-hyprland";
-  user = "thomas";
-in
 {
   boot = {
     loader.efi.canTouchEfiVariables = true;
@@ -35,22 +30,6 @@ in
   };
   services.libinput.enable = true;
 
-  services.greetd = {
-    enable = true;
-    settings = {
-      initial_session = {
-        command = session;
-        user = user;
-      };
-      default_session = {
-        command = "${tuigreet} --greeting 'Welcome' --asterisks --remember --remember-user-session --time --cmd ${session}";
-        user = "greeter";
-      };
-    };
-  };
-
-  services.seatd.enable = true;
-
   console = {
     keyMap = "uk";
     font = "ter-i20n";
@@ -77,12 +56,7 @@ in
 
   services.printing.enable = true;
 
-  programs.hyprland.enable = true;
-
-  hardware.graphics = {
-    enable = true;
-    enable32Bit = true;
-  };
+  hardware.graphics.enable32Bit = true;
 
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia = {
@@ -133,56 +107,13 @@ in
 
   programs.gamemode.enable = true;
 
-  services.dbus.enable = true;
-  xdg.portal = {
-    enable = true;
-    wlr.enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-  };
-
-  # Enable sound with pipewire.
-  services.pulseaudio.enable = false;
-
-  security.rtkit.enable = true;
-  security.polkit.enable = true;
-  security.pam.services.hyprlock = { };
-
-  systemd = {
-    user.services.polkit-gnome-authentication-agent-1 = {
-      description = "polkit-gnome-authentication-agent-1";
-      wantedBy = [ "graphical-session.target" ];
-      wants = [ "graphical-session.target" ];
-      after = [ "graphical-session.target" ];
-      serviceConfig = {
-        Type = "simple";
-        ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
-        Restart = "on-failure";
-        RestartSec = 1;
-        TimeoutStopSec = 10;
-      };
-    };
-  };
-
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-  };
-
   hardware.enableRedistributableFirmware = true;
 
-  hardware.bluetooth = {
-    enable = true;
-    powerOnBoot = true;
-    input = {
-      General = {
-        UserspaceHID = true;
-      };
+  hardware.bluetooth.input = {
+    General = {
+      UserspaceHID = true;
     };
   };
-
-  services.blueman.enable = true;
 
   services.openssh.enable = true;
 
@@ -190,9 +121,7 @@ in
   networking.networkmanager.enable = true;
   # WireGuard traffic fails the strict reverse path check
   networking.firewall.checkReversePath = "loose";
-  # Proton VPN stores its session in the Secret Service keyring
-  services.gnome.gnome-keyring.enable = true;
-  security.pam.services.greetd.enableGnomeKeyring = true;
+  # Proton VPN stores its session in the Secret Service keyring (enabled by tc.hyprland)
 
   tc.kanata = {
     enable = true;
