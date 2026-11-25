@@ -73,7 +73,6 @@ in
       terminal = "ghostty";
       keyboard = "kanata";
       shell = "noctalia";
-      kbVariant = "mac,mac";
       effects = "minimal";
       layout = "dwindle";
       idle.suspend = 600;
