@@ -59,6 +59,9 @@ in
             } // optionalAttrs cfg.laptop.touchpad {
               natural_scroll = true;
               tap_to_click = true;
+              # physical press: 1/2/3 fingers = left/right/middle click anywhere
+              # (libinput's Apple default) instead of bottom button areas
+              clickfinger_behavior = true;
             };
           } // optionalAttrs (cfg.kbVariant != "") {
             kb_variant = cfg.kbVariant;

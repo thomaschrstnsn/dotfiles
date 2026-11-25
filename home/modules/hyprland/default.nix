@@ -163,7 +163,7 @@ in
 
     laptop = {
       brightnessKeys = mkEnableOption "brightness keys (screen and keyboard backlight) via brightnessctl";
-      touchpad = mkEnableOption "touchpad niceties: 3-finger workspace swipe, natural scroll and tap-to-click";
+      touchpad = mkEnableOption "touchpad niceties: 3-finger workspace swipe, natural scroll, tap-to-click and clickfinger (press) clicks";
     };
   };
 }
