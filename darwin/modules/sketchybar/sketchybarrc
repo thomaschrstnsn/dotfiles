@@ -82,7 +82,7 @@ sketchybar --add item meeting left \
 
 ##### Left: weather at the office and at home #####
 # wttr.in, every 15 min. Click opens the macOS Weather app.
-for w in "weather.office|Aarhus,Denmark|Office" "weather.home|Silkeborg,Denmark|Home"; do
+for w in "weather.office|Aarhus,Denmark|🏢" "weather.home|Silkeborg,Denmark|🏠"; do
 	IFS='|' read -r name loc tag <<< "$w"
 	sketchybar --add item "$name" left \
 		--set "$name" drawing=off update_freq=900 icon.color=$CYAN \
@@ -107,12 +107,30 @@ sketchybar --add item battery right \
 	script="$PLUGIN_DIR/battery.sh" \
 	--subscribe battery system_woke power_source_change
 
+# Admin By Request: red "Admin" while an admin session is active. Polled
+# (no event for it); a click opens the request-admin dialog.
+sep admin
+sketchybar --add item admin right \
+	--set admin "${tight[@]}" update_freq=10 script="$PLUGIN_DIR/admin.sh" \
+	click_script="open 'adminbyrequest://request-admin'" \
+	--subscribe admin system_woke
+
 # Keep-awake toggle (caffeinate). Click to switch; the minute poll catches it
 # being stopped some other way.
 sep caffeinate
 sketchybar --add item caffeinate right \
 	--set caffeinate "${tight[@]}" update_freq=60 script="$PLUGIN_DIR/caffeinate.sh" \
 	click_script="$PLUGIN_DIR/caffeinate.sh toggle"
+
+# Keyboard layout (DK/GB). macOS posts a distributed notification when the
+# input source changes, so no polling.
+# 󰌌 = nf-md-keyboard
+sep keyboard
+sketchybar --add event input_change AppleSelectedInputSourcesChangedNotification \
+	--add item keyboard right \
+	--set keyboard "${tight[@]}" icon=󰌌 icon.color=$BLUE \
+	script="$PLUGIN_DIR/keyboard.sh" \
+	--subscribe keyboard input_change system_woke
 
 sep volume
 sketchybar --add item volume right \

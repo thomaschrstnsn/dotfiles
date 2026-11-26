@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Weather from wttr.in (no API key), e.g. "󰖗 Home 12° Light rain".
+# Weather from wttr.in (no API key), e.g. "󰖗 🏠 12° Light rain".
 #   weather.sh <location> <tag>
 # Use "Town,Denmark": bare Danish postcodes resolve to the wrong place
 # (wttr.in/8000 is somewhere 29° warm), and without a location wttr.in
