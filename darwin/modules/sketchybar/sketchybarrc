@@ -1,0 +1,153 @@
+#!/bin/bash
+
+# Plain items over a solid bar at the bottom of the screen, no pills. Dots
+# separate the items on the right. Based on a colleague's setup.
+#
+# Started by darwin/modules/sketchybar.nix, which exports:
+#   CONFIG_DIR        this directory (in the nix store)
+#   BAR_HEIGHT        bar height; aerospace's bottom gap follows it
+#   NEXT_MEETING_APP  path to NextMeeting.app (pkgs/next-meeting)
+# Docs: https://felixkratz.github.io/SketchyBar/config/items
+
+PLUGIN_DIR="$CONFIG_DIR/plugins"
+
+source "$CONFIG_DIR/colors.sh"
+
+FONT="JetBrainsMono Nerd Font"
+
+##### Bar #####
+# The native menu bar auto-hides at the top (tc.aerospace.hideMenuBar).
+# aerospace's bottom gap keeps tiled windows clear of the bar; topmost keeps
+# it above floating windows.
+sketchybar --bar position=bottom height="$BAR_HEIGHT" margin=0 y_offset=0 \
+	display=all topmost=on color=$BAR padding_left=6 padding_right=6
+
+##### Defaults (applied to every item added below) #####
+default=(
+	padding_left=4
+	padding_right=4
+	icon.font="$FONT:Bold:15.0"
+	label.font="$FONT:SemiBold:14.0"
+	icon.color=$TEXT
+	label.color=$TEXT
+	icon.padding_left=10
+	icon.padding_right=6
+	label.padding_left=0
+	label.padding_right=10
+	background.drawing=off
+)
+sketchybar --default "${default[@]}"
+
+# Separator dot, sitting just right of item $1. An item that hides itself
+# (bluetooth, spotify) also hides sep.<its name>, so dots never double up.
+# Fixed label.width: without it the label is sized to the glyph's ink and
+# the glyph gets clipped.
+sep() {
+	sketchybar --add item "sep.$1" right \
+		--set "sep.$1" icon.drawing=off label="•" label.color=$SEP \
+		label.font="$FONT:Bold:18.0" \
+		label.padding_left=0 label.padding_right=0 \
+		label.width=14 label.align=center \
+		padding_left=0 padding_right=0 ${2:+drawing=$2}
+}
+
+# Right-side items sit closer together than the defaults.
+tight=(padding_left=0 padding_right=0 icon.padding_left=9 label.padding_right=9)
+
+##### Left: current aerospace workspace #####
+# 󰍹 = nf-md-monitor
+sketchybar --add event aerospace_workspace_change \
+	--add item workspace left \
+	--set workspace icon=󰍹 icon.color=$WORKSPACE \
+	label.color=$WORKSPACE label.font="$FONT:Bold:15.0" \
+	script="$PLUGIN_DIR/aerospace.sh" \
+	--subscribe workspace aerospace_workspace_change system_woke
+
+##### Left: date + clock with seconds #####
+#  = nf-fa-clock_o
+sketchybar --add item clock left \
+	--set clock icon= icon.color=$CLOCK label.color=$CLOCK update_freq=1 \
+	script="$PLUGIN_DIR/clock.sh" \
+	--subscribe clock system_woke
+
+##### Left: current/next Outlook meeting #####
+# Reads macOS Calendar (the Exchange account under Internet Accounts) via
+# NextMeeting.app. Click opens Outlook.
+sketchybar --add item meeting left \
+	--set meeting icon=󰃰 drawing=off update_freq=30 \
+	padding_left=0 icon.padding_left=0 label.max_chars=40 \
+	script="$PLUGIN_DIR/meeting.sh $NEXT_MEETING_APP" \
+	click_script="open -a 'Microsoft Outlook'" \
+	--subscribe meeting system_woke
+
+##### Left: weather at the office and at home #####
+# wttr.in, every 15 min. Click opens the macOS Weather app.
+for w in "weather.office|Aarhus,Denmark|Office" "weather.home|Silkeborg,Denmark|Home"; do
+	IFS='|' read -r name loc tag <<< "$w"
+	sketchybar --add item "$name" left \
+		--set "$name" drawing=off update_freq=900 icon.color=$CYAN \
+		script="$PLUGIN_DIR/weather.sh $loc $tag" \
+		click_script="open -a Weather" \
+		--subscribe "$name" system_woke
+done
+
+##### Centre: active app name #####
+sketchybar --add item front_app center \
+	--set front_app icon.drawing=off \
+	label.color=$APP_NAME label.padding_left=10 \
+	label.font="$FONT:Bold:14.0" \
+	script="$PLUGIN_DIR/front_app.sh" \
+	--subscribe front_app front_app_switched
+
+##### Right (added right-to-left) #####
+# Battery keeps the default right padding: that side faces the screen edge.
+sketchybar --add item battery right \
+	--set battery "${tight[@]}" padding_right=4 label.padding_right=10 \
+	icon.color=$YELLOW update_freq=120 \
+	script="$PLUGIN_DIR/battery.sh" \
+	--subscribe battery system_woke power_source_change
+
+# Keep-awake toggle (caffeinate). Click to switch; the minute poll catches it
+# being stopped some other way.
+sep caffeinate
+sketchybar --add item caffeinate right \
+	--set caffeinate "${tight[@]}" update_freq=60 script="$PLUGIN_DIR/caffeinate.sh" \
+	click_script="$PLUGIN_DIR/caffeinate.sh toggle"
+
+sep volume
+sketchybar --add item volume right \
+	--set volume "${tight[@]}" icon.color=$MAGENTA script="$PLUGIN_DIR/volume.sh" \
+	--subscribe volume volume_change
+
+# Connected Bluetooth headphones/speaker + battery. No Bluetooth event
+# reaches sketchybar, so poll every 15s; volume_change is an extra cheap
+# trigger in case switching output to the device also fires it.
+sep bluetooth off
+sketchybar --add item bluetooth right \
+	--set bluetooth "${tight[@]}" drawing=off update_freq=15 \
+	script="$PLUGIN_DIR/bluetooth.sh" \
+	--subscribe bluetooth system_woke volume_change
+
+# VPN state (scutil), icon only, polled. Click opens Azure VPN Client.
+sep vpn
+sketchybar --add item vpn right \
+	--set vpn "${tight[@]}" update_freq=10 script="$PLUGIN_DIR/vpn.sh" \
+	label.drawing=off icon.padding_right=9 \
+	click_script="open -a 'Azure VPN Client'" \
+	--subscribe vpn system_woke
+
+##### Right: Spotify (bobbing note + track) #####
+# Spotify broadcasts spotify_change on play, pause, skip and quit. The
+# once-a-second update_freq only moves the note up/down while playing.
+sep spotify off
+sketchybar --add event spotify_change com.spotify.client.PlaybackStateChanged \
+	--add item spotify right \
+	--set spotify "${tight[@]}" icon=󰝚 icon.color=$GREEN \
+	label.max_chars=45 scroll_texts=on \
+	drawing=off update_freq=1 \
+	script="$PLUGIN_DIR/spotify.sh" \
+	click_script="osascript -e 'tell application \"Spotify\" to playpause'" \
+	--subscribe spotify spotify_change
+
+##### Force all scripts to run once (never do this in a plugin script) #####
+sketchybar --update

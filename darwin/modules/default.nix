@@ -8,6 +8,7 @@
     ./jankyborders.nix
     ./komorebi.nix
     ./osx.nix
+    ./sketchybar.nix
     ./skhd.nix
     ./sleepwatcher.nix
   ];

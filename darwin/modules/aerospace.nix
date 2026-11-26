@@ -69,7 +69,7 @@ in
           };
           outer = {
             left = 2;
-            bottom = 4;
+            bottom = mkDefault 4; # raised by tc.sketchybar to clear the bar
             top = 2;
             right = 2;
           };

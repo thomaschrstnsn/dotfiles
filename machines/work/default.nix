@@ -119,16 +119,16 @@ in
     nix.daemon.enable = false; # determinate nix provides its own
     aerospace = {
       enable = true;
-      hideMenuBar = false;
+      hideMenuBar = true; # sketchybar at the bottom replaces it
     };
     jankyborders.enable = true;
+    sketchybar.enable = true;
     homebrew = {
       enable = true;
       extraCasks = [
         "arc"
         "chatgpt"
         "ghostty"
-        "istat-menus@6"
         "jetbrains-toolbox"
         "rancher"
         "shottr"

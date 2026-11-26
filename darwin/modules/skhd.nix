@@ -99,12 +99,12 @@ in
     prefixShortcuts.commands.on = mkOption {
       description = "command to signal prefix mode enabled";
       type = nullOr str;
-      default = "sketchybar -m --set window background.drawing=on";
+      default = null;
     };
     prefixShortcuts.commands.off = mkOption {
       description = "command to signal prefix mode disabled";
       type = nullOr str;
-      default = "sketchybar -m --set window background.drawing=off";
+      default = null;
     };
   };
 

@@ -5,6 +5,7 @@ with pkgs;
     aeroTrafficControl = inputs.aero-traffic-control.packages.${system}.default;
     appleFonts = import ./apple-fonts { inherit pkgs; };
     hyprfocus = inputs.hyprfocus.packages.${system}.default;
+    nextMeeting = callPackage ./next-meeting { };
     pyenv-nix-install = inputs.pyenv-nix-install.packages.${system}.default;
     sarasaTermSC = callPackage ./sarasa.nix { variant = "TermSC"; };
     tmuxPaneBorderType = callPackage ./tmux-pane-border-type.nix { };
